@@ -1,0 +1,138 @@
+[
+  {
+    "name": "Balu Forge Industries",
+    "ticker": "BALUFORGE",
+    "sector": "Capital Goods",
+    "file": "balu-forge.html",
+    "desc": "Precision forging play on domestic defence and auto capex cycle",
+    "date": "2025"
+  },
+  {
+    "name": "BEPL",
+    "ticker": "BEPL",
+    "sector": "Rubber / Recycled",
+    "file": "bepl.html",
+    "desc": "Rubber compounding and recycled rubber specialty materials",
+    "date": "2025"
+  },
+  {
+    "name": "Cyient DLM",
+    "ticker": "CYIENTDLM",
+    "sector": "EMS / Aerospace",
+    "file": "cyient-dlm.html",
+    "desc": "Electronics manufacturing services for aerospace and defence segments",
+    "date": "2025"
+  },
+  {
+    "name": "Dee Development Engineers",
+    "ticker": "DEE",
+    "sector": "Engineering / EPC",
+    "file": "dee-development.html",
+    "desc": "Process piping and static equipment for oil & gas, power, and chemicals",
+    "date": "2025"
+  },
+  {
+    "name": "E2E Networks",
+    "ticker": "E2ENETWORKS",
+    "sector": "AI / Cloud",
+    "file": "e2e-networks.html",
+    "desc": "GPU cloud infrastructure riding India's AI compute build-out",
+    "date": "2025"
+  },
+  {
+    "name": "Gandhar Oil Refinery",
+    "ticker": "GANDHAR",
+    "sector": "White Oils",
+    "file": "gandhar-oil.html",
+    "desc": "White oils and specialty petroleum products across FMCG verticals",
+    "date": "2025"
+  },
+  {
+    "name": "Huhtamaki India",
+    "ticker": "HUHTAMAKI",
+    "sector": "Flexible Packaging",
+    "file": "huhtamaki-india.html",
+    "desc": "Flexible packaging for FMCG categories; backed by global Finnish parent",
+    "date": "2025"
+  },
+  {
+    "name": "Kabra Extrusiontechnik",
+    "ticker": "KABRAEXTRU",
+    "sector": "Capital Goods",
+    "file": "kabra-extrusion.html",
+    "desc": "Plastic extrusion machinery OEM with a rising share of export revenues",
+    "date": "2025"
+  },
+  {
+    "name": "KRN Heat Exchanger",
+    "ticker": "KRN",
+    "sector": "Capital Goods",
+    "file": "krn-heat-exchanger.html",
+    "desc": "Fin-and-tube coil heat exchangers for HVAC and refrigeration OEMs",
+    "date": "2025"
+  },
+  {
+    "name": "Menon Bearings",
+    "ticker": "MENONBE",
+    "sector": "Auto-ancillary",
+    "file": "menon-bearings.html",
+    "desc": "Engine bearing specialist serving two-wheeler, four-wheeler, and tractor OEMs",
+    "date": "2025"
+  },
+  {
+    "name": "Raghav Productivity Enhancers",
+    "ticker": "RAGHAVPROD",
+    "sector": "Specialty Chemicals",
+    "file": "raghav-productivity.html",
+    "desc": "Mining chemicals and ore beneficiation reagents for metals processing",
+    "date": "2025"
+  },
+  {
+    "name": "SG Mart",
+    "ticker": "SGMART",
+    "sector": "Building Materials",
+    "file": "sg-mart.html",
+    "desc": "Disruptive B2B steel distribution marketplace with a pan-India network",
+    "date": "2025"
+  },
+  {
+    "name": "Shankara Building Products",
+    "ticker": "SHANKHB",
+    "sector": "Building Materials",
+    "file": "shankara-building.html",
+    "desc": "Organized retail of building materials with a South India-first footprint",
+    "date": "2025"
+  },
+  {
+    "name": "Shivalik Bimetal Controls",
+    "ticker": "SHIVALIK",
+    "sector": "Specialty Metals",
+    "file": "shivalik-bimetal.html",
+    "desc": "Bimetal strips for circuit breakers; niche monopoly with high ROCE",
+    "date": "2025"
+  },
+  {
+    "name": "Stallion India Fluorochemicals",
+    "ticker": "STALLION",
+    "sector": "Specialty Chemicals",
+    "file": "stallion-fluoro.html",
+    "desc": "Fluorinated specialty chemicals and next-generation refrigerant blends",
+    "date": "2025"
+  },
+  {
+    "name": "Stylam Industries",
+    "ticker": "STYLAMIND",
+    "sector": "Decorative Laminates",
+    "file": "stylam-industries.html",
+    "desc": "High-pressure laminates with a premium export position and asset-light scale",
+    "date": "2025"
+  },
+  {
+    "name": "Yasho Industries",
+    "ticker": "YASHO",
+    "sector": "Specialty Chemicals",
+    "file": "yasho-industries.html",
+    "desc": "Rubber chemicals and antioxidants; diversified multi-product specialty mix",
+    "date": "2025"
+  }
+]
