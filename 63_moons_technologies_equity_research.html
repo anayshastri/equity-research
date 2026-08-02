@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>63 Moons Technologies — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mid:#0A0E27; --mid-2:#121838; --mid-3:#1C2450;
+    --indigo:#5B63D6; --indigo-dk:#3E45A8; --indigo-lt:#8B92F0; --indigo-gl:rgba(91,99,214,.12);
+    --cyan:#22C7D6; --cyan-dk:#128998; --cyan-lt:#5FE3EE; --cyan-gl:rgba(34,199,214,.11);
+    --silver:#B8C2D9; --silver-dk:#7C89A6;
+    --amber:#E0A93B; --amber-dk:#B5820E; --amber-gl:rgba(224,169,59,.13);
+    --coral:#E0685C; --coral-gl:rgba(224,104,92,.10);
+    --green:#2FA46A; --green-dk:#1C7A4C; --red:#D6483E;
+    --ink-1:#0C1024; --ink-2:#39415C; --ink-3:#6A7390;
+    --line:#E4E7F0; --line-2:#EFF1F7; --paper:#FCFCFE; --paper-2:#F4F6FB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Sarabun',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(10,14,39,.14)}
+  h1,h2,h3,h4{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.13}
+  .mono{font-family:'Space Mono',monospace}
+
+  /* HERO — lunar / moon-phase motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0A0E27 0%,#121838 52%,#1C2450 128%);color:#E8ECF8;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-8%;width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(139,146,240,.28),rgba(95,227,238,.13) 55%,transparent 72%);filter:blur(5px)}
+  .moons{position:absolute;right:52px;top:52px;z-index:2;opacity:.6;display:flex;gap:10px;align-items:center}
+  .moons .mo{border-radius:50%;background:#B8C2D9}
+  .moons .m1{width:9px;height:9px;opacity:.35}
+  .moons .m2{width:15px;height:15px;opacity:.5;background:linear-gradient(90deg,#7C89A6 50%,#B8C2D9 50%)}
+  .moons .m3{width:26px;height:26px;opacity:.75;background:radial-gradient(circle at 62% 40%,#E8ECF8,#8B92F0)}
+  .moons .m4{width:15px;height:15px;opacity:.5;background:linear-gradient(90deg,#B8C2D9 50%,#7C89A6 50%)}
+  .moons .m5{width:9px;height:9px;opacity:.35}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.in{background:rgba(91,99,214,.26);border-color:rgba(139,146,240,.5);color:#B8BEF5}
+  .tag.cy{background:rgba(34,199,214,.24);border-color:rgba(95,227,238,.5);color:#9EEBF2}
+  .hero h1{font-size:44px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .sub{font-size:16.5px;color:#AEB6CE;margin-bottom:24px;font-weight:300;max-width:775px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8089A6;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Sora',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--mid);color:#8089A6;
+    padding:11px 48px;font-family:'Space Mono',monospace;font-size:11px}
+  .metabar b{color:#E3E8F5;font-weight:400}
+  .metabar .dot{color:var(--cyan-lt)}
+
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'Space Mono',monospace}
+  .alert b{color:var(--mid)}
+  .alert.nsel{background:var(--cyan-gl);color:var(--cyan-dk)}
+  .alert.warn{background:var(--coral-gl);color:#B0402C}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--indigo-dk);
+    border:1.5px solid var(--indigo);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--mid)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--indigo);background:var(--indigo-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.cy{border-color:var(--cyan);background:var(--cyan-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.co{border-color:var(--coral);background:var(--coral-gl)}
+  .call.red{border-color:var(--red);background:rgba(214,72,62,.08)}
+  .call .lab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--indigo-dk);margin-bottom:5px}
+  .call.cy .lab{color:var(--cyan-dk)}.call.am .lab{color:var(--amber-dk)}.call.co .lab{color:#B0402C}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--mid-2);color:#E3E8F5;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Space Mono',monospace}
+  .tr-hi td{background:var(--indigo-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--mid);letter-spacing:-.02em;font-family:'Sora',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.i{border-top:3px solid var(--indigo)}.card.c{border-top:3px solid var(--cyan)}
+  .card.a{border-top:3px solid var(--amber)}.card.co{border-top:3px solid var(--coral)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:100px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--indigo);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--mid);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--indigo-gl);border-color:var(--indigo)}
+  .vnode.own .vt{color:var(--indigo-dk)}
+  .vnode.new{background:var(--cyan-gl);border-color:var(--cyan)}
+  .vnode.new .vt{color:var(--cyan-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:180px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Space Mono',monospace;font-weight:400}
+  .bar-val{width:110px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.moons{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(214,72,62,.06);border-color:rgba(214,72,62,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(47,164,106,.07);border-color:rgba(47,164,106,.3)}
+  .scen .st{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Sora',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--mid);color:#E6EAF6;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(91,99,214,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Sora',sans-serif}
+  .bm .bm-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--indigo-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C3CADE}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#BFC6DC}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--indigo);color:#fff}.v-co{background:var(--cyan-dk);color:#fff}
+  .v-ind{background:#1C7A4C;color:#B6EFCA}.v-sec{background:#3B4560;color:#DCE2F0}
+  .v-avoid{background:#7A2A24;color:#F6C9BF}.v-cross{background:#243050;color:#C6D0EA}
+  .v-rerate{background:var(--amber-dk);color:#FBE2B0}
+  .bm .onenum{background:rgba(34,199,214,.14);border:1px solid rgba(95,227,238,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#B6E8EE;position:relative}
+  .bm .onenum b{color:#7FE3EC}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Space Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--mid)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amber-dk)}.rl{background:var(--indigo-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--indigo),var(--cyan))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--indigo);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--indigo)}
+  .tli .ty{font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:var(--indigo-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--mid);font-family:'Sora',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(47,164,106,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(214,72,62,.14);color:var(--red)}
+  .b-neut{background:rgba(224,169,59,.2);color:var(--amber-dk)}
+
+  .foot{background:var(--mid);color:#7C86A2;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#BFC6DC}
+  .disc{font-size:10.5px;color:#6A7390;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="moons">
+    <div class="mo m1"></div><div class="mo m2"></div><div class="mo m3"></div><div class="mo m4"></div><div class="mo m5"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: 63MOONS</span>
+      <span class="tag">BSE: 526881</span>
+      <span class="tag in">Capital-Markets / Exchange Technology</span>
+      <span class="tag cy">Special Situation · NSEL Overhang Lifting</span>
+    </div>
+    <h1>63 Moons Technologies</h1>
+    <div class="sub">The former <b>Financial Technologies (FTIL)</b> — once the tech backbone of India's exchanges, brought down by the 2013 NSEL crisis — is now a <b>below-book special situation</b>: a large treasury generating its actual profits, a fast-growing cybersecurity subsidiary as the call option, and a decade-long legal overhang finally <b>starting to lift</b>.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹730–920</div><div class="d up">+34% on court news</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹3,300 Cr</div><div class="d">Screener ₹4,293*</div></div>
+      <div class="qs"><div class="k">Book Value/sh</div><div class="v">~₹758</div><div class="d">P/B ~0.9x</div></div>
+      <div class="qs"><div class="k">FY26 Consol PAT</div><div class="v">₹(22) Cr</div><div class="d down">loss; standalone +₹175</div></div>
+      <div class="qs"><div class="k">63SATS FY26 rev</div><div class="v">₹87 Cr</div><div class="d up">24x growth</div></div>
+      <div class="qs"><div class="k">NSEL OTS</div><div class="v">₹1,950 Cr</div><div class="d up">court cleared Jul 29</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>MD &amp; CEO:</b> S. Rajendran</span>
+  <span class="dot">◆</span>
+  <span><b>Founder/Promoter:</b> Jignesh Shah</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1988 (as FTIL, renamed 2016)</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Mumbai</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹2</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 02 Aug 2026</span>
+</div>
+
+<div class="alert nsel">
+  ⚖️ <b>KEY CATALYST — NSEL OVERHANG LIFTING (MPID Court order, 29 Jul 2026):</b> The MPID Court allowed 63 Moons' application to effect the <b>Scheme of Arrangement with NSEL creditors for the ₹1,950 Cr One-Time Settlement</b>, and <b>cancelled the 2018 asset-attachment</b> — a major de-risking step (further asset releases expected). Stock rallied ~34% over six days / ~11% on the news. This is the single most important development in the 63 Moons story in a decade.
+</div>
+<div class="alert warn">
+  ⚠ <b>EARNINGS ARE NOT WHAT THEY SEEM — read §5 &amp; §8:</b> FY26 <b>consolidated = net LOSS ₹(22.43) Cr</b>, but <b>standalone = net PROFIT ₹174.66 Cr</b> — and that profit is driven by <b>other income (interest ₹131 Cr + fair-value gains)</b> on its large treasury, NOT operations. The <b>core operating business loses money</b>; Q4 FY26 had a ₹76 Cr operating loss before other income. Auditors issue a <b>qualified opinion</b> (NSEL litigation). Trailing P/E is meaningless.
+</div>
+<div class="alert">
+  ⚠ <b>DATA CAVEAT:</b> Vendor figures diverge — CMP ₹670 (Jun) / ₹702 (Jul 6) / ₹732 / ~₹920 (post-court, Jul 31); m-cap ₹2,815 Cr (Jun 1) to ₹4,293 Cr (Screener, post-rally); P/B ~0.87–0.96x; book value ~₹758/share; 52-wk ₹467–1,130. Face value ₹2, ~4.6 Cr shares. TTM P/E negative (losses). This report anchors CMP ~₹730–920 given the volatility. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>63 Moons Technologies Ltd</strong> (formerly <strong>Financial Technologies India Ltd, FTIL</strong>, renamed 2016) is a Mumbai-based <strong>capital-markets and exchange-technology company</strong> — the maker of <strong>ODIN</strong> (India's most widely used broker trading platform) and <strong>DOME</strong>, the exchange-matching engine that once powered MCX, NSEL, MCX-SX and others. Founded by <strong>Jignesh Shah</strong>, it was, in the 2000s, the technology powerhouse behind India's modern exchange ecosystem — until the <strong>2013 NSEL (National Spot Exchange) ₹5,600 Cr payment crisis</strong> triggered a cascade of litigation that dismantled its exchange empire and has overhung the stock ever since.</p>
+  <p>This is therefore <strong>not a conventional operating stock — it is a special situation.</strong> Three things define it: (1) a <strong>decade-long NSEL legal overhang that is finally starting to lift</strong> — a ₹1,950 Cr One-Time Settlement, NCLT-approved and now cleared by the MPID Court (July 2026) with asset attachments cancelled; (2) a <strong>large treasury/investment book that generates the company's actual profits</strong> (interest income alone was ₹131 Cr in FY26) while the core operating business loses money; and (3) a <strong>fast-growing cybersecurity subsidiary, 63SATS Cybertech</strong> (revenue up 24x to ₹87 Cr, a ₹288 Cr Q1 order book) that acts as the growth "call option." The stock trades <strong>below book value (P/B ~0.9x)</strong> — a classic deep-value-plus-optionality setup where the debate is unlocking versus value trap.</p>
+  <div class="cards">
+    <div class="card i"><div class="k">Book value/share</div><div class="v">~₹758</div><div class="d">P/B ~0.9x (below book)</div></div>
+    <div class="card c"><div class="k">63SATS FY26 rev</div><div class="v">₹87 Cr</div><div class="d up">24x growth</div></div>
+    <div class="card a"><div class="k">NSEL OTS</div><div class="v">₹1,950 Cr</div><div class="d">court-cleared Jul '26</div></div>
+    <div class="card co"><div class="k">Treasury int. income</div><div class="v">₹131 Cr</div><div class="d">the real profit engine</div></div>
+  </div>
+  <div class="call cy">
+    <div class="lab">The investment character in one line</div>
+    63 Moons is a <strong>special-situation, deep-value-plus-optionality stock</strong> — a below-book capital-markets-tech company whose value lies not in its (loss-making, lumpy) operating P&amp;L but in a <strong>sum-of-the-parts</strong>: a large treasury/investment pile that trades near or below its own book, a decade-long <strong>NSEL legal overhang that is now visibly lifting</strong>, and a genuinely fast-growing <strong>cybersecurity subsidiary (63SATS)</strong> as the upside call. The bull case is a re-rating as the litigation resolves and the parts get valued/monetized; the bear case is that the legal saga drags on, the treasury is eroded by the ₹1,950 Cr settlement, and the operating business keeps losing money. This is a <strong>catalyst-and-SOTP story, not an earnings-multiple story</strong> — value it accordingly.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1988–2007 · Rise of FTIL</div><div class="td">Incorporated 1988; became <strong>Financial Technologies (India) Ltd</strong> (2001). Built ODIN and the DOME exchange engine; promoted <strong>MCX (commodities), MCX-SX, NSEL</strong> and overseas exchanges — becoming the technology powerhouse of India's modern exchange ecosystem. Peaked near ₹3,048 (2007).</td></tr>
+    <div class="tli"><div class="ty">2013 · The NSEL crisis</div><div class="td">The <strong>National Spot Exchange (NSEL) ₹5,600 Cr payment default</strong> erupted — the defining catastrophe. It triggered EOW/CBI/SFIO/ED investigations, civil suits, and regulatory action, dismantling FTIL's exchange empire (forced exits from MCX etc.) and crushing the stock.</td></tr>
+    <div class="tli"><div class="ty">2016 · Renamed 63 Moons</div><div class="td">Rebranded from FTIL to <strong>63 Moons Technologies</strong> — a fresh identity, retaining the core capital-markets-tech IP (ODIN etc.) and a large treasury, while fighting a multi-front legal war.</div></div>
+    <div class="tli"><div class="ty">2017–2024 · Legal war &amp; survival</div><div class="td">Years of litigation, merger attempts (a government-ordered FTIL-NSEL merger was struck down by courts — a key legal win), and asset attachments. The company survived on its treasury and legacy tech revenue while the overhang capped the stock.</div></div>
+    <div class="tli"><div class="ty">FY25–FY26 · 63SATS &amp; the settlement</div><div class="td">Cybersecurity subsidiary <strong>63SATS scales 24x to ₹87 Cr</strong>; the board approves a <strong>₹1,950 Cr NSEL One-Time Settlement</strong> (Mar 2025); <strong>NCLT approves it (Nov 2025)</strong>. New growth engine + settlement path emerge together.</div></div>
+    <div class="tli"><div class="ty">Jul 2026 · The overhang lifts</div><div class="td"><strong>MPID Court (29 Jul 2026) clears the Scheme of Arrangement and cancels the asset attachment</strong> to effect the OTS — a landmark de-risking. 63SATS Q1 order book hits ₹288 Cr. Stock rallies sharply.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>The Sum-of-the-Parts</h2></div>
+  <p>Because 63 Moons is a holding-company-like special situation, the right mental model is a <strong>sum-of-the-parts</strong>, not a single operating business. There are four distinct value buckets:</p>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Treasury / investments</div><div class="vd">Large cash+investment book; ₹131 Cr interest income</div></div>
+    <div class="vnode new"><div class="vt">63SATS Cybertech</div><div class="vd">The growth crown jewel; 24x to ₹87 Cr</div></div>
+    <div class="vnode own"><div class="vt">Core exchange-tech</div><div class="vd">ODIN, DOME, POWERARMS — legacy, lumpy</div></div>
+    <div class="vnode own"><div class="vt">NSEL claims/recovery</div><div class="vd">Post-OTS, creditor claims assigned to 63 Moons</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Why SOTP is the only sensible frame</div>
+    Each bucket has a completely different character: the <strong>treasury</strong> is quasi-cash generating steady interest (the actual source of profit); <strong>63SATS</strong> is a hyper-growth cybersecurity venture that could be worth a multiple of its revenue if it scales; the <strong>legacy exchange-tech business</strong> is real IP but lumpy and currently loss-making; and the <strong>NSEL settlement</strong> is a large cash outflow (₹1,950 Cr) that is partly offset because <strong>creditors assign their claims against the original defaulters to 63 Moons</strong> (a recovery asset of uncertain value). Blending these into one P/E or one revenue multiple is meaningless — which is exactly why the stock is mispriced and volatile. The investment case rests on <strong>whether the market re-rates the sum of these parts as the NSEL overhang clears and 63SATS is valued/monetized.</strong>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>63SATS Cybertech — The Crown Jewel</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">FY26 revenue</div><div class="v">₹87 Cr</div><div class="d up">24x from ₹3.6 Cr</div></div>
+    <div class="card i"><div class="k">Q1 FY27 order book</div><div class="v">₹288 Cr</div><div class="d up">3.3x FY26 rev</div></div>
+    <div class="card a"><div class="k">FY27 target</div><div class="v">₹350 Cr</div><div class="d">rev / ₹40 Cr EBITDA</div></div>
+    <div class="card co"><div class="k">Enterprise clients</div><div class="v">72</div><div class="d">+ AI CyberOps</div></div>
+  </div>
+  <p>The single most exciting piece is <strong>63SATS Cybertech</strong> — 63 Moons' cybersecurity subsidiary — which grew revenue <strong>24x to ₹87 Cr in FY26</strong> (from ₹3.6 Cr), won <strong>72 large enterprise clients</strong>, generated ₹54 Cr from IP products (₹40 Cr from its AI CyberOps platform), and launched the <strong>CYBX cybersecurity "super app"</strong> (18.87 lakh downloads, 2.32 lakh subscribers). Its <strong>Q1 FY27 order book already stands at ₹288 Cr — 3.3x its entire FY26 revenue and 82% of its ₹350 Cr full-year target.</strong></p>
+  <div class="call cy">
+    <div class="lab">A genuine growth call option — but early-stage and unproven at scale</div>
+    63SATS is the reason the story has a <strong>growth angle at all</strong>, and the numbers are striking: 24x revenue growth, a ₹288 Cr order book, targets of ₹350 Cr revenue / ₹40 Cr EBITDA for FY27, three go-to-market engines, and a planned CYBX Coin launch. If it delivers, it could be worth a meaningful multiple of revenue — potentially a large fraction of, or even exceeding, the parent's current market cap on its own. <strong>But treat it as a call option, not a certainty:</strong> it is early-stage, targets are aggressive (a further ~4x on FY27), it competes with entrenched global cybersecurity majors, EBITDA is thin, and much of the "value" is prospective. The key watch-items are order-book conversion, the FY27 revenue/EBITDA delivery, and any eventual value-crystallizing event (fundraise, stake sale, or listing). It's the upside engine — high-potential, high-uncertainty.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The NSEL Overhang, Dissected</h2></div>
+  <div class="call red">
+    <div class="lab">The decade-defining issue — and why July 2026 matters</div>
+    The <strong>2013 NSEL ₹5,600 Cr default</strong> is the event that has defined (and depressed) 63 Moons for over a decade — spawning EOW, CBI, SFIO and ED cases, civil suits, and asset attachments, and forcing auditors to issue a <strong>qualified opinion every year</strong> because the financial impact is genuinely unquantifiable. The path to resolution is a <strong>₹1,950 Cr One-Time Settlement (OTS)</strong> with the NSEL Investors Forum (5,682 creditors), approved by the board (Mar 2025) and <strong>NCLT (Nov 2025)</strong>. The breakthrough: on <strong>29 July 2026 the MPID Court allowed the Scheme of Arrangement and cancelled the 2018 asset attachment</strong> — the concrete legal step that lets the settlement actually be executed, with further asset releases expected.
+  </div>
+  <table>
+    <tr><th>NSEL settlement mechanics</th><th class="mono">Detail</th></tr>
+    <tr><td>One-Time Settlement amount</td><td class="mono">₹1,950 Cr (to 5,682 creditors)</td></tr>
+    <tr><td>Board approval</td><td class="mono">Mar 2025</td></tr>
+    <tr><td>NCLT approval</td><td class="mono">Nov 2025</td></tr>
+    <tr class="tr-hi"><td>MPID Court — attachment cancelled</td><td class="mono">29 Jul 2026 (key catalyst)</td></tr>
+    <tr><td>In return</td><td class="mono">Creditors assign claims vs defaulters to 63 Moons</td></tr>
+    <tr><td>Auditor opinion</td><td class="mono">Still qualified (impact unquantifiable)</td></tr>
+  </table>
+  <div class="call am">
+    <div class="lab">The net financial impact is the crux — and it cuts both ways</div>
+    The OTS is a <strong>large cash outflow (₹1,950 Cr) against a treasury of similar order of magnitude</strong> — so it materially draws down the asset base that currently underpins the below-book valuation. <strong>But two offsets matter:</strong> first, in exchange, <strong>creditors assign their claims against the actual NSEL defaulters to 63 Moons</strong>, giving it a recovery asset (of uncertain but potentially significant value); second, and more importantly, <strong>removing a decade of existential legal uncertainty is itself hugely re-rating</strong> — a business that can finally be valued on its parts rather than discounted for tail-risk litigation. The honest position: the <strong>net cash impact is uncertain</strong> (even auditors won't quantify it), but the <strong>direction of travel — overhang lifting — is unambiguously positive for the equity story</strong>, which is why the stock rallies on each court milestone. This is the single biggest swing factor in either direction.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Core Technology Business &amp; Competition</h2></div>
+  <table>
+    <tr><th>Offering</th><th>What it is</th><th>Position</th></tr>
+    <tr><td><strong>ODIN</strong></td><td>Broker trading platform</td><td>Widely used by Indian brokers (Kotak, Angel, etc.)</td></tr>
+    <tr><td><strong>DOME</strong></td><td>Exchange matching engine</td><td>Powers exchanges (e.g. MSE upgrade)</td></tr>
+    <tr><td><strong>POWERARMS / FOVEA / CNS</strong></td><td>Trading, risk, clearing &amp; settlement</td><td>Established capital-markets IP</td></tr>
+    <tr class="tr-hi"><td><strong>63SATS</strong></td><td>Cybersecurity (AI CyberOps, CYBX)</td><td>Fast-growing new engine</td></tr>
+    <tr><td><strong>Web 3.0 / Ticker</strong></td><td>Blockchain, AI, metaverse ventures</td><td>Early-stage optionality</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">Deep IP in exchange tech — but a lumpy, sub-scale operating business today</div>
+    63 Moons retains <strong>genuinely deep, proven capital-markets technology IP</strong> — ODIN remains widely used, and DOME-class exchange engines are hard to build and trusted by exchanges (it recently powered the MSE trading-engine upgrade). This is real, differentiated technology with few domestic peers of its pedigree. <strong>The problem is that, post-NSEL, the operating business is sub-scale, project-based and lumpy</strong> — revenue swings wildly quarter to quarter (from ₹9.8 Cr to ₹133 Cr), it lost its captive exchange ecosystem, and it currently runs at an operating loss. So the core tech is an <strong>asset with latent value</strong> (especially if exchange-tech demand or new mandates revive), but it is not, today, a reliable profit engine — the profits come from the treasury, and the growth from 63SATS.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Exchange/broker tech competes with global and domestic vendors; cybersecurity (63SATS) faces entrenched global majors.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>Exchanges/brokers are few, large, demanding buyers; long sales cycles, project-based, lumpy.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Low</td><td>Software/talent-driven; main input is engineering talent (wage inflation a factor).</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Exchange-grade tech has high trust/pedigree barriers; cybersecurity is more contestable.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate</td><td>In-house builds, cloud-native and global SaaS platforms are alternatives.</td></tr>
+  </table>
+  <p>Net: the businesses operate in <strong>competitive, buyer-concentrated tech markets</strong> where 63 Moons' edge is <strong>pedigree and proven IP</strong> (exchange tech) and <strong>speed of scaling</strong> (63SATS) — but neither is a wide, durable moat, and the investment case rests more on the special-situation/SOTP dynamics than on operating-moat economics.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Financials, Dissected</h2></div>
+  <table>
+    <tr><th>Metric (₹ Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Read</th></tr>
+    <tr><td>Consolidated revenue</td><td class="mono">~55</td><td class="mono">212</td><td class="mono">+286% but lumpy</td></tr>
+    <tr><td>Consolidated PAT</td><td class="mono">(33)</td><td class="mono">(22.4)</td><td class="mono down">loss (narrower)</td></tr>
+    <tr><td>Standalone PAT</td><td class="mono">—</td><td class="mono">174.7</td><td class="mono up">other-income driven</td></tr>
+    <tr><td>Std. other income</td><td class="mono">—</td><td class="mono">157.3</td><td class="mono">int. ₹131 + FV gains</td></tr>
+    <tr><td>Q4 FY26 op. loss</td><td class="mono">—</td><td class="mono">(76.4)</td><td class="mono down">before other income</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">The single most important thing to understand about the P&amp;L</div>
+    63 Moons' reported numbers are <strong>genuinely confusing and must be read carefully</strong>: the <strong>consolidated entity posts a net loss</strong> (₹22.4 Cr FY26), while the <strong>standalone entity posts a large profit (₹174.7 Cr) — but that profit is almost entirely "other income"</strong> (interest of ₹131 Cr plus fair-value gains on its treasury), <strong>not operating profit.</strong> The <strong>core operating business loses money</strong> (Q4 FY26 had a ₹76 Cr operating loss before other income), and revenue is <strong>extremely volatile</strong> (₹9.8 Cr to ₹133 Cr across recent quarters — clearly project/one-off recognition, not recurring streams). The takeaway: <strong>this is a treasury-plus-optionality entity, not an operating earnings story.</strong> Trailing P/E is meaningless (consolidated losses; negative EPS), and even the standalone "profit" is really investment income on the asset base — which is why <strong>book value, SOTP and the NSEL catalyst are the only sensible lenses</strong>, and headline earnings should be actively ignored as a valuation anchor.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>The Treasury — Where the Profit Actually Comes From</h2></div>
+  <div class="cards">
+    <div class="card i"><div class="k">Interest income FY26</div><div class="v">₹131 Cr</div><div class="d">the real profit</div></div>
+    <div class="card c"><div class="k">Other income (std)</div><div class="v">₹157 Cr</div><div class="d">int + FV gains</div></div>
+    <div class="card a"><div class="k">Debt</div><div class="v">~nil</div><div class="d">almost debt-free</div></div>
+    <div class="card co"><div class="k">P/B</div><div class="v">~0.9x</div><div class="d">below book</div></div>
+  </div>
+  <p>The company's actual profits come from its <strong>large treasury/investment book</strong> — ₹131 Cr of interest income plus fair-value gains in FY26. It is <strong>almost debt-free</strong>, and the sheer size of the interest income implies an investment/cash pile that is a <strong>substantial fraction of the market cap</strong> — which is precisely why the stock trades <strong>near or below book value (~₹758/share, P/B ~0.9x).</strong></p>
+  <div class="call am">
+    <div class="lab">The treasury is the value floor — but the NSEL settlement is a claim on it</div>
+    The treasury is the <strong>anchor of the deep-value case</strong>: a large, liquid asset base generating steady income, with the stock available below the book value of that base. In a clean world, a below-book, cash-rich, debt-free company is a value opportunity. <strong>The complication is the ₹1,950 Cr NSEL settlement, which is a direct claim on this treasury</strong> — executing the OTS will materially draw it down, so the "book value" backing is not fully free-and-clear until the settlement's net cost (after claim-recovery offsets) is known. This is the crux of the value-versus-trap debate: <strong>bulls see a below-book, cash-rich franchise with the overhang lifting; bears see a treasury about to be substantially consumed by a settlement of uncertain net cost.</strong> The truth depends on the final net settlement economics and how much value the assigned creditor-claims recover — which is why the July court progress (reducing uncertainty) matters so much to the re-rating.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Promoter &amp; Governance</h2></div>
+  <p>63 Moons is run day-to-day by <strong>MD &amp; CEO S. Rajendran</strong> and WTD &amp; CFO Devendra Agrawal, but its identity is inseparable from founder-promoter <strong>Jignesh Shah</strong> — a brilliant but deeply controversial figure, central to both FTIL's rise and the NSEL saga, and a subject of the ongoing investigations.</p>
+  <div class="call red">
+    <div class="lab">Governance and key-man/legal risk are central, not peripheral</div>
+    For most companies governance is one factor among many; for 63 Moons it is <strong>front and centre.</strong> The promoter and company remain enmeshed in <strong>multiple serious legal proceedings (EOW, CBI, SFIO, ED)</strong> that drive the auditor's qualified opinion and the entire overhang. Investors must be clear-eyed: this is a company defined by a <strong>contested legal history and a polarizing promoter</strong>, where outcomes depend heavily on courts and regulators rather than pure business execution. The counter-view is that 63 Moons has <strong>won important legal battles</strong> (notably the striking down of the government-ordered FTIL-NSEL merger) and is now negotiating a settlement rather than fighting existentially — a sign of a maturing, resolution-oriented path. Still, <strong>anyone investing here is underwriting legal/regulatory and key-man risk to an unusually high degree</strong> — it is not a "clean governance" story, and position sizing should reflect that.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card i"><div class="k">Total consol. assets</div><div class="v">~₹3,887 Cr</div><div class="d">FY26</div></div>
+    <div class="card c"><div class="k">Book value/share</div><div class="v">~₹758</div><div class="d">P/B ~0.9x</div></div>
+    <div class="card a"><div class="k">Debt</div><div class="v">~nil</div><div class="d">almost debt-free</div></div>
+    <div class="card co"><div class="k">Dividend</div><div class="v">₹2/share</div><div class="d">FY26 final</div></div>
+  </div>
+  <p>The balance sheet is <strong>asset-rich and debt-light</strong> — total consolidated assets ~₹3,887 Cr, book value ~₹758/share (well above the market price), almost no debt, and a maintained dividend. On paper, a classic <strong>below-book, cash-rich value profile.</strong></p>
+  <div class="call am">
+    <div class="lab">The metric that decides the thesis: net asset value after the settlement</div>
+    For a special situation like this, the <strong>true test is net asset value (NAV) after the NSEL settlement and any recoveries</strong> — not reported earnings. The framework: start with the treasury/investment book + 63SATS value + core-tech value + assigned NSEL claim-recoveries, <strong>subtract the ₹1,950 Cr settlement outflow</strong>, and compare to the market cap. Today the stock trades below stated book, but stated book doesn't yet fully reflect the settlement's net cost. <strong>The key things to track:</strong> the final net settlement economics (outflow minus claim recoveries), the pace of asset releases post-July court order, 63SATS's crystallizing value, and whether the operating business narrows its losses. If the net-of-settlement NAV comfortably exceeds the market cap and the overhang clears, the deep-value case is validated; if the settlement consumes most of the treasury with poor claim recovery, the "below book" comfort erodes. <strong>NAV-after-settlement is the number that matters.</strong>
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Re-Rating Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>NSEL overhang clearing</strong></td><td>OTS execution, asset releases, case closure</td><td class="mono">The big catalyst ★★★★★</td></tr>
+    <tr><td><strong>63SATS value crystallization</strong></td><td>Scale-up, fundraise, stake sale or listing</td><td class="mono">Upside call ★★★★</td></tr>
+    <tr><td><strong>Below-book re-rating</strong></td><td>P/B normalizes toward/above 1x</td><td class="mono">Value gap ★★★★</td></tr>
+    <tr><td><strong>Claim recoveries</strong></td><td>Assigned NSEL claims vs defaulters recovered</td><td class="mono">Optionality ★★★</td></tr>
+    <tr><td><strong>Core-tech revival</strong></td><td>New exchange/broker mandates (e.g. MSE)</td><td class="mono">Slow ★★★</td></tr>
+    <tr><td><strong>Web 3.0 / Ticker ventures</strong></td><td>Blockchain/AI/metaverse optionality</td><td class="mono">Speculative ★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <div class="two">
+    <div>
+      <div class="call cy">
+        <div class="lab">The bull-supporting facts</div>
+        Below book (P/B ~0.9x), almost debt-free, ~₹3,887 Cr assets, ₹131 Cr interest income, 63SATS growing 24x with a ₹288 Cr order book, and the NSEL overhang <strong>visibly lifting</strong> (July court order). A cash-rich special situation with a clearing catalyst and a growth call option.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The bear-supporting facts</div>
+        Core operations <strong>lose money</strong>; revenue is wildly lumpy; consolidated P&amp;L is in loss; profits are just treasury income; auditors give a <strong>qualified opinion</strong>; the ₹1,950 Cr settlement will draw down the treasury; and legal/promoter risk is severe. Trailing P/E is negative/meaningless.
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financial picture only makes sense through a special-situation lens: ignore headline earnings, focus on net-asset-value-after-settlement, the 63SATS trajectory, and the pace of legal resolution. Revenue volatility (₹9.8 Cr to ₹133 Cr quarterly) and the consolidated-vs-standalone divergence make conventional trend analysis actively misleading here.</p>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>Conventional multiples don't work here: <strong>trailing P/E is negative</strong> (consolidated losses), and even standalone "earnings" are just treasury income. The stock trades <strong>below book value (P/B ~0.9x)</strong>. The only coherent approach is a <strong>sum-of-the-parts / NAV framework</strong>, with the NSEL resolution as the binary re-rating trigger.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value 63 Moons Technologies</h3>
+    <div class="bm-sub">Special-situation holding company with loss-making ops, treasury-driven profit &amp; a lifting legal overhang → SOTP / NAV-after-settlement + P/B vs treasury backing + 63SATS value; NSEL resolution is the binary re-rating factor; earnings multiples are useless</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Sum-of-the-parts / NAV-after-settlement</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Value the treasury + 63SATS + core-tech + assigned claim-recoveries, minus the ₹1,950 Cr OTS, vs market cap. The only frame that captures what 63 Moons actually is.</td></tr>
+      <tr><td>P/B vs quality of book</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Trades ~0.9x book (~₹758/sh). Below-book, cash-rich, debt-free — but the book is a claim on which the settlement has first call. Judge the discount against the <em>net</em> book after settlement.</td></tr>
+      <tr><td>NSEL resolution progress</td><td><span class="verdict v-rerate">RE-RATING FACTOR</span></td><td>Each court milestone (NCLT, the 29 Jul MPID order, asset releases, final OTS execution) removes discount and drives the re-rating. This is the binary swing factor in both directions.</td></tr>
+      <tr><td>63SATS value / trajectory</td><td><span class="verdict v-ind">UPSIDE OPTION</span></td><td>24x growth, ₹288 Cr order book, ₹350 Cr FY27 target. A crystallizing event (fundraise/stake sale/listing) could reprice a large chunk of the SOTP. High-potential, unproven.</td></tr>
+      <tr><td>Treasury / interest income &amp; net cash</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>₹131 Cr interest income is the real profit and the value floor; track how much survives the settlement.</td></tr>
+      <tr><td>Trailing / forward P/E; consolidated EPS</td><td><span class="verdict v-avoid">AVOID</span></td><td>Negative and meaningless — loss-making ops, treasury-driven and lumpy. Anchoring on any earnings multiple here misleads completely.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> The stock trades at <b>~0.9x book (~₹758/share of stated NAV) with the market cap ~₹3,300 Cr against ~₹3,887 Cr of assets</b>, almost no debt, ₹131 Cr of annual interest income, a <b>63SATS subsidiary growing 24x (₹288 Cr order book, ₹350 Cr FY27 target)</b> that could alone be worth a large fraction of the market cap if it scales, and a <b>decade-long NSEL overhang that is finally lifting</b> (₹1,950 Cr OTS, MPID Court clearance July 2026). Against that book sits the ₹1,950 Cr settlement, partly offset by assigned claim-recoveries of uncertain value. <b>Verdict: a genuine special-situation deep-value-plus-optionality play — below-book, cash-rich and debt-free, with a clearing legal catalyst and a fast-growing cybersecurity call option — but one carrying severe, defining legal/promoter risk, loss-making core operations, and a treasury that the NSEL settlement has first claim on. The re-rating case is real and the July court progress is a genuine inflection, but the net-of-settlement NAV is still uncertain and the outcome hinges on courts as much as business execution. Value strictly on SOTP / NAV-after-settlement and P/B — never on earnings — treat 63SATS as upside optionality rather than base-case value, and make NSEL-resolution progress the deciding gate. A high-risk, high-reward special situation for investors comfortable underwriting litigation outcomes; not an operating-earnings investment, and to be sized accordingly.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹450–600</div><div class="sd">Settlement consumes most of the treasury with poor claim recovery, legal cases drag or reopen, 63SATS disappoints/burns cash, operating losses persist; the below-book discount widens back toward the 52-wk low.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹730–950</div><div class="sd">OTS executes at a manageable net cost, asset releases proceed, overhang steadily clears, 63SATS grows into its targets; P/B re-rates toward ~1x on a clearer NAV. Around current post-rally levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹1,150–1,500</div><div class="sd">NSEL fully resolves with strong claim recoveries, 63SATS value crystallizes (fundraise/listing), core tech revives; the market re-rates the full SOTP above book. Toward/above the 52-wk high and beyond.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Uniresearch 12-mo range ₹869–963 (pre-rally); post-court chatter cites ₹1,080–1,150 targets. All scenarios hinge on NSEL net economics and 63SATS delivery — both uncertain. This is a special situation; scenario ranges are unusually wide by nature. Verify CMP vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>NSEL settlement net cost &amp; legal outcomes</strong>The ₹1,950 Cr OTS draws down the treasury; the net cost after claim-recoveries is uncertain (auditors won't quantify). Any reversal, delay, or adverse ruling in the EOW/CBI/SFIO/ED cases could re-impose the overhang. The defining risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Promoter / key-man / governance risk</strong>The company and promoter Jignesh Shah remain in serious ongoing legal proceedings; the auditor's qualified opinion reflects unquantifiable exposure. This is a legal-history-defined stock, not a clean-governance one.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Loss-making, lumpy core operations</strong>The operating business loses money and revenue swings wildly (₹9.8 Cr to ₹133 Cr quarterly). Profits depend entirely on treasury income — remove or erode that and the P&amp;L is deeply negative.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>63SATS execution &amp; funding</strong>The cybersecurity growth call is early-stage with aggressive targets (~4x to ₹350 Cr FY27) against entrenched global competitors; it may need funding, and its value is largely prospective.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Value-trap risk</strong>Below-book, cash-rich situations can stay cheap indefinitely if capital isn't returned or unlocked and the overhang lingers; the discount may persist for years.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Related-party / capital-deployment</strong>Surplus funds are being deployed into ventures (e.g. Ticker Ltd, which is loss-making; Dubai subsidiary) via related-party transactions — minority investors depend on disciplined, value-accretive allocation of the treasury.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Volatility &amp; sentiment-driven price</strong>The stock moves violently on legal headlines (±11% single days, ±34% weeks) and vendor price data diverges widely; it is a high-beta, event-driven special situation, not a stable compounder.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">NSEL overhang lifting</div><div class="scv">Court progress <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Below-book / cash-rich</div><div class="scv">P/B ~0.9x <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">63SATS growth option</div><div class="scv">24x, ₹288 Cr OB <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Core tech IP (latent)</div><div class="scv">ODIN/DOME <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Balance-sheet strength</div><div class="scv">Debt-free <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Core profitability</div><div class="scv">Loss-making <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Earnings clarity</div><div class="scv">Opaque/qualified <span class="stars">★☆☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Legal / promoter risk</div><div class="scv">Severe <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Settlement net cost</div><div class="scv">Uncertain <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    63 Moons Technologies is one of the Indian market's most distinctive <strong>special situations</strong> — the former Financial Technologies (FTIL), once the technology backbone of India's exchanges, brought low by the 2013 NSEL crisis and defined ever since by a decade-long legal overhang that is <strong>now, finally, visibly lifting</strong> (a ₹1,950 Cr One-Time Settlement, NCLT-approved and cleared by the MPID Court in July 2026 with asset attachments cancelled). It is a <strong>below-book (P/B ~0.9x), cash-rich, almost debt-free</strong> company whose <strong>actual profits come from a large treasury (₹131 Cr interest income), while its core operations lose money and revenue is wildly lumpy</strong> — so headline earnings are meaningless and even the standalone "profit" is really investment income. The upside is a genuine <strong>sum-of-the-parts re-rating</strong>: the treasury floor, a fast-growing <strong>cybersecurity subsidiary (63SATS, up 24x to ₹87 Cr, ₹288 Cr order book, ₹350 Cr FY27 target) as a real growth call option</strong>, assigned NSEL claim-recoveries, and latent exchange-tech IP — all currently discounted for litigation tail-risk that is now receding. <strong>Against that stand severe, defining risks: the ₹1,950 Cr settlement has first claim on the treasury (net cost uncertain, auditors won't quantify), the promoter and company remain in serious ongoing legal proceedings, the core business is loss-making, and the whole thesis hinges on courts as much as execution.</strong> <strong>The honest framing: a genuine high-risk, high-reward deep-value-plus-optionality play at an inflection — value it strictly on SOTP / NAV-after-settlement and P/B (never earnings), treat 63SATS as upside rather than base case, make NSEL-resolution progress the deciding gate, and size it as the litigation-underwriting bet it is. The July 2026 court breakthrough is a real positive turn; the net economics are what remain to be proven.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">29 Jul 2026</td><td><strong>MPID Court clears NSEL Scheme of Arrangement &amp; cancels asset attachment</strong> — the key legal step to effect the ₹1,950 Cr OTS; further asset releases expected. Stock rallied ~11% on the day / ~34% over six days (to ~₹920).</td></tr>
+    <tr><td class="mono">Jul 2026</td><td><strong>63SATS Q1 FY27 order book ₹288 Cr</strong> (3.3x FY26 revenue, 82% of ₹350 Cr FY27 target; ₹100 Cr already executed/billed); CYBX DNA AI CyberOps cumulative orders cross ₹53 Cr. Postal ballot: subsidiary FTSPL to invest ₹70 Cr in Ticker Ltd; ₹10.08 Cr invested in Dubai subsidiary.</td></tr>
+    <tr><td class="mono">19 May 2026</td><td><strong>FY26 audited results:</strong> standalone PAT ₹174.66 Cr (EPS ₹37.90), consolidated net loss ₹(22.43) Cr (EPS ₹(4.87)); other income ₹157.3 Cr (interest ₹131 Cr); total consol assets ₹3,887 Cr; final dividend ₹2/share; <strong>qualified auditor opinion</strong> (NSEL litigation). Q4 revenue ₹133.74 Cr (record) but ₹76 Cr operating loss before other income.</td></tr>
+    <tr><td class="mono">Nov 2025</td><td><strong>NCLT approves the ₹1,950 Cr NSEL One-Time Settlement</strong> between NSEL and 5,682 creditors — a major milestone toward resolution.</td></tr>
+    <tr><td class="mono">Mar 2025</td><td>Board approves the <strong>₹1,950 Cr NSEL OTS</strong> proposed by the NSEL Investors Forum; creditors to assign claims against defaulters to 63 Moons in return.</td></tr>
+    <tr><td class="mono">FY26</td><td>63SATS scales revenue <strong>24x to ₹87 Cr</strong> (72 enterprise clients, CYBX super app 18.87 lakh downloads); MSE trading-engine upgrade powered by 63 Moons tech.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card i"><div class="k">Total assets</div><div class="v">~₹3,887 Cr</div><div class="d">FY26 consol</div></div>
+    <div class="card c"><div class="k">Debt</div><div class="v">~nil</div><div class="d">debt-free</div></div>
+    <div class="card a"><div class="k">Interest income</div><div class="v">₹131 Cr</div><div class="d">treasury yield</div></div>
+    <div class="card co"><div class="k">P/B</div><div class="v">~0.9x</div><div class="d">below book</div></div>
+  </div>
+  <p>On the face of it, the balance sheet is a <strong>fortress: ~₹3,887 Cr assets, negligible debt, a large income-generating treasury, and a market price below book.</strong> This asset backing is the foundation of the entire deep-value case and the reason downside is (partly) cushioned.</p>
+  <div class="call am">
+    <div class="lab">The metric that decides the thesis: net asset value after settlement &amp; recoveries</div>
+    The whole valuation reduces to <strong>one uncertain number — the treasury/NAV that survives the NSEL settlement.</strong> Bulls compute: treasury + 63SATS + core-tech + assigned claim-recoveries − ₹1,950 Cr settlement, and find a figure comfortably above the market cap (hence below-book = opportunity). Bears note that ₹1,950 Cr is a very large claim on that treasury and claim-recoveries are speculative, so the <em>net</em> book could be far lower than the stated ₹758/share. <strong>The truth is genuinely unknown until the settlement executes and recoveries play out</strong> — which is why the stock re-rates on each step that reduces this uncertainty. Track: net settlement cash cost, asset releases post-July order, claim-recovery progress, 63SATS value crystallization, and treasury size each quarter. <strong>NAV-after-settlement is the single number the whole investment turns on.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Rallying on news <span class="badge b-bull">↑</span></div><div class="tkd">+34% in 6 days (late Jul)</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹730–920</div><div class="tkd">late Jul 2026 (volatile)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹467 – 1,130</div><div class="tkd">wide</div></div>
+    <div class="tk"><div class="tkl">52-wk high</div><div class="tkv">₹1,130</div><div class="tkd">Jul 2025</div></div>
+    <div class="tk"><div class="tkl">P/B</div><div class="tkv">~0.9x</div><div class="tkd">below book</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">Event-driven</div><div class="tkd">legal-headline beta</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">63 Moons is a <strong>high-beta, event-driven special situation</strong> whose price is driven overwhelmingly by <strong>legal/NSEL headlines rather than operating fundamentals</strong>. It rallied ~34% over six days into late July 2026 on the MPID Court order (to ~₹920), sitting mid-range in its wide ₹467–1,130 52-week band, below the ₹1,130 high. Moves are violent in both directions (±11% single sessions), and vendor price/market-cap data diverge widely (see data caveat) — the live NSE quote is essential. As a catalyst stock, the path from here tracks NSEL settlement execution and asset releases, 63SATS milestones, and any value-crystallization events far more than chart levels. Treat technicals as secondary to the SOTP-vs-litigation debate.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. This is a high-risk special situation defined by ongoing litigation with genuinely unquantifiable outcomes (auditors issue a qualified opinion). Vendor data diverges widely (CMP ₹670–920; m-cap ₹2,815–4,293 Cr; P/B ~0.87–0.96x); trailing P/E is negative/meaningless. Verify against NSE/BSE and primary filings, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>63 Moons Technologies Ltd</b> (formerly Financial Technologies India Ltd / FTIL) — NSE: 63MOONS · BSE: 526881 · ISIN: INE111B01023 · Capital-Markets &amp; Exchange Technology / Software · Mumbai<br>
+  Report generated 02 August 2026 · Data through FY26 audited results (reported 18–19 May 2026) + Q1 FY27 subsidiary updates + MPID Court order dated 29 Jul 2026.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company FY26 audited results &amp; BSE-NSE filings, MPID Court order dated 29 Jul 2026, 63SATS investor updates, Screener.in, Business Standard, MarketsMojo, ScanX, Groww, Tickertape, StockAnalysis, ICICIdirect, Value Research, Bajaj Finserv, Univest. Key figures: FY26 audited (approved 18 May 2026) — standalone net profit ₹174.66 Cr (₹17,465.55 lakh, EPS ₹37.90), consolidated net loss ₹(22.43) Cr (₹(2,243.37) lakh, EPS ₹(4.87)); standalone other income ₹157.27 Cr (interest ₹131.17 Cr + other net ₹17.48 Cr + fair-value change ₹8.62 Cr); total consolidated assets ₹3,886.59 Cr (₹3,88,658.52 lakh); final dividend ₹2/share; <b>qualified auditor opinion (Chaturvedi Sohan &amp; Co.)</b> citing NSEL-related civil suits + EOW/CBI/SFIO/ED proceedings of unquantifiable impact; ₹200 Cr (face value) invested in IL&amp;FS Transportation Network NCDs. Q4 FY26: consolidated revenue ₹133.74 Cr (record, +884% YoY / +397.92% QoQ), operating loss ₹76.35 Cr before other income, other income ₹24.31 Cr, PBT ₹33.66 Cr, standalone PAT ₹25.14 Cr / consolidated ₹22.50 Cr; extreme revenue volatility (₹9.79 Cr Sep-2024 to ₹133.74 Cr Mar-2026 — project/one-off recognition). Consolidated FY26 revenue ~₹212 Cr (+286% YoY vs ₹54.77 Cr). <b>NSEL One-Time Settlement:</b> ₹1,950 Cr to 5,682 creditors; board-approved Mar 2025; NCLT-approved Nov 2025; <b>MPID Court order 29 Jul 2026 cancelled 2018 asset attachment &amp; allowed Scheme of Arrangement</b> (further releases expected); creditors assign claims vs defaulters to 63 Moons. <b>63SATS Cybertech:</b> FY26 revenue ₹87 Cr (24x from ₹3.6 Cr FY25), 72 enterprise clients, ₹54 Cr IP-product revenue (₹40 Cr AI CyberOps), CYBX super app 18.87 lakh downloads / 2.32 lakh subscribers; Q1 FY27 order book ₹288 Cr (3.3x FY26 rev, 82% of ₹350 Cr FY27 target; ₹100 Cr executed/billed); FY27 targets ₹350 Cr revenue / ₹40 Cr EBITDA; team 144→190; CYBX Coin planned. Other: FTSPL (Singapore) to invest ₹70 Cr in Ticker Ltd (loss-making, ₹35.8 Cr FY26 loss); ₹10.08 Cr into Dubai subsidiary. Incorporated 12 Apr 1988 (as Worldwide Technologies → NODS → e.Xchange → Financial Technologies India Ltd 2001 → 63 Moons Technologies 27 May 2016); founder-promoter Jignesh Shah; MD &amp; CEO S. Rajendran; WTD &amp; CFO Devendra Agrawal. Products: ODIN, DOME, POWERARMS, FOVEA, TRADEDART, MARKETXSTREAM, CNS, DMATS. <b>DATA CAVEAT: vendor figures diverge widely — CMP ₹670.45 (Value Research, 19 Jun) / ₹702.45 (ICICIdirect, 6 Jul) / ₹732 (Business Standard, 13 Jul) / ~₹920.15 (Groww, post-court 31 Jul); market cap ₹2,815 Cr (Tickertape, 1 Jun) / ₹3,090 Cr (Value Research, 19 Jun) / ₹3,236 Cr (ICICIdirect, 6 Jul) / ₹4,293 Cr (Screener, post-rally); book value ~₹758.24/share; P/B ~0.87–0.96x; TTM P/E negative (consolidated losses); 52-wk ₹467–1,130; face value ₹2; ~4.6 Cr shares; all-time high ₹3,048 (Jun 2007). This report anchors CMP ~₹730–920 given post-court volatility. ALL FIGURES APPROXIMATE — verify against NSE/BSE live quotes and filed results.</b> Univest 12-mo range ₹869–963 (pre-rally, trailing-growth model, not a formal estimate). Normalised/SOTP estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts, company guidance, or a settlement-cost prediction. <b>Educational document, not investment advice — and an unusually high-risk, litigation-dependent special situation.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: 63 Moons Technologies Limited (formerly Financial Technologies India Ltd / FTIL)
+Ticker: NSE: 63MOONS / BSE: 526881
+Sector: Capital-Markets & Exchange Technology / Software (special situation)
+Report Date: August 2, 2026 (FY26 results May; MPID Court NSEL order Jul 29)
+File: 63_moons_technologies_equity_research.html
+CMP at Report: ~₹730-920 (VOLATILE/vendor-divergent ₹670 Jun to ~₹920 post-court Jul 31; VERIFY vs NSE/BSE)
+Market Cap: ~₹3,300 Cr (diverges ₹2,815-4,293 Cr); face value ₹2; ~4.6 Cr shares; Book Value ~₹758/sh; P/B ~0.9x (BELOW BOOK)
+*** SPECIAL SITUATION - deep-value + optionality; NOT an earnings-multiple stock ***
+KEY CATALYST: NSEL overhang LIFTING - ₹1,950 Cr One-Time Settlement (5,682 creditors), board Mar 2025, NCLT Nov 2025, MPID Court 29 Jul 2026 CANCELLED 2018 asset attachment & cleared Scheme of Arrangement (further releases expected). Stock +34% in 6 days on it. Creditors assign claims vs defaulters to 63 Moons in return.
+EARNINGS ARE MISLEADING: FY26 consolidated net LOSS ₹(22.43) Cr (EPS ₹(4.87)) vs standalone PROFIT ₹174.66 Cr (EPS ₹37.90) - standalone profit is OTHER INCOME (interest ₹131 Cr + FV gains ₹157 Cr total), NOT operations. Core ops LOSE money (Q4 FY26 ₹76 Cr operating loss before other income). Revenue wildly lumpy (₹9.8 Cr to ₹133 Cr quarterly). Auditor QUALIFIED OPINION (NSEL litigation). Trailing P/E negative/meaningless.
+CROWN JEWEL: 63SATS Cybertech subsidiary - FY26 rev ₹87 Cr (24x from ₹3.6 Cr), 72 enterprise clients, CYBX AI CyberOps super app (18.87 lakh downloads), Q1 FY27 order book ₹288 Cr (3.3x FY26 rev, 82% of ₹350 Cr FY27 target), FY27 target ₹350 Cr rev/₹40 Cr EBITDA - the GROWTH CALL OPTION
+Business: ex-FTIL, exchange-tech (ODIN broker platform, DOME engine, POWERARMS); once backbone of MCX/NSEL/MCX-SX; 2013 NSEL ₹5,600 Cr crisis dismantled empire; renamed 63 Moons 2016
+Balance sheet: ~₹3,887 Cr total assets, ~nil debt, ₹131 Cr interest income (treasury = real profit engine)
+Ownership/governance: founder-promoter Jignesh Shah (controversial, ongoing EOW/CBI/SFIO/ED cases); MD&CEO S. Rajendran; SEVERE legal/promoter/key-man risk is CENTRAL
+KEY RISKS: NSEL settlement net cost uncertain (₹1,950 Cr claim on treasury, recoveries speculative), promoter/legal risk, loss-making lumpy core ops, 63SATS execution/funding, value-trap risk, related-party capital deployment (Ticker Ltd loss-making), event-driven volatility
+Bull Case: ₹1,150-1,500
+Base Case: ₹730-950
+Bear Case: ₹450-600
+Primary Valuation Metric: SOTP / NAV-after-settlement (PRIMARY) + P/B vs quality of book (CO-PRIMARY); NSEL resolution = RE-RATING FACTOR; 63SATS value = UPSIDE OPTION; treasury/interest income OPERATING INDICATOR; trailing/fwd P/E & consolidated EPS = AVOID (negative/meaningless). Value = treasury + 63SATS + core-tech + assigned claim-recoveries − ₹1,950 Cr settlement vs mcap
+Investment Type: high-risk/high-reward special-situation deep-value-plus-optionality at an inflection; below-book cash-rich debt-free + clearing legal catalyst + cybersecurity growth call, BUT severe litigation/promoter risk + loss-making ops + treasury has settlement first-claim; underwrite litigation outcomes, size accordingly; value on SOTP/NAV & P/B never earnings
+NOTE: July 2026 MPID Court breakthrough is a genuine positive inflection; net settlement economics still to be proven
+-->
