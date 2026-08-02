@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equity Research Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg:          #07101F;
+  --surface:     #0D1B2E;
+  --surface-hov: #132336;
+  --border:      #1A2D42;
+  --border-hov:  #254060;
+  --gold:        #E8B84B;
+  --gold-dim:    #9A7820;
+  --text-1:      #D8E4F0;
+  --text-2:      #7A9AB8;
+  --text-3:      #3D5870;
+}
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, #1E3050 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+header {
+  padding: 52px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.1;
+}
+h1 em { color: var(--gold); font-style: normal; }
+.big-count { text-align: right; }
+.big-count .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+}
+.big-count .lbl { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+.controls { padding: 28px 0 20px; }
+.search-wrap { position: relative; margin-bottom: 18px; }
+.search-wrap svg.ico {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+#search {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 110px 14px 44px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color 0.2s;
+}
+#search::placeholder { color: var(--text-3); }
+#search:focus { border-color: var(--gold-dim); }
+.search-meta {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-3);
+  pointer-events: none;
+}
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pill:hover { border-color: var(--border-hov); color: var(--text-1); }
+.pill.active { background: var(--gold); border-color: var(--gold); color: #07101F; font-weight: 600; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 14px;
+  padding: 8px 0 64px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.18s, border-color 0.18s, transform 0.18s;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--sc, var(--gold));
+  border-radius: 12px 0 0 12px;
+}
+.card:hover { background: var(--surface-hov); border-color: var(--border-hov); transform: translateY(-2px); }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.card-name { font-size: 15px; font-weight: 600; color: var(--text-1); line-height: 1.3; }
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: var(--sc-bg, rgba(232,184,75,0.10));
+  color: var(--sc, var(--gold));
+  border: 1px solid var(--sc-bdr, rgba(232,184,75,0.25));
+}
+.card-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; flex: 1; }
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.ticker { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-3); letter-spacing: 0.04em; }
+.open-lnk { font-size: 12px; font-weight: 500; color: var(--gold); display: flex; align-items: center; gap: 3px; }
+.open-lnk svg { width: 11px; height: 11px; }
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 24px;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+.state svg { color: var(--text-3); margin-bottom: 14px; opacity: 0.5; }
+.state p { font-size: 14px; color: var(--text-3); }
+.spinner {
+  width: 28px; height: 28px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 14px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  text-align: center;
+}
+@media (max-width: 600px) {
+  header { padding: 32px 0 24px; }
+  .big-count { display: none; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-row">
+      <div>
+        <div class="eyebrow">India Listed / SME &nbsp;·&nbsp; Equity Research</div>
+        <h1>Research <em>Library</em></h1>
+      </div>
+      <div class="big-count">
+        <span class="num" id="total">—</span>
+        <div class="lbl">Reports Published</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <svg class="ico" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 15.803a7.5 7.5 0 0 0 10.607 0Z"/>
+      </svg>
+      <input type="text" id="search" placeholder="Search company, sector, or keyword…">
+      <span class="search-meta" id="meta"></span>
+    </div>
+    <div class="pills" id="pills"></div>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="state" id="loading">
+      <div class="spinner"></div>
+      <p>Loading reports…</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">Equity Research Library &nbsp;·&nbsp; For internal use only</div>
+</footer>
+
+<script>
+const SC = {
+  "AI / Cloud":           ["#A78BFA","rgba(167,139,250,0.10)","rgba(167,139,250,0.25)"],
+  "Capital Goods":        ["#38BDF8","rgba(56,189,248,0.10)","rgba(56,189,248,0.25)"],
+  "Specialty Chemicals":  ["#34D399","rgba(52,211,153,0.10)","rgba(52,211,153,0.25)"],
+  "Auto-ancillary":       ["#F87171","rgba(248,113,113,0.10)","rgba(248,113,113,0.25)"],
+  "Flexible Packaging":   ["#FBBF24","rgba(251,191,36,0.10)","rgba(251,191,36,0.25)"],
+  "Building Materials":   ["#FB923C","rgba(251,146,60,0.10)","rgba(251,146,60,0.25)"],
+  "EMS / Aerospace":      ["#60A5FA","rgba(96,165,250,0.10)","rgba(96,165,250,0.25)"],
+  "Rubber / Recycled":    ["#2DD4BF","rgba(45,212,191,0.10)","rgba(45,212,191,0.25)"],
+  "Decorative Laminates": ["#F472B6","rgba(244,114,182,0.10)","rgba(244,114,182,0.25)"],
+  "White Oils":           ["#818CF8","rgba(129,140,248,0.10)","rgba(129,140,248,0.25)"],
+  "Engineering / EPC":    ["#FB7185","rgba(251,113,133,0.10)","rgba(251,113,133,0.25)"],
+  "Specialty Metals":     ["#A3E635","rgba(163,230,53,0.10)","rgba(163,230,53,0.25)"],
+};
+const FALLBACK = ["#E8B84B","rgba(232,184,75,0.10)","rgba(232,184,75,0.25)"];
+
+const grid  = document.getElementById('grid');
+const inp   = document.getElementById('search');
+const pills = document.getElementById('pills');
+const meta  = document.getElementById('meta');
+
+let reports = [];
+let active  = 'All';
+
+// ── Load reports.json ────────────────────────────────────────
+fetch('reports.json?v=' + Date.now())
+  .then(r => {
+    if (!r.ok) throw new Error('Could not load reports.json');
+    return r.json();
+  })
+  .then(data => {
+    reports = data;
+    document.getElementById('total').textContent = reports.length;
+    document.getElementById('loading').remove();
+    buildPills();
+    render();
+  })
+  .catch(() => {
+    document.getElementById('loading').innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>
+      </svg>
+      <p>Could not load reports.json — make sure it is in the same folder as index.html.</p>`;
+  });
+
+// ── Build sector filter pills ─────────────────────────────────
+function buildPills() {
+  const sectors = ['All', ...new Set(reports.map(r => r.sector).sort())];
+  sectors.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'pill' + (s === 'All' ? ' active' : '');
+    btn.textContent = s;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      active = s;
+      render();
+    });
+    pills.appendChild(btn);
+  });
+}
+
+// ── Render cards ──────────────────────────────────────────────
+function render() {
+  const q = inp.value.toLowerCase().trim();
+
+  const filtered = reports.filter(r => {
+    const okSector = active === 'All' || r.sector === active;
+    const okSearch = !q ||
+      r.name.toLowerCase().includes(q) ||
+      r.sector.toLowerCase().includes(q) ||
+      (r.desc || '').toLowerCase().includes(q) ||
+      (r.ticker || '').toLowerCase().includes(q);
+    return okSector && okSearch;
+  });
+
+  document.querySelectorAll('.card, .state').forEach(c => c.remove());
+
+  if (filtered.length === 0) {
+    const el = document.createElement('div');
+    el.className = 'state';
+    el.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+      </svg>
+      <p>No reports match your search.</p>`;
+    grid.appendChild(el);
+    meta.textContent = `0 / ${reports.length}`;
+    return;
+  }
+
+  filtered.forEach(r => {
+    const [col, bg, bdr] = SC[r.sector] || FALLBACK;
+    const card = document.createElement('a');
+    card.href = r.file;
+    card.className = 'card';
+    card.style.cssText = `--sc:${col};--sc-bg:${bg};--sc-bdr:${bdr}`;
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-name">${r.name}</div>
+        <span class="badge">${r.sector}</span>
+      </div>
+      <div class="card-desc">${r.desc || ''}</div>
+      <div class="card-foot">
+        <span class="ticker">${r.ticker ? 'NSE: ' + r.ticker : ''}</span>
+        <span class="open-lnk">Open Report
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+          </svg>
+        </span>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  meta.textContent = (q || active !== 'All') ? `${filtered.length} / ${reports.length}` : '';
+}
+
+inp.addEventListener('input', render);
+</script>
+</body>
+</html>
