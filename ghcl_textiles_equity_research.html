@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHCL Textiles — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo:#161B33; --indigo-2:#232A४F; --indigo-2:#232A4F; --indigo-3:#333D६C; --indigo-3:#333D6C;
+    --thread:#3E6FB0; --thread-dk:#2C5088; --thread-lt:#6B99D4; --thread-gl:rgba(62,111,176,.11);
+    --tencel:#2C9B8F; --tencel-dk:#1C7469; --tencel-lt:#5AC2B4; --tencel-gl:rgba(44,155,143,.11);
+    --saffron:#D98A2B; --saffron-dk:#B06C15; --saffron-gl:rgba(217,138,43,.13);
+    --rose:#C1567B; --rose-gl:rgba(193,86,123,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#CE4B44;
+    --ink-1:#14172B; --ink-2:#3D4257; --ink-3:#6A6F84;
+    --line:#E5E7EF; --line-2:#F0F1F6; --paper:#FCFCFE; --paper-2:#F5F6FA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Instrument Sans',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(22,27,51,.12)}
+  h1,h2,h3,h4{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.13}
+  .mono{font-family:'Spline Sans Mono',monospace}
+
+  /* HERO — thread / spindle weave motif */
+  .hero{position:relative;background:linear-gradient(150deg,#161B33 0%,#232A4F 52%,#333D6C 128%);color:#ECEEF6;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:450px;height:450px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(107,153,212,.30),rgba(90,194,180,.15) 55%,transparent 72%);filter:blur(5px)}
+  .weave{position:absolute;right:74px;top:48px;width:180px;height:180px;z-index:2;opacity:.5}
+  .weave svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.th{background:rgba(62,111,176,.26);border-color:rgba(107,153,212,.5);color:#B4CDEC}
+  .tag.te{background:rgba(44,155,143,.24);border-color:rgba(90,194,180,.5);color:#A2E2D8}
+  .hero h1{font-size:43px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .sub{font-size:16.5px;color:#BFC5DA;margin-bottom:24px;font-weight:400;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:116px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#9098B4;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Sora',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE098}.down{color:#F2A0A8}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--indigo);color:#9098B4;
+    padding:11px 48px;font-family:'Spline Sans Mono',monospace;font-size:11px}
+  .metabar b{color:#E6E9F4;font-weight:500}
+  .metabar .dot{color:var(--thread-lt)}
+
+  .alert{background:var(--saffron-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--saffron-dk);font-family:'Spline Sans Mono',monospace}
+  .alert b{color:var(--indigo)}
+  .alert.q1{background:var(--tencel-gl);color:var(--tencel-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;color:var(--thread-dk);
+    border:1.5px solid var(--thread);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--indigo)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--thread);background:var(--thread-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.te{border-color:var(--tencel);background:var(--tencel-gl)}
+  .call.sa{border-color:var(--saffron);background:var(--saffron-gl)}
+  .call.ro{border-color:var(--rose);background:var(--rose-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,75,68,.08)}
+  .call .lab{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--thread-dk);margin-bottom:5px}
+  .call.te .lab{color:var(--tencel-dk)}.call.sa .lab{color:var(--saffron-dk)}.call.ro .lab{color:#A03E5A}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--indigo-2);color:#E6E9F4;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Spline Sans Mono',monospace}
+  .tr-hi td{background:var(--thread-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--indigo);letter-spacing:-.02em;font-family:'Sora',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.t{border-top:3px solid var(--thread)}.card.e{border-top:3px solid var(--tencel)}
+  .card.s{border-top:3px solid var(--saffron)}.card.r{border-top:3px solid var(--rose)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--thread);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--indigo);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--thread-gl);border-color:var(--thread)}
+  .vnode.own .vt{color:var(--thread-dk)}
+  .vnode.new{background:var(--tencel-gl);border-color:var(--tencel)}
+  .vnode.new .vt{color:var(--tencel-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:150px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Spline Sans Mono',monospace;font-weight:500}
+  .bar-val{width:120px;text-align:right;font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.weave{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,75,68,.06);border-color:rgba(206,75,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Sora',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--indigo);color:#E8EBF5;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(62,111,176,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Sora',sans-serif}
+  .bm .bm-sub{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--thread-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C8CEE2}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C4CADE}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--thread);color:#fff}.v-co{background:var(--tencel-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#4A5488;color:#DCE2F4}
+  .v-avoid{background:#7A2E28;color:#F6C9BF}.v-cross{background:#2A3358;color:#CAD2EC}
+  .bm .onenum{background:rgba(44,155,143,.16);border:1px solid rgba(90,194,180,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#BEE6DD;position:relative}
+  .bm .onenum b{color:#8FE0D0}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Spline Sans Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--indigo)}
+  .stars{color:var(--saffron);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--saffron-dk)}.rl{background:var(--tencel-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--thread),var(--tencel))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--thread);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--thread)}
+  .tli .ty{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:12.5px;color:var(--thread-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Spline Sans Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--indigo);font-family:'Sora',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,75,68,.14);color:var(--red)}
+  .b-neut{background:rgba(217,138,43,.2);color:var(--saffron-dk)}
+
+  .foot{background:var(--indigo);color:#8992AE;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C4CADE}
+  .disc{font-size:10.5px;color:#6A6F84;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="weave">
+    <svg viewBox="0 0 180 180" fill="none">
+      <g stroke="#6B99D4" stroke-width="2" opacity="0.55">
+        <line x1="30" y1="20" x2="30" y2="160"/><line x1="60" y1="20" x2="60" y2="160"/>
+        <line x1="90" y1="20" x2="90" y2="160"/><line x1="120" y1="20" x2="120" y2="160"/><line x1="150" y1="20" x2="150" y2="160"/>
+      </g>
+      <g stroke="#5AC2B4" stroke-width="2.5" opacity="0.6">
+        <path d="M20 50 Q45 38 75 50 T135 50 T165 50" fill="none"/>
+        <path d="M20 90 Q45 78 75 90 T135 90 T165 90" fill="none"/>
+        <path d="M20 130 Q45 118 75 130 T135 130 T165 130" fill="none"/>
+      </g>
+      <circle cx="90" cy="90" r="6" fill="#D98A2B" opacity="0.8"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: GHCLTEXTIL</span>
+      <span class="tag">BSE: 543918</span>
+      <span class="tag th">Cotton · Blends · Specialty Yarns</span>
+      <span class="tag te">Demerged from GHCL · Apr 2023</span>
+    </div>
+    <h1>GHCL Textiles</h1>
+    <div class="sub">A modern, low-debt, green-powered <b>Tamil Nadu yarn spinner</b> mid-way through a deliberate shift from <b>commodity spinning to value-added vertical integration</b> — chasing a ₹2,000 Cr revenue and 15–18% EBITDA-margin ambition. Strong FY26 momentum, clean balance sheet, but a structurally low ROE to fix.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (30 Jul)</div><div class="v">~₹117</div><div class="d up">+27% 1yr</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹1,100 Cr</div><div class="d">micro/small-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">₹1,318.6 Cr</div><div class="d up">+13.6%</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹70.4 Cr</div><div class="d up">+25.7%</div></div>
+      <div class="qs"><div class="k">ROE (3yr)</div><div class="v">~3.4%</div><div class="d down">key weakness</div></div>
+      <div class="qs"><div class="k">P/E</div><div class="v">~13–16x</div><div class="d">reasonable</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>CEO:</b> Marshal Sonavane</span>
+  <span class="dot">◆</span>
+  <span><b>CFO:</b> Parasuraman M</span>
+  <span class="dot">◆</span>
+  <span><b>Parent:</b> GHCL Ltd (Dalmia group)</span>
+  <span class="dot">◆</span>
+  <span><b>Plants:</b> Madurai &amp; Tiruchirapalli (TN)</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 30 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  🔔 <b>Q1 FY27 RESULTS TODAY (30 Jul 2026):</b> Board meets today to approve Q1 FY27 results + ESOP Scheme 2026; earnings call at 4:00 PM IST (CEO Marshal Sonavane, CFO Parasuraman M). This report is built on FY26 / Q4 FY26 data — the Q1 print lands after publication; check it against the trajectory below.
+</div>
+<div class="alert">
+  ⚠ <b>DATA NOTE:</b> Prices/ratios vary by vendor and by date (CMP ₹110–120, m-cap ₹1,020–1,143 Cr, P/E ~12.75–16x across Jul 2026; note SimplyWall.st shows a stale ₹74.79). Face value ₹10; ~9.5 Cr shares. Standalone vs consolidated figures differ slightly. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>GHCL Textiles Ltd</strong> is a Tamil Nadu-based manufacturer and exporter of <strong>cotton, blended and synthetic yarns</strong> — plus a growing range of specialty yarns (GIZA, SUPIMA, Tencel, Viscose, rPET) and, increasingly, <strong>knitted and woven fabric</strong>. It was <strong>carved out of GHCL Ltd's Spinning Division through a demerger effective 1 April 2023</strong> and separately listed, inheriting modern spinning assets, a clean balance sheet, and a sizeable captive green-energy portfolio.</p>
+  <p>The investment story is a <strong>transition story</strong>. GHCL Textiles today is largely a <strong>commodity spinner</strong> — a business with inherently thin margins and, currently, a <strong>low return on equity (~3.4% over three years)</strong>. But it is deliberately moving up the value chain: it commissioned <strong>25,000 new spindles and 15 knitting machines in FY26</strong>, is entering fabric, and has set a public ambition of <strong>₹2,000 Cr revenue by FY29–30 with 15–18% EBITDA margins</strong> via vertical integration. FY26 showed the early payoff — revenue +14%, PAT +26%, margins at multi-quarter highs — while the balance sheet stayed clean and green-powered.</p>
+  <div class="cards">
+    <div class="card t"><div class="k">FY26 Revenue</div><div class="v">₹1,318.6 Cr</div><div class="d up">+13.56%</div></div>
+    <div class="card e"><div class="k">FY26 PAT</div><div class="v">₹70.37 Cr</div><div class="d up">+25.73%</div></div>
+    <div class="card s"><div class="k">FY26 EBITDA</div><div class="v">+34% YoY</div><div class="d">margin expanding</div></div>
+    <div class="card r"><div class="k">Green energy</div><div class="v">65 MW</div><div class="d">wind + solar</div></div>
+  </div>
+  <div class="call te">
+    <div class="lab">The investment character in one line</div>
+    GHCL Textiles is a <strong>cyclical commodity spinner attempting a self-help transformation into a higher-margin integrated textile player</strong>, trading at a reasonable ~13–16x earnings (unlike many richly-priced small-caps). The bull case is the <strong>integration + margin expansion + ₹2,000 Cr revenue journey lifting a currently-poor ROE</strong>; the bear case is that spinning is a tough, cyclical, low-return business and the transformation is unproven. This is an <strong>execution-and-cycle bet at a fair price</strong>, not a quality-compounder at a premium.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2020 · Incorporated</div><div class="td">GHCL Textiles Ltd incorporated 17 June 2020 as a 100% subsidiary of GHCL Ltd (the Dalmia-group soda-ash-and-textiles company), to house the yarn business.</div></div>
+    <div class="tli"><div class="ty">April 2023 · Demerger &amp; listing</div><div class="td">GHCL Ltd's <strong>Spinning Division was demerged into GHCL Textiles</strong> as a going concern (Scheme of Arrangement, effective 1 April 2023) and the company was separately listed — giving shareholders a pure-play yarn business distinct from the parent's soda-ash chemicals franchise.</div></div>
+    <div class="tli"><div class="ty">FY24–FY25 · Standalone footing</div><div class="td">Operated as an independent listed spinner with plants in Tamil Nadu; built out specialty-yarn capability and green energy; FY25 revenue ₹1,161 Cr, PAT ₹56 Cr.</div></div>
+    <div class="tli"><div class="ty">FY26 · Capacity + integration push</div><div class="td">Commissioned <strong>25,000 new spindles, 15 knitting machines and 3 MW additional green energy</strong> — the first concrete steps into vertical integration (fabric). Revenue +14% to ₹1,319 Cr, PAT +26% to ₹70.4 Cr, EBITDA +34%, Q4 margins at multi-quarter highs.</div></div>
+    <div class="tli"><div class="ty">FY27 (current) · Q1 reported today</div><div class="td">Board meets 30 Jul 2026 for Q1 FY27 results + ESOP Scheme 2026; FY27 capex planned on solar + knitting; CARE rating reaffirmed CARE A (Stable)/A1. Pursuing the ₹2,000 Cr FY29–30 revenue ambition.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Value Chain</h2></div>
+  <p>GHCL Textiles converts <strong>cotton and man-made fibre into yarn</strong> (and now, increasingly, into fabric) — a <strong>spinning business</strong> whose economics depend on the spread between fibre input costs and yarn realisations, on capacity utilisation, and on power costs (a major spinning expense, which its 65 MW of captive green energy directly attacks). The strategic shift is toward capturing <strong>more of the textile value chain</strong> — knitting/fabric and specialty products — where margins are structurally higher than commodity yarn.</p>
+  <div class="vchain">
+    <div class="vnode"><div class="vt">Cotton / MMF</div><div class="vd">Cotton, viscose, polyester, specialty fibre</div></div>
+    <div class="vnode own"><div class="vt">Spinning</div><div class="vd">2.25 lakh ring spindles + rotors/TFO/airjet</div></div>
+    <div class="vnode own"><div class="vt">Specialty yarns</div><div class="vd">GIZA, SUPIMA, Tencel, rPET — value-add</div></div>
+    <div class="vnode new"><div class="vt">Knitting / fabric</div><div class="vd">15 machines added FY26 — NEW leg</div></div>
+    <div class="vnode"><div class="vt">Domestic + export</div><div class="vd">US, EU, others; branded mills/garment</div></div>
+  </div>
+  <div class="call sa">
+    <div class="lab">Two structural edges inside a tough industry</div>
+    Spinning is a <strong>commodity, cyclical, capital-intensive business</strong> — but GHCL Textiles has two genuine advantages. <strong>(1) 65 MW of captive wind+solar green energy</strong> in Tamil Nadu directly lowers power cost (spinning's biggest controllable expense) and supports ESG-conscious export customers. <strong>(2) A modern, well-capitalised asset base</strong> (recently expanded, low legacy baggage from a clean demerger) plus a growing <strong>specialty-yarn mix</strong> that earns better margins than plain cotton yarn. Vertical integration into fabric is the third leg being built. These are what the company is betting can lift it above commodity-spinning economics.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The Vertical-Integration Strategy</h2></div>
+  <p>The central strategic thesis: <strong>move from pure spinning toward an integrated yarn-to-fabric player</strong>, lifting margins and returns. Management has set concrete targets:</p>
+  <table>
+    <tr><th>Ambition</th><th>Detail</th><th class="mono">Current vs target</th></tr>
+    <tr class="tr-hi"><td><strong>Revenue ₹2,000 Cr</strong></td><td>By FY29–FY30, via integration + capacity</td><td class="mono">₹1,319 Cr → ₹2,000 Cr</td></tr>
+    <tr><td><strong>EBITDA margin 15–18%</strong></td><td>Through value-added mix &amp; integration</td><td class="mono">~13.9% Q4 → 15–18%</td></tr>
+    <tr><td><strong>Knitting / fabric</strong></td><td>15 machines added FY26; more planned</td><td class="mono">New segment ramping</td></tr>
+    <tr><td><strong>Specialty yarns</strong></td><td>GIZA, SUPIMA, Tencel, rPET</td><td class="mono">Growing share</td></tr>
+    <tr><td><strong>Green energy</strong></td><td>65 MW; +3 MW FY26; more solar FY27</td><td class="mono">Cost + ESG edge</td></tr>
+  </table>
+  <div class="call te">
+    <div class="lab">Why integration is the whole re-rating case</div>
+    A pure commodity spinner earns thin, cyclical margins and a low ROE — which is exactly GHCL Textiles' current profile. <strong>The entire investment case is that vertical integration (fabric) + a richer specialty mix + cheap captive green power can structurally lift EBITDA margins from ~11–14% toward 15–18% and drag ROE up from the low-single-digits</strong>. If it works, the same equity earns far more, and both earnings and the multiple can re-rate. If it stalls, GHCL Textiles remains a low-return spinner at the mercy of the cotton-yarn cycle. Everything hinges on execution of this transition — track EBITDA margin and ROE above all.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>FY26 &amp; Quarterly Trajectory, Dissected</h2></div>
+  <table>
+    <tr><th>Quarter FY26 (₹ Cr)</th><th class="mono">Q1</th><th class="mono">Q2</th><th class="mono">Q3</th><th class="mono">Q4</th></tr>
+    <tr><td>Revenue</td><td class="mono">267.8</td><td class="mono">338.0</td><td class="mono">349.1</td><td class="mono">363.7</td></tr>
+    <tr><td>Net profit</td><td class="mono">~13.5</td><td class="mono">16.0</td><td class="mono">13.2</td><td class="mono">27.7</td></tr>
+    <tr><td>OPM %</td><td class="mono">~8–9</td><td class="mono">8.9</td><td class="mono">9.1</td><td class="mono">11.3</td></tr>
+  </table>
+  <ul class="tight">
+    <li><strong>Revenue built steadily through the year</strong> — Q1 ₹268 Cr → Q4 ₹364 Cr (highest-ever quarterly), helped by the new spindle capacity coming online.</li>
+    <li><strong>Q4 was the standout:</strong> revenue +28% YoY, <strong>net profit +95% YoY to ₹27.66 Cr</strong>, OPM 11.33% and EBITDA margin ~13.9% — the highest in the company's short operating history.</li>
+    <li><strong>Full-year:</strong> revenue +13.6% to ₹1,318.6 Cr, PAT +25.7% to ₹70.37 Cr, EBITDA +34%, EPS ₹7.36 (from ₹5.86).</li>
+  </ul>
+  <div class="call te">
+    <div class="lab">A genuinely strong year — with the margin trend the real story</div>
+    The encouraging signal is <strong>margin expansion, not just revenue growth</strong>: EBITDA rising 34% on 14% revenue growth shows operating leverage and mix improvement working, and the Q4 exit margin (~13.9%) is the highest yet — evidence the integration/specialty strategy is starting to bite. <strong>But two cautions:</strong> (1) a single strong Q4 isn't proof of a durable 15–18% margin — spinning margins are cyclical and cotton-price-driven; and (2) a <strong>43% jump in Q4 receivables</strong> and 120-day inventory bear watching for working-capital/payment-discipline stress. Good year, promising trend, needs sustaining.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Player</th><th>Scale / type</th><th>Position vs GHCL Textiles</th></tr>
+    <tr class="tr-hi"><td><strong>GHCL Textiles</strong></td><td>~₹1,300 Cr, spinner integrating</td><td>Small; modern assets; green-powered</td></tr>
+    <tr><td><strong>Vardhman Textiles</strong></td><td>Large integrated yarn+fabric</td><td>Far bigger, fully integrated, diversified</td></tr>
+    <tr><td><strong>Trident Ltd</strong></td><td>Large integrated (yarn, towels, paper)</td><td>Much larger scale &amp; downstream</td></tr>
+    <tr><td><strong>Bannari Amman, Suryalakshmi, Lambodhara, Manomay</strong></td><td>Small/mid spinners</td><td>Direct small-cap peers</td></tr>
+    <tr><td><strong>Global (China, Vietnam, Bangladesh)</strong></td><td>Export competition</td><td>Cost/scale rivals in export markets</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">A small fish integrating in a big, cyclical pond</div>
+    GHCL Textiles competes against <strong>far larger, already-integrated players like Vardhman and Trident</strong> that have the scale, downstream reach and balance sheets it is only now trying to build. In commodity yarn it's a price-taker exposed to <strong>cotton-price cycles, global demand (US/EU export pull, China demand tapering) and international cost competition</strong>. Its differentiation — green energy, specialty mix, modern assets, and the integration push — is real but modest against the giants. The opportunity is that it's <strong>small enough to grow fast off a low base</strong> if the integration strategy lands; the risk is it stays a sub-scale commodity spinner.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Fragmented spinning industry; large integrated players + many small mills; commodity yarn competes on price.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>Yarn buyers (fabric mills, garment makers) are price-sensitive; commodity product limits pricing power. Integration into fabric partly addresses this.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate-High</td><td>Cotton is a volatile, weather/policy-driven commodity; MMF tied to crude. Input-cost swings hit margins with lags.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Capital-intensive (deters small entry) but no strong brand/tech moat; capacity can be added by well-funded players.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate</td><td>Fibre substitution (cotton vs MMF vs specialty) shifts with price/fashion; specialty yarns give some defensibility.</td></tr>
+  </table>
+  <p>Net: a <strong>classic commodity-industry force map</strong> — high rivalry, powerful buyers, volatile inputs. GHCL Textiles' green energy, specialty mix and integration are attempts to earn some pricing power and cost advantage in an otherwise price-taking business. The forces explain <em>why</em> ROE is structurally low and why the integration strategy matters so much.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Low-ROE Problem, Dissected</h2></div>
+  <div class="cards">
+    <div class="card r"><div class="k">ROE (3-yr avg)</div><div class="v">~3.4%</div><div class="d down">very low</div></div>
+    <div class="card r"><div class="k">ROE (Q2 FY26)</div><div class="v">~4.0%</div><div class="d down">weak</div></div>
+    <div class="card t"><div class="k">FY26 EPS</div><div class="v">₹7.36</div><div class="d up">from ₹5.86</div></div>
+    <div class="card e"><div class="k">Total assets</div><div class="v">₹1,870 Cr</div><div class="d">asset-heavy</div></div>
+  </div>
+  <p>The single biggest fundamental weakness — and the crux of the whole thesis — is <strong>return on equity</strong>. GHCL Textiles has averaged a <strong>~3.4% ROE over three years</strong> (and ~4% in recent quarters), far below what a quality business earns. This is the mathematical signature of a <strong>commodity spinner: an asset-heavy (₹1,870 Cr assets), thin-margin business that generates modest profit on a large capital base.</strong></p>
+  <div class="call ro">
+    <div class="lab">Why low ROE is both the problem and the opportunity</div>
+    A ~3.4% ROE means GHCL Textiles is currently a <strong>poor converter of shareholder capital into profit</strong> — which is precisely why the stock trades at a modest multiple and why it can't be called a quality compounder today. <strong>But it's also the upside lever:</strong> ROE this low has enormous room to improve <em>if</em> the integration/margin strategy works. Rising EBITDA margins (toward 15–18%), better asset utilisation from the new capacity, and a richer product mix would each lift ROE. <strong>The entire re-rating case can be summarised as: "does ROE climb from ~4% toward double-digits?"</strong> That single trajectory — visible in improving margins and asset turns — is the number to watch every quarter. FY26's PAT +26% and margin expansion are the first hints it might.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Costs, Cotton &amp; Green Energy</h2></div>
+  <p>Spinning economics turn on three levers: <strong>fibre cost</strong> (cotton/MMF — volatile), <strong>power cost</strong> (a huge spinning expense), and <strong>capacity utilisation</strong>. GHCL Textiles' <strong>65 MW captive green-energy portfolio</strong> is its most distinctive cost weapon, directly reducing power expense and insulating margins from grid-tariff and fuel volatility.</p>
+  <div class="call sa">
+    <div class="lab">Green energy = a structural margin edge (and an ESG selling point)</div>
+    Power can be 10–15% of a spinner's cost. By self-generating <strong>65 MW of wind+solar</strong> (with more solar planned in FY27 capex), GHCL Textiles <strong>structurally lowers its power bill versus grid-dependent peers and hedges energy-price volatility</strong> — a genuine, durable cost advantage in a thin-margin business. It also strengthens the pitch to ESG-conscious export customers in the US/EU. Combined with a richer specialty-yarn mix, this is a real (if modest) margin differentiator. The offset: <strong>cotton-price volatility</strong> remains the dominant swing factor and is outside the company's control — a sharp cotton spike can overwhelm the energy saving in any given quarter.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Ownership &amp; Guidance</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Promoter holding</div><div class="v">19.2%</div><div class="d down">low (demerger legacy)</div></div>
+    <div class="card e"><div class="k">FII</div><div class="v">13.4%</div><div class="d">institutional interest</div></div>
+    <div class="card s"><div class="k">DII</div><div class="v">5.0%</div><div class="d">—</div></div>
+    <div class="card r"><div class="k">Public</div><div class="v">62.4%</div><div class="d">high free float</div></div>
+  </div>
+  <p>GHCL Textiles is led by <strong>CEO Marshal Sonavane and CFO Parasuraman M</strong>, under the ultimate umbrella of the <strong>GHCL/Dalmia promoter group</strong>. Notably, <strong>promoter holding is low at 19.2%</strong> — a legacy of the demerger (promoter stake mirrors the modest holding in the parent) — with a high public float (62.4%) and meaningful FII interest (13.4%).</p>
+  <div class="call ro">
+    <div class="lab">The low promoter stake — read it carefully</div>
+    A <strong>19.2% promoter holding is on the low side</strong> and cuts two ways. <strong>Positive:</strong> high free float and notable FII participation mean good liquidity and institutional scrutiny; the Dalmia-group lineage lends credibility and capital-markets access. <strong>Caution:</strong> lower promoter skin-in-the-game reduces alignment and, in theory, raises openness to strategic/control shifts. For a company executing a multi-year transformation, investors should want to see the promoter committed and capital allocation disciplined. Management's guidance is specific and encouraging — <strong>₹2,000 Cr revenue by FY29–30, 15–18% EBITDA margins, FY27 capex on solar + knitting</strong> — but it is an ambition to be delivered, and spinning history counsels treating aggressive margin targets with healthy scepticism until demonstrated.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capex, Balance Sheet &amp; Rating</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Debt profile</div><div class="v">Low</div><div class="d">interest ~₹1.5 Cr/qtr</div></div>
+    <div class="card e"><div class="k">CARE rating</div><div class="v">CARE A</div><div class="d">Stable / A1</div></div>
+    <div class="card s"><div class="k">FY26 additions</div><div class="v">25k spindles</div><div class="d">+15 knit +3 MW</div></div>
+    <div class="card r"><div class="k">Q4 receivables</div><div class="v">+43%</div><div class="d down">watch WC</div></div>
+  </div>
+  <p>GHCL Textiles carries a <strong>clean, low-debt balance sheet</strong> — quarterly interest cost of just ~₹1.5 Cr against ~₹1,870 Cr of assets — reaffirmed by <strong>CARE Ratings at CARE A (Stable) / A1</strong> in July 2026 (₹550 Cr facilities; the overall facility size was trimmed from ₹500→₹450 Cr on the long-term/short-term line). FY26 capex funded 25,000 new spindles, 15 knitting machines and 3 MW of green energy; <strong>FY27 capex targets solar + more knitting</strong> — the integration build-out.</p>
+  <div class="call red">
+    <div class="lab">Clean balance sheet is a real asset — but watch working capital</div>
+    A low-debt balance sheet is a genuine strength for a cyclical: it lets GHCL Textiles fund the integration capex without stress and survive down-cycles comfortably. <strong>The flag is working capital:</strong> Q4 FY26 receivables jumped 43% and inventory sat at 120 days — a build the company itself is monitoring for industry payment-discipline risk. Rapid receivable growth can signal channel stress or aggressive sales terms, and it consumes the cash that margin gains generate. For a small-cap in a cyclical industry, <strong>working-capital discipline and cash conversion matter as much as the reported margin</strong> — track receivable days, inventory days and operating cash flow alongside EBITDA.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Vertical integration (fabric)</strong></td><td>Knitting/fabric → higher margins</td><td class="mono">Core thesis ★★★★</td></tr>
+    <tr><td><strong>Margin expansion</strong></td><td>Toward 15–18% EBITDA via mix</td><td class="mono">ROE driver ★★★★</td></tr>
+    <tr><td><strong>Capacity ramp</strong></td><td>25k new spindles absorbing into revenue</td><td class="mono">Volume ★★★★</td></tr>
+    <tr><td><strong>Specialty yarns</strong></td><td>GIZA, SUPIMA, Tencel, rPET</td><td class="mono">Differentiation ★★★</td></tr>
+    <tr><td><strong>Green energy expansion</strong></td><td>More solar → lower power cost + ESG</td><td class="mono">Cost edge ★★★★</td></tr>
+    <tr><td><strong>Export demand (US/EU)</strong></td><td>China+1 sourcing shift to India</td><td class="mono">Cyclical ★★★</td></tr>
+    <tr><td><strong>₹2,000 Cr revenue ambition</strong></td><td>~50% growth over FY26 base by FY29–30</td><td class="mono">Aspirational ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Consolidated (₹ Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue</td><td class="mono">1,161.2</td><td class="mono">1,318.6</td><td class="mono up">+13.56%</td></tr>
+    <tr><td>Total income</td><td class="mono">1,168.1</td><td class="mono">1,334.8</td><td class="mono up">+14.27%</td></tr>
+    <tr><td>PBT</td><td class="mono">63.3</td><td class="mono">92.96</td><td class="mono up">+46.9%</td></tr>
+    <tr><td>PAT</td><td class="mono">55.97</td><td class="mono">70.37</td><td class="mono up">+25.73%</td></tr>
+    <tr><td>EPS (₹)</td><td class="mono">5.86</td><td class="mono">7.36</td><td class="mono up">+25.6%</td></tr>
+    <tr><td>Dividend</td><td class="mono">—</td><td class="mono">₹0.60</td><td class="mono">FV ₹10</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call te">
+        <div class="lab">The good</div>
+        Revenue +14%, PAT +26%, EBITDA +34%, PBT +47% — <strong>profit growing faster than revenue</strong> (operating leverage + mix). Q4 margins at record highs. Clean balance sheet, green-energy cost edge, capacity ramping, ~13–16x P/E is undemanding. A promising FY26 inflection.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The caution</div>
+        <strong>ROE just ~3.4%</strong> — the business still converts capital poorly; margins are cyclical/cotton-driven; a single record Q4 doesn't prove a durable 15–18% margin; Q4 receivables +43% and 120-day inventory flag working-capital risk; competes with much larger integrated players. The transformation is early and unproven.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹117 (m-cap ~₹1,100 Cr) on ₹70.4 Cr FY26 PAT, GHCL Textiles trades at <strong>~13–16x trailing earnings</strong> — a reasonable, un-stretched multiple, unusual among momentum small-caps. For a cyclical, asset-heavy commodity spinner in transition, the right lens is <strong>EV/EBITDA on normalised (mid-cycle) margins, cross-checked with P/B against a <em>recovering</em> ROE</strong> — with trailing P/E useful but cycle-sensitive.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value GHCL Textiles</h3>
+    <div class="bm-sub">Cyclical commodity spinner mid-transformation → EV/EBITDA on normalised margin + P/B vs ROE-trajectory; the whole question is whether ROE/margins re-rate upward</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>EV/EBITDA (forward, normalised margin)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Best lens for an asset-heavy, cyclical, capital-intensive spinner. Neutralises D&amp;A and modest debt; captures the margin-expansion thesis directly. Judge against the 15–18% EBITDA-margin ambition vs the ~13.9% Q4 reality.</td></tr>
+      <tr><td>P/B vs ROE trajectory</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>With ROE at ~3.4%, the stock deserves a low P/B <em>today</em>. The entire re-rating is whether ROE climbs — so P/B must be judged against the <em>direction</em> of ROE, not its current level. Improving ROE = justified P/B expansion.</td></tr>
+      <tr><td>EBITDA-margin &amp; ROE trend</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>The lead indicators of the whole thesis. Sustained margin expansion (past the record Q4) and rising ROE validate the integration story; flat/declining margins invalidate it.</td></tr>
+      <tr><td>P/E on full-year EPS</td><td><span class="verdict v-sec">SECONDARY</span></td><td>~13–16x is reasonable and useful, but cycle-sensitive — cotton-driven margin swings make yarn P/Es unstable. Use as a cross-check, not the anchor.</td></tr>
+      <tr><td>Cash conversion / working capital</td><td><span class="verdict v-cross">GATE</span></td><td>Q4 receivables +43%, inventory 120 days. Margin gains only count if they convert to cash. Weak OCF would undercut the quality of any reported profit growth.</td></tr>
+      <tr><td>Single-quarter (Q4) annualised</td><td><span class="verdict v-avoid">AVOID</span></td><td>Annualising the record Q4 (₹27.7 Cr ×4) overstates a cyclical spinner's normalised earnings; cotton-yarn margins mean-revert. Use full-year / mid-cycle.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> On FY26 PAT of <b>₹70.4 Cr</b> (EPS ₹7.36), the stock at ~₹117 sits at <b>~16x trailing</b> — fair, not cheap, for a ~3.4%-ROE spinner. The bull case is arithmetic: if integration + specialty mix + green power lift the EBITDA margin toward <b>15–18%</b> and revenue heads to <b>₹2,000 Cr by FY29–30</b>, PAT could roughly double-plus and ROE climb toward double-digits — at which point today's ~₹1,100 Cr market cap looks modest and the stock re-rates on <em>both</em> higher earnings and a higher justified multiple. The bear case: spinning stays cyclical and commoditised, margins mean-revert after a good FY26, ROE stays low, and ~16x proves a full price for a low-return business. <b>Verdict: a reasonably-priced, clean-balance-sheet cyclical with a credible self-help margin/integration story and a genuine green-energy edge — an execution-and-cycle bet, not a proven compounder. Value it on normalised EV/EBITDA and the ROE trajectory, never the record quarter annualised; the asymmetry is attractive IF the margin/ROE trend sustains — which the Q1 FY27 print (out today) and coming quarters must confirm.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹75–95</div><div class="sd">Cotton-cycle downturn, margins mean-revert from the Q4 high, integration slow, ROE stuck ~4%, receivables stress. De-rates toward book / 52-wk lows as the "just a commodity spinner" view wins.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹110–140</div><div class="sd">Revenue compounds low-teens, EBITDA margin holds ~12–14% and inches up, integration ramps steadily, ROE drifts toward mid-single digits. Tracks earnings at ~14–16x around current levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹165–210</div><div class="sd">Integration + specialty + green power drive EBITDA margin to 15–18%, revenue toward ₹2,000 Cr, ROE to double-digits; re-rates on higher earnings AND a higher multiple as it's seen as an integrated player, not a spinner.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">GHCL Ltd analyst targets (the parent, separate stock) sit ₹700–900 — not applicable to GHCL Textiles. Scenario prices assume no severe cotton/export shock. Verify CMP/ratios vs NSE/BSE; check today's Q1 FY27 print against the base-case margin trajectory.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Low ROE / commodity economics — core risk</strong>~3.4% three-year ROE reflects the thin-margin, asset-heavy nature of commodity spinning. If the integration/margin strategy fails to lift returns, the stock remains a structurally low-quality, low-return business.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Cotton-price &amp; cycle volatility</strong>Yarn margins are driven by volatile cotton/MMF prices and the textile cycle — largely outside the company's control. A cotton spike or demand slump can erase margin gains in a quarter; the record Q4 may not sustain.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Execution risk on the transformation</strong>The ₹2,000 Cr / 15–18% EBITDA ambition is unproven. Vertical integration into fabric is operationally different from spinning; delays or margin shortfalls would leave a low-return spinner at a full-ish multiple.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Working-capital / receivables</strong>Q4 FY26 receivables +43% and 120-day inventory raise cash-conversion and payment-discipline concerns in a stressed industry — margin gains must convert to cash.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Scale disadvantage vs Vardhman/Trident</strong>Competes against much larger, already-integrated players with superior scale, downstream reach and buying power; export markets add China/Vietnam/Bangladesh cost competition.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Low promoter holding (19.2%)</strong>Reduced skin-in-the-game and alignment for a multi-year transformation; watch promoter commitment and capital-allocation discipline.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Export/geopolitical &amp; energy</strong>US/EU demand softness, West Asia trade-route disruption, and energy-price volatility (for the synthetic line) can pressure the export book and economics.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">FY26 momentum</div><div class="scv">PAT +26% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Clean, low debt <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Green-energy edge</div><div class="scv">65 MW captive <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~13–16x, fair <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Integration strategy</div><div class="scv">Credible, early <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">ROE / returns</div><div class="scv">~3.4%, poor <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Cyclicality</div><div class="scv">Cotton-driven <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Scale vs peers</div><div class="scv">Sub-scale <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Working capital</div><div class="scv">Receivables +43% <span class="stars">★★★☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    GHCL Textiles is a <strong>modern, low-debt, green-powered Tamil Nadu yarn spinner</strong> — cleanly demerged from GHCL Ltd — that delivered a <strong>strong FY26 (revenue +14%, PAT +26%, EBITDA +34%, record Q4 margins)</strong> and is executing a credible <strong>self-help transformation from commodity spinning toward higher-margin vertical integration</strong>, targeting ₹2,000 Cr revenue and 15–18% EBITDA margins by FY29–30, with a genuine captive-green-energy cost edge — all at a <strong>reasonable ~13–16x earnings, rare among momentum small-caps</strong>. <strong>The offsetting reality is that it remains, today, a cyclical, commoditised, sub-scale spinner with a poor ~3.4% ROE, cotton-price exposure, a working-capital flag (Q4 receivables +43%), a low promoter stake, and much larger integrated competitors — and the entire re-rating case rests on an unproven margin/ROE improvement.</strong> <strong>The honest framing: an attractively-priced execution-and-cycle bet with real optionality, not a proven compounder. Value it on normalised EV/EBITDA and — above all — the ROE trajectory; never annualise the record quarter. The asymmetry is appealing if the margin-and-return improvement sustains, so track EBITDA margin, ROE and cash conversion every quarter, starting with today's Q1 FY27 print.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">30 Jul 2026</td><td><strong>Q1 FY27 board meeting &amp; results TODAY:</strong> board to approve Q1 FY27 financials + ESOP Scheme 2026; earnings call 4:00 PM IST (CEO Marshal Sonavane, CFO Parasuraman M). Trading window closed 1 Jul–1 Aug.</td></tr>
+    <tr><td class="mono">14 Jul 2026</td><td><strong>CARE Ratings</strong> assigned CARE A (Stable) for ₹50 Cr and reaffirmed CARE A / A1 for ₹550 Cr facilities.</td></tr>
+    <tr><td class="mono">30 Apr 2026</td><td><strong>Q4 &amp; FY26 results:</strong> Q4 revenue ₹363.69 Cr (+28.24%), Q4 PAT ₹27.66 Cr (+94.79%), OPM 11.33% (record); FY26 revenue ₹1,318.60 Cr (+13.56%), PAT ₹70.37 Cr (+25.73%), EBITDA +34%, EPS ₹7.36. <strong>Dividend ₹0.60/share.</strong> Unmodified audit opinion (S.R. Batliboi).</td></tr>
+    <tr><td class="mono">30 Apr 2026</td><td>Board approved FY27 capital budget (solar + knitting); recommended <strong>Deloitte Haskins &amp; Sells as statutory auditor</strong> (FY27–31).</td></tr>
+    <tr><td class="mono">FY26</td><td>Commissioned <strong>25,000 new spindles, 15 knitting machines, 3 MW additional green energy</strong> — the vertical-integration build-out begins.</td></tr>
+    <tr><td class="mono">Ongoing</td><td>Pursuing <strong>₹2,000 Cr revenue by FY29–30</strong> and 15–18% EBITDA margins via integration; FY27 capex on solar + knitting.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Total assets</div><div class="v">₹1,870 Cr</div><div class="d">FY26 (from ₹1,703)</div></div>
+    <div class="card e"><div class="k">Debt</div><div class="v">Low</div><div class="d">interest ~₹1.5 Cr/qtr</div></div>
+    <div class="card s"><div class="k">Rating</div><div class="v">CARE A</div><div class="d">Stable / A1</div></div>
+    <div class="card r"><div class="k">Inventory</div><div class="v">120 days</div><div class="d down">watch</div></div>
+  </div>
+  <p>The balance sheet is a genuine strength: <strong>low debt (quarterly interest ~₹1.5 Cr), CARE A (Stable)/A1 rating, and ₹1,870 Cr of modern assets</strong> — giving GHCL Textiles the financial room to fund its integration capex (spindles, knitting, solar) internally and to weather the cotton cycle without stress. The clean demerger left it without legacy debt baggage.</p>
+  <div class="call te">
+    <div class="lab">The metric that anchors the thesis: ROE, driven by margin × asset turns</div>
+    For an asset-heavy spinner, the balance sheet's job is to <strong>convert into returns</strong> — and that's the current gap. With ₹1,870 Cr of assets generating ₹70 Cr of profit, <strong>asset productivity and margins are the levers that must improve to lift ROE from ~3.4%</strong>. The integration strategy is explicitly aimed here: higher-margin fabric/specialty output and better utilisation of the (now expanded) asset base should raise both the margin and the asset turn — the two components of ROE. A low-debt balance sheet ensures the transition can be funded safely; whether it produces a materially higher ROE is the entire question. <strong>Watch ROE, EBITDA margin, asset turnover and working-capital days together each quarter.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Strong up <span class="badge b-bull">↑</span></div><div class="tkd">+44% 6M, +20% 1M</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹117</div><div class="tkd">30 Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹65 – 120</div><div class="tkd">near high</div></div>
+    <div class="tk"><div class="tkl">1-yr return</div><div class="tkv">+~27%</div><div class="tkd">outperformer</div></div>
+    <div class="tk"><div class="tkl">Support</div><div class="tkv">₹100–106</div><div class="tkd">breakout base</div></div>
+    <div class="tk"><div class="tkl">Signal (Investing)</div><div class="tkv">Strong Buy</div><div class="tkd">moving-avg based</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">GHCL Textiles has been a <strong>strong recent performer</strong> — up ~44% over six months and ~20% in the last month, pushing to new 52-week highs around ₹117–120 (from a ₹65 low) as the market rewards the FY26 margin improvement and integration narrative. Momentum indicators are positive (Investing.com "Strong Buy" on moving averages). The stock now trades near the top of its range into <strong>today's Q1 FY27 print</strong> — a setup where the result and margin commentary will drive the next move; a strong Q1 confirming the margin trajectory supports continuation, while any margin/working-capital disappointment could trigger profit-taking from these highs. The ₹100–106 zone is recent breakout support. Note wide vendor price data (one source stale at ₹75); reconcile vs NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary across vendors (CMP ₹110–120, m-cap ₹1,020–1,143 Cr, P/E ~12.75–16x; one source stale). Q1 FY27 results are released today (30 Jul 2026) — verify actuals. Consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>GHCL Textiles Ltd</b> — NSE: GHCLTEXTIL · BSE: 543918 · ISIN: INE00XO01018 · Cotton, Blended &amp; Specialty Yarns + Knitted/Woven Fabric · Demerged from GHCL Ltd · Tamil Nadu<br>
+  Report generated 30 July 2026 · Data through FY26 (year ended 31 Mar 2026); Q1 FY27 results released same day (30 Jul 2026) — verify actuals against this report's trajectory.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q4/FY26 results, investor con-call &amp; BSE-NSE filings, IndiaIPO, ScanX, Whalesbook, Univest, MarketsMojo, Groww, Tickertape, ICICIdirect, Kotak Neo, Bajaj Finserv, Screener.in, Investing.com, Tipranks, SimplyWall.st. Key figures: FY26 revenue from operations ₹1,318.60 Cr (+13.56% vs ₹1,161.16 Cr), total income ₹1,334.80 Cr (+14.27%), PBT ₹92.96 Cr (from ₹63.29 Cr), PAT ₹70.37 Cr (+25.73% vs ₹55.97 Cr), EBITDA +34%, EPS ₹7.36 (from ₹5.86), total expenses ₹1,241.84 Cr, total assets ₹1,870.43 Cr (from ₹1,702.84 Cr); standalone revenue +31% / EBITDA +34% (Whalesbook). Q4 FY26: revenue ₹363.69 Cr (+28.24% YoY, +4.17% QoQ), net profit ₹27.66 Cr (+94.79% vs ₹14.20 Cr), OPM 11.33%, EBITDA margin ~13.9%, PBDIT (ex-OI) ₹41.19 Cr (+33.86%), EPS ₹2.89, PBT ₹35.43 Cr. Quarterly FY26: Q1 rev ₹267.75 Cr; Q2 rev ₹338.04 Cr (+10.97% YoY, NP ₹16.01 Cr, OPM 8.9%); Q3 rev ₹349.12 Cr (+22.50%, NP ₹13.18 Cr, OPM 9.14%); Q4 rev ₹363.69 Cr. Dividend ₹0.60/share (FV ₹10). Assets: 2.25 lakh ring spindles, 3,320 rotors, 5,760 TFO spindles, 5 Airjet machines, 15 knitting machines; 65 MW wind+solar green energy (Tamil Nadu); FY26 additions 25,000 spindles + 15 knitting + 3 MW green. Specialty yarns: GIZA, SUPIMA, Australian, CmiA, Tencel, Viscose, rPET. Plants: Paravai/Madurai &amp; Manaparai/Tiruchirapalli (TN); ~3,050 employees. Incorporated 17 Jun 2020; Spinning Division of GHCL Ltd demerged into the company effective 1 Apr 2023 (operations from that date); CEO Marshal Sonavane, CFO Parasuraman M; parent GHCL Ltd (Dalmia group). CARE Ratings: CARE A (Stable)/A1 reaffirmed 14 Jul 2026 (₹550 Cr facilities; long/short-term line trimmed ₹500→₹450 Cr). Strategy: ₹2,000 Cr revenue by FY29–30, 15–18% EBITDA margins via vertical integration; FY27 capex on solar + knitting. Auditor transition to Deloitte Haskins &amp; Sells (FY27–31); FY26 audited by S.R. Batliboi (unmodified). Flags: 3-yr ROE ~3.38–4.01% (low); Q4 receivables +43%; inventory 120 days. <b>DATA CAVEAT: prices/ratios vary — CMP ₹110.60 (Kotak, 6 Jul) to ₹119.53 (Bajaj, 29 Jul) to ₹115.50 (30 Jul); market cap ₹1,020.38 Cr (Mar '26) to ₹1,143 Cr (Screener); P/E ~12.75 (Tipranks) to ~16x; SimplyWall.st shows a STALE ₹74.79. 52-wk ₹65.00–₹120.15; face value ₹10; ~9.5 Cr shares; promoter 19.2%, FII 13.4%, DII 5%, public 62.4% (Mar '26). All figures approximate; verify vs NSE/BSE and the filed results. This is GHCL TEXTILES (GHCLTEXTIL, the demerged yarn company), NOT GHCL Ltd (the parent soda-ash company).</b> Investing.com daily signal "Strong Buy" (moving averages); MarketsMojo flagged low ROE. Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: GHCL Textiles Limited
+Ticker: NSE: GHCLTEXTIL / BSE: 543918
+Sector: Textiles - Cotton/Blended/Specialty Yarns + Knitted/Woven Fabric (spinner integrating)
+Report Date: July 30, 2026 (Q1 FY27 results released SAME DAY after publication)
+File: ghcl_textiles_equity_research.html
+CMP at Report: ~₹117 (Jul 2026; ranged ₹110-120; one vendor stale ₹75; VERIFY vs NSE/BSE)
+Market Cap: ~₹1,100 Cr (varies ₹1,020-1,143 Cr)
+FY26: Revenue ₹1,318.60 Cr (+13.56%), PAT ₹70.37 Cr (+25.73%), EBITDA +34%, PBT ₹92.96 Cr, EPS ₹7.36
+Q4 FY26: Revenue ₹363.69 Cr (+28.24% YoY, highest-ever), PAT ₹27.66 Cr (+94.79%), OPM 11.33% (record), EBITDA margin ~13.9%
+Dividend: ₹0.60/share (FV ₹10)
+ORIGIN: demerged from GHCL Ltd's Spinning Division, effective Apr 1 2023; incorporated Jun 17 2020; parent GHCL Ltd (Dalmia group)
+KEY THEME: cyclical commodity yarn spinner transitioning to VALUE-ADDED VERTICAL INTEGRATION (knitting/fabric); ₹2,000 Cr revenue target FY29-30, 15-18% EBITDA margin goal
+Assets: 2.25 lakh ring spindles + rotors/TFO/airjet + 15 knitting machines; 65 MW captive green energy (cost + ESG edge); FY26 added 25k spindles+15 knit+3MW
+CENTRAL WEAKNESS: LOW ROE ~3.4% (3yr) - the crux; entire re-rating case = whether ROE/margins climb via integration
+Balance sheet: LOW debt (interest ~₹1.5 Cr/qtr), CARE A Stable/A1; total assets ₹1,870 Cr
+WATCH: Q4 receivables +43%, inventory 120 days (working capital); cotton-price cyclicality; scale vs Vardhman/Trident
+Ownership: promoter LOW 19.2% (demerger legacy), FII 13.4%, DII 5%, public 62.4%
+Valuation: P/E ~13-16x (REASONABLE, unlike richly-valued peers); value on EV/EBITDA normalised + P/B vs ROE trajectory
+Bull Case: ₹165-210
+Base Case: ₹110-140
+Bear Case: ₹75-95
+Primary Valuation Metric: EV/EBITDA on normalised margin + P/B vs ROE-trajectory co-primary; EBITDA-margin/ROE trend operating indicator; cash-conversion GATE; single-Q(record Q4) annualised = AVOID
+Investment Type: Reasonably-priced cyclical spinner + self-help integration/margin optionality + green-energy edge; execution-and-cycle bet NOT proven compounder; asymmetry attractive IF ROE/margin trend sustains
+-->

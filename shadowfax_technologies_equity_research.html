@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadowfax Technologies — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0C0E1A; --void-2:#14172B; --void-3:#1E2340;
+    --violet:#7C5CFC; --violet-dk:#5E3EE0; --violet-lt:#A08CFF; --violet-gl:rgba(124,92,252,.12);
+    --cyan:#22C7E0; --cyan-dk:#1499B0; --cyan-lt:#5CDDF0; --cyan-gl:rgba(34,199,224,.11);
+    --lime:#8BD64B; --lime-dk:#5FA024; --lime-gl:rgba(139,214,75,.13);
+    --amber:#F5A623; --amber-dk:#C47F10; --amber-gl:rgba(245,166,35,.12);
+    --pink:#F0568C; --pink-gl:rgba(240,86,140,.10);
+    --green:#2CC26E; --green-dk:#1A8F4E; --red:#F0524A; --red-dk:#C43A32;
+    --ink-1:#12142400; --ink-1:#121424; --ink-2:#3C4056; --ink-3:#6C7086;
+    --line:#E6E7EF; --line-2:#F1F2F7; --paper:#FCFCFE; --paper-2:#F5F5FA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(12,14,26,.14)}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.12}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  /* HERO — motion / route-node network motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0C0E1A 0%,#14172B 52%,#1E2340 128%);color:#EEF0FA;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-8%;width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(124,92,252,.34),rgba(34,199,224,.15) 55%,transparent 72%);filter:blur(5px)}
+  .route{position:absolute;right:64px;top:44px;width:200px;height:190px;z-index:2;opacity:.6}
+  .route svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.vi{background:rgba(124,92,252,.26);border-color:rgba(160,140,255,.5);color:#C4B6FF}
+  .tag.cy{background:rgba(34,199,224,.24);border-color:rgba(92,221,240,.5);color:#A0EAF5}
+  .hero h1{font-size:44px;font-weight:700;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .sub{font-size:16.5px;color:#BEC2DA;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8B90AE;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#63E6A0}.down{color:#FF9A93}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--void);color:#8B90AE;
+    padding:11px 48px;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .metabar b{color:#E6E8F4;font-weight:500}
+  .metabar .dot{color:var(--cyan-lt)}
+
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'JetBrains Mono',monospace}
+  .alert b{color:var(--void)}
+  .alert.q1{background:var(--cyan-gl);color:var(--cyan-dk)}
+  .alert.red{background:rgba(240,82,74,.09);color:var(--red-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--violet-dk);
+    border:1.5px solid var(--violet);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--void)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--violet);background:var(--violet-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.cy{border-color:var(--cyan);background:var(--cyan-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.pk{border-color:var(--pink);background:var(--pink-gl)}
+  .call.red{border-color:var(--red);background:rgba(240,82,74,.08)}
+  .call .lab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--violet-dk);margin-bottom:5px}
+  .call.cy .lab{color:var(--cyan-dk)}.call.am .lab{color:var(--amber-dk)}.call.pk .lab{color:#C43A6A}.call.red .lab{color:var(--red-dk)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--void-2);color:#E6E8F4;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'JetBrains Mono',monospace}
+  .tr-hi td{background:var(--violet-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--void);letter-spacing:-.02em;font-family:'Space Grotesk',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.v{border-top:3px solid var(--violet)}.card.c{border-top:3px solid var(--cyan)}
+  .card.a{border-top:3px solid var(--amber)}.card.p{border-top:3px solid var(--pink)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--violet);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--void);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--violet-gl);border-color:var(--violet)}
+  .vnode.own .vt{color:var(--violet-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:172px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'JetBrains Mono',monospace;font-weight:500}
+  .bar-val{width:110px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.route{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(240,82,74,.06);border-color:rgba(240,82,74,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,194,110,.07);border-color:rgba(44,194,110,.3)}
+  .scen .st{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Space Grotesk',sans-serif}
+  .scen .bear .st{color:var(--red-dk)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--void);color:#E8EAF6;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,252,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Space Grotesk',sans-serif}
+  .bm .bm-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--violet-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C8CBE2}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C4C8DE}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--violet);color:#fff}.v-co{background:var(--cyan-dk);color:#fff}
+  .v-ind{background:#1A8F4E;color:#B6EFCA}.v-sec{background:#4A4E7A;color:#DCE0F4}
+  .v-avoid{background:#8A2E28;color:#F6C9BF}.v-cross{background:#2A2E52;color:#CAD0EC}
+  .bm .onenum{background:rgba(34,199,224,.14);border:1px solid rgba(92,221,240,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#B4E8F2;position:relative}
+  .bm .onenum b{color:#8FE4F0}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--void)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amber-dk)}.rl{background:var(--cyan-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--violet),var(--cyan))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--violet);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--violet)}
+  .tli .ty{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12.5px;color:var(--violet-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--void);font-family:'Space Grotesk',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,194,110,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(240,82,74,.14);color:var(--red-dk)}
+  .b-neut{background:rgba(245,166,35,.2);color:var(--amber-dk)}
+
+  .foot{background:var(--void);color:#888DA8;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C4C8DE}
+  .disc{font-size:10.5px;color:#6C7086;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="route">
+    <svg viewBox="0 0 200 190" fill="none">
+      <path d="M20 150 Q60 60 100 100 T180 40" stroke="#22C7E0" stroke-width="2" opacity="0.55" fill="none" stroke-dasharray="4 5"/>
+      <path d="M25 40 Q80 110 130 80 T185 150" stroke="#A08CFF" stroke-width="2" opacity="0.5" fill="none" stroke-dasharray="4 5"/>
+      <g fill="#7C5CFC" opacity="0.85">
+        <circle cx="20" cy="150" r="6"/><circle cx="180" cy="40" r="6"/><circle cx="100" cy="100" r="5"/>
+      </g>
+      <g fill="#22C7E0" opacity="0.8">
+        <circle cx="25" cy="40" r="5"/><circle cx="185" cy="150" r="5"/><circle cx="130" cy="80" r="4"/>
+      </g>
+      <g fill="#8BD64B" opacity="0.9"><circle cx="100" cy="100" r="2.5"/></g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: SHADOWFAX</span>
+      <span class="tag">BSE: 544685</span>
+      <span class="tag vi">Asset-Light Last-Mile Logistics</span>
+      <span class="tag cy">IPO'd Jan 2026 · Flipkart-backed</span>
+    </div>
+    <h1>Shadowfax Technologies</h1>
+    <div class="sub">A <b>tech-first, gig-powered last-mile delivery platform</b> for India's e-commerce and quick-commerce boom — just turned decisively profitable on ~69% revenue growth. A genuine scale-and-efficiency story, priced for perfection at ~110x earnings, with a live billion-rupee block-deal overhang.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (31 Jul)</div><div class="v">~₹247</div><div class="d up">+100% 1yr</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹13,800 Cr</div><div class="d">mid-cap*</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">₹4,200+ Cr</div><div class="d up">+69% YoY</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹112 Cr</div><div class="d up">from ₹6 Cr</div></div>
+      <div class="qs"><div class="k">P/E</div><div class="v">~112x</div><div class="d down">extreme</div></div>
+      <div class="qs"><div class="k">P/B</div><div class="v">~30x</div><div class="d down">extreme</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Founders:</b> Abhishek Bansal &amp; Vaibhav Khandelwal</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 2015 · Bengaluru</span>
+  <span class="dot">◆</span>
+  <span><b>Backers:</b> Flipkart, TPG, Eight Roads, Mirae</span>
+  <span class="dot">◆</span>
+  <span><b>Network:</b> 14,758 pin codes</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 31 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  🔔 <b>Q1 FY27 RESULTS TOMORROW (31 Jul 2026):</b> Board meets to approve Q1 FY27 results; earnings call at 5:00 PM IST. This report is built on FY26 / Q4 FY26 data — the Q1 print lands right after publication. It is the single most important near-term catalyst for a stock priced on continued hyper-growth.
+</div>
+<div class="alert red">
+  ⚠ <b>ACTIVE OVERHANG:</b> Marquee early backers <b>Eight Roads, Flipkart and Korea's IMM India Fund are selling &gt;₹1,000 Cr of shares via block deals</b> (floor ₹197, reported 24 Jul); Eight Roads has already reported a sale. Large supply from anchor sellers is a live near-term pressure on the stock (see §10).
+</div>
+<div class="alert">
+  ⚠ <b>DATA CAVEAT:</b> *Market cap ~₹12,871–13,890 Cr (Screener/Bajaj) on ~56 Cr shares × ~₹247 — <b>ignore any "₹2,800 Cr" figure (stale, wrong share count).</b> P/E ~112x, P/B ~30x (Bajaj, 31 Jul). CMP ₹221–248 across late Jul; 52-wk ₹98.55–246.8; FV ₹10. Listed Jan 2026 — limited public history. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Shadowfax Technologies</strong> is a Bengaluru-based, <strong>technology-first, asset-light logistics platform</strong> specialising in <strong>last-mile (and mid-mile/reverse) delivery</strong> for India's digital-commerce ecosystem. Founded in 2015 by IIT-Delhi alumni <strong>Abhishek Bansal and Vaibhav Khandelwal</strong>, and backed by Flipkart, TPG, Eight Roads and Mirae, it runs a <strong>gig-based delivery network plus proprietary routing/allocation technology</strong> — serving e-commerce (Flipkart, Myntra, Meesho), quick commerce (Zepto, Blinkit, Swiggy Instamart), hyperlocal, food, and reverse logistics across <strong>14,758 pin codes and 2,300+ cities</strong>.</p>
+  <p>Shadowfax <strong>IPO'd in January 2026</strong> (₹1,907 Cr issue at ₹124) and the investment story since has been a striking <strong>profitability inflection</strong>: FY26 revenue jumped ~69% to over ₹4,200 Cr while PAT surged from ₹6 Cr to ₹112 Cr, with a record ₹56 Cr profit in Q4. The bull case is a genuine <strong>scale-and-operating-leverage story</strong> riding India's quick-commerce explosion; the bear case is a <strong>thin-margin, hyper-competitive business trading at an extreme ~110x earnings</strong>, with heavy customer concentration and a live block-deal overhang.</p>
+  <div class="cards">
+    <div class="card v"><div class="k">FY26 Revenue</div><div class="v">₹4,200+ Cr</div><div class="d up">+69% YoY</div></div>
+    <div class="card c"><div class="k">FY26 PAT</div><div class="v">₹112 Cr</div><div class="d up">from ₹6 Cr</div></div>
+    <div class="card a"><div class="k">Q4 FY26 Rev</div><div class="v">₹1,237 Cr</div><div class="d up">+74% YoY</div></div>
+    <div class="card p"><div class="k">Pin codes</div><div class="v">14,758</div><div class="d">2,300+ cities</div></div>
+  </div>
+  <div class="call cy">
+    <div class="lab">The investment character in one line</div>
+    Shadowfax is a <strong>new-age, asset-light logistics platform at a genuine profitability inflection, growing revenue ~70% and levered to India's quick-commerce boom</strong> — but priced at an <strong>extreme ~112x P/E / ~30x P/B</strong> that already embeds years of flawless hyper-growth, in a structurally <strong>thin-margin, in-housing-threatened, hyper-competitive</strong> industry. This is a <strong>high-risk, high-growth "priced-for-perfection" bet</strong> — the debate is entirely whether the growth-and-margin trajectory can justify a valuation that leaves zero room for disappointment.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2015 · Founded</div><div class="td">Incorporated in Delhi (April 2015) by IIT-Delhi alumni Abhishek Bansal &amp; Vaibhav Khandelwal; began as a hyperlocal delivery startup, later shifting HQ to Bengaluru and pivoting to a tech-led last-mile platform.</div></div>
+    <div class="tli"><div class="ty">2016–2022 · VC scale-up + Flipkart</div><div class="td">Raised successive rounds from TPG, Eight Roads, Mirae and strategic backer <strong>Flipkart</strong>; scaled a nationwide gig-based delivery network and proprietary tech stack; grew rapidly but loss-making (typical new-age burn).</div></div>
+    <div class="tli"><div class="ty">FY23–FY24 · Toward breakeven</div><div class="td">Revenue CAGR ~32.5% (FY23–FY25); order volumes ~30% CAGR; <strong>turned EBITDA-positive in FY24</strong> as scale and operating leverage kicked in — the beginning of the profitability story.</div></div>
+    <div class="tli"><div class="ty">FY25 · First profit</div><div class="td">Achieved <strong>net profitability</strong> (₹6 Cr PAT) on ₹2,485 Cr revenue — the inflection from a cash-burning startup to a profitable platform.</div></div>
+    <div class="tli"><div class="ty">Jan 2026 · IPO</div><div class="td"><strong>Listed on NSE &amp; BSE on 28 Jan 2026</strong> (₹1,907 Cr issue at ₹124; fresh issue + OFS). Debuted ~9% below issue amid valuation caution — but the stock has since roughly doubled from its lows.</div></div>
+    <div class="tli"><div class="ty">FY26 · Profitability scales</div><div class="td">Revenue +69% to ₹4,200+ Cr; <strong>PAT ₹112 Cr (from ₹6 Cr)</strong>; record Q4 (rev ₹1,237 Cr +74%, PAT ₹56 Cr). Launched <strong>Shadowfax 360</strong> (SME/D2C shipping platform). Q1 FY27 due 31 Jul 2026.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Value Chain</h2></div>
+  <p>Shadowfax is a <strong>B2B, asset-light, gig-based logistics operating system</strong>. It doesn't own trucks or warehouses at scale — it <strong>leases infrastructure and orchestrates a ~3.5-million-strong gig delivery-partner network via proprietary technology</strong> (routing, allocation, fraud/failed-delivery reduction). It earns a fee per delivery from enterprise clients, making money on the <strong>spread between what it charges and its cost to fulfil</strong> — a spread that widens with density, scale and tech efficiency.</p>
+  <div class="vchain">
+    <div class="vnode"><div class="vt">Enterprise clients</div><div class="vd">E-comm, quick-comm, D2C, food, mobility</div></div>
+    <div class="vnode own"><div class="vt">Tech platform</div><div class="vd">Routing, allocation, tracking, fraud control</div></div>
+    <div class="vnode own"><div class="vt">Sort/touchpoints</div><div class="vd">4,299 touchpoints, 53 sort centres (leased)</div></div>
+    <div class="vnode own"><div class="vt">Gig fleet</div><div class="vd">~3.5M delivery partners; 3,000+ leased trucks</div></div>
+    <div class="vnode"><div class="vt">End consumer</div><div class="vd">Last-mile / quick / reverse delivery</div></div>
+  </div>
+  <div class="call am">
+    <div class="lab">Asset-light is the edge — and the reason margins are thin</div>
+    The <strong>asset-light, gig model</strong> is Shadowfax's core advantage: it <strong>scales up fast when demand spikes and down when it cools, without heavy fixed costs</strong> — ideal for the volatile, spiky world of quick commerce. Proprietary tech reduces failed deliveries, fraud and misrouting, improving unit economics. <strong>But the same model means limited pricing power:</strong> last-mile is a low-margin, high-competition, execution-driven business where fuel, gig-labour, returns and SLA penalties are hard to fully pass on. Scale improves efficiency but <strong>doesn't automatically create fat margins</strong> — this is a business where you earn thin margins on enormous volume, so <em>execution quality and density</em> matter more than brand or pricing power.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>End-Markets &amp; The Quick-Commerce Engine</h2></div>
+  <div class="bar-row"><div class="bar-lab">E-commerce (Flipkart, Myntra, Meesho)</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--violet)">core / largest</div></div><div class="bar-val">anchor</div></div>
+  <div class="bar-row"><div class="bar-lab">Quick commerce (Zepto, Blinkit, Instamart)</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--cyan)">fastest-growing</div></div><div class="bar-val">the engine</div></div>
+  <div class="bar-row"><div class="bar-lab">Hyperlocal / food / mobility</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--lime-dk)">growing</div></div><div class="bar-val">optionality</div></div>
+  <div class="bar-row"><div class="bar-lab">Reverse logistics / SME (360)</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--amber)">new leg</div></div><div class="bar-val">expanding</div></div>
+  <div class="call cy">
+    <div class="lab">Levered to two structural booms at once</div>
+    Shadowfax sits at the intersection of <strong>two of India's fastest-growing consumer trends: e-commerce and quick commerce</strong>. India's logistics market (₹9tn FY23) is projected toward ₹13.4tn by FY28, and quick commerce specifically is growing far faster. As a leading <strong>third-party last-mile enabler</strong> — one of the few of scale offering both e-commerce <em>and</em> quick/hyperlocal delivery — Shadowfax benefits directly from order-volume growth (~30% CAGR) without having to win the platform wars itself; it's a <strong>"picks-and-shovels" play on digital commerce</strong>. The launch of Shadowfax 360 (SME/D2C self-serve shipping) opens a higher-margin, long-tail revenue stream beyond enterprise contracts.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Profitability Inflection, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th></tr>
+    <tr><td>Revenue (₹ Cr)</td><td class="mono">~1,885</td><td class="mono">2,485</td><td class="mono">4,200+</td></tr>
+    <tr><td>Revenue growth</td><td class="mono">—</td><td class="mono">+32%</td><td class="mono">+69%</td></tr>
+    <tr><td>EBITDA</td><td class="mono">positive</td><td class="mono">positive</td><td class="mono">scaling</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">loss</td><td class="mono">6</td><td class="mono">112</td></tr>
+  </table>
+  <div class="call cy">
+    <div class="lab">A real inflection — but understand its youth and thinness</div>
+    The turn is genuine and impressive: <strong>EBITDA-positive in FY24, net-profitable in FY25 (₹6 Cr), and a leap to ₹112 Cr PAT in FY26</strong> as operating leverage kicked in on 69% revenue growth. Q4 FY26 alone earned ₹56 Cr (vs a ₹10 Cr loss a year earlier) — a swing that shows the model's leverage when volumes scale. <strong>Two crucial caveats:</strong> (1) the profit base is <strong>very young and very thin</strong> — a ~2.5–3% PAT margin means small cost shocks (fuel, gig wages, SLA penalties, a lost client) can disproportionately dent profit; and (2) at ₹112 Cr PAT, the ~₹13,800 Cr market cap implies ~112x — the market is valuing not today's profit but a <strong>multi-year extrapolation of this inflection</strong>. The inflection is real; whether it compounds is the entire question.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Competitor</th><th>Type</th><th>Position vs Shadowfax</th></tr>
+    <tr class="tr-hi"><td><strong>Shadowfax</strong></td><td>Asset-light 3PL, gig last-mile</td><td>Scale player in both e-comm + quick-comm delivery</td></tr>
+    <tr><td><strong>Delhivery</strong></td><td>Large listed integrated 3PL</td><td>Much larger, more integrated, asset-heavier</td></tr>
+    <tr><td><strong>Ecom Express, Xpressbees</strong></td><td>Large e-comm logistics</td><td>Direct 3PL rivals at scale</td></tr>
+    <tr><td><strong>In-house fleets</strong> (Flipkart Ekart, Amazon, Zepto/Blinkit own riders)</td><td>Customer captives</td><td><strong>The existential threat — clients insourcing delivery</strong></td></tr>
+    <tr><td><strong>Regional / gig aggregators</strong></td><td>Local players</td><td>Fragmented low-end competition</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">The in-housing threat is the defining competitive risk</div>
+    Shadowfax's biggest strategic risk isn't a rival 3PL — it's that its own large customers <strong>build their own delivery fleets and cut out the middleman</strong>. Flipkart has Ekart; Amazon has its logistics arm; Blinkit, Zepto and Instamart increasingly run captive rider networks for their fastest deliveries. A third-party enabler like Shadowfax is <strong>most valuable to clients who lack scale to insource — and most vulnerable when clients reach that scale.</strong> Its defence is superior tech, density, flexibility (handling spiky/variable volume cheaper than a fixed captive fleet), and breadth across many clients. But <strong>customer concentration + in-housing risk is the structural overhang</strong> on the whole thesis, and it directly limits pricing power. Against Delhivery and Xpressbees it also competes hard on price in a low-margin business.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">Very High</td><td>Delhivery, Ecom Express, Xpressbees + captive fleets; low-margin, price-competitive last-mile.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Very High</td><td>Large, concentrated clients (e-comm/quick-comm platforms) with the option to insource — huge leverage over pricing.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Gig workforce is flexible but subject to wage inflation, availability and potential gig-labour regulation.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate-High</td><td>Asset-light model lowers capital barriers; tech + density + client relationships are the real moats.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">High</td><td>In-house delivery is the direct substitute; clients can and do build captive fleets.</td></tr>
+  </table>
+  <p>Net: a <strong>brutally competitive, buyer-dominated industry</strong> where Shadowfax's advantages are technology, network density and multi-client flexibility rather than pricing power. The forces explain why margins are thin and why the valuation — which assumes durable, expanding profitability — carries so much risk.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Valuation Problem, Dissected</h2></div>
+  <div class="cards">
+    <div class="card p"><div class="k">Trailing P/E</div><div class="v">~112x</div><div class="d down">extreme</div></div>
+    <div class="card p"><div class="k">P/B</div><div class="v">~30x</div><div class="d down">extreme</div></div>
+    <div class="card v"><div class="k">Market cap</div><div class="v">~₹13,800 Cr</div><div class="d">on ₹112 Cr PAT</div></div>
+    <div class="card c"><div class="k">PAT margin</div><div class="v">~2.5–3%</div><div class="d">thin</div></div>
+  </div>
+  <p>The single dominant fact about Shadowfax as an <em>investment</em> (as opposed to a business) is its <strong>valuation</strong>. At ~₹247 and ~₹13,800 Cr market cap on ₹112 Cr FY26 PAT, the stock trades at <strong>~112x trailing earnings and ~30x book</strong> — multiples that only make sense if you believe profit will <strong>compound at an extraordinary rate for many years</strong>.</p>
+  <div class="call red">
+    <div class="lab">Why trailing P/E is nearly meaningless here — and what to use instead</div>
+    A ~112x P/E on a company that <em>just</em> crossed into meaningful profitability is <strong>not a normal valuation signal</strong> — it's the mathematical artifact of dividing a large market cap by a tiny, newly-positive (and still-thin) profit base. Using it literally ("112x = wildly overvalued") or defending it ("high-growth deserves it") both miss the point. For a hyper-growth, thin-margin platform at an earnings inflection, the honest lenses are <strong>EV/Sales and EV/EBITDA against the growth rate, plus the PAT-margin <em>trajectory</em> and cash conversion</strong> — because the entire value rests on <em>where margins and volumes go</em>, not today's snapshot. The valuation prices in years of ~40–60%+ profit growth with expanding margins; the risk is that thin margins, competition and in-housing cause even a <em>good</em> outcome to fall short of a <em>priced-for-perfection</em> one. <strong>There is essentially no margin of safety.</strong>
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Unit Economics, Costs &amp; Tech</h2></div>
+  <p>Shadowfax's economics hinge on <strong>cost-per-delivery versus revenue-per-delivery</strong>, driven by network <strong>density</strong> (more drops per route = lower cost), <strong>tech efficiency</strong> (fewer failed deliveries, better allocation), and <strong>gig-labour cost</strong>. Its major cost lines are delivery-partner payouts, leased infrastructure/linehaul, and fuel — mostly variable, which is what makes the model flex with demand.</p>
+  <div class="call am">
+    <div class="lab">Density + tech are the margin flywheel</div>
+    The path from a ~2.5–3% PAT margin to something more durable runs through <strong>density and technology</strong>: as order volumes grow (especially dense quick-commerce drops), each delivery route carries more parcels, spreading fixed-ish costs and lifting margins — the operating leverage visible in FY26. Proprietary routing/fraud tech compounds this by cutting the costliest events (failed deliveries, returns, misrouting). <strong>Shadowfax 360</strong> (self-serve SME/D2C shipping with flat-rate billing) adds a potentially higher-margin, stickier revenue layer. <strong>The risk to the flywheel:</strong> gig-wage inflation, fuel spikes, SLA penalties, or a price war can compress the thin spread faster than density improves it. The margin trajectory — quarter by quarter — is the truest read on whether the flywheel is real.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Ownership, Founders &amp; The Block-Deal Overhang</h2></div>
+  <div class="cards">
+    <div class="card v"><div class="k">Promoter</div><div class="v">16.6%</div><div class="d down">founder-led, VC-diluted</div></div>
+    <div class="card c"><div class="k">DII</div><div class="v">20.7%</div><div class="d up">strong domestic</div></div>
+    <div class="card a"><div class="k">FII</div><div class="v">7.6%</div><div class="d">+ MF ~12.5%</div></div>
+    <div class="card p"><div class="k">Public</div><div class="v">55.1%</div><div class="d">high float</div></div>
+  </div>
+  <p>Shadowfax is <strong>founder-led</strong> (Abhishek Bansal, Vaibhav Khandelwal) but, like most VC-built new-age companies, has a <strong>low promoter holding (~16.6%)</strong> after years of dilution — with a diverse cap table of financial investors and, post-IPO, high public/institutional ownership (DII 20.7%, MF ~12.5%, FII 7.6%).</p>
+  <div class="call red">
+    <div class="lab">The live overhang: marquee backers heading for the exit</div>
+    The most important near-term ownership fact is an <strong>active block-deal overhang</strong>: <strong>Eight Roads, Flipkart and Korea's IMM India Fund are reportedly selling &gt;₹1,000 Cr of stock via block deals (floor ₹197)</strong>, with Eight Roads already reporting a sale on 24 July 2026. This is normal post-IPO behaviour (early VCs monetising), but it matters two ways: <strong>(1) large share supply can pressure the price in the near term</strong>, especially with lock-ups rolling off; and <strong>(2) strategic backer Flipkart trimming is worth watching</strong> given Flipkart is also a major <em>customer</em> — the relationship's evolution (investor vs client) bears monitoring. A low founder stake also means less insider ballast. <strong>Watch the block-deal absorption, post-deal shareholding, and whether Flipkart's dual role as backer-and-client shifts.</strong>
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capital, IPO Proceeds &amp; Expansion</h2></div>
+  <p>The ₹1,907 Cr IPO combined a fresh issue with an OFS. Fresh proceeds are earmarked for <strong>network-infrastructure capex (₹423 Cr), lease payments for new first/last-mile &amp; sort centres (₹139 Cr), branding/marketing (₹89 Cr), and inorganic acquisitions / general corporate purposes</strong> — i.e. funding the next leg of density and coverage.</p>
+  <div class="call cy">
+    <div class="lab">A war chest for density — the right use, if disciplined</div>
+    Deploying IPO capital into <strong>more touchpoints, sort centres and coverage</strong> is exactly the flywheel investment an asset-light densifier needs — each new node deepens the network-density advantage that drives unit economics. The <strong>inorganic/acquisition allocation</strong> adds optionality (consolidating smaller players, adding capability). The watch-item is <strong>capital discipline</strong>: in a land-grab industry, it's easy to over-spend on growth/branding and erode the very margins the valuation demands. Because the stock is priced for both hyper-growth <em>and</em> margin expansion, investors need Shadowfax to grow densely <em>and</em> profitably — not buy growth at any cost. Track capex efficiency and incremental margins on new spend.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Quick-commerce boom</strong></td><td>Fastest-growing delivery demand pool</td><td class="mono">Core engine ★★★★★</td></tr>
+    <tr><td><strong>E-commerce growth</strong></td><td>Structural digital-commerce expansion</td><td class="mono">Anchor ★★★★</td></tr>
+    <tr><td><strong>Operating leverage / density</strong></td><td>More drops per route → margin expansion</td><td class="mono">Margin driver ★★★★</td></tr>
+    <tr><td><strong>Shadowfax 360 (SME/D2C)</strong></td><td>Self-serve shipping; higher-margin, sticky</td><td class="mono">New leg ★★★★</td></tr>
+    <tr><td><strong>Pin-code / coverage expansion</strong></td><td>IPO-funded network densification</td><td class="mono">Reach ★★★</td></tr>
+    <tr><td><strong>Reverse logistics + mobility</strong></td><td>Adjacent service lines</td><td class="mono">Optionality ★★★</td></tr>
+    <tr><td><strong>Inorganic / consolidation</strong></td><td>M&amp;A with IPO war chest</td><td class="mono">Optionality ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Quarterly (₹ Cr)</th><th class="mono">Q3 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Read</th></tr>
+    <tr><td>Revenue</td><td class="mono">~1,050+</td><td class="mono">1,237</td><td class="mono up">+74% YoY</td></tr>
+    <tr><td>Net profit</td><td class="mono">~38 (EPS 0.67)</td><td class="mono">56</td><td class="mono up">record</td></tr>
+    <tr><td>YoY PAT swing</td><td class="mono">—</td><td class="mono">from −10 Cr</td><td class="mono up">turnaround</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call cy">
+        <div class="lab">The bull data</div>
+        Revenue +69% FY26; PAT ₹6 Cr → ₹112 Cr; Q4 rev +74%, record ₹56 Cr profit (from a loss); EBITDA-positive since FY24; ~30% order-volume CAGR; strong DII/MF backing (DII 20.7%, MF ~12.5%); Screener notes 5-yr profit CAGR 22.4% and reduced debt. A genuine, accelerating scale-and-profitability story.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The bear data</div>
+        ~112x P/E, ~30x P/B — priced for perfection; PAT margin only ~2.5–3%; thin margins + intense competition + in-housing risk; active &gt;₹1,000 Cr block-deal selling by anchor backers; only ~6 months of listed history; Trendlyne flags "good quality but weak financials/technicals" (Falling Comet). Extreme valuation risk.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹247 (m-cap ~₹13,800 Cr) on ₹112 Cr FY26 PAT, Shadowfax trades at <strong>~112x trailing earnings and ~30x book</strong>. As established in §8, trailing P/E is a poor anchor for a just-inflected hyper-growth platform. The right frame is <strong>EV/Sales and EV/EBITDA judged against the growth rate, the PAT-margin trajectory, and cash conversion</strong> — a "is the growth-and-margin path good enough to grow into this multiple?" analysis.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Shadowfax</h3>
+    <div class="bm-sub">New-age asset-light platform at an earnings inflection → EV/Sales &amp; EV/EBITDA vs growth + margin trajectory; trailing P/E misleads; growth-adjusted lenses only</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>EV/EBITDA (forward) vs growth</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Best captures a scaling, asset-light platform: neutralises the thin/young net-profit base and D&amp;A, and — judged against ~40–70% growth — shows whether operating profit can grow into the multiple. Anchor on FY27–28E EBITDA.</td></tr>
+      <tr><td>EV/Sales vs revenue growth &amp; margin path</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Standard new-age-platform lens. ~3x+ sales for a ~70%-grower can be defensible <em>if</em> margins expand; the whole question is the credibility of the margin trajectory on that revenue.</td></tr>
+      <tr><td>PAT-margin trajectory &amp; operating leverage</td><td><span class="verdict v-ind">CRITICAL INDICATOR</span></td><td>At ~2.5–3% PAT margin, the entire bull case is margins <em>expanding</em> with density. Sustained margin gains validate the multiple; flat/compressing margins destroy it. The number to watch every quarter.</td></tr>
+      <tr><td>Cash conversion (OCF/EBITDA)</td><td><span class="verdict v-ind">GATE</span></td><td>Asset-light should convert profit to cash well. Weak conversion (working-capital drag, capex creep) would undercut the quality of the reported inflection.</td></tr>
+      <tr><td>PEG / growth-adjusted P/E</td><td><span class="verdict v-sec">SECONDARY</span></td><td>Only meaningful once the profit base matures; today's tiny base makes it unstable, but it frames whether ~110x is "justified" by, say, 50%+ growth.</td></tr>
+      <tr><td>Trailing P/E (~112x) / P/B (~30x)</td><td><span class="verdict v-avoid">AVOID as anchor</span></td><td>Artifacts of a large cap ÷ a tiny, just-positive profit. Neither literal "overvalued" nor a defence — they simply don't anchor a value for a company at this inflection stage.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> Shadowfax's ~₹13,800 Cr EV against ₹4,200 Cr FY26 revenue is <b>~3.3x sales</b> — not absurd for a ~70%-grower, but demanding given ~2.5–3% net margins. The bull path: revenue compounds ~40–50%+ (quick-commerce tailwind + 360 + share gains) while density lifts PAT margin toward ~5–7% — on ~₹6,000–6,500 Cr FY27 revenue that could mean ~₹250–400 Cr PAT, shrinking the forward P/E toward ~35–55x and letting the stock "grow into" its valuation. The bear path: competition + in-housing + gig-wage inflation cap margins near current thin levels, growth decelerates from the post-IPO surge, and a ~110x multiple de-rates hard toward logistics-peer levels — with the block-deal supply accelerating the fall. <b>Verdict: a genuinely exciting, well-run, structurally-tailwinded platform at a real profitability inflection — but priced for flawless execution with essentially no margin of safety, and facing a live anchor-seller overhang. Value it on forward EV/EBITDA and the margin trajectory, never trailing P/E. A high-risk, high-conviction growth bet suitable only for investors who strongly believe in the margin-expansion story and can stomach severe volatility — the burden of proof sits squarely on the coming quarters, starting tomorrow.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹120–160</div><div class="sd">Margins stay thin, growth decelerates from the post-IPO surge, in-housing bites, block-deal supply + lock-up expiry pressure the stock; de-rates toward sales/peer multiples. Back toward listing-era / 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹210–265</div><div class="sd">~40% revenue growth, gradual margin expansion, 360 ramps, block deals absorbed. Grows into a still-premium multiple; tracks around current levels with the analyst ₹265 target as the upper base.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹300–360</div><div class="sd">Quick-commerce super-cycle + density-led margin expansion to ~5–7% PAT + 360 scale + share gains; sustained 50%+ growth earns continued premium; re-rates toward ₹320+ (analyst bull case) on flawless delivery.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Univest sets a 12-month target of ₹265 (bull ₹320) on 15–20% FY27 PAT growth. Scenario prices assume no severe demand or gig-regulation shock and orderly block-deal absorption. Verify CMP/ratios vs NSE/BSE; watch tomorrow's Q1 FY27 print.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Extreme valuation — dominant risk</strong>~112x P/E / ~30x P/B / ~3.3x sales on ~2.5–3% margins prices in years of flawless hyper-growth and margin expansion. Any growth or margin disappointment could trigger a severe de-rating; there is essentially no margin of safety.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Customer concentration &amp; in-housing</strong>Heavy reliance on a few large e-comm/quick-comm clients who can — and increasingly do — build captive delivery fleets (Ekart, Amazon, quick-comm riders), cutting out the 3PL. The structural threat to the entire model.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Thin margins / low pricing power</strong>Last-mile is low-margin and execution-driven; fuel, gig-wages, returns and SLA penalties are hard to pass on. Small cost shocks disproportionately hit a ~2.5–3% PAT margin.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Block-deal / lock-up overhang</strong>Marquee backers (Eight Roads, Flipkart, IMM) selling &gt;₹1,000 Cr via block deals (floor ₹197); further lock-up expiries can add supply and pressure the price near-term.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Gig-labour regulation &amp; availability</strong>The model depends on a low-cost, flexible gig workforce. Gig-worker regulation, social-security mandates, or wage inflation could raise costs and compress margins.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Intense competition</strong>Delhivery, Ecom Express, Xpressbees and regional players compete hard on price; the industry is crowded and consolidating.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Short listed history &amp; low promoter stake</strong>Only ~6 months public; limited track record as a listed entity; ~16.6% promoter holding offers little insider ballast. Governance/execution to be proven over time.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">+69% FY26 <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Profitability inflection</div><div class="scv">₹6→112 Cr <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Structural tailwind</div><div class="scv">Quick-comm boom <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Asset-light model</div><div class="scv">Scalable/flexible <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Tech &amp; network</div><div class="scv">14,758 pins <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Margins</div><div class="scv">~2.5–3%, thin <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">In-housing risk</div><div class="scv">Structural threat <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~112x, extreme <span class="stars">★☆☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Overhang / float</div><div class="scv">Block-deal selling <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Shadowfax is a <strong>genuinely impressive, well-run, tech-first asset-light last-mile platform</strong> at a <strong>real profitability inflection</strong> — revenue up ~69% to ₹4,200+ Cr, PAT leaping from ₹6 Cr to ₹112 Cr, a record Q4, and direct leverage to India's e-commerce and quick-commerce booms via a "picks-and-shovels" model, backed by marquee investors and a densifying, tech-driven network. <strong>But as an investment it is priced for perfection: ~112x earnings, ~30x book and ~3.3x sales on a still-thin ~2.5–3% PAT margin, in a brutally competitive, low-pricing-power industry where its own largest customers can insource delivery — and it faces a live &gt;₹1,000 Cr anchor-seller block-deal overhang with only ~6 months of listed history.</strong> <strong>The honest framing: a high-quality growth business at a valuation that leaves no room for error. Value it on forward EV/EBITDA and — above all — the PAT-margin trajectory and cash conversion; never anchor on the ~112x trailing P/E, which is an artifact of a just-inflected profit base. This is a high-risk, high-conviction growth bet only for investors who strongly believe density-driven margin expansion will let it grow into the multiple, and who can withstand severe volatility and the near-term supply overhang. The burden of proof sits on the coming quarters — starting with tomorrow's Q1 FY27 print.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">31 Jul 2026</td><td><strong>Q1 FY27 results TOMORROW:</strong> board to approve Q1 FY27 financials; earnings call 5:00 PM IST — the key near-term catalyst.</td></tr>
+    <tr><td class="mono">24 Jul 2026</td><td><strong>Block-deal overhang:</strong> Eight Roads, Flipkart &amp; Korea's IMM India Fund reportedly to sell &gt;₹1,000 Cr of shares (floor ₹197); Eight Roads reported an equity sale under SEBI Takeover Regulations.</td></tr>
+    <tr><td class="mono">14 May 2026</td><td><strong>Q4 &amp; FY26 results:</strong> Q4 revenue ₹1,237 Cr (+74% YoY), standalone net profit ₹55.27 Cr (vs −₹10.08 Cr loss YoY); FY26 revenue ₹4,200+ Cr (+69%), PAT ₹112 Cr (from ₹6 Cr). Earnings call held 14 May.</td></tr>
+    <tr><td class="mono">FY26</td><td>Launched <strong>Shadowfax 360</strong> — a digital shipping platform for SMEs/D2C brands (flat-rate billing, fast COD remittance); management sees 10–25% revenue uplift over 1–2 years.</td></tr>
+    <tr><td class="mono">28 Jan 2026</td><td><strong>IPO listing on NSE &amp; BSE</strong> — ₹1,907 Cr issue at ₹124 (fresh + OFS); debuted ~9% below issue; stock has since roughly doubled from its lows.</td></tr>
+    <tr><td class="mono">Ongoing</td><td>Network expansion (14,758 pin codes, 4,299 touchpoints, 53 sort centres); IPO proceeds funding infrastructure capex, sort centres, branding and potential M&amp;A.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; Capital Structure</h2></div>
+  <div class="cards">
+    <div class="card v"><div class="k">Model</div><div class="v">Asset-light</div><div class="d">leased infra/fleet</div></div>
+    <div class="card c"><div class="k">Debt</div><div class="v">Reduced</div><div class="d">Screener: debt cut</div></div>
+    <div class="card a"><div class="k">IPO fresh issue</div><div class="v">Network capex</div><div class="d">₹423 Cr earmarked</div></div>
+    <div class="card p"><div class="k">P/B</div><div class="v">~30x</div><div class="d down">rich</div></div>
+  </div>
+  <p>Shadowfax runs an <strong>asset-light balance sheet</strong> — leasing infrastructure, sort centres and linehaul rather than owning them — which keeps capital intensity low and returns-on-capital potentially high <em>if</em> the network is well-utilised. Post-IPO it is <strong>well-capitalised</strong> (fresh proceeds for network capex/leases/branding/M&amp;A) and Screener notes <strong>reduced debt</strong>. The very high P/B (~30x) reflects that net worth is small relative to the market's growth expectations.</p>
+  <div class="call cy">
+    <div class="lab">The metric that anchors the thesis: margin trajectory &amp; cash conversion</div>
+    For an asset-light platform, the balance sheet is less the story than <strong>whether operating profit expands and converts to cash</strong>. The bull case needs to see the FY26 operating-leverage inflection <em>continue</em>: PAT margin rising from ~2.5–3% toward mid-single-digits as density improves, with healthy OCF/EBITDA conversion (asset-light should convert well). Post-IPO cash gives room to invest in the network without stress. <strong>The key watch-items every quarter are: PAT margin, EBITDA margin, order-volume growth, cash conversion, and client concentration</strong> — these, not the balance sheet per se, decide whether a ~112x multiple was visionary or a mistake.
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Strong up <span class="badge b-bull">↑</span></div><div class="tkd">+100% 1yr, near ATH</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹247</div><div class="tkd">31 Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹98.55 – 246.8</div><div class="tkd">at the high</div></div>
+    <div class="tk"><div class="tkl">Issue price</div><div class="tkv">₹124</div><div class="tkd">Jan 2026 IPO</div></div>
+    <div class="tk"><div class="tkl">Block-deal floor</div><div class="tkv">₹197</div><div class="tkd">supply zone</div></div>
+    <div class="tk"><div class="tkl">Trendlyne</div><div class="tkv">Falling Comet</div><div class="tkd">good co., weak fin/tech</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Shadowfax has been a <strong>powerful post-listing performer</strong> — roughly doubling from its ₹98.55 low (and its ₹124 issue price) to press near all-time highs around ₹247, a ~100% one-year gain, as the market rewarded the profitability inflection. Momentum is strong but the stock now trades <strong>near its highs into two collinear events: tomorrow's Q1 FY27 print and an active &gt;₹1,000 Cr block-deal supply (floor ₹197)</strong>. That combination makes for a high-volatility setup — a strong Q1 confirming margin expansion could extend the run, while any disappointment or heavy block-deal supply could trigger a sharp pullback from stretched levels. The ₹197 block floor and prior consolidation zones are reference supports. Trendlyne's "Falling Comet" (good company, weak financials/technicals) captures the tension. Note wide vendor price data and short listed history — verify vs NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary/limited by short listed history (CMP ₹221–248, m-cap ~₹12,871–13,890 Cr, P/E ~112x, P/B ~30x; ignore stale "₹2,800 Cr" market-cap sources). Q1 FY27 results due 31 Jul 2026 — verify actuals. Extreme-valuation, high-volatility stock with an active block-deal overhang. Consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Shadowfax Technologies Ltd</b> — NSE: SHADOWFAX · BSE: 544685 · ISIN: INE0RQO01011 · Tech-Enabled Asset-Light Last-Mile Logistics (E-commerce, Quick Commerce, Reverse) · Bengaluru<br>
+  Report generated 31 July 2026 · Data through FY26 (year ended 31 Mar 2026); Q1 FY27 results due same/next session (31 Jul 2026) — verify actuals against this report's trajectory.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures, IPO documents (RHP) and financial-data vendors — company Q4/FY26 results, con-call transcript (14 May 2026) &amp; BSE-NSE filings, Groww, Screener.in, Bajaj Finserv, Kotak Neo, Trendlyne, Univest, Sharekhan, Chittorgarh, Business Standard, Finnovate, Sahi. Key figures: FY26 revenue ₹4,200+ Cr (+~69% YoY vs ₹2,485 Cr FY25), PAT ₹112 Cr (from ₹6 Cr FY25); FY25 revenue ₹2,485 Cr (revenue CAGR 32.52% FY23–FY25); EBITDA-positive since FY24; order-volume ~30% CAGR since FY23. Q4 FY26: revenue ₹1,237 Cr (+74% YoY), standalone net profit ₹55.27 Cr / ~₹56 Cr (vs −₹10.08 Cr loss YoY). Q3 FY26 EPS ₹0.67. H1 FY26 PAT ~₹21 Cr. IPO: ₹1,907 Cr (15,38,12,014 shares at ₹124; fresh + OFS), opened 20–22 Jan 2026, listed NSE/BSE 28 Jan 2026 (~9% below issue); BRLM ICICI Securities, registrar KFin. Use of fresh proceeds: network-infra capex ₹423.43 Cr, lease payments ₹138.64 Cr, branding/marketing ₹88.57 Cr, inorganic/GCP. Network: 14,758 pin codes, 2,300+ cities, 4,299 touchpoints, 53 sort centres (1.80M+ sq ft; 3.50M+ sq ft total operational), 3,000+ leased trucks, ~3.5M gig delivery partners. Clients: Flipkart, Myntra, Meesho (e-comm); Zepto, Blinkit, Swiggy Instamart (quick-comm); food/hyperlocal/mobility; reverse logistics. Launched Shadowfax 360 (SME/D2C shipping). Founded 21 Apr 2015 (Delhi), HQ Bengaluru; founders Abhishek Bansal &amp; Vaibhav Khandelwal; backers Flipkart, TPG, Eight Roads, Mirae, IMM. Shareholding (Mar '26): promoter 16.6%, FII 7.6%, DII 20.7%, public 55.1%, MF ~12.49%. <b>ACTIVE OVERHANG: Eight Roads, Flipkart &amp; IMM India Fund reportedly selling &gt;₹1,000 Cr via block deals (floor ₹197; reported 24 Jul 2026); Eight Roads reported a sale.</b> <b>DATA CAVEAT: CMP ₹221.31 (Univest, ~26 Jun) to ₹248 (Bajaj, 31 Jul) — ~₹247 used; market cap ₹12,871 Cr (Screener) / ₹13,889.60 Cr (Bajaj, 31 Jul) on ~56 Cr shares × ~₹247 — IGNORE any "₹2,800 Cr" figure (stale/wrong share count). P/E ~112x, P/B ~30x (Bajaj, 31 Jul); 52-wk ₹98.55–₹246.8; issue price ₹124; face value ₹10. Listed Jan 2026 — limited public history, figures still stabilising. Verify vs NSE/BSE and filed results.</b> Univest 12-month target ₹265 (bull ₹320); Trendlyne "Falling Comet" (good quality, weak financials/technicals). Indian logistics market ₹9tn FY23 → ₹13.4tn FY28E (~8–9% CAGR, Motilal Oswal). Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Shadowfax Technologies Limited
+Ticker: NSE: SHADOWFAX / BSE: 544685
+Sector: Logistics-Tech - Asset-Light Gig-Based Last-Mile Delivery (E-commerce, Quick Commerce, Reverse)
+Report Date: July 31, 2026 (Q1 FY27 results due SAME DAY - board meets Jul 31, call 5pm)
+File: shadowfax_technologies_equity_research.html
+CMP at Report: ~₹247 (Jul 31 2026; ranged ₹221-248; VERIFY vs NSE/BSE)
+Market Cap: ~₹13,800 Cr (₹12,871 Screener / ₹13,890 Bajaj on ~56 Cr shares) - IGNORE stale "₹2,800 Cr" (wrong share count)
+FY26: Revenue ₹4,200+ Cr (+69% YoY from ₹2,485 Cr), PAT ₹112 Cr (from ₹6 Cr - PROFITABILITY INFLECTION)
+Q4 FY26: Revenue ₹1,237 Cr (+74% YoY), standalone net profit ₹55.27 Cr / ~₹56 Cr (vs -₹10.08 Cr loss YoY - record)
+IPO: listed Jan 28 2026, ₹1,907 Cr at ₹124 (fresh+OFS), debuted ~9% below; stock since ~doubled
+BUSINESS: tech-first ASSET-LIGHT GIG-BASED last-mile logistics platform; founders Abhishek Bansal & Vaibhav Khandelwal (2015); Flipkart/TPG/Eight Roads/Mirae backed; 14,758 pin codes, 4,299 touchpoints, 53 sort centres, ~3.5M gig partners
+CLIENTS: Flipkart/Myntra/Meesho (e-comm), Zepto/Blinkit/Swiggy Instamart (quick-comm), hyperlocal/reverse; launched Shadowfax 360 (SME/D2C)
+VALUATION: EXTREME ~112x P/E, ~30x P/B, ~3.3x sales on THIN ~2.5-3% PAT margin - PRICED FOR PERFECTION
+ACTIVE OVERHANG: Eight Roads/Flipkart/IMM India Fund selling >₹1,000 Cr via block deals (floor ₹197, reported Jul 24); Eight Roads already sold
+KEY RISKS: extreme valuation (dominant), customer concentration + IN-HOUSING (clients build captive fleets - structural threat), thin margins/low pricing power, block-deal/lockup overhang, gig-labour regulation, competition (Delhivery/Ecom Express/Xpressbees), short listed history, promoter only 16.6%
+Ownership: promoter 16.6% (VC-diluted), DII 20.7%, MF ~12.5%, FII 7.6%, public 55.1%
+Bull Case: ₹300-360
+Base Case: ₹210-265
+Bear Case: ₹120-160
+Primary Valuation Metric: forward EV/EBITDA vs growth + EV/Sales vs margin path co-primary; PAT-margin trajectory CRITICAL INDICATOR; cash-conversion GATE; trailing P/E (~112x) & P/B = AVOID as anchor (artifact of just-inflected profit base)
+Investment Type: high-quality new-age growth platform at profitability inflection + quick-commerce tailwind BUT priced for perfection, no margin of safety, live block-deal overhang; high-risk high-conviction growth bet only; burden of proof on coming quarters
+-->

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SML Mahindra — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1526; --navy-2:#132339; --navy-3:#1D3350;
+    --steel:#2E6FB5; --steel-dk:#1F538C; --steel-lt:#5B9BDD; --steel-gl:rgba(46,111,181,.11);
+    --red:#D6362F; --red-dk:#A8241E; --red-lt:#E86A5F; --red-gl:rgba(214,54,47,.10);
+    --amber:#E4A11B; --amber-dk:#B57C0A; --amber-gl:rgba(228,161,27,.13);
+    --teal:#1BA098; --teal-gl:rgba(27,160,152,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --rd:#CE4B44;
+    --ink-1:#0D1826; --ink-2:#39485C; --ink-3:#66788C;
+    --line:#E3E8EE; --line-2:#EFF2F6; --paper:#FCFDFE; --paper-2:#F4F7FA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(11,21,38,.13)}
+  h1,h2,h3,h4{font-family:'Saira',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.13}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  /* HERO — highway / road motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0B1526 0%,#132339 52%,#1D3350 128%);color:#E8EFF6;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:450px;height:450px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(91,155,221,.28),rgba(214,54,47,.14) 55%,transparent 72%);filter:blur(5px)}
+  .road{position:absolute;right:64px;bottom:0;width:210px;height:150px;z-index:2;opacity:.5}
+  .road svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.st{background:rgba(46,111,181,.26);border-color:rgba(91,155,221,.5);color:#A9CDF0}
+  .tag.rd{background:rgba(214,54,47,.24);border-color:rgba(232,106,95,.5);color:#F2B0AA}
+  .hero h1{font-size:44px;font-weight:800;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .sub{font-size:16.5px;color:#AEC0D2;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:114px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8399AE;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Saira',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--navy);color:#8399AE;
+    padding:11px 48px;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .metabar b{color:#E3EDF5;font-weight:400}
+  .metabar .dot{color:var(--red-lt)}
+
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'JetBrains Mono',monospace}
+  .alert b{color:var(--navy)}
+  .alert.deal{background:var(--red-gl);color:var(--red-dk)}
+  .alert.q1{background:var(--steel-gl);color:var(--steel-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--steel-dk);
+    border:1.5px solid var(--steel);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--navy)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--steel);background:var(--steel-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.rd{border-color:var(--red);background:var(--red-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.te{border-color:var(--teal);background:var(--teal-gl)}
+  .call.red{border-color:var(--rd);background:rgba(206,75,68,.08)}
+  .call .lab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--steel-dk);margin-bottom:5px}
+  .call.rd .lab{color:var(--red-dk)}.call.am .lab{color:var(--amber-dk)}.call.te .lab{color:#137068}.call.red .lab{color:var(--rd)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--navy-2);color:#E3EDF5;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'JetBrains Mono',monospace}
+  .tr-hi td{background:var(--steel-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--navy);letter-spacing:-.01em;font-family:'Saira',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.s{border-top:3px solid var(--steel)}.card.r{border-top:3px solid var(--red)}
+  .card.a{border-top:3px solid var(--amber)}.card.t{border-top:3px solid var(--teal)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:100px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--steel);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--navy);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--steel-gl);border-color:var(--steel)}
+  .vnode.own .vt{color:var(--steel-dk)}
+  .vnode.new{background:var(--red-gl);border-color:var(--red)}
+  .vnode.new .vt{color:var(--red-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:172px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'JetBrains Mono',monospace;font-weight:500}
+  .bar-val{width:104px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.road{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,75,68,.06);border-color:rgba(206,75,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Saira',sans-serif}
+  .scen .bear .st{color:var(--rd)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--navy);color:#E6EEF6;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(46,111,181,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Saira',sans-serif}
+  .bm .bm-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--steel-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C3D5E6}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#BFD1E2}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--steel);color:#fff}.v-co{background:var(--red-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#39485C;color:#DCE6F0}
+  .v-avoid{background:#7A2622;color:#F6C9BF}.v-cross{background:#243B50;color:#C6DAEA}
+  .v-rerate{background:var(--amber-dk);color:#FBE2B0}
+  .bm .onenum{background:rgba(228,161,27,.14);border:1px solid rgba(228,161,27,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F0D9A6;position:relative}
+  .bm .onenum b{color:#F3C969}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--navy)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--rd)}.rm{background:var(--amber-dk)}.rl{background:var(--steel-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--steel),var(--red))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--steel);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--steel)}
+  .tli .ty{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12.5px;color:var(--steel-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--navy);font-family:'Saira',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,75,68,.14);color:var(--rd)}
+  .b-neut{background:rgba(228,161,27,.2);color:var(--amber-dk)}
+
+  .foot{background:var(--navy);color:#7C93A8;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#BFD1E2}
+  .disc{font-size:10.5px;color:#66788C;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="road">
+    <svg viewBox="0 0 210 150" fill="none">
+      <path d="M10 140 L80 30 L130 30 L200 140 Z" fill="none" stroke="#5B9BDD" stroke-width="1.5" opacity="0.4"/>
+      <path d="M105 30 L105 140" stroke="#E4A11B" stroke-width="3" stroke-dasharray="10 9" opacity="0.75"/>
+      <rect x="70" y="70" width="34" height="20" rx="2" fill="#D6362F" opacity="0.7"/>
+      <rect x="104" y="66" width="26" height="24" rx="2" fill="#2E6FB5" opacity="0.6"/>
+      <circle cx="80" cy="92" r="4" fill="#0B1526" stroke="#5B9BDD" stroke-width="1.5"/>
+      <circle cx="98" cy="92" r="4" fill="#0B1526" stroke="#5B9BDD" stroke-width="1.5"/>
+      <circle cx="112" cy="92" r="4.5" fill="#0B1526" stroke="#5B9BDD" stroke-width="1.5"/>
+      <circle cx="124" cy="92" r="4.5" fill="#0B1526" stroke="#5B9BDD" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: SMLMAH</span>
+      <span class="tag">BSE: 505192</span>
+      <span class="tag st">Commercial Vehicles · Trucks &amp; Buses</span>
+      <span class="tag rd">Mahindra-Controlled · MTBD Merger</span>
+    </div>
+    <h1>SML Mahindra</h1>
+    <div class="sub">The former <b>SML Isuzu</b> — a mid-tier bus-and-truck maker — remade by <b>Mahindra &amp; Mahindra's takeover</b> and now set to <b>absorb M&amp;M's entire Truck &amp; Bus Division</b>, roughly doubling its size overnight. A genuine transformation story riding a bold ₹12,500 Cr FY31 vision — but priced at a very rich multiple.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹4,000</div><div class="d up">+41% on deal, 2d</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹5,800 Cr</div><div class="d">Screener ₹7,929*</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">₹2,838 Cr</div><div class="d up">+18%</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹159.8 Cr</div><div class="d up">+31%, record</div></div>
+      <div class="qs"><div class="k">MTBD deal</div><div class="v">₹525 Cr</div><div class="d">adds ₹2,989 Cr rev</div></div>
+      <div class="qs"><div class="k">Trailing P/E</div><div class="v">~40–50x</div><div class="d down">rich, ~15x book</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Promoter:</b> Mahindra &amp; Mahindra (58.97%)</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1983 (as Swaraj Mazda)</span>
+  <span class="dot">◆</span>
+  <span><b>Renamed:</b> Oct 2025 (from SML Isuzu)</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 02 Aug 2026</span>
+</div>
+
+<div class="alert deal">
+  🔗 <b>DEFINING EVENT — MTBD ACQUISITION (announced 29 Jul 2026):</b> SML Mahindra's board approved acquiring <b>M&amp;M's entire Truck &amp; Bus Division (MTBD) for ₹525 Cr via slump sale</b>. MTBD generated <b>₹2,989 Cr total income in FY26 — larger than SML's own ₹2,838 Cr</b>, so the deal <b>roughly doubles revenue</b>. BTA by 7 Aug; completion by 31 Jan 2027 (shareholder + regulatory approval). Stock rallied <b>~41–44% in two days</b>. Consolidates all Mahindra Group CV under one listed entity.
+</div>
+<div class="alert q1">
+  ⚠ <b>Q1 FY27 (reported ~21 Jul 2026) — MIXED:</b> Revenue ₹957.54 Cr (+13.20% YoY, +6.67% QoQ), but PAT ₹63.62 Cr (<b>−4.99% YoY</b>, though +17.38% QoQ), EBITDA margin narrowed to <b>10.5% (from 12.4% YoY)</b> on higher employee (+18.87%) and material costs and tax. Strong topline, margin compression — profit dipped YoY but recovered sequentially.
+</div>
+<div class="alert">
+  ⚠ <b>DATA CAVEAT:</b> Vendor figures diverge widely — CMP ₹3,038 (SimplyWall.st, STALE) to ₹4,018–4,267 (recent); m-cap ₹5,572 Cr to ₹7,929 Cr (Screener); trailing P/E ~35x to ~50x; P/B ~11x to ~15x; 52-wk high ₹4,744 to ₹5,987. Face value ₹10, ~1.45 Cr shares (tiny float → high absolute price &amp; volatility). This report anchors CMP ~₹4,000. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>SML Mahindra Ltd</strong> (formerly <strong>SML Isuzu</strong>, and before that Swaraj Mazda) is an Indian <strong>commercial-vehicle manufacturer</strong> — buses, and light/intermediate/heavy trucks — with heritage strength in buses and the &gt;3.5-tonne segment. Its defining transformation is ownership: <strong>Mahindra &amp; Mahindra acquired 58.96% control effective 1 August 2025</strong> (buying out the erstwhile Japanese promoters Sumitomo and Isuzu Motors), renamed it SML Mahindra in October 2025, and has now moved to <strong>consolidate its entire Truck &amp; Bus Division (MTBD) into this listed entity.</strong></p>
+  <p>The investment story is therefore <strong>a transformation-and-re-rating story, not a steady-compounder story.</strong> On fundamentals, FY26 was a record year (revenue +18%, PAT +31% to ₹159.8 Cr, volumes +17%, outgrowing the industry) as M&amp;M's ownership brought scale, sourcing and network benefits. The <strong>MTBD acquisition (₹525 Cr, announced 29 Jul 2026) roughly doubles the revenue base</strong> and creates a genuine full-range CV challenger targeting <strong>₹12,500 Cr revenue by FY31</strong>. But two things temper it: <strong>Q1 FY27 showed margin compression</strong> (EBITDA margin 10.5% vs 12.4%), and <strong>the stock already trades at a very rich ~40–50x earnings and ~15x book</strong> — pricing in much of the optimism. This is a "great transformation, demanding valuation" situation.</p>
+  <div class="cards">
+    <div class="card s"><div class="k">FY26 Revenue</div><div class="v">₹2,838 Cr</div><div class="d up">+18% YoY</div></div>
+    <div class="card r"><div class="k">FY26 PAT</div><div class="v">₹159.8 Cr</div><div class="d up">+31%, record</div></div>
+    <div class="card a"><div class="k">FY31 target</div><div class="v">₹12,500 Cr</div><div class="d">~4.4x FY26</div></div>
+    <div class="card t"><div class="k">Promoter (M&amp;M)</div><div class="v">58.97%</div><div class="d">since Aug 2025</div></div>
+  </div>
+  <div class="call rd">
+    <div class="lab">The investment character in one line</div>
+    SML Mahindra is a <strong>cyclical commercial-vehicle company undergoing a corporate transformation</strong> — from a sub-scale, foreign-promoted niche player into <strong>the consolidated CV arm of the Mahindra Group</strong>, roughly doubling in size via the MTBD merger and chasing a 4.4x revenue vision by FY31. The bull case is real: M&amp;M's scale, distribution, sourcing and product breadth turning a perennial also-ran into a credible #3 CV challenger. <strong>The bear case is entirely valuation and execution</strong>: at ~40–50x earnings and ~15x book, the stock already discounts a lot of the vision, MTBD is margin-dilutive near-term, Q1 margins compressed, and the CV industry is cyclical. This is a <strong>story stock where the business is genuinely improving but the price demands flawless delivery.</strong>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1983–2010 · Swaraj Mazda</div><div class="td">Incorporated 1983 as Swaraj Vehicles / Swaraj Mazda — a JV involving Punjab Tractors, Mazda and Sumitomo — building light commercial vehicles and buses with a reputation for durable, over-engineered products.</div></div>
+    <div class="tli"><div class="ty">2011 · Becomes SML Isuzu</div><div class="td">Renamed <strong>SML Isuzu</strong> (Jan 2011) as Isuzu Motors and Sumitomo held the promoter stakes; established a strong niche in buses and the 5–12 tonne truck segment, but remained sub-scale with volatile profitability and low single-digit market share.</div></div>
+    <div class="tli"><div class="ty">FY21–FY24 · Cyclical trough &amp; recovery</div><div class="td">COVID hammered CV demand (FY21 losses); a gradual recovery followed, but the company lacked the scale and product breadth to compete with Tata Motors and Ashok Leyland across the full CV range.</div></div>
+    <div class="tli"><div class="ty">Aug 2025 · Mahindra takes control</div><div class="td"><strong>M&amp;M acquired 58.96%</strong> — 43.96% from Sumitomo + 15% from Isuzu Motors — becoming sole promoter effective 1 Aug 2025. The strategic re-rating begins; sourcing, network and product synergies with the Mahindra CV ecosystem start to flow.</div></div>
+    <div class="tli"><div class="ty">Oct 2025 · Renamed SML Mahindra</div><div class="td">Rebranded from SML Isuzu to <strong>SML Mahindra</strong> (8 Oct 2025), formally anchoring it within the Mahindra Group's CV strategy.</div></div>
+    <div class="tli"><div class="ty">FY26 · Record year</div><div class="td">Revenue ₹2,838 Cr (+18%), PAT ₹159.8 Cr (+31%, highest-ever), volumes 16,632 (+17%, beating industry's +13%); credit-rating upgrade post-M&amp;M. Market-share gains in cargo and passenger segments.</div></div>
+    <div class="tli"><div class="ty">Jul 2026 · The MTBD merger</div><div class="td"><strong>Board approves acquiring M&amp;M's Truck &amp; Bus Division for ₹525 Cr (slump sale)</strong> — roughly doubling revenue and creating a full-range CV entity. FY31 target: ₹12,500 Cr revenue, 10–12% HCV share. Stock rallies ~41–44% in two days.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business &amp; Product Portfolio</h2></div>
+  <p>SML Mahindra manufactures and sells <strong>commercial vehicles and parts</strong> — historically strongest in <strong>buses</strong> (school, staff, intercity) and the <strong>intermediate/light truck</strong> segment. Post-MTBD, the combined entity will span the <strong>full CV range: light, intermediate and heavy trucks, plus buses</strong> — with the Mahindra and SML brands both retained.</p>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Buses</div><div class="vd">SML heritage strength; #2 ILCV bus (26.6%)</div></div>
+    <div class="vnode own"><div class="vt">LCV / ILCV trucks</div><div class="vd">Cargo, 3.5–12T</div></div>
+    <div class="vnode new"><div class="vt">MTBD trucks</div><div class="vd">Mahindra-branded, adds range</div></div>
+    <div class="vnode new"><div class="vt">Heavy trucks (HCV)</div><div class="vd">Group target 10–12% by FY31</div></div>
+    <div class="vnode own"><div class="vt">Parts &amp; service</div><div class="vd">Aftermarket</div></div>
+  </div>
+  <div class="call te">
+    <div class="lab">The strategic logic: from niche to full-range challenger</div>
+    Standalone, SML was a <strong>sub-scale specialist</strong> (~2% overall CV share) — strong in buses, thin elsewhere, unable to compete across the range with Tata Motors and Ashok Leyland. The Mahindra combination changes that: together, <strong>M&amp;M and SML already command ~52% of the LCV &lt;3.5T segment</strong> and are <strong>#2 in ILCV buses at 26.6% share (Q1 FY27)</strong>, while the MTBD merger adds Mahindra's truck range and manufacturing. The vision is a <strong>consolidated, full-range CV challenger</strong> with the scale to invest in products, technology (including EV/alternative-fuel CVs) and distribution — targeting 10–12% HCV share by FY31 and 20%+ by FY36 (from ~6% today). It's a credible strategic arc; the question is execution and how much is already priced.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Market Position &amp; Share</h2></div>
+  <div class="bar-row"><div class="bar-lab">LCV &lt;3.5T (M&amp;M+SML)</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:var(--steel)">~52%</div></div><div class="bar-val">combined #1</div></div>
+  <div class="bar-row"><div class="bar-lab">ILCV buses (Q1 FY27)</div><div class="bar-track"><div class="bar-fill" style="width:53%;background:var(--red)">26.6%</div></div><div class="bar-val">#2 player</div></div>
+  <div class="bar-row"><div class="bar-lab">HCV (today)</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--amber)">~6%</div></div><div class="bar-val">→ 10–12% FY31</div></div>
+  <div class="bar-row"><div class="bar-lab">Overall CV (SML standalone)</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--ink-3)">~2%</div></div><div class="bar-val">sub-scale alone</div></div>
+  <div class="call">
+    <div class="lab">Strong in pockets, aspirational in heavy trucks</div>
+    The combined group is <strong>genuinely strong in LCV and ILCV buses</strong> (leadership in sub-3.5T, #2 in ILCV buses) — that's a real, defensible base. <strong>Heavy commercial vehicles (HCV) are the aspiration</strong>: at ~6% share today, the group wants 10–12% by FY31 and 20%+ by FY36 — a segment dominated by Tata Motors and Ashok Leyland where winning share is hard, capital-intensive and slow. The MTBD merger provides the product range and scale to compete, but <strong>HCV market-share gains are the single biggest "prove-it" of the FY31 roadmap.</strong> Investors should treat the LCV/bus strength as the reliable core and HCV ambition as the high-uncertainty upside.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The MTBD Acquisition, Dissected</h2></div>
+  <table>
+    <tr><th>Deal parameter</th><th class="mono">Detail</th></tr>
+    <tr><td>What</td><td class="mono">M&amp;M's Truck &amp; Bus Division (MTBD) → SML Mahindra</td></tr>
+    <tr><td>Structure</td><td class="mono">Slump sale (going concern), Business Transfer Agreement</td></tr>
+    <tr><td>Consideration</td><td class="mono">₹525 Cr (subject to working-capital adj.)</td></tr>
+    <tr class="tr-hi"><td>MTBD FY26 total income</td><td class="mono">₹2,989 Cr (&gt; SML's own ₹2,838 Cr)</td></tr>
+    <tr><td>Timeline</td><td class="mono">BTA by 7 Aug 2026; completion by 31 Jan 2027</td></tr>
+    <tr><td>Manufacturing</td><td class="mono">M&amp;M continues contract-manufacturing Mahindra-branded CVs</td></tr>
+    <tr><td>Nature</td><td class="mono">Related-party (M&amp;M owns 58.97%), arm's length, GT Valuation</td></tr>
+  </table>
+  <div class="call rd">
+    <div class="lab">Why this is the whole story — and the nuances that matter</div>
+    The MTBD merger is <strong>transformational by scale: ₹2,989 Cr of revenue for a ₹525 Cr price roughly doubles SML's top line</strong> and creates a single, focused Mahindra CV entity. The low price relative to revenue reflects MTBD's <strong>historically thin profitability</strong> — and that is the central nuance: <strong>MTBD has been margin-dilutive</strong> (JM Financial notes it was historically margin-dilutive to M&amp;M, though EBITDA-positive since FY24). So the combined entity will have <strong>far larger scale but lower blended margins near-term</strong> — revenue roughly doubles while profit does <em>not</em>, which is why valuing on today's standalone earnings is misleading in both directions. Two further nuances: it's a <strong>related-party transaction</strong> (M&amp;M on both sides of the table, though at arm's length with an independent valuation and shareholder approval required) — a governance point to note; and <strong>M&amp;M continues manufacturing under contract</strong>, so SML books the revenue but doesn't immediately own all the plants. Net: a genuinely scale-transforming deal that must be judged on <strong>combined-entity forward economics and synergy delivery</strong>, not the ₹525 Cr headline or today's standalone P&amp;L.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Segment</th><th>Leaders</th><th>SML Mahindra position</th></tr>
+    <tr class="tr-hi"><td><strong>Heavy trucks (HCV)</strong></td><td>Tata Motors, Ashok Leyland</td><td>~6% (group); aspires 10–12% FY31 — the challenge</td></tr>
+    <tr><td><strong>LCV &lt;3.5T</strong></td><td>M&amp;M+SML combined</td><td><strong>~52% — leadership</strong></td></tr>
+    <tr><td><strong>ILCV buses</strong></td><td>Tata, Ashok Leyland, SML</td><td><strong>#2 at 26.6%</strong></td></tr>
+    <tr><td><strong>Intermediate trucks</strong></td><td>Tata, Ashok Leyland, Eicher (VECV)</td><td>Growing with Mahindra range</td></tr>
+    <tr><td><strong>Overall CV scale</strong></td><td>Tata (~#1), Ashok Leyland, VECV</td><td>Emerging #3–4 challenger post-merger</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A credible new #3 challenger — but taking on entrenched leaders</div>
+    Post-merger, SML Mahindra becomes a <strong>credible full-range challenger</strong>, but it is entering segments dominated by <strong>Tata Motors and Ashok Leyland</strong> (and Eicher/VECV in trucks) — players with decades of scale, distribution, financing tie-ups and fleet relationships, especially in HCV. SML Mahindra's edge is the <strong>Mahindra Group's brand, balance sheet, distribution and sourcing muscle</strong>, plus SML's respected bus/ILCV heritage. The realistic read: <strong>strong and defensible in LCV/buses, an ambitious insurgent in HCV.</strong> Market-share gains against entrenched leaders are typically slow and expensive, so the FY31 HCV targets are the aggressive end of the plan. The competitive upgrade from M&amp;M ownership is real; matching it to the valuation is the investor's job.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Tata, Ashok Leyland, VECV are entrenched, well-capitalised; CV is scale- and price-competitive, especially HCV.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate-High</td><td>Fleet operators are price- and TCO-sensitive; financing availability and resale value drive purchase decisions.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Steel and component costs are volatile (hit Q1 margins); Mahindra scale improves sourcing leverage.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low</td><td>High capital, distribution, regulatory and product-development barriers; EV could lower some over time.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Moderate</td><td>Rail freight and EV/alt-fuel CVs are longer-term shifts; core CV demand tied to GDP/freight/infrastructure.</td></tr>
+  </table>
+  <p>Net: a <strong>cyclical, scale-driven, competitive industry</strong> where the Mahindra combination materially improves SML's structural position (sourcing, distribution, product breadth), but where entrenched leaders and buyer price-sensitivity keep margins and share gains hard-won — reinforcing that the FY31 ambitions, while credible, are demanding.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Q1 FY27 Result, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue (₹ Cr)</td><td class="mono">845.9</td><td class="mono">897.7</td><td class="mono">957.5</td><td class="mono up">+13.20%</td></tr>
+    <tr><td>EBITDA (₹ Cr)</td><td class="mono">105</td><td class="mono">—</td><td class="mono">100.1</td><td class="mono down">−4.7%</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">12.4%</td><td class="mono">—</td><td class="mono">10.5%</td><td class="mono down">−1.9pp</td></tr>
+    <tr><td>PBT (₹ Cr)</td><td class="mono">89.55</td><td class="mono">72.60</td><td class="mono">85.28</td><td class="mono down">−4.76%</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">66.96</td><td class="mono">54.20</td><td class="mono">63.62</td><td class="mono down">−4.99%</td></tr>
+  </table>
+  <ul class="tight">
+    <li><strong>Revenue +13.2% YoY</strong> (+6.7% QoQ) to ₹957.5 Cr — healthy topline, driven by CV demand and share gains (volumes +10%).</li>
+    <li><strong>But PAT −4.99% YoY</strong> to ₹63.62 Cr — profit fell despite higher revenue, as <strong>costs outgrew sales</strong>: total expenses +15.2% YoY, employee costs +18.87%, materials +9.12%, plus higher tax.</li>
+    <li><strong>EBITDA margin compressed to 10.5%</strong> (from 12.4%) — the key negative; operating leverage worked against the company this quarter.</li>
+    <li><strong>Sequential recovery, though</strong>: PAT +17.38% QoQ (from ₹54.2 Cr in Q4 FY26), so momentum improved vs the prior quarter.</li>
+  </ul>
+  <div class="call red">
+    <div class="lab">The honest read: strong top line, disappointing margins</div>
+    Q1 FY27 was a <strong>mixed-to-soft quarter</strong>: the revenue growth confirms demand and share gains, but the <strong>margin compression (to 10.5%) and YoY profit decline</strong> are a real caution — they show that scale hasn't yet translated into margin expansion, and cost pressures (wages, materials) are biting. This matters doubly given the valuation: a stock at ~40–50x earnings needs <em>rising</em> profits to justify the multiple, and Q1 delivered falling YoY profit. The sequential recovery is mildly reassuring, but the quarter is a reminder that <strong>the transformation thesis is running ahead of the current earnings trajectory</strong>, and that MTBD's dilutive margins could pressure blended profitability further before synergies kick in. Watch margin recovery closely over the next few quarters.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>FY26 Performance &amp; Margins</h2></div>
+  <div class="cards">
+    <div class="card s"><div class="k">FY26 revenue</div><div class="v">₹2,838 Cr</div><div class="d up">+18% (₹2,399 FY25)</div></div>
+    <div class="card r"><div class="k">FY26 PAT</div><div class="v">₹159.8 Cr</div><div class="d up">+31% (₹121.7 FY25)</div></div>
+    <div class="card a"><div class="k">Volumes</div><div class="v">16,632</div><div class="d up">+17%, beat industry</div></div>
+    <div class="card t"><div class="k">Cargo volumes</div><div class="v">+28% YoY</div><div class="d">5,412 units</div></div>
+  </div>
+  <p>FY26 was <strong>SML's best-ever year</strong> — revenue +18%, record PAT +31%, and volumes +17% (outgrowing the industry's +13% in the &gt;3.5T segment), with market-share gains in both cargo and passenger. This is the tangible proof that <strong>Mahindra's ownership is already improving the standalone business</strong> through scale, sourcing and distribution — the foundation the transformation thesis rests on.</p>
+  <div class="call am">
+    <div class="lab">The FY26 delivery is genuine — but Q1 shows margins aren't yet compounding</div>
+    Credit where due: the FY26 numbers validate that <strong>M&amp;M ownership added real value</strong> within a year — faster-than-industry volume growth and a 31% profit jump are strong. The tension is that <strong>Q1 FY27's margin compression</strong> suggests the profit trajectory is lumpy and cost-exposed, and that the next leg (MTBD integration) brings <strong>dilutive margins before synergies</strong>. So the FY26 record is the "it's working" evidence, while Q1 FY27 is the "but it's not linear, and margins are the watch-item" counterpoint. Both are true — and the ~40–50x valuation leans entirely on the former continuing.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Ownership &amp; the Mahindra Parent</h2></div>
+  <div class="cards">
+    <div class="card s"><div class="k">Promoter (M&amp;M)</div><div class="v">58.97%</div><div class="d">since Aug 2025</div></div>
+    <div class="card r"><div class="k">Public / other</div><div class="v">~41%</div><div class="d">small free float</div></div>
+    <div class="card a"><div class="k">MF holding</div><div class="v">~0.8%</div><div class="d">low institutional</div></div>
+    <div class="card t"><div class="k">Shares o/s</div><div class="v">~1.45 Cr</div><div class="d">tiny equity base</div></div>
+  </div>
+  <p>SML Mahindra is now <strong>majority-owned and controlled by Mahindra &amp; Mahindra (58.97%)</strong> — a well-regarded, well-capitalised parent with deep automotive expertise. This is the single biggest positive: a strong strategic promoter driving scale, product and distribution, plus a credit-rating upgrade and access to the Mahindra ecosystem.</p>
+  <div class="call te">
+    <div class="lab">Strong parent — but note the related-party and float dynamics</div>
+    M&amp;M's control is overwhelmingly a positive: strategic direction, capital, sourcing scale, distribution and brand — exactly what a sub-scale CV maker needed. But two structural points deserve flagging. First, <strong>governance / related-party dynamics</strong>: the MTBD deal is M&amp;M selling to a company it controls — done at arm's length with independent valuation and requiring minority-shareholder approval, but minority investors should watch that future related-party transactions remain fairly priced. Second, the <strong>tiny equity base (~1.45 Cr shares) and small free float</strong> mean the stock has a very high absolute price and is <strong>prone to sharp, momentum-driven moves</strong> (the +41% two-day deal rally, and the wide vendor price divergence, illustrate this). The parent is a clear asset; the float and related-party angles are structural nuances, not red flags.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>The FY31 Roadmap</h2></div>
+  <div class="cards">
+    <div class="card s"><div class="k">FY31 revenue target</div><div class="v">₹12,500 Cr</div><div class="d">~4.4x FY26</div></div>
+    <div class="card r"><div class="k">HCV share FY31</div><div class="v">10–12%</div><div class="d">from ~6%</div></div>
+    <div class="card a"><div class="k">HCV share FY36</div><div class="v">20%+</div><div class="d">long-term</div></div>
+    <div class="card t"><div class="k">Post-MTBD revenue</div><div class="v">~₹5,800 Cr</div><div class="d">combined base</div></div>
+  </div>
+  <p>Management's stated ambition is bold: <strong>₹12,500 Cr revenue by FY31</strong> (from ~₹2,838 Cr FY26, or ~₹5,800 Cr combined post-MTBD), <strong>10–12% HCV share by FY31 and 20%+ by FY36</strong>. The MTBD merger is the first big step; the rest depends on organic share gains, new products (including EV/alternative-fuel CVs), and synergy capture.</p>
+  <div class="call am">
+    <div class="lab">Credible direction, aggressive magnitude — this is what the valuation is buying</div>
+    The FY31 roadmap is <strong>the core of the bull thesis and the justification for the rich multiple.</strong> Its direction is credible — Mahindra scale + consolidation genuinely can build a stronger CV franchise. But the <strong>magnitude is aggressive</strong>: ₹12,500 Cr implies roughly doubling <em>again</em> beyond the already-doubling MTBD merger, and doubling HCV share against Tata/Ashok Leyland in five years. Achieving it requires sustained share gains in the hardest segment, successful product launches, and margin expansion despite MTBD's dilution — a lot to go right. <strong>The investment question is not whether the direction is right (it is), but whether ~40–50x earnings already pays for a best-case execution of a five-year vision that is far from guaranteed.</strong> The roadmap's delivery — quarter by quarter, share point by share point — is the re-rating (or de-rating) factor.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>MTBD consolidation</strong></td><td>Doubles revenue; full CV range under one entity</td><td class="mono">Transformational ★★★★★</td></tr>
+    <tr><td><strong>Mahindra synergies</strong></td><td>Sourcing, distribution, network, R&amp;D scale</td><td class="mono">Core driver ★★★★</td></tr>
+    <tr><td><strong>HCV share gains</strong></td><td>~6% → 10–12% FY31; hardest segment</td><td class="mono">High upside/risk ★★★</td></tr>
+    <tr><td><strong>Buses / ILCV strength</strong></td><td>#2 buses (26.6%); reliable core</td><td class="mono">Defensible ★★★★</td></tr>
+    <tr><td><strong>EV / alt-fuel CVs</strong></td><td>Mahindra EV capability; new products</td><td class="mono">Optionality ★★★</td></tr>
+    <tr><td><strong>CV up-cycle</strong></td><td>Infra/freight-led demand tailwind</td><td class="mono">Cyclical ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Standalone (₹ Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Revenue</td><td class="mono">2,399</td><td class="mono">2,838</td><td class="mono">957.5 (Q)</td></tr>
+    <tr><td>PAT</td><td class="mono">121.7</td><td class="mono">159.8</td><td class="mono">63.62 (Q)</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">~11%</td><td class="mono">~11–12%</td><td class="mono">10.5%</td></tr>
+    <tr><td>EPS (₹, TTM)</td><td class="mono">~84</td><td class="mono">~98–110</td><td class="mono">43.96 (Q)</td></tr>
+    <tr><td>Volumes</td><td class="mono">~14,200</td><td class="mono">16,632</td><td class="mono">+10% YoY</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call te">
+        <div class="lab">The growth is real</div>
+        Revenue +18%, PAT +31%, volumes +17% (beating industry) in FY26; ~₹5,800 Cr combined revenue post-MTBD; a strong parent, share gains, and a bold roadmap. On <strong>trajectory and strategic position, the business is clearly on the up.</strong>
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The valuation &amp; margin caveat</div>
+        <strong>~40–50x trailing P/E and ~15x book</strong> is extremely rich for a cyclical CV maker; Q1 margins compressed to 10.5%; MTBD is margin-dilutive; the FY31 vision is aggressive. SimplyWall.st flags ~130%+ "overvalued" (fair value ~₹1,300). The price already discounts a lot.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹4,000 (m-cap ~₹5,800 Cr; Screener shows ₹7,929 Cr on a different share/price basis), SML Mahindra trades at a <strong>very rich ~40–50x trailing earnings and ~13–15x book value</strong> — multiples far above typical CV peers (Ashok Leyland, Tata Motors CV, VECV trade at much lower P/E and P/B). This is <strong>not a valuation you can justify on current standalone earnings</strong>; it only makes sense as a bet on the <strong>combined-entity forward earnings and the FY31 transformation.</strong></p>
+
+  <div class="bm">
+    <h3>Best Metric to Value SML Mahindra</h3>
+    <div class="bm-sub">Cyclical CV company at a transformational-but-richly-valued juncture → forward P/E &amp; EV/EBITDA on combined (post-MTBD) normalised earnings + roadmap execution; trailing P/E and P/B are rich and cannot be the sole anchor</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Forward P/E on combined normalised EPS</td><td><span class="verdict v-prim">PRIMARY</span></td><td>The only sensible anchor: value the <em>post-MTBD combined entity</em> on mid-cycle, synergy-adjusted earnings 2–3 years out, not today's standalone profit. The whole thesis is forward, not trailing.</td></tr>
+      <tr><td>EV/EBITDA (combined, forward)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Neutralises the near-term margin dilution and differing capital structures; the cleanest cross-check for a merging, capital-intensive CV maker. Judge vs Tata/Ashok Leyland/VECV.</td></tr>
+      <tr><td>FY31 roadmap execution</td><td><span class="verdict v-rerate">RE-RATING FACTOR</span></td><td>Share gains (esp. HCV), synergy capture and margin recovery quarter-by-quarter decide whether the rich multiple is sustained or de-rates. This is what the price is really tracking.</td></tr>
+      <tr><td>EBITDA-margin recovery</td><td><span class="verdict v-ind">CRITICAL INDICATOR</span></td><td>Q1's 10.5% (vs 12.4%) + MTBD dilution make margin trajectory the key quality signal. Rising margins validate the story; further compression undercuts it.</td></tr>
+      <tr><td>Volume &amp; market-share trend</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>+17% FY26 volumes (beating industry) and share gains are the tangible proof the franchise is strengthening. Track vs industry each month.</td></tr>
+      <tr><td>Trailing P/E (~40–50x) &amp; P/B (~15x)</td><td><span class="verdict v-avoid">AVOID as sole anchor</span></td><td>Extremely rich vs cyclical-CV norms and distorted by the transformation/re-rating; useful only as a "how much optimism is priced" gauge, never a standalone buy signal.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> The combined post-MTBD entity will do <b>~₹5,800 Cr revenue</b>. If synergies and share gains lift the combined business toward, say, a mid-cycle ~8–10% EBITDA margin and a normalised PAT in the <b>~₹250–350 Cr range over the next 2–3 years</b> (standalone ₹160 Cr + a scaled, synergised MTBD contribution), then on ~₹5,800 Cr market cap the stock sits at roughly <b>~17–23x <em>forward, combined, normalised</em> earnings</b> — full but no longer absurd <em>if</em> the roadmap delivers. On <em>today's</em> standalone ₹160 Cr, however, it is ~40–50x — pricing in a lot. <b>Verdict: a genuine, well-backed transformation — a sub-scale CV maker becoming the consolidated Mahindra CV champion, roughly doubling in size with a credible strategic parent and a bold FY31 vision — but the stock has already re-rated hard (+41% on the deal, ~40–50x trailing, ~15x book) and Q1 margins compressed. The business is improving faster than most peers, yet the price demands near-flawless multi-year execution and margin recovery. Value on forward, combined, normalised earnings and let FY31-roadmap execution + margin recovery be the referee; the trailing P/E and P/B cannot justify the price on their own. Fundamentally attractive story, demanding valuation — best accumulated on cyclical/execution-driven pullbacks rather than chased at post-deal highs.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹2,700–3,300</div><div class="sd">MTBD dilution + margin compression persist, HCV share gains disappoint, CV cycle softens, rich multiple de-rates toward peer levels. Toward the 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹3,800–4,600</div><div class="sd">MTBD integrates smoothly, margins recover toward FY26 levels, steady share gains, roadmap on track but not ahead; stock consolidates around current levels as earnings grow into the multiple.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹5,200–6,500</div><div class="sd">Synergies + HCV share gains beat plan, combined margins expand, FY31 vision looks achievable, re-rates as the credible #3 CV champion; toward/above the 52-wk high.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Peers (Ashok Leyland, Tata Motors CV, VECV) trade at materially lower P/E and P/B. SimplyWall.st fair value ~₹1,300 ("overvalued"). Scenarios hinge on MTBD integration, margin recovery and roadmap execution; CV cyclicality is a swing factor. Verify CMP/ratios vs NSE/BSE — vendor data diverges widely.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation risk — the central risk</strong>At ~40–50x trailing earnings and ~15x book, the stock prices in best-case transformation. Any stumble in integration, margins or the CV cycle could trigger a sharp de-rating toward peer multiples. The price leaves little margin of safety.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>MTBD margin dilution &amp; integration</strong>MTBD is historically margin-dilutive; blended margins likely fall near-term before synergies materialise. Integration of ₹2,989 Cr of revenue, employees, plants and contracts carries real execution risk.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Margin compression (Q1 evidence)</strong>Q1 FY27 EBITDA margin fell to 10.5% (from 12.4%) on cost pressures; a stock at this multiple needs rising, not falling, margins. Sustained compression would undercut the thesis directly.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>CV industry cyclicality</strong>Commercial-vehicle demand is highly cyclical, tied to freight, infrastructure and GDP. A downturn would hit volumes and margins and expose the rich valuation.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>HCV execution vs entrenched leaders</strong>The FY31 vision hinges on winning HCV share from Tata Motors and Ashok Leyland — a hard, slow, capital-intensive battle. Falling short of the aggressive targets would deflate the re-rating.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Related-party / governance</strong>The MTBD deal is M&amp;M selling to its own controlled subsidiary; though arm's length and minority-approved, minority investors depend on continued fair pricing of related-party transactions.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Float &amp; volatility</strong>Tiny equity base (~1.45 Cr shares) and small free float make the stock prone to violent momentum moves (as the +41% two-day rally and wide vendor price divergence show) — high volatility in both directions.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Strategic transformation</div><div class="scv">MTBD merger <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Parent quality (M&amp;M)</div><div class="scv">Strong <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">FY26 delivery</div><div class="scv">+31% PAT <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">LCV / bus position</div><div class="scv">#1 / #2 <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">FY31 roadmap</div><div class="scv">Bold, credible <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Q1 margins</div><div class="scv">10.5%, ↓ <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">HCV ambition</div><div class="scv">Aspirational <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Cyclicality</div><div class="scv">High <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~40–50x, ~15x BV <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    SML Mahindra is one of the most striking <strong>corporate-transformation stories</strong> in Indian autos: a perennially sub-scale bus-and-truck maker (the former SML Isuzu) <strong>taken over by Mahindra &amp; Mahindra (58.97%) and now absorbing M&amp;M's entire Truck &amp; Bus Division (₹525 Cr slump sale) — roughly doubling its revenue to ~₹5,800 Cr and becoming the consolidated Mahindra Group CV champion</strong>, with a bold FY31 vision of ₹12,500 Cr revenue and 10–12% HCV share. The transformation is genuine and well-backed: FY26 was a record year (revenue +18%, PAT +31%, volumes beating the industry), the parent is strong, and the LCV/bus positions (#1 combined in sub-3.5T, #2 in ILCV buses) are real and defensible. <strong>But this is emphatically a "great story, demanding price" situation.</strong> The stock has already re-rated hard (+41% in two days on the deal) to a <strong>very rich ~40–50x trailing earnings and ~15x book — multiples far above cyclical-CV peers</strong> — while <strong>Q1 FY27 margins compressed to 10.5%, MTBD is margin-dilutive near-term, the HCV ambitions take on entrenched leaders, and the industry is cyclical.</strong> <strong>The honest framing: the business is improving faster than most peers and the strategic logic is sound, but the valuation already pays for near-flawless multi-year execution — so it must be judged on forward, combined, normalised earnings (~17–23x on a synergised 2–3-year view, ~40–50x on today's standalone), with FY31-roadmap execution and margin recovery as the referee. A fundamentally attractive transformation best accumulated on cyclical or execution-driven pullbacks, not chased at post-deal highs; never anchor on the trailing P/E or P/B alone.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">29–30 Jul 2026</td><td><strong>MTBD acquisition approved:</strong> SML Mahindra board approves acquiring M&amp;M's Truck &amp; Bus Division for <strong>₹525 Cr (slump sale)</strong>; MTBD FY26 income ₹2,989 Cr. BTA by 7 Aug, completion by 31 Jan 2027. Analyst meet 29 Jul; FY31 target ₹12,500 Cr / 10–12% HCV share unveiled. Stock rallied ~41–44% in two days to record highs.</td></tr>
+    <tr><td class="mono">~21 Jul 2026</td><td><strong>Q1 FY27 results:</strong> revenue ₹957.54 Cr (+13.20% YoY), PAT ₹63.62 Cr (−4.99% YoY, +17.38% QoQ), PBT ₹85.28 Cr, EPS ₹43.96, EBITDA margin 10.5% (from 12.4%); 10% volume growth, 26.6% ILCV bus share.</td></tr>
+    <tr><td class="mono">Jun 2026</td><td>FY26 results filed: record revenue ₹2,838 Cr (+18%), PAT ₹159.75 Cr (+31.3%), volumes 16,632 (+17%); credit-rating upgrade post-M&amp;M. Dividend declared (180% / ₹18 earlier cycle).</td></tr>
+    <tr><td class="mono">8 Oct 2025</td><td>Company <strong>renamed from SML Isuzu to SML Mahindra</strong> (new Certificate of Incorporation).</td></tr>
+    <tr><td class="mono">1 Aug 2025</td><td><strong>M&amp;M acquired 58.96% control</strong> — 43.96% from Sumitomo Corporation + 15% from Isuzu Motors (85,33,053 shares) — becoming sole promoter.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card s"><div class="k">Book value/share</div><div class="v">~₹307</div><div class="d">P/B ~13x</div></div>
+    <div class="card r"><div class="k">Rating</div><div class="v">Upgraded</div><div class="d">post-M&amp;M</div></div>
+    <div class="card a"><div class="k">Dividend</div><div class="v">paid</div><div class="d">~0.4% yield</div></div>
+    <div class="card t"><div class="k">Deal funding</div><div class="v">₹525 Cr</div><div class="d">MTBD, manageable</div></div>
+  </div>
+  <p>SML Mahindra's balance sheet is <strong>reasonably healthy</strong> — a credit-rating upgrade followed the M&amp;M takeover, and the ₹525 Cr MTBD consideration is manageable for a company with Mahindra backing. The screener note that the company "might be capitalizing interest cost" is worth monitoring, but leverage is not the primary concern here.</p>
+  <div class="call am">
+    <div class="lab">The metric that decides the thesis: combined-entity margin &amp; return trajectory</div>
+    For a transformation-by-merger at a rich multiple, the balance-sheet question is less about leverage (comfortable, M&amp;M-backed) and more about <strong>whether the enlarged capital base earns adequate returns.</strong> Today's ~13–15x P/B is extreme precisely because the market expects the combined entity to <strong>grow earnings and returns into that book value</strong>. The key things to track are: <strong>combined EBITDA margin recovery</strong> (post-MTBD dilution), <strong>return on the enlarged capital employed</strong>, working-capital discipline as revenue doubles, and synergy capture. If margins and ROCE rise as scale builds, the rich book multiple compresses naturally through earnings growth; if they stagnate, the P/B looks unsustainable. <strong>Margin and return trajectory of the combined entity is the single most important thing to watch.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Spiked on deal <span class="badge b-neut">↑↓</span></div><div class="tkd">+41% in 2 days, then choppy</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹4,000</div><div class="tkd">late Jul 2026 (diverges)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">~₹2,719 – 5,348</div><div class="tkd">wide; vendor-divergent</div></div>
+    <div class="tk"><div class="tkl">52-wk high</div><div class="tkv">₹5,348</div><div class="tkd">Jun 2026 (some ₹5,987)</div></div>
+    <div class="tk"><div class="tkl">1-yr return</div><div class="tkv">+~70–125%</div><div class="tkd">M&amp;M re-rating</div></div>
+    <div class="tk"><div class="tkl">Volatility</div><div class="tkv">Very high</div><div class="tkd">tiny float</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">SML Mahindra has been a <strong>high-volatility momentum stock</strong> since the M&amp;M takeover — up sharply over the past year on the ownership re-rating, then <strong>spiking ~41–44% in two days on the MTBD deal</strong> (late July) toward record levels, before choppy trade. It sits below its 52-week high (~₹5,348, with some vendors showing ₹5,987) and well above its low (~₹2,719). The tiny free float amplifies moves in both directions, and vendor price/52-week data <strong>diverge widely</strong> (see data caveat), so the live NSE quote is essential. As an event-and-momentum-driven small-float stock, near-term moves will track deal progress (BTA, approvals, completion by Jan 2027), quarterly margins and CV-cycle news far more than technical levels. Treat technicals as secondary to the fundamental transformation-vs-valuation debate.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Vendor data diverges widely (CMP ₹3,038–4,267; m-cap ₹5,572–7,929 Cr; P/E ~35–50x; P/B ~11–15x; 52-wk high ₹4,744–5,987) — some figures are stale; verify against NSE/BSE. The rich valuation prices in best-case transformation; MTBD is margin-dilutive and completion is pending approvals (by Jan 2027). Consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>SML Mahindra Ltd</b> (formerly SML Isuzu Ltd) — NSE: SMLMAH · BSE: 505192 · ISIN: INE294B01019 · Commercial Vehicles (Trucks &amp; Buses) · Auto · Mahindra Group<br>
+  Report generated 02 August 2026 · Data through Q1 FY27 (quarter ended 30 Jun 2026, reported ~21 Jul 2026) + FY26 results + MTBD acquisition announced 29 Jul 2026.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q1 FY27 &amp; FY26 results, MTBD acquisition filings &amp; investor presentation (29 Jul 2026), BSE-NSE announcements, Screener.in, Business Standard, BusinessToday, Forbes India, Storyboard18, Autopunditz, ScanX, Tradebrains, Multibagg, Groww, ICICIdirect, Kotak Neo, Value Research, Bajaj Finserv, 5paisa, SimplyWall.st, JM Financial. Key figures: FY26 revenue ₹2,838 Cr (+18% vs ₹2,399 Cr FY25), PAT ₹159.75 Cr (+31.3% vs ₹121.67 Cr), volumes 16,632 (+17%, industry +13% in &gt;3.5T), cargo volumes +28% to 5,412 units; highest-ever sales &amp; production. Q1 FY27 (standalone, reported ~21 Jul 2026): revenue from operations ₹957.54 Cr (+13.20% YoY vs ₹845.89 Cr, +6.67% QoQ vs ₹897.65 Cr), total income ₹958.73 Cr, PAT ₹63.62 Cr (−4.99% YoY vs ₹66.96 Cr, +17.38% QoQ vs ₹54.20 Cr), PBT ₹85.28 Cr (−4.76% YoY), EPS ₹43.96 (vs ₹46.27 YoY, ₹37.46 QoQ), total expenses ₹873.45 Cr (+15.17% YoY), materials ₹622.39 Cr (+9.12%), employee cost ₹68.91 Cr (+18.87%); consolidated PAT ₹64 Cr (−5.1%), EBITDA ₹100.1 Cr (−4.7%), EBITDA margin 10.5% (from 12.4% YoY); 10% volume growth, 26.6% ILCV bus share (#2). <b>MTBD ACQUISITION (announced 29 Jul 2026):</b> SML Mahindra board approved acquiring M&amp;M's Truck &amp; Bus Division (MTBD) for ₹525 Cr via slump sale (subject to working-capital adjustment); MTBD FY26 total income ₹2,989 Cr (~2.02% of M&amp;M); BTA by 7 Aug 2026, completion by 31 Jan 2027, subject to shareholder (Reg 23 SEBI LODR related-party) &amp; regulatory approval; GT Valuation Advisors provided the valuation; M&amp;M continues contract-manufacturing Mahindra-branded CVs; JM Financial notes MTBD historically margin-dilutive (EBITDA-positive since FY24). FY31 targets: ₹12,500 Cr revenue, HCV share 10–12% (from ~6%); FY36: 20%+ HCV share; combined M&amp;M+SML ~52% LCV &lt;3.5T share. Ownership: M&amp;M 58.96–58.97% (acquired 1 Aug 2025 — 43.96% from Sumitomo + 15% from Isuzu Motors); MF ~0.79%; ~1.45 Cr shares outstanding; face value ₹10. Incorporated 1983 (Swaraj Mazda → SML Isuzu Jan 2011 → SML Mahindra 8 Oct 2025). <b>DATA CAVEAT: vendor figures diverge widely — CMP ₹3,038 (SimplyWall.st, STALE) / ₹3,780–3,813 (Value Research/ICICIdirect basis) / ₹4,018 (Tradebrains) / ₹4,267 (Business Standard, post-deal) — this report anchors ~₹4,000; market cap ₹5,572 Cr (Value Research) / ₹5,819 Cr (Tradebrains) / ₹7,929 Cr (Screener); trailing P/E ~34.6–50.7x; P/B ~10.7–15.3x (Screener 15.3x book, Bajaj 358.9 appears erroneous); book value ~₹307/share; 52-wk high ₹4,744–5,987, 52-wk low ₹1,028–2,719 (highly vendor-divergent); 1-yr return ~+70% to +125%. SimplyWall.st fair value ~₹1,300 ("~130%+ overvalued"). ALL FIGURES APPROXIMATE — verify against NSE/BSE live quotes and filed results; the tiny float drives extreme price divergence and volatility.</b> Peers (Ashok Leyland, Tata Motors CV, VECV/Eicher) trade at materially lower P/E and P/B. Normalised/forward estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: SML Mahindra Limited (formerly SML Isuzu Limited; earlier Swaraj Mazda)
+Ticker: NSE: SMLMAH (legacy SMLISUZU) / BSE: 505192
+Sector: Commercial Vehicles (Trucks & Buses) / Auto — Mahindra Group
+Report Date: August 2, 2026 (Q1 FY27 reported ~Jul 21; MTBD acquisition announced Jul 29-30)
+File: sml_mahindra_equity_research.html
+CMP at Report: ~₹4,000 (late Jul 2026; VENDOR-DIVERGENT ₹3,038 stale to ₹4,267 post-deal; VERIFY vs NSE/BSE)
+Market Cap: ~₹5,800 Cr (diverges ₹5,572-7,929 Cr); face value ₹10; ~1.45 Cr shares (TINY float → high price & volatility)
+*** DEFINING EVENT — MTBD ACQUISITION (announced 29 Jul 2026): SML Mahindra buying M&M's entire Truck & Bus Division (MTBD) for ₹525 Cr via SLUMP SALE. MTBD FY26 income ₹2,989 Cr (BIGGER than SML's own ₹2,838 Cr) → roughly DOUBLES revenue to ~₹5,800 Cr combined. BTA by Aug 7, completion by Jan 31 2027 (shareholder+regulatory approval). Stock rallied ~41-44% in 2 days. MTBD is MARGIN-DILUTIVE (JM Financial). Related-party (M&M owns 58.97%), arm's length, GT Valuation ***
+OWNERSHIP TRANSFORMATION: M&M acquired 58.96% control effective Aug 1 2025 (43.96% from Sumitomo + 15% from Isuzu Motors); renamed SML Isuzu → SML Mahindra Oct 8 2025
+FY26 (record): revenue ₹2,838 Cr (+18% vs ₹2,399), PAT ₹159.75 Cr (+31.3% vs ₹121.67), volumes 16,632 (+17%, beat industry +13%), cargo +28%
+Q1 FY27 (reported ~Jul 21) — MIXED: revenue ₹957.54 Cr (+13.20% YoY, +6.67% QoQ), PAT ₹63.62 Cr (-4.99% YoY BUT +17.38% QoQ), PBT ₹85.28 Cr, EPS ₹43.96, EBITDA ₹100.1 Cr (-4.7%), EBITDA MARGIN 10.5% (from 12.4% - COMPRESSION on employee +18.87%/material +9.12% costs + tax); 10% volume growth, 26.6% ILCV bus share (#2)
+FY31 ROADMAP: ₹12,500 Cr revenue target (~4.4x FY26), HCV share 10-12% (from ~6%), 20%+ by FY36; combined M&M+SML ~52% LCV <3.5T share
+VALUATION — VERY RICH: trailing P/E ~40-50x, P/B ~13-15x book (far above CV peers Ashok Leyland/Tata/VECV); SimplyWall.st fair value ~₹1,300 (~130% "overvalued")
+KEY THEME: transformation/re-rating story - sub-scale CV maker → consolidated Mahindra CV champion; business genuinely improving but price demands near-flawless multi-year execution
+KEY RISKS: valuation (central - prices best-case), MTBD margin dilution+integration, Q1 margin compression, CV cyclicality, HCV execution vs Tata/Ashok Leyland, related-party governance, tiny-float volatility
+Bull Case: ₹5,200-6,500
+Base Case: ₹3,800-4,600
+Bear Case: ₹2,700-3,300
+Primary Valuation Metric: forward P/E on COMBINED (post-MTBD) normalised EPS + EV/EBITDA co-primary; FY31 roadmap execution = RE-RATING FACTOR; EBITDA-margin recovery CRITICAL INDICATOR; volume/share OPERATING INDICATOR; trailing P/E (~40-50x) & P/B (~15x) = AVOID as sole anchor (rich, transformation-distorted). On synergised 2-3yr combined normalised earnings ~₹250-350 Cr → ~17-23x fwd (full but not absurd IF roadmap delivers); on standalone ₹160 Cr → ~40-50x (prices in a lot)
+Investment Type: transformation-by-merger cyclical CV story with strong M&M parent + bold FY31 vision, BUT richly valued + Q1 margin compression + MTBD dilution; "great story, demanding price"; accumulate on cyclical/execution pullbacks not chase post-deal highs
+DATA CAVEAT: extreme vendor divergence on price/mcap/52wk/PE/PB due to tiny float + recent deal spike - anchored ~₹4,000; some vendors stale
+-->

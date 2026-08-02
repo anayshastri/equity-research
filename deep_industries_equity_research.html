@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Industries — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#0A1A1E; --deep-2:#12292F; --deep-3:#1B3B43;
+    --petrol:#159A8C; --petrol-dk:#0E7367; --petrol-lt:#42BFB0; --petrol-gl:rgba(21,154,140,.11);
+    --derrick:#E08A1E; --derrick-dk:#B56A0E; --derrick-lt:#F2AC52; --derrick-gl:rgba(224,138,30,.12);
+    --steel:#5479A0; --steel-dk:#3D5C7E; --steel-gl:rgba(84,121,160,.11);
+    --flame:#D9533A; --flame-gl:rgba(217,83,58,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#CE4B44;
+    --ink-1:#0E1C1F; --ink-2:#3A4A4D; --ink-3:#67777A;
+    --line:#E3E9EA; --line-2:#EFF3F3; --paper:#FCFDFD; --paper-2:#F4F8F8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Manrope',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(10,26,30,.12)}
+  h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.14}
+  .mono{font-family:'Fira Code',monospace}
+
+  /* HERO — derrick / compression motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0A1A1E 0%,#12292F 52%,#1B3B43 128%);color:#E9F2F1;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:450px;height:450px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(66,191,176,.30),rgba(242,172,82,.14) 55%,transparent 72%);filter:blur(5px)}
+  .derrick{position:absolute;right:80px;top:38px;width:150px;height:200px;z-index:2;opacity:.5}
+  .derrick svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.pe{background:rgba(21,154,140,.24);border-color:rgba(66,191,176,.5);color:#9BE0D6}
+  .tag.de{background:rgba(224,138,30,.24);border-color:rgba(242,172,82,.5);color:#F5C486}
+  .hero h1{font-size:44px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .sub{font-size:16.5px;color:#B4C6C4;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:114px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Fira Code',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8AA09D;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Chakra Petch',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--deep);color:#8AA09D;
+    padding:11px 48px;font-family:'Fira Code',monospace;font-size:11px}
+  .metabar b{color:#E4EFEE;font-weight:500}
+  .metabar .dot{color:var(--derrick-lt)}
+
+  .alert{background:var(--derrick-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--derrick-dk);font-family:'Fira Code',monospace}
+  .alert b{color:var(--deep)}
+  .alert.q1{background:var(--petrol-gl);color:var(--petrol-dk)}
+  .alert.warn{background:var(--flame-gl);color:#B0402C}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Fira Code',monospace;font-size:12px;font-weight:600;color:var(--petrol-dk);
+    border:1.5px solid var(--petrol);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--deep)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--petrol);background:var(--petrol-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.de{border-color:var(--derrick);background:var(--derrick-gl)}
+  .call.st{border-color:var(--steel);background:var(--steel-gl)}
+  .call.fl{border-color:var(--flame);background:var(--flame-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,75,68,.08)}
+  .call .lab{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--petrol-dk);margin-bottom:5px}
+  .call.de .lab{color:var(--derrick-dk)}.call.st .lab{color:var(--steel-dk)}.call.fl .lab{color:#B0402C}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--deep-2);color:#E4EFEE;font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Fira Code',monospace}
+  .tr-hi td{background:var(--petrol-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--deep);letter-spacing:-.01em;font-family:'Chakra Petch',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.p{border-top:3px solid var(--petrol)}.card.d{border-top:3px solid var(--derrick)}
+  .card.s{border-top:3px solid var(--steel)}.card.f{border-top:3px solid var(--flame)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--petrol);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--deep);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--petrol-gl);border-color:var(--petrol)}
+  .vnode.own .vt{color:var(--petrol-dk)}
+  .vnode.new{background:var(--derrick-gl);border-color:var(--derrick)}
+  .vnode.new .vt{color:var(--derrick-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:186px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Fira Code',monospace;font-weight:500}
+  .bar-val{width:96px;text-align:right;font-family:'Fira Code',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.derrick{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,75,68,.06);border-color:rgba(206,75,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'Fira Code',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:21px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Chakra Petch',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--deep);color:#E6F0EF;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(21,154,140,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Chakra Petch',sans-serif}
+  .bm .bm-sub{font-family:'Fira Code',monospace;font-size:11px;color:var(--petrol-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C4D6D3}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0D2CF}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Fira Code',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--petrol);color:#fff}.v-co{background:var(--derrick-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#3D5C7E;color:#DCE6F0}
+  .v-avoid{background:#7A2E28;color:#F6C9BF}.v-cross{background:#243E44;color:#C6DAD7}
+  .bm .onenum{background:rgba(224,138,30,.14);border:1px solid rgba(242,172,82,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F0D0A0;position:relative}
+  .bm .onenum b{color:#F5C486}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Fira Code',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--deep)}
+  .stars{color:var(--derrick);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--derrick-dk)}.rl{background:var(--petrol-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--petrol),var(--derrick))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--petrol);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--petrol)}
+  .tli .ty{font-family:'Fira Code',monospace;font-weight:600;font-size:12.5px;color:var(--petrol-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Fira Code',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--deep);font-family:'Chakra Petch',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Fira Code',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,75,68,.14);color:var(--red)}
+  .b-neut{background:rgba(224,138,30,.2);color:var(--derrick-dk)}
+
+  .foot{background:var(--deep);color:#7E9491;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C0D2CF}
+  .disc{font-size:10.5px;color:#67777A;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="derrick">
+    <svg viewBox="0 0 150 200" fill="none">
+      <path d="M40 195 L60 40 M110 195 L90 40 M40 195 L110 195" stroke="#42BFB0" stroke-width="2.5" opacity="0.6" fill="none"/>
+      <path d="M75 40 L75 18" stroke="#F2AC52" stroke-width="2.5" opacity="0.7"/>
+      <g stroke="#42BFB0" stroke-width="1.5" opacity="0.45">
+        <line x1="52" y1="80" x2="98" y2="80"/><line x1="47" y1="120" x2="103" y2="120"/><line x1="43" y1="160" x2="107" y2="160"/>
+        <line x1="55" y1="60" x2="95" y2="100"/><line x1="95" y1="60" x2="55" y2="100"/>
+        <line x1="50" y1="100" x2="100" y2="140"/><line x1="100" y1="100" x2="50" y2="140"/>
+      </g>
+      <circle cx="75" cy="14" r="5" fill="#E08A1E" opacity="0.85"/>
+      <rect x="66" y="176" width="18" height="19" fill="#5479A0" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: DEEPINDS</span>
+      <span class="tag">BSE: 543288</span>
+      <span class="tag pe">India's Only Integrated Onshore + Offshore O&amp;G Services</span>
+      <span class="tag de">Order Book &gt; ₹3,000 Cr</span>
+    </div>
+    <h1>Deep Industries</h1>
+    <div class="sub">A Vadodara-based <b>oilfield-services platform</b> that has grown from a niche gas-compression specialist into <b>India's only integrated onshore-and-offshore energy-services provider</b> — high-margin, order-book-rich and levered to India's domestic-production push. FY26 profit was masked by a one-off write-off; Q1 FY27 shows the underlying engine.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹520</div><div class="d up">+47% 6M</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹3,400 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">₹890.7 Cr</div><div class="d up">+55%</div></div>
+      <div class="qs"><div class="k">FY26 EBITDA</div><div class="v">₹424.8 Cr</div><div class="d up">+61%, ~48% mgn</div></div>
+      <div class="qs"><div class="k">Q1'27 PAT</div><div class="v">₹85.4 Cr</div><div class="d up">+45% YoY</div></div>
+      <div class="qs"><div class="k">Order Book</div><div class="v">&gt;₹3,000 Cr</div><div class="d up">~3.4x FY26 rev</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Chairman &amp; MD:</b> Paras Savla</span>
+  <span class="dot">◆</span>
+  <span><b>MD:</b> Rupesh Savla</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 2006 (as Deep CH4)</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Vadodara, Gujarat</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹5</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 31 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  ✅ <b>Q1 FY27 REPORTED (28 Jul 2026):</b> Consol revenue ₹278.92 Cr (+39.81% YoY), attributable PAT ₹85.36 Cr (+45.12% YoY), PBT ₹111.65 Cr (+43.42%) — a <b>sharp rebound from a net LOSS of ₹7.22 Cr in Q4 FY26</b> (which carried the one-off write-off). Order book &gt;₹3,000 Cr; ₹49.1 Cr ONGC order won; DIL ESOP 2026 (15 lakh options) approved; FY26 final-dividend record date 21 Aug.
+</div>
+<div class="alert warn">
+  ⚠ <b>FY26 EARNINGS DISTORTION — read §5:</b> FY26 reported PAT was hit by a <b>₹208.28 Cr NON-CASH exceptional write-off</b> of legacy Kandla Energy &amp; Chemicals receivables. Reported P/E is therefore distorted/misleading; <b>cash profitability stayed robust</b> (OCF ₹218 Cr). A further ₹161.11 Cr of Dolphin Offshore legacy receivables remain on the books pending arbitration.
+</div>
+<div class="alert">
+  ⚠ <b>DATA NOTE:</b> Prices/ratios vary by vendor (CMP ₹457–543, m-cap ₹2,970–3,473 Cr; trailing P/E is meaningless due to the write-off — one vendor shows negative). Face value ₹5. Standalone vs consolidated and revenue-vs-total-income differ (Q1 rev ₹278.92 Cr / total income ₹302.60 Cr). Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Deep Industries Ltd</strong> is a Vadodara-based <strong>oil &amp; gas support-services provider</strong> — describing itself as <strong>India's only integrated onshore-and-offshore oilfield-services company</strong>. From its origins as a niche <strong>natural-gas compression</strong> specialist (incorporated 2006 as Deep CH4), it has built out an integrated platform spanning <strong>gas compression &amp; dehydration, drilling, workover, well testing, and production enhancement (PEC)</strong> — serving ONGC, GSPC, Oil India and private producers, and now expanding <strong>offshore</strong> (via the Dolphin Offshore Shipping acquisition) and <strong>overseas</strong> (UAE).</p>
+  <p>The investment story is a <strong>transformation-plus-visibility story</strong>. FY26 was operationally one of the strongest years in the company's history — <strong>revenue +55% to ₹890.7 Cr, EBITDA +61% to ₹424.8 Cr at a ~48% margin</strong> — but <strong>reported profit was clouded by a large non-cash write-off of legacy receivables</strong> (from the Kandla acquisition), which makes headline PAT and P/E misleading. Q1 FY27 stripped that noise away: <strong>PAT +45% to ₹85.4 Cr, rebounding sharply from a one-off-driven Q4 loss</strong>. With an <strong>order book above ₹3,000 Cr (~3.4x FY26 revenue)</strong> and management guiding 25–30% revenue growth, the underlying engine looks strong; the debate is execution, receivables clean-up, and valuation.</p>
+  <div class="cards">
+    <div class="card p"><div class="k">FY26 Revenue</div><div class="v">₹890.7 Cr</div><div class="d up">+55% YoY</div></div>
+    <div class="card d"><div class="k">FY26 EBITDA</div><div class="v">₹424.8 Cr</div><div class="d up">+61%, ~48% margin</div></div>
+    <div class="card s"><div class="k">Order Book</div><div class="v">&gt;₹3,000 Cr</div><div class="d up">strong visibility</div></div>
+    <div class="card f"><div class="k">FY27 guidance</div><div class="v">25–30%</div><div class="d">revenue growth</div></div>
+  </div>
+  <div class="call de">
+    <div class="lab">The investment character in one line</div>
+    Deep Industries is a <strong>high-margin (~48% EBITDA), order-book-rich oilfield-services platform mid-transformation into an integrated onshore+offshore player</strong>, riding India's domestic-E&amp;P push — where the <strong>reported FY26 profit badly understates the underlying cash-earning power</strong> because of a one-off legacy write-off. The bull case is strong revenue visibility, high margins, and offshore/overseas optionality; the bear case is heavy client concentration (ONGC), a messy receivables/legacy-acquisition history, and offshore-execution risk. This is a <strong>look-through-the-noise growth-and-visibility story</strong> best valued on cash earnings and EV/EBITDA, not reported P/E.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2006 · Founded as Deep CH4</div><div class="td">Incorporated in Ahmedabad as Deep CH4 Ltd; built a niche in <strong>natural-gas compression</strong> services for India's upstream oil &amp; gas sector — the heritage that still anchors margins.</div></div>
+    <div class="tli"><div class="ty">2010s · Broadening services</div><div class="td">Expanded from compression into <strong>gas dehydration, workover and drilling rigs, well testing</strong> — moving toward an integrated onshore services offering, primarily for ONGC/GSPC.</div></div>
+    <div class="tli"><div class="ty">2020 · Renamed Deep Industries</div><div class="td">Changed name from Deep CH4 to <strong>Deep Industries Ltd</strong> (Sep 2020), reflecting the broader integrated-services ambition.</div></div>
+    <div class="tli"><div class="ty">FY25 · Offshore &amp; inorganic push</div><div class="td">Acquired <strong>Dolphin Offshore Shipping</strong> through the insolvency (CIRP) process (offshore entry, Jan 2025); acquired <strong>Kandla Energy &amp; Chemicals</strong> (Mar 2025); set up UAE subsidiary SAAR International (overseas). Won a first-of-its-kind <strong>ONGC Production Enhancement Contract (PEC)</strong> at Rajahmundry.</div></div>
+    <div class="tli"><div class="ty">FY26 · Record operations, one-off noise</div><div class="td">Revenue +55%, EBITDA +61% (~48% margin) — a record operational year — but reported PAT hit by a <strong>₹208 Cr non-cash write-off</strong> of Kandla legacy receivables. Offshore tug began ops (~50% margins). Order book crossed ₹3,000 Cr.</div></div>
+    <div class="tli"><div class="ty">Q1 FY27 · Underlying engine shows</div><div class="td">PAT +45% to ₹85.4 Cr, rebounding from the one-off-driven Q4 loss; ₹49.1 Cr ONGC order; management guides 25–30% FY27 revenue growth and ₹400–500 Cr offshore capex plans.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Service Lines</h2></div>
+  <p>Deep Industries is an <strong>asset-based oilfield-services contractor</strong>: it owns specialised equipment (compressors, rigs, offshore vessels) and deploys it on <strong>multi-year contracts</strong> to oil &amp; gas producers, earning day-rate / contract revenue at high margins. Crucially, as a <em>service</em> provider it benefits from <strong>exploration &amp; production <em>activity</em></strong> — capex and drilling intensity — rather than directly from crude prices, giving it a somewhat different risk profile from producers.</p>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Gas compression</div><div class="vd">Heritage, high-margin core</div></div>
+    <div class="vnode own"><div class="vt">Gas dehydration</div><div class="vd">Processing services</div></div>
+    <div class="vnode own"><div class="vt">Drilling / workover</div><div class="vd">6 drilling + 11 workover rigs</div></div>
+    <div class="vnode own"><div class="vt">Production enhancement</div><div class="vd">PEC (ONGC Rajahmundry) — new model</div></div>
+    <div class="vnode new"><div class="vt">Offshore</div><div class="vd">Dolphin tug/vessels — NEW leg</div></div>
+  </div>
+  <div class="call st">
+    <div class="lab">Why the model earns ~48% EBITDA margins</div>
+    Deep's very high EBITDA margin (~48% in FY26) reflects an <strong>equipment-rental / specialised-services model</strong>: once the compressor, rig or vessel is deployed on a contract, incremental revenue drops heavily to EBITDA. The <strong>Production Enhancement Contract (PEC)</strong> model — where Deep takes on an oilfield (e.g. Rajahmundry) and is paid on incremental production — is a higher-value evolution: management sees &gt;40% margins and revenue scaling from ~₹70 Cr (FY26) toward ~₹140 Cr (FY27) on that one contract, and it's a <strong>first-of-its-kind ONGC template that could open more such awards</strong>. The offshore tug already runs at ~50% margins on USD 17–20k/day. High margins + long contracts = the core attraction; the offset is high capital intensity to grow (rigs and vessels are expensive).
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The Order Book &amp; Revenue Visibility</h2></div>
+  <div class="two">
+    <div>
+      <div class="cards" style="grid-template-columns:1fr 1fr">
+        <div class="card p"><div class="k">Order book</div><div class="v">&gt;₹3,000 Cr</div><div class="d">end-FY26</div></div>
+        <div class="card d"><div class="k">Book/revenue</div><div class="v">~3.4x</div><div class="d">strong cover</div></div>
+        <div class="card s"><div class="k">FY27 guidance</div><div class="v">25–30%</div><div class="d">revenue growth</div></div>
+        <div class="card f"><div class="k">Recent win</div><div class="v">₹49.1 Cr</div><div class="d">ONGC order</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="call">
+        <div class="lab">Visibility is the strongest pillar of the thesis</div>
+        An order book above <strong>₹3,000 Cr — roughly 3.4x FY26 revenue</strong> — gives Deep multi-year revenue visibility that most small-caps lack, and underpins management's <strong>25–30% FY27 growth guidance</strong>. New wins (the ₹49.1 Cr ONGC order, the PEC ramp, offshore contracts) keep replenishing it. For a services contractor, the order book is the single best forward indicator — and Deep's is large, growing and backed by blue-chip counterparties (ONGC, GSPC). The quality caveat: <strong>concentration in ONGC</strong> means the book's strength is also a dependency (see §6/§10), and <strong>execution/utilisation</strong> determines how fast the backlog converts to revenue and cash.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The FY26 Write-Off, Dissected</h2></div>
+  <div class="call red">
+    <div class="lab">The single most important thing to understand about FY26</div>
+    FY26's headline profit is <strong>distorted by a ₹208.28 Cr (₹20,828.49 lakh) non-cash exceptional write-off</strong> of legacy trade receivables tied to the <strong>Kandla Energy &amp; Chemicals</strong> acquisition/merger. This is a <strong>one-time, non-cash accounting charge — not an operating loss.</strong> Underneath it, the business generated record revenue (₹890.7 Cr, +55%), record EBITDA (₹424.8 Cr, +61%, ~48% margin), and robust operating cash flow (₹218 Cr). <strong>Reported PAT and any trailing P/E built on it are therefore misleading</strong> — some vendors even show a negative trailing P/E. The right lens is <strong>EBITDA and cash / normalised earnings</strong>, which is exactly what Q1 FY27 (PAT ₹85.4 Cr, clean quarter) reveals once the one-off is behind.
+  </div>
+  <table>
+    <tr><th>FY26 (consolidated)</th><th class="mono">Value</th><th class="mono">Read</th></tr>
+    <tr><td>Revenue</td><td class="mono">₹890.7 Cr</td><td class="mono up">+55% — record</td></tr>
+    <tr><td>EBITDA</td><td class="mono">₹424.8 Cr</td><td class="mono up">+61%, ~48% margin</td></tr>
+    <tr><td>Exceptional write-off (non-cash)</td><td class="mono">−₹208.3 Cr</td><td class="mono down">Kandla legacy receivables</td></tr>
+    <tr><td>Operating cash flow</td><td class="mono">₹218 Cr</td><td class="mono up">robust (vs ₹178 FY25)</td></tr>
+    <tr><td>Reported PAT</td><td class="mono">distorted</td><td class="mono">use cash / normalised</td></tr>
+  </table>
+  <div class="call fl">
+    <div class="lab">But note the tail risk it exposes</div>
+    The write-off is a <strong>positive to look past for valuation, but a negative flag on quality/history</strong>: it reveals that Deep's inorganic expansion (Kandla, Dolphin via insolvency) brought <strong>legacy receivable baggage</strong>. Critically, a further <strong>₹161.11 Cr of Dolphin Offshore legacy receivables remain on the books, pending arbitration</strong> — which could trigger <em>another</em> exceptional write-off in FY27 if recovery fails. So while today's operating momentum is strong, the acquisition-driven receivables overhang is a real, quantifiable risk that isn't fully resolved. High debtor days (~197) reinforce that working-capital/receivables discipline is a genuine watch-item.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Arena</th><th>Players</th><th>Deep's position</th></tr>
+    <tr class="tr-hi"><td><strong>Integrated onshore+offshore O&amp;G services (India)</strong></td><td>Few of scale</td><td><strong>Claims to be the only integrated onshore+offshore Indian provider</strong></td></tr>
+    <tr><td><strong>Gas compression / dehydration</strong></td><td>Niche specialists</td><td>Established leader, heritage strength</td></tr>
+    <tr><td><strong>Drilling / workover</strong></td><td>Jindal Drilling, Asian Oilfield, John Energy</td><td>Growing fleet (6 drilling, 11 workover)</td></tr>
+    <tr><td><strong>Offshore services</strong></td><td>Dolphin (now Deep), global OSV players</td><td>New entrant via Dolphin acquisition</td></tr>
+    <tr><td><strong>Global majors (for large tenders)</strong></td><td>SLB, Halliburton, Baker Hughes</td><td>Deep wins on cost/local presence in niches</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A differentiated niche with real barriers — but a concentrated customer base</div>
+    Deep's positioning as India's <strong>only integrated onshore-and-offshore domestic services provider</strong> is a genuine differentiator, and specialised O&amp;G services carry meaningful barriers (equipment, technical qualification, ONGC empanelment, safety track record). Its heritage in gas compression gives durable niche strength. <strong>The key structural weakness is customer concentration:</strong> ONGC (and a few large public-sector clients) dominate revenue — which is why management explicitly targets <strong>reducing single-client dependency below 40%</strong> via overseas (UAE) and private-client diversification. Against global majors it competes on cost and local presence in specific service lines rather than head-to-head on scale. Net: a defensible domestic niche with a concentration risk it is actively trying to reduce.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">Moderate</td><td>Limited number of qualified integrated domestic players; niche service lines less crowded than commodity businesses.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>ONGC/GSPC are dominant, concentrated buyers with strong negotiating leverage and slow payment cycles (high debtor days).</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Specialised equipment (rigs, vessels, compressors) and skilled crew; capital-intensive to procure but available.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low-Moderate</td><td>High capital, technical-qualification and empanelment barriers; offshore especially hard to enter — a moat.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low</td><td>Producers can in-source some services, but specialised compression/PEC/offshore work is typically outsourced.</td></tr>
+  </table>
+  <p>Net: a <strong>capital- and qualification-gated services niche</strong> where Deep enjoys genuine entry barriers and a differentiated integrated offering, offset by the powerful, concentrated buyer (ONGC) that drives both its order book <em>and</em> its receivables/payment risk. The activity-linked (not crude-price-linked) demand is a relative stabiliser.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Q1 FY27 Result, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Revenue (₹ Cr)</td><td class="mono">199.5</td><td class="mono">—</td><td class="mono">278.9</td></tr>
+    <tr><td>PBT (₹ Cr)</td><td class="mono">77.85</td><td class="mono">—</td><td class="mono">111.65</td></tr>
+    <tr><td>PAT attributable (₹ Cr)</td><td class="mono">58.82</td><td class="mono">−7.22 (loss)</td><td class="mono">85.36</td></tr>
+  </table>
+  <ul class="tight">
+    <li><strong>Revenue +39.8% YoY</strong> to ₹278.9 Cr (total income ₹302.6 Cr) — strong top-line growth from order-book execution and new contracts.</li>
+    <li><strong>PAT +45.1% YoY</strong> to ₹85.4 Cr; PBT +43.4% — profit growing faster than revenue (operating leverage + high-margin mix).</li>
+    <li><strong>Sharp rebound from the Q4 FY26 net loss (−₹7.22 Cr)</strong> — confirming that loss was the one-off write-off, not operational deterioration.</li>
+    <li>Note: other expenses rose ~69% YoY — worth monitoring for cost creep as the business scales/adds offshore.</li>
+  </ul>
+  <div class="call de">
+    <div class="lab">The clean read: this is the real earning power</div>
+    Q1 FY27 is the <strong>first "clean" quarter post-write-off</strong>, and it validates the bull thesis: high-growth (revenue +40%), high-margin, profit +45%, backed by a &gt;₹3,000 Cr order book. Annualising ₹85.4 Cr crudely gives ~₹340 Cr — but with high margins, seasonality and lumpy contract timing in services, the honest anchor is <strong>FY27 guided growth on a normalised base</strong>, not a single quarter ×4. Still, the quarter decisively shows that <strong>the underlying franchise is compounding strongly and the FY26 loss optics were a one-off</strong> — the single most important takeaway for valuation.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Capex &amp; the Offshore Ramp</h2></div>
+  <div class="cards">
+    <div class="card p"><div class="k">EBITDA margin</div><div class="v">~48%</div><div class="d">high, asset-based</div></div>
+    <div class="card d"><div class="k">Offshore capex plan</div><div class="v">₹400–500 Cr</div><div class="d">PSVs, DSVs, tugs</div></div>
+    <div class="card s"><div class="k">Offshore tug</div><div class="v">~50% margin</div><div class="d">$17–20k/day</div></div>
+    <div class="card f"><div class="k">OCF (FY26)</div><div class="v">₹218 Cr</div><div class="d up">+22%</div></div>
+  </div>
+  <p>Deep runs a <strong>high-margin, capital-intensive model</strong>: ~48% EBITDA margins on services, with growth requiring investment in rigs and, increasingly, <strong>offshore vessels</strong>. The offshore push — kicked off by the Dolphin acquisition and an already-operating tug at ~50% margins — is backed by planned <strong>₹400–500 Cr of capex in PSVs (platform supply vessels), DSVs (diving support vessels) and tugs</strong> to scale the offshore footprint.</p>
+  <div class="call st">
+    <div class="lab">Offshore is the growth optionality — and the execution risk</div>
+    The offshore expansion is the <strong>most exciting and most uncertain</strong> part of the story. Positive: offshore services command high day-rates and margins (the tug already earns ~50%), the Dolphin acquisition gave a running start, and India's offshore E&amp;P (ONGC's deepwater, etc.) is a large, under-served market — so ₹400–500 Cr of vessel capex could add a materially higher-margin, higher-scale revenue stream. Risk: offshore is <strong>capital-heavy, operationally complex, and new to Deep</strong>; vessel acquisition/utilisation, execution and financing must all land. Funding ₹400–500 Cr capex while keeping the balance sheet clean (D/E is currently low ~0.10) is manageable but must be watched. <strong>The offshore ramp is the swing factor for medium-term growth and returns.</strong>
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Ownership &amp; Diversification</h2></div>
+  <div class="cards">
+    <div class="card p"><div class="k">Promoter holding</div><div class="v">63.5%</div><div class="d up">high, aligned</div></div>
+    <div class="card d"><div class="k">FII</div><div class="v">1.5%</div><div class="d">low institutional</div></div>
+    <div class="card s"><div class="k">DII</div><div class="v">1.5%</div><div class="d">low</div></div>
+    <div class="card f"><div class="k">Public</div><div class="v">33.5%</div><div class="d">retail-heavy</div></div>
+  </div>
+  <p>Deep is a <strong>promoter-driven family business</strong> — Chairman &amp; MD Paras Savla and MD Rupesh Savla — with a <strong>high, aligned promoter holding of 63.5%</strong> (a positive for a small-cap: strong skin in the game). Institutional ownership is still low (FII/DII ~1.5% each), leaving room for institutional discovery if the story delivers. Management has been <strong>ambitious and transformational</strong> — building the integrated platform, entering offshore via a distressed-asset acquisition, and expanding overseas (UAE).</p>
+  <div class="call">
+    <div class="lab">Credit the ambition and alignment — watch the acquisition track record</div>
+    The high promoter stake and clear strategic vision (niche → integrated platform → offshore → overseas) are genuine positives, and the operating delivery (FY26 record ops, strong Q1) backs the ambition. The <strong>caution is the inorganic-growth track record</strong>: the Kandla and Dolphin acquisitions (both involving distressed/legacy situations) brought the receivable write-offs now flowing through the accounts. As Deep pursues its stated goal of <strong>cutting single-client (ONGC) dependency below 40%</strong> through overseas and private-client wins, investors should watch that diversification and offshore capex are executed with capital discipline and clean deal structuring — the strategy is sound, but acquisition-related risk is the historical blemish to monitor.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card p"><div class="k">Debt/Equity</div><div class="v">~0.10</div><div class="d up">very low</div></div>
+    <div class="card d"><div class="k">P/B</div><div class="v">~1.4–1.5x</div><div class="d">modest</div></div>
+    <div class="card s"><div class="k">Debtor days</div><div class="v">~197</div><div class="d down">high — watch</div></div>
+    <div class="card f"><div class="k">OCF (FY26)</div><div class="v">₹218 Cr</div><div class="d up">robust</div></div>
+  </div>
+  <p>Deep's balance sheet is a real strength: <strong>very low leverage (D/E ~0.10)</strong>, modest P/B (~1.4–1.5x), and strong operating cash flow (₹218 Cr in FY26). This gives it the capacity to fund the ₹400–500 Cr offshore capex largely from internal accruals and modest borrowing without stressing the balance sheet.</p>
+  <div class="call red">
+    <div class="lab">The one clear balance-sheet weakness: receivables</div>
+    The blemish is <strong>working capital — debtor days of ~197 are high</strong>, reflecting slow public-sector (ONGC) payment cycles <em>and</em> the legacy-acquisition receivables that drove the FY26 write-off. With <strong>₹161 Cr of Dolphin receivables still pending arbitration</strong>, the receivables line carries both a cash-conversion drag and a residual write-off risk. For a high-margin services company, the gap between reported profit and <em>collected</em> cash is the key quality test. The good news is FY26 OCF (₹218 Cr) still grew despite the noise; the watch-item is whether debtor days fall as legacy issues clean up and the book diversifies away from slow-paying PSU concentration. <strong>Track debtor days, OCF/EBITDA conversion, and the Dolphin arbitration outcome.</strong>
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Order-book execution</strong></td><td>&gt;₹3,000 Cr backlog → 25–30% FY27 growth</td><td class="mono">Core visibility ★★★★★</td></tr>
+    <tr><td><strong>Offshore expansion</strong></td><td>Dolphin + ₹400–500 Cr vessel capex</td><td class="mono">High-margin scale ★★★★</td></tr>
+    <tr><td><strong>PEC model</strong></td><td>Rajahmundry ONGC; ₹70→140 Cr; template</td><td class="mono">Higher-value ★★★★</td></tr>
+    <tr><td><strong>India domestic E&amp;P push</strong></td><td>OALP, import-cut-to-50%-by-2030 policy</td><td class="mono">Structural ★★★★</td></tr>
+    <tr><td><strong>Overseas (UAE / SAAR)</strong></td><td>Diversify beyond ONGC; &lt;40% client dep.</td><td class="mono">De-risking ★★★</td></tr>
+    <tr><td><strong>Rig fleet additions</strong></td><td>6 drilling + 11 workover, growing</td><td class="mono">Capacity ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Consolidated (₹ Cr)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th></tr>
+    <tr><td>Revenue</td><td class="mono">~445</td><td class="mono">576.1</td><td class="mono">890.7</td></tr>
+    <tr><td>EBITDA</td><td class="mono">—</td><td class="mono">263.5</td><td class="mono">424.8</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">~45%</td><td class="mono">~46%</td><td class="mono">~48%</td></tr>
+    <tr><td>OCF</td><td class="mono">113.4</td><td class="mono">178.5</td><td class="mono">218.2</td></tr>
+    <tr><td>Reported PAT</td><td class="mono">positive</td><td class="mono">loss*</td><td class="mono">distorted†</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--ink-3)">*FY25 standalone showed a loss (₹115 Cr) on earlier legacy issues; †FY26 reported PAT distorted by ₹208 Cr non-cash write-off. Use EBITDA / OCF / normalised earnings — the operating trend is strongly up.</p>
+  <div class="two">
+    <div>
+      <div class="call de">
+        <div class="lab">The operating story is excellent</div>
+        Revenue near-doubled in two years (₹445→576→891 Cr); EBITDA margin expanded to ~48%; OCF compounded to ₹218 Cr; order book &gt;₹3,000 Cr; Q1 FY27 clean PAT +45%. On <strong>operating and cash metrics, Deep is a high-quality, fast-growing services franchise.</strong>
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The reported-numbers caveat</div>
+        <strong>Reported PAT has been repeatedly distorted by legacy/acquisition write-offs</strong> (FY25 loss, FY26 ₹208 Cr charge) — so headline P/E and net-profit trends mislead. High debtor days (~197), residual Dolphin arbitration (₹161 Cr), and low institutional ownership add complexity. Judge on cash, not headline PAT.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹520 (m-cap ~₹3,400 Cr), Deep trades at a modest <strong>~1.4–1.5x P/B</strong> — but its <strong>trailing P/E is meaningless</strong> (distorted or negative) because of the FY26 write-off. For a high-margin, order-book-backed, capital-intensive services company with distorted reported earnings, the right lens is <strong>EV/EBITDA and P/E on normalised (ex-one-off) / forward earnings, plus order-book conversion and cash generation</strong>.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Deep Industries</h3>
+    <div class="bm-sub">High-margin O&amp;G services co with write-off-distorted reported PAT → EV/EBITDA + normalised/forward P/E + order-book conversion; trailing P/E is unusable; receivables are the gate</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>EV/EBITDA (forward)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Cuts straight through the non-cash write-off noise to the ~48%-margin operating engine; the cleanest lens for a capital-intensive, high-margin services contractor. Judge on FY27E EBITDA against the growth rate.</td></tr>
+      <tr><td>Normalised / forward P/E (ex-one-off)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>On clean earnings (Q1 FY27 run-rate + 25–30% growth), a sensible forward P/E replaces the unusable trailing figure. This is what "grows into" the price.</td></tr>
+      <tr><td>Order-book conversion &amp; growth</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>&gt;₹3,000 Cr backlog (~3.4x revenue) is the forward engine. Conversion pace + new wins validate the guidance and forward multiple.</td></tr>
+      <tr><td>OCF / cash conversion &amp; debtor days</td><td><span class="verdict v-cross">GATE</span></td><td>~197 debtor days + legacy receivables mean profit must convert to cash. Weak conversion or a fresh Dolphin write-off would undercut the quality — a hard gate on the thesis.</td></tr>
+      <tr><td>P/B</td><td><span class="verdict v-sec">SECONDARY</span></td><td>~1.4–1.5x is modest for a high-ROCE services franchise and a useful floor/context, but book is understated by the write-offs; secondary to EV/EBITDA.</td></tr>
+      <tr><td>Trailing P/E (reported)</td><td><span class="verdict v-avoid">AVOID</span></td><td>Distorted/negative from the ₹208 Cr non-cash write-off — completely unusable as a valuation anchor.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> Strip the one-off and Deep is a <b>~48%-EBITDA-margin services platform growing 25–30%+ with a &gt;₹3,000 Cr book</b>. On ~₹3,400 Cr market cap against FY26 EBITDA of ₹425 Cr, EV/EBITDA is <b>~8x trailing</b> — and on FY27E EBITDA (say ~₹520–580 Cr at guided growth) roughly <b>~6–7x forward</b>, undemanding for a high-margin grower with strong visibility. On normalised/forward earnings the P/E is far more reasonable than the distorted trailing figure implies — analyst targets cluster ₹595 (Univest) with SimplyWall.st fair value ~₹693. <b>Verdict: a genuinely high-quality, high-margin, order-book-rich services franchise whose reported earnings badly understate its cash-earning power — attractively valued on EV/EBITDA and forward earnings, with real offshore/PEC growth optionality. The bull case is clean compounding as the write-off recedes; the bear case is that receivables/ONGC-concentration/offshore-execution risk keeps quality (and the multiple) capped. Value on EV/EBITDA and normalised earnings — never the trailing P/E — and make cash conversion + the Dolphin arbitration the deciding gates. Reasonably-to-attractively priced for the growth and margins, provided the receivables clean up.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹360–430</div><div class="sd">Fresh Dolphin write-off, debtor days stay high, ONGC concentration/order delays bite, offshore capex disappoints. De-rates on quality concerns toward the 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹500–600</div><div class="sd">25–30% revenue growth delivered, margins hold ~45–48%, order book converts, no fresh write-off; re-rates on clean earnings toward the ₹595 analyst target. Around/above current levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹680–820</div><div class="sd">Offshore ramp + PEC replication scale margins & growth, ONGC dependency falls, receivables clean up, institutions discover the clean-earnings story; re-rates toward SimplyWall.st ~₹693 fair value and beyond.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Univest 12-month target ₹595 (on 15–20% FY27 PAT growth); SimplyWall.st fair value ~₹693 ("undervalued"). Scenario prices assume no severe E&amp;P slowdown or major fresh write-off. Verify CMP/ratios vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Receivables / legacy write-off risk</strong>~197 debtor days plus ₹161 Cr of Dolphin Offshore legacy receivables pending arbitration could trigger another exceptional write-off in FY27, as the ₹208 Cr Kandla charge did in FY26. The clearest, most quantifiable risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Customer concentration (ONGC)</strong>Heavy dependence on ONGC/PSU clients drives both the order book and slow payment cycles. Any change in ONGC's tendering, budgets or payment behaviour materially affects Deep. Diversification below 40% dependency is a stated but unfinished goal.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Offshore execution &amp; capex risk</strong>₹400–500 Cr offshore vessel capex is capital-heavy and operationally new to Deep; utilisation, execution and financing must land. A misstep would pressure returns and the balance sheet.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Acquisition-integration track record</strong>The Kandla and Dolphin distressed acquisitions brought the receivable baggage now flowing through accounts. Future inorganic moves carry similar structuring/integration risk.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>E&amp;P activity cyclicality</strong>Demand depends on upstream exploration/capex activity; a sustained downturn in domestic E&amp;P spending (or crude-driven capex cuts by clients) would hit contract flow — though activity-linkage is more stable than crude-price linkage.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Reported-earnings opacity</strong>Repeated one-offs (FY25 loss, FY26 write-off) make reported numbers hard to read and can deter/whipsaw investors; low institutional ownership means less analytical scrutiny and potential volatility.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Small-cap liquidity &amp; execution</strong>Small-cap with concentrated retail/promoter ownership; contract-timing lumpiness can create quarterly volatility and the stock can be volatile around results/news.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">EBITDA margin</div><div class="scv">~48% <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Order-book visibility</div><div class="scv">&gt;₹3,000 Cr <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">+55% FY26 <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet (debt)</div><div class="scv">D/E ~0.10 <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Promoter alignment</div><div class="scv">63.5% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Offshore optionality</div><div class="scv">New, uncertain <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Receivables/WC</div><div class="scv">197 days, write-offs <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Client concentration</div><div class="scv">ONGC-heavy <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Earnings clarity</div><div class="scv">One-off-distorted <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Deep Industries is a <strong>high-margin (~48% EBITDA), order-book-rich (&gt;₹3,000 Cr) oilfield-services platform</strong> that has transformed from a niche gas-compression specialist into <strong>India's only integrated onshore-and-offshore energy-services provider</strong> — with record FY26 operations (revenue +55%, EBITDA +61%), a clean, sharply-growing Q1 FY27 (PAT +45%), a strong promoter alignment (63.5%), a low-debt balance sheet, and genuine growth optionality from offshore expansion, the PEC model, and overseas diversification, all riding India's domestic-E&amp;P tailwind. <strong>Crucially, its FY26 reported profit badly understates the underlying cash-earning power because of a ₹208 Cr non-cash legacy-receivable write-off — so trailing P/E is unusable and the stock must be judged on EV/EBITDA and normalised/forward earnings, on which it looks reasonably-to-attractively valued (~6–7x forward EV/EBITDA, ~1.4x book).</strong> <strong>The offsetting risks are real and specific: high debtor days (~197) with a further ₹161 Cr Dolphin receivable pending arbitration (a live fresh-write-off risk), heavy ONGC concentration, offshore-execution/capex risk, and a one-off-cluttered reporting history.</strong> <strong>The honest framing: a genuinely high-quality, high-visibility services franchise whose earnings quality is clouded by legacy/acquisition receivables — an attractive look-through-the-noise growth story if (and it is a real if) the receivables clean up and offshore executes. Value it on EV/EBITDA and cash, never the distorted trailing P/E, and let cash conversion + the Dolphin arbitration be the deciding gates.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">28 Jul 2026</td><td><strong>Q1 FY27 results:</strong> revenue ₹278.92 Cr (+39.81% YoY, total income ₹302.60 Cr), attributable PAT ₹85.36 Cr (+45.12%), PBT ₹111.65 Cr (+43.42%) — rebound from Q4 FY26 loss. <strong>DIL ESOP 2026 (15 lakh options)</strong> approved; FY26 final-dividend record date set 21 Aug; senior-management appointment; company-secretary resignation noted.</td></tr>
+    <tr><td class="mono">Jul 2026</td><td>Secured <strong>₹49.1 Cr order from ONGC</strong>; order book remains &gt;₹3,000 Cr.</td></tr>
+    <tr><td class="mono">14 May 2026</td><td><strong>Q4 &amp; FY26 audited results:</strong> revenue ₹890.71 Cr (+55%), EBITDA ₹424.82 Cr (+61%, ~48% margin), OCF ₹218 Cr; <strong>₹208.28 Cr non-cash exceptional write-off</strong> (Kandla legacy receivables) hit reported PAT; Q4 net loss ₹7.22 Cr. Corrigendum filed 14 May (typo in Note 6).</td></tr>
+    <tr><td class="mono">FY26</td><td>Offshore <strong>tug began operations</strong> (USD 17–20k/day, ~50% margins); PEC (Rajahmundry/ONGC) contributing (~₹70 Cr FY26 → ~₹140 Cr FY27E); ₹400–500 Cr offshore capex (PSVs/DSVs/tugs) planned.</td></tr>
+    <tr><td class="mono">FY25</td><td>Acquired <strong>Dolphin Offshore Shipping</strong> via CIRP (offshore entry, Jan 2025); acquired <strong>Kandla Energy &amp; Chemicals</strong> (Mar 2025); UAE subsidiary <strong>SAAR International</strong> established (overseas diversification).</td></tr>
+    <tr><td class="mono">Ongoing</td><td>Management guides <strong>25–30% FY27 revenue growth</strong>; targets reducing single-client (ONGC) dependency below 40%; ₹161 Cr Dolphin legacy receivables pending arbitration.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card p"><div class="k">Debt/Equity</div><div class="v">~0.10</div><div class="d up">very low</div></div>
+    <div class="card d"><div class="k">OCF (FY26)</div><div class="v">₹218 Cr</div><div class="d up">+22%</div></div>
+    <div class="card s"><div class="k">Debtor days</div><div class="v">~197</div><div class="d down">high</div></div>
+    <div class="card f"><div class="k">P/B</div><div class="v">~1.4–1.5x</div><div class="d">modest</div></div>
+  </div>
+  <p>Deep's balance sheet is <strong>fundamentally strong — very low leverage (D/E ~0.10) and robust, growing operating cash flow (₹218 Cr)</strong> — giving it the firepower to fund the offshore capex programme largely internally. The clear weak spot, as noted, is the <strong>elevated receivables (debtor days ~197)</strong> driven by PSU payment cycles and legacy-acquisition baggage.</p>
+  <div class="call st">
+    <div class="lab">The metric that decides earnings quality: cash conversion</div>
+    For a high-margin services company with a messy receivables history, <strong>OCF-to-EBITDA conversion and debtor days are the truest quality tests</strong> — they show whether the ~48% EBITDA margin is real cash or accounting profit trapped in slow-paying receivables. FY26's ₹218 Cr OCF (growing despite the write-off noise) is reassuring; the goal is <strong>falling debtor days as legacy issues resolve and the client base diversifies away from slow-paying PSU concentration</strong>. If cash conversion improves alongside the strong order book and offshore ramp, Deep is a genuinely high-quality compounder; if receivables stay bloated (or the Dolphin arbitration goes badly), the quality — and multiple — stay capped. <strong>Watch OCF/EBITDA, debtor days, net debt, and the arbitration outcome each quarter.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Recovering up <span class="badge b-bull">↑</span></div><div class="tkd">+47% 6M, +33% 1M</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹520</div><div class="tkd">late Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹330 – 578</div><div class="tkd">upper half</div></div>
+    <div class="tk"><div class="tkl">All-time high</div><div class="tkv">₹624.50</div><div class="tkd">Jan 2025</div></div>
+    <div class="tk"><div class="tkl">Support</div><div class="tkv">₹460–480</div><div class="tkd">breakout base</div></div>
+    <div class="tk"><div class="tkl">3-yr return</div><div class="tkv">+~218%</div><div class="tkd">multibagger</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Deep Industries has <strong>rebounded strongly — up ~47% over six months and ~33% in the last month</strong> — recovering from its ₹330 low toward the upper half of its 52-week range (₹330–578), though still below the January-2025 ATH of ₹624.50. The strong, clean Q1 FY27 print (PAT +45%) and the ₹49 Cr ONGC win drove the recent surge (the stock jumped ~8% on 27 Jul). Over three years it has been a ~218% multibagger. Momentum is positive as the market re-rates the clean-earnings story post-write-off; the ₹460–480 zone is recent breakout support, with the ₹578/₹624 highs as overhead resistance. As an order-book-driven small-cap, moves will track contract wins, quarterly execution, the offshore ramp and any receivables/arbitration news. Note wide vendor price data — verify vs NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary across vendors (CMP ₹457–543, m-cap ₹2,970–3,473 Cr; trailing P/E distorted/negative by the FY26 write-off). Reported PAT understates cash earnings; a further Dolphin write-off is possible. Verify against company filings and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Deep Industries Ltd</b> — NSE: DEEPINDS · BSE: 543288 · ISIN: INE0FHS01024 · Oil &amp; Gas Support Services (Gas Compression, Drilling, Workover, Well Testing, Production Enhancement, Offshore) · Vadodara<br>
+  Report generated 31 July 2026 · Data through Q1 FY27 (quarter ended 30 Jun 2026), reported 28 Jul 2026 + audited FY26.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q1 FY27 / Q4 &amp; FY26 results, investor presentation, con-call &amp; BSE-NSE filings, Screener.in, Business Standard, Sahi, ScanX, Multibagg, Sunday Guardian, Univest, ICICIdirect, Kotak Neo, Motilal Oswal, SimplyWall.st, MarketsMojo, Equirus. Key figures: FY26 consolidated revenue ₹890.71 Cr (+55% vs ₹576.13 Cr FY25), EBITDA ₹424.82 Cr (+61% vs ₹263 Cr, ~48% margin), OCF ₹218.17 Cr (vs ₹178.46 Cr FY25, ₹113.43 Cr FY24); <b>non-cash exceptional write-off ₹208.28 Cr (₹20,828.49 lakh) — Kandla Energy &amp; Chemicals legacy receivables — distorting reported PAT</b>; standalone FY26 revenue ₹702.96 Cr / PAT ₹97.48 Cr (swing from ₹115.43 Cr loss FY25); corrigendum filed 14 May 2026 (typo, Note 6). Q1 FY27 (reported 28 Jul 2026): consolidated revenue ₹278.92 Cr (+39.81% YoY vs ₹199.5 Cr; total income ₹302.60 Cr), attributable PAT ₹85.36 Cr (+45.12% vs ₹58.82 Cr), PBT ₹111.65 Cr (+43.42% vs ₹77.85 Cr), total expense ₹190.95 Cr (+41.36%), employee cost ₹20.89 Cr, other expenses ₹15.46 Cr (+69.33%); rebound from Q4 FY26 net loss ₹7.22 Cr; DIL ESOP 2026 (15 lakh options); FY26 final-dividend record date 21 Aug 2026. Order book &gt;₹3,000 Cr (end-FY26); ₹49.1 Cr ONGC order won; FY27 guidance 25–30% revenue growth. Assets: 6 drilling rigs (1000 HP), 11 workover rigs (30T–150T); offshore tug (USD 17–20k/day, ~50% margin); ₹400–500 Cr offshore capex planned (PSVs/DSVs/tugs). PEC (Rajahmundry/ONGC): ~₹70 Cr FY26 → ~₹140 Cr FY27E, &gt;40% margin. Subsidiaries/acquisitions: Dolphin Offshore Shipping (via CIRP, Jan 2025; ₹161.11 Cr legacy receivables pending arbitration), Kandla Energy &amp; Chemicals (Mar 2025), SAAR International FZ-LLC (UAE), Deep Exploration Services. Incorporated 15 Nov 2006 as Deep CH4 Ltd; renamed Deep Industries Ltd 25 Sep 2020; HQ Vadodara; Chairman &amp; MD Paras Savla, MD Rupesh Savla. Balance sheet: D/E ~0.10; debtor days ~197 (high); P/B ~1.4–1.5x. Shareholding (Jun '26): promoter 63.5%, FII 1.5%, DII 1.5%, public 33.5%. Tailwinds: India targets cutting oil imports to 50% by 2030; OALP opened &gt;1M sq km for E&amp;P; services benefit from exploration activity, not crude price directly. <b>DATA CAVEAT: prices/ratios vary — CMP ₹457.10 (SimplyWall.st, stale) to ₹542.95 (Kotak, 29 Jul); ~₹510–520 late Jul; market cap ₹2,970 Cr (Univest) to ₹3,473 Cr (Screener); face value ₹5; ~6.4 Cr shares; 52-wk ₹330–578; ATH ₹624.50 (Jan 2025). TRAILING P/E IS DISTORTED/NEGATIVE due to the FY26 write-off — use EV/EBITDA (~8x trailing, ~6–7x forward) and normalised/forward P/E. P/B ~1.4–1.5x. All figures approximate; verify vs NSE/BSE and filed results.</b> Univest 12-month target ₹595 (15–20% FY27 PAT growth); SimplyWall.st fair value ~₹693 ("undervalued"). Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Deep Industries Limited
+Ticker: NSE: DEEPINDS / BSE: 543288
+Sector: Oil & Gas Support Services (Gas Compression, Drilling, Workover, Well Testing, Production Enhancement/PEC, Offshore)
+Report Date: July 31, 2026 (Q1 FY27 reported Jul 28)
+File: deep_industries_equity_research.html
+CMP at Report: ~₹520 (late Jul 2026; ranged ₹457-543; VERIFY vs NSE/BSE)
+Market Cap: ~₹3,400 Cr (varies ₹2,970-3,473 Cr); face value ₹5; ~6.4 Cr shares
+FY26: Revenue ₹890.71 Cr (+55%), EBITDA ₹424.82 Cr (+61%, ~48% margin), OCF ₹218 Cr (+22%)
+CRITICAL: FY26 reported PAT DISTORTED by ₹208.28 Cr NON-CASH exceptional write-off (Kandla legacy receivables) - trailing P/E UNUSABLE/negative; cash profitability robust
+Q1 FY27 (Jul 28): revenue ₹278.92 Cr (+39.81% YoY, total income ₹302.60 Cr), attributable PAT ₹85.36 Cr (+45.12%), PBT ₹111.65 Cr - CLEAN rebound from Q4 FY26 LOSS ₹7.22 Cr (which had the write-off)
+BUSINESS: Vadodara O&G services; "India's only integrated ONSHORE+OFFSHORE provider"; transformed from niche gas compression to integrated platform; formerly Deep CH4 (2006), renamed 2020
+Order book: >₹3,000 Cr (~3.4x FY26 rev); FY27 guidance 25-30% revenue growth; ₹49.1 Cr ONGC order won
+Assets: 6 drilling rigs (1000HP), 11 workover rigs; offshore tug ($17-20k/day ~50% margin); PEC Rajahmundry/ONGC (₹70→140 Cr, >40% margin - first-of-kind template)
+Offshore expansion: Dolphin Offshore acquired via CIRP; ₹400-500 Cr capex planned (PSVs/DSVs/tugs) - growth optionality + execution risk
+Balance sheet: D/E ~0.10 (very low), P/B ~1.4-1.5x, OCF ₹218 Cr; BUT debtor days ~197 (HIGH)
+KEY RISK: receivables/write-off - ₹161.11 Cr Dolphin legacy receivables PENDING ARBITRATION (possible fresh FY27 write-off); ONGC client concentration (target <40% dep); offshore execution; one-off-cluttered reporting
+Ownership: promoter 63.5% (high/aligned), FII 1.5%, DII 1.5%, public 33.5% (low institutional)
+Tailwind: India cut oil imports to 50% by 2030; OALP >1M sq km E&P; services benefit from activity not crude price
+Bull Case: ₹680-820
+Base Case: ₹500-600
+Bear Case: ₹360-430
+Primary Valuation Metric: forward EV/EBITDA (~6-7x fwd, ~8x trailing) + normalised/forward P/E co-primary; order-book conversion operating indicator; OCF/cash-conversion+debtor days GATE; trailing P/E = AVOID (write-off distorted)
+Investment Type: high-margin (~48% EBITDA) order-book-rich (>₹3,000 Cr) O&G services platform mid-transformation to integrated onshore+offshore; look-through-the-noise growth+visibility story; reasonably-to-attractively valued on EV/EBITDA IF receivables clean up; analyst targets ₹595 (Univest), fair value ₹693 (SimplyWall.st)
+-->

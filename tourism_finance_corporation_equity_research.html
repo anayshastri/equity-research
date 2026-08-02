@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourism Finance Corporation of India — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Albert+Sans:wght@300;400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#1B1220; --plum-2:#2A1B33; --plum-3:#3C2848;
+    --gold:#C9A24B; --gold-dk:#A07F２C; --gold-dk:#A07F2C; --gold-lt:#E0C078; --gold-gl:rgba(201,162,75,.12);
+    --teal:#1F8A82; --teal-dk:#14655F; --teal-lt:#3FB4AB; --teal-gl:rgba(31,138,130,.11);
+    --rose:#C25E7A; --rose-gl:rgba(194,94,122,.10);
+    --sky:#4C7CC4; --sky-gl:rgba(76,124,196,.10);
+    --green:#2A9D63; --green-dk:#177843; --red:#CE4B44;
+    --ink-1:#181020; --ink-2:#43394F; --ink-3:#6E6478;
+    --line:#E7E2EC; --line-2:#F1EDF4; --paper:#FCFBFD; --paper-2:#F6F2F8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Albert Sans',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(27,18,32,.12)}
+  h1,h2,h3,h4{font-family:'Albert Sans',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.13}
+  .serif{font-family:'Cormorant Garamond',serif}
+  .mono{font-family:'Spline Sans Mono',monospace}
+
+  /* HERO — arch / heritage-doorway + ledger motif */
+  .hero{position:relative;background:linear-gradient(150deg,#1B1220 0%,#2A1B33 52%,#3C2848 128%);color:#F1E9F2;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-6%;width:440px;height:440px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(224,192,120,.30),rgba(63,180,171,.16) 55%,transparent 72%);filter:blur(5px)}
+  .arch{position:absolute;right:78px;top:44px;width:170px;height:200px;z-index:2;opacity:.5}
+  .arch svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.03em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.gd{background:rgba(201,162,75,.2);border-color:rgba(201,162,75,.46);color:#EAD199}
+  .tag.te{background:rgba(31,138,130,.2);border-color:rgba(63,180,171,.46);color:#A6E5DF}
+  .hero h1{font-size:41px;font-weight:700;margin-bottom:2px;letter-spacing:-.03em}
+  .hero .serif-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--gold-lt);margin-bottom:12px;font-weight:600}
+  .hero .sub{font-size:16.5px;color:#C6B9CE;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:116px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#A895B0;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5AE0A0}.down{color:#F0A0A8}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--plum);color:#A495AC;
+    padding:11px 48px;font-family:'Spline Sans Mono',monospace;font-size:11px}
+  .metabar b{color:#EDE4EF;font-weight:500}
+  .metabar .dot{color:var(--gold-lt)}
+
+  .alert{background:var(--gold-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--gold-dk);font-family:'Spline Sans Mono',monospace}
+  .alert b{color:var(--plum)}
+  .alert.q1{background:var(--teal-gl);color:var(--teal-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;color:var(--gold-dk);
+    border:1.5px solid var(--gold);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--plum)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--gold);background:var(--gold-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.te{border-color:var(--teal);background:var(--teal-gl)}
+  .call.ro{border-color:var(--rose);background:var(--rose-gl)}
+  .call.sk{border-color:var(--sky);background:var(--sky-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,75,68,.08)}
+  .call .lab{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--gold-dk);margin-bottom:5px}
+  .call.te .lab{color:var(--teal-dk)}.call.ro .lab{color:#A03E5A}.call.sk .lab{color:#3A62A6}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--plum-2);color:#EAE0EC;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Spline Sans Mono',monospace}
+  .tr-hi td{background:var(--gold-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--plum);letter-spacing:-.02em}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.g{border-top:3px solid var(--gold)}.card.t{border-top:3px solid var(--teal)}
+  .card.r{border-top:3px solid var(--rose)}.card.s{border-top:3px solid var(--sky)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--plum);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--gold-gl);border-color:var(--gold)}
+  .vnode.own .vt{color:var(--gold-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:172px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Spline Sans Mono',monospace;font-weight:500}
+  .bar-val{width:96px;text-align:right;font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.arch{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,75,68,.06);border-color:rgba(206,75,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(42,157,99,.07);border-color:rgba(42,157,99,.3)}
+  .scen .st{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--plum);color:#EDE3EF;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,75,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative}
+  .bm .bm-sub{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--gold-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#D3C4D8}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#D0C2D5}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--gold-dk);color:#fff}.v-co{background:var(--teal-dk);color:#fff}
+  .v-ind{background:#177843;color:#B6EFCC}.v-sec{background:#5E4A6E;color:#E8D8EE}
+  .v-avoid{background:#7A2E28;color:#F6C9BF}.v-cross{background:#38284A;color:#D8CCE4}
+  .bm .onenum{background:rgba(31,138,130,.16);border:1px solid rgba(63,180,171,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#BEE8E2;position:relative}
+  .bm .onenum b{color:#8FE0D6}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Spline Sans Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--plum)}
+  .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--gold-dk)}.rl{background:var(--teal-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--gold),var(--teal))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--gold)}
+  .tli .ty{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:12.5px;color:var(--gold-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Spline Sans Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--plum)}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(42,157,99,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,75,68,.14);color:var(--red)}
+  .b-neut{background:rgba(201,162,75,.2);color:var(--gold-dk)}
+
+  .foot{background:var(--plum);color:#9284 9A;padding:24px 48px;font-size:11.5px;line-height:1.6;color:#94849C}
+  .foot b{color:#D0C2D5}
+  .disc{font-size:10.5px;color:#6E6478;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="arch">
+    <svg viewBox="0 0 170 200" fill="none">
+      <path d="M20 195 L20 80 Q20 20 85 20 Q150 20 150 80 L150 195" stroke="#E0C078" stroke-width="2.5" opacity="0.6" fill="none"/>
+      <path d="M42 195 L42 88 Q42 44 85 44 Q128 44 128 88 L128 195" stroke="#3FB4AB" stroke-width="1.5" opacity="0.5" fill="none"/>
+      <line x1="85" y1="44" x2="85" y2="195" stroke="#C9A24B" stroke-width="1" opacity="0.4"/>
+      <g stroke="#E0C078" stroke-width="1" opacity="0.35">
+        <line x1="30" y1="120" x2="140" y2="120"/><line x1="30" y1="150" x2="140" y2="150"/><line x1="30" y1="180" x2="140" y2="180"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: TFCILTD</span>
+      <span class="tag">BSE: 526650</span>
+      <span class="tag gd">India's Only Dedicated Tourism Lender</span>
+      <span class="tag te">All-India Financial Institution · 1989</span>
+    </div>
+    <h1>Tourism Finance Corporation of India</h1>
+    <div class="serif-tag">The financier behind 50,000+ hotel rooms — now a diversifying NBFC</div>
+    <div class="sub">A niche, <b>fortress-capitalised NBFC</b> that has cleaned its book to near-zero NPAs and is compounding profits ~19% — pivoting from pure tourism lending into a broader, higher-growth credit franchise, but with an <b>unusual ownership structure</b> and a full-ish valuation.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹82</div><div class="d up">+63% in 1yr</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹3,900 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹123.5 Cr</div><div class="d up">+19%</div></div>
+      <div class="qs"><div class="k">Gross NPA</div><div class="v">0.37%</div><div class="d up">from 3.22%</div></div>
+      <div class="qs"><div class="k">CRAR</div><div class="v">~55%</div><div class="d up">fortress</div></div>
+      <div class="qs"><div class="k">P/B</div><div class="v">~2.7x</div><div class="d">full-ish</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Chairman:</b> S. Ravi (Non-Exec)</span>
+  <span class="dot">◆</span>
+  <span><b>Origin:</b> Promoted by IFCI + banks</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1989 · listed 1995</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Saket, New Delhi</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹2</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 28 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  ✅ <b>Q1 FY27 JUST REPORTED (20 Jul 2026):</b> Total income ₹115.2 Cr, PAT ₹61.2 Cr, loan portfolio ₹1,901.6 Cr, Gross NPL ~0.4%, CRAR 57.1%. <b>Note:</b> Q1 PAT (~53% of income) appears to include a large one-off gain/recovery — see §8; do not annualise it as core run-rate.
+</div>
+<div class="alert">
+  ⚠ <b>DATA NOTE:</b> Prices/ratios approximate and vary by vendor (CMP ₹79–87, m-cap ₹3,850–4,040 Cr, P/B ~2.7–2.9x, P/E ~25–29x across Jul 2026). Face value is ₹2 (post-split). <b>Promoter holding is unusually low (~3.85%, Screener)</b> — ownership/control structure is atypical (see §10). Verify against NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead">Tourism Finance Corporation of India (TFCI) is a specialised <strong>All-India Financial Institution and NBFC</strong>, incorporated in 1989 (promoted by IFCI alongside banks and institutions) as <strong>India's only dedicated lender to the tourism and hospitality sector</strong>. It has financed <strong>50,000+ star-category hotel rooms</strong> and landmark projects — Taj resorts in Kerala &amp; Goa, Umaid Bhawan Palace, Ananda in the Himalayas, Palace on Wheels, Imagicaa, Essel World — and advises the Ministry of Tourism and state governments on tourism development.</p>
+  <p>Over recent years TFCI has evolved from a pure tourism financier into a <strong>diversifying NBFC</strong>, extending credit to real estate, manufacturing, education, healthcare, logistics, solar, NBFCs and loan-against-securities — while keeping hotels as the anchor (52% of the book). FY26 was a strong year: <strong>PAT up 19% to ₹123.5 Cr, NII up 36%, AUM up 29%</strong>, and — most strikingly — a <strong>dramatic asset-quality cleanup</strong> that took Gross NPA from 3.22% to 0.37% and Net NPA to nil, all sitting on a <strong>fortress ~55% capital-adequacy ratio</strong>.</p>
+  <div class="cards">
+    <div class="card g"><div class="k">FY26 Total Income</div><div class="v">₹276.8 Cr</div><div class="d up">+8.8% YoY</div></div>
+    <div class="card t"><div class="k">FY26 PAT</div><div class="v">₹123.5 Cr</div><div class="d up">+19% YoY</div></div>
+    <div class="card r"><div class="k">Loan Book</div><div class="v">₹2,088 Cr</div><div class="d up">AUM +29%</div></div>
+    <div class="card s"><div class="k">Net NPA</div><div class="v">Nil</div><div class="d up">PCR 100%</div></div>
+  </div>
+  <div class="call te">
+    <div class="lab">The investment character in one line</div>
+    TFCI is a <strong>small, over-capitalised, clean-book niche lender with a genuine structural tailwind (India tourism/hospitality) and a lot of dry powder</strong> — but also a <strong>slow historical grower, an atypical ownership structure, and a valuation (~2.7x book) that already credits the turnaround</strong>. The thesis is whether abundant capital + a tourism boom + diversification can convert into sustained loan-book and earnings growth strong enough to justify a premium-to-peers multiple.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1989 · Founded by IFCI</div><div class="td">Incorporated as a public company (operational Feb 1989), promoted by <strong>IFCI Ltd with other All-India financial institutions and nationalised banks</strong>, to finance India's nascent tourism infrastructure.</div></div>
+    <div class="tli"><div class="ty">1990s–2000s · Tourism-lending pioneer</div><div class="td">Listed in 1995. Pioneered financing of India's first amusement-cum-water park, Palace on Wheels, heritage-hotel restorations, and 50,000+ star hotel rooms — becoming synonymous with tourism-project finance.</div></div>
+    <div class="tli"><div class="ty">2017–2019 · Ownership change</div><div class="td">Control shifted away from the original IFCI-led promoter group via stake sales to new investors — beginning TFCI's transition to a professionally/board-driven NBFC (part of why promoter holding is now very low).</div></div>
+    <div class="tli"><div class="ty">2020–FY25 · Diversification &amp; cleanup</div><div class="td">Broadened lending beyond tourism (real estate, manufacturing, NBFC, LAS, education, healthcare, solar); began cleaning legacy stressed assets. Entered fintech-platform retail loans and loan-against-shares in FY25.</div></div>
+    <div class="tli"><div class="ty">FY26 · Fortress book, record profit</div><div class="td"><strong>Gross NPA 3.22%→0.37%, Net NPA to nil, PCR 100%;</strong> PAT +19% to ₹123.5 Cr, NII +36%, AUM +29%; CRAR ~55%; ₹0.60 dividend; ₹1,200 Cr resource-raising approved; Brickwork upgrade to BWR AA (Stable).</div></div>
+    <div class="tli"><div class="ty">Q1 FY27 · Strong start (with a one-off)</div><div class="td">PAT ₹61.2 Cr on income ₹115.2 Cr; loan book ₹1,901.6 Cr; CRAR 57.1% — a big profit number that appears to include a sizeable one-off gain/recovery.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model</h2></div>
+  <p>TFCI is a <strong>wholesale/mid-market lender</strong>: it raises funds (equity, bonds, borrowings) and deploys them as project loans, term loans, corporate loans and working-capital finance, earning a <strong>net interest margin</strong> plus fees/advisory. As an NBFC it doesn't take deposits; its edge is <strong>domain expertise in hospitality/tourism project appraisal</strong> and, increasingly, a diversified credit book.</p>
+  <div class="vchain">
+    <div class="vnode"><div class="vt">Funding</div><div class="vd">Equity, bonds, borrowings; gearing just 0.83x</div></div>
+    <div class="vnode own"><div class="vt">Appraisal</div><div class="vd">Tourism/hospitality domain expertise + diversified credit</div></div>
+    <div class="vnode own"><div class="vt">Lending</div><div class="vd">Project/term/corporate loans; 63 borrowers</div></div>
+    <div class="vnode own"><div class="vt">NIM + fees</div><div class="vd">Spread income + advisory to Min. of Tourism</div></div>
+    <div class="vnode"><div class="vt">Recovery/exit</div><div class="vd">Repayments; near-zero NPAs now</div></div>
+  </div>
+  <div class="call gd">
+    <div class="lab">A very under-leveraged lender — the double-edged fact</div>
+    TFCI's defining financial feature is being <strong>massively over-capitalised</strong>: CRAR ~55% and gearing just 0.83x, versus NBFC peers that run 3–6x leverage. <strong>Positive:</strong> enormous headroom to grow the loan book without raising equity, plus a huge safety buffer. <strong>Negative:</strong> under-leverage <em>depresses ROE</em> — a lender earning a decent spread but using little leverage generates lower returns on equity than a normally-geared peer. The single biggest swing factor for TFCI's future returns is <strong>whether it deploys its excess capital into profitable loan growth</strong>. Idle capital is the drag; deployed capital is the upside.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Loan Portfolio &amp; Diversification</h2></div>
+  <div class="two">
+    <div>
+      <p style="font-weight:600;margin-bottom:6px">FY26 portfolio mix (₹2,088 Cr, 63 borrowers):</p>
+      <div class="bar-row"><div class="bar-lab">Hotels</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:var(--gold)">52%</div></div><div class="bar-val">anchor</div></div>
+      <div class="bar-row"><div class="bar-lab">Real Estate</div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--teal)">19%</div></div><div class="bar-val">diversify</div></div>
+      <div class="bar-row"><div class="bar-lab">Manufacturing</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--rose)">12%</div></div><div class="bar-val">diversify</div></div>
+      <div class="bar-row"><div class="bar-lab">Infra / Social Infra</div><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--sky)">5%</div></div><div class="bar-val">—</div></div>
+      <div class="bar-row"><div class="bar-lab">NBFC</div><div class="bar-track"><div class="bar-fill" style="width:4%;background:var(--plum-3)">4%</div></div><div class="bar-val">calibrated</div></div>
+      <div class="bar-row"><div class="bar-lab">Loan Against Shares</div><div class="bar-track"><div class="bar-fill" style="width:3%;background:var(--ink-3)">3%</div></div><div class="bar-val">calibrated</div></div>
+    </div>
+    <div>
+      <div class="call te">
+        <div class="lab">Still hotel-anchored, deliberately diversifying</div>
+        Hotels remain the core (52%) — TFCI's edge — but the book is now spread across real estate, manufacturing and calibrated NBFC/LAS exposure, with pan-India concentration in UP, Maharashtra and Gujarat. The strategy balances <strong>domain-expertise lending</strong> (hospitality) with <strong>diversification</strong> to reduce single-sector risk and open larger addressable markets. Newer thrusts — solar financing for hotels/resorts/MSMEs, fintech-platform retail loans, LAS — extend the franchise further.
+      </div>
+    </div>
+  </div>
+  <div class="call ro">
+    <div class="lab">Concentration is the flip side of a 63-borrower book</div>
+    A ₹2,088 Cr book across just <strong>63 borrowers</strong> means <strong>average exposure ~₹33 Cr and high single-name concentration</strong>. That's inherent to wholesale project lending, but it means <strong>one or two large accounts turning bad can move the NPA ratio sharply</strong> — which is exactly what the legacy stress (3.22% GNPA) reflected before the cleanup. Diversification helps, but this remains a chunky, concentrated book where credit selection is everything.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Asset-Quality Turnaround, Dissected</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Gross NPA</div><div class="v">0.37%</div><div class="d up">from 3.22% FY25</div></div>
+    <div class="card g"><div class="k">Net NPA</div><div class="v">Nil</div><div class="d up">from 1.61%</div></div>
+    <div class="card s"><div class="k">PCR</div><div class="v">100%</div><div class="d up">fully provided</div></div>
+    <div class="card r"><div class="k">FY26 impairment</div><div class="v">₹36.2 Cr</div><div class="d">cleanup cost</div></div>
+  </div>
+  <p>The standout FY26 story is credit quality. <strong>Gross NPA collapsed from 3.22% to 0.37%, Net NPA fell to nil, and provision coverage hit 100%</strong> — reflecting strong recoveries and a cleaned-up legacy book. This is a genuine de-risking: the balance sheet that once carried meaningful stress now shows one of the cleanest asset profiles among mid-market NBFCs.</p>
+  <div class="call gd">
+    <div class="lab">Real cleanup — but understand what drove it, and what it costs going forward</div>
+    The near-zero NPA book is a real positive and a precondition for re-rating. Two nuances: <strong>(1)</strong> the cleanup involved a ₹36.2 Cr FY26 impairment and recoveries — some of the profit strength (and the Q1 FY27 spike) likely reflects <strong>recovery/write-back gains that are inherently one-off</strong>, not repeatable core earnings; <strong>(2)</strong> a spotless 0.37% GNPA on a concentrated 63-borrower wholesale book is excellent <em>today</em>, but wholesale project lending is lumpy — the true test is keeping it clean <strong>as the book grows and seasons</strong>. Credit here is binary and chunky, so past cleanup doesn't guarantee future immunity.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Set</th><th>Players</th><th>TFCI's position</th></tr>
+    <tr class="tr-hi"><td><strong>Tourism/hospitality finance</strong></td><td>Banks, generalist NBFCs</td><td><strong>Only dedicated specialist</strong>; deep domain edge</td></tr>
+    <tr><td><strong>Mid-market wholesale NBFCs</strong></td><td>Indostar, MAS Financial, generalist lenders</td><td>Small; over-capitalised; clean book</td></tr>
+    <tr><td><strong>Real estate / structured credit</strong></td><td>Numerous NBFCs, AIFs</td><td>Selective diversification play</td></tr>
+    <tr><td><strong>Banks (for large hotels)</strong></td><td>SBI, HDFC Bank etc.</td><td>Cheaper funding; TFCI wins on speed/niche</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A defensible niche, not a moat against banks</div>
+    TFCI's <strong>tourism-lending specialisation</strong> is a genuine differentiator — domain expertise in appraising hotel/resort projects that generalist lenders lack, plus advisory relationships with the Ministry of Tourism. But it competes for the same borrowers against <strong>banks with far cheaper funding</strong> and against generalist NBFCs on the diversified book. Its edge is niche knowledge, speed and flexibility on tourism projects, not a structural cost or scale advantage. As it diversifies into real estate/manufacturing, it increasingly competes head-on with larger, better-funded lenders — where the specialist edge fades.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Banks + NBFCs compete for the same credit; lending is a spread business with limited differentiation outside the tourism niche.</td></tr>
+    <tr><td><strong>Funding-cost (supplier) power</strong></td><td class="mono">Moderate-High</td><td>TFCI's cost of funds is higher than banks'; ratings (BWR AA) help but it can't match bank deposit funding. Its low leverage partly offsets this.</td></tr>
+    <tr><td><strong>Borrower (buyer) power</strong></td><td class="mono">Moderate</td><td>Good projects have banking options; TFCI wins on niche expertise and speed, giving some pricing power in tourism.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Capital and licensing barriers exist, but many lenders can enter tourism/RE credit; TFCI's specialisation is the main barrier.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate</td><td>Bank loans, bonds, AIFs, equity — borrowers have alternatives, especially larger ones.</td></tr>
+  </table>
+  <p>Net: a <strong>competitive lending industry where TFCI holds a defensible but narrow niche</strong>. Its structural advantages (domain expertise, huge capital buffer, clean book, government relationships) are real; its structural disadvantages (higher funding cost than banks, small scale, concentration) are equally real. The tourism tailwind is what tips the balance positively.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Earnings Quality: The Q1 FY27 One-Off</h2></div>
+  <p>Q1 FY27 (reported 20 Jul 2026) showed <strong>PAT of ₹61.2 Cr on total income of ₹115.2 Cr</strong> — a &gt;50% net margin that is <em>far</em> above a normal lending run-rate and roughly half of the <em>entire</em> FY26 profit in a single quarter.</p>
+  <div class="call red">
+    <div class="lab">Do not annualise Q1 — it almost certainly contains a one-off</div>
+    A lender earning ₹61 Cr PAT on ₹115 Cr income implies either an extraordinary spread or, far more likely, a <strong>large one-off gain</strong> — a recovery/write-back from the cleaned-up NPA book, a treasury/investment gain, or a similar non-recurring item. Q1 FY26 PAT was ~₹30.6 Cr; core earnings don't double in a lending book in a year without leverage growth. <strong>Annualising ₹61.2 Cr × 4 = ₹245 Cr would badly overstate sustainable earnings.</strong> The honest core run-rate is closer to the FY26 trajectory (~₹123 Cr, growing with AUM). Treat the Q1 headline as flattered; wait for the detailed result to confirm the one-off's size before valuing off it.
+  </div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q1 FY27</th><th class="mono">Read</th></tr>
+    <tr><td>Total income (₹ Cr)</td><td class="mono">~63.7</td><td class="mono">115.2</td><td class="mono">+~27% core rev</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">30.56</td><td class="mono">61.2</td><td class="mono">one-off inflated</td></tr>
+    <tr><td>Loan portfolio (₹ Cr)</td><td class="mono">—</td><td class="mono">1,901.6</td><td class="mono">vs 2,088 FY26-end</td></tr>
+    <tr><td>CRAR</td><td class="mono">—</td><td class="mono">57.1%</td><td class="mono">still fortress</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--ink-3)">Note: the loan book of ₹1,901.6 Cr in Q1 FY27 is <em>below</em> the FY26-end ₹2,088 Cr — worth watching whether that's repayments/seasonality or a genuine book contraction; it argues against reading Q1 as a growth surge.</p>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Funding &amp; Spreads</h2></div>
+  <p>TFCI's profitability rests on its <strong>net interest margin</strong> — the spread between lending yields (project/corporate loans command decent rates) and its cost of funds (bonds/borrowings, more expensive than bank deposits). FY26 saw <strong>NII rise 36%</strong>, a strong signal of margin and/or book expansion.</p>
+  <div class="call gd">
+    <div class="lab">The ratings upgrade helps the spread</div>
+    Brickwork's upgrade to <strong>BWR AA (Stable)</strong>, citing portfolio growth and strong profitability, directly lowers TFCI's cost of funds — widening the spread on new lending. Combined with the fortress capital base (which lets it borrow cheaply and lend without equity dilution), the funding profile is improving. The ₹1,200 Cr resource-raising plan approved in FY26 gives ammunition to grow the book. The question, again, is <strong>deployment</strong>: cheap funding + abundant capital only translate to earnings if the loan book actually grows at good spreads and clean credit.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Ownership &amp; Governance — The Atypical Part</h2></div>
+  <div class="cards">
+    <div class="card r"><div class="k">Promoter holding</div><div class="v">~3.85%</div><div class="d down">−14.1% / 3yr</div></div>
+    <div class="card g"><div class="k">Chairman</div><div class="v">S. Ravi</div><div class="d">Non-Executive</div></div>
+    <div class="card t"><div class="k">Notable investor</div><div class="v">LIC</div><div class="d">confirmed holder</div></div>
+    <div class="card s"><div class="k">Structure</div><div class="v">Board-led</div><div class="d">low promoter</div></div>
+  </div>
+  <p>TFCI's ownership is <strong>unusual and important to understand</strong>. Originally promoted by IFCI and institutions, control has shifted over the years, leaving <strong>promoter holding at just ~3.85% (down ~14.1% over three years per Screener)</strong>. The company is effectively <strong>board- and management-driven rather than dominated by a single promoter</strong>, with a non-executive chairman (S. Ravi), a mix of directors (including Aditya Kumar Halwasiya as a non-executive director), and institutional holders including <strong>LIC</strong> (which confirmed no fresh encumbrance on its TFCI shares in FY26).</p>
+  <div class="call ro">
+    <div class="lab">Why this cuts both ways</div>
+    <strong>Potential positive:</strong> a widely-held, board-driven lender can be professionally run, and a very low promoter stake sometimes precedes ownership/strategic action (stake consolidation, a new strategic investor) that can re-rate the stock. <strong>Potential negative:</strong> the absence of a committed, high-skin-in-the-game promoter can mean <strong>weaker strategic direction, governance uncertainty, or vulnerability to control battles</strong> — and low insider ownership reduces alignment with minority shareholders. Investors should <strong>watch the shareholding pattern closely</strong>: who is accumulating, whether a strategic investor emerges, and how the board sets capital-allocation strategy. This is a defining, atypical feature of the TFCI story, not a footnote.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capital &amp; Growth Runway</h2></div>
+  <div class="cards">
+    <div class="card g"><div class="k">CRAR</div><div class="v">~55%</div><div class="d">vs ~15% reg min</div></div>
+    <div class="card t"><div class="k">Gearing</div><div class="v">0.83x</div><div class="d">very low</div></div>
+    <div class="card s"><div class="k">Resource plan</div><div class="v">₹1,200 Cr</div><div class="d">approved FY26</div></div>
+    <div class="card r"><div class="k">Rating</div><div class="v">BWR AA</div><div class="d">upgraded, Stable</div></div>
+  </div>
+  <p>The most powerful structural feature of the TFCI story is its <strong>enormous unused capital and borrowing headroom</strong>. With CRAR ~55% (against a ~15% regulatory minimum) and gearing of just 0.83x, TFCI could <strong>multiply its loan book several times over without raising fresh equity</strong> — and the ₹1,200 Cr resource-raising plan plus the ratings upgrade give it the funding to do so.</p>
+  <div class="call te">
+    <div class="lab">This is the entire upside case — and the entire risk</div>
+    If TFCI deploys this capital into <strong>profitable, clean loan growth</strong>, AUM and earnings can compound rapidly while ROE rises from a currently-depressed (under-leveraged) level — a powerful re-rating engine. If it <strong>can't find enough good lending</strong> and the capital sits idle (or gets deployed into risky credit to chase growth), ROE stays low and the premium valuation looks unjustified. The FY26 AUM growth of 29% and NII growth of 36% suggest deployment is <em>starting</em> to happen; the Q1 book dip to ₹1,901 Cr is a caution. <strong>Loan-book growth + ROE trajectory are the two numbers that decide the thesis.</strong>
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Capital deployment</strong></td><td>~55% CRAR + ₹1,200 Cr raise → multiply loan book</td><td class="mono">Biggest lever ★★★★★</td></tr>
+    <tr><td><strong>India tourism boom</strong></td><td>Hotel capex, domestic travel, spiritual/heritage tourism</td><td class="mono">Structural ★★★★</td></tr>
+    <tr><td><strong>Diversification</strong></td><td>RE, manufacturing, solar, LAS, fintech retail</td><td class="mono">Widens market ★★★★</td></tr>
+    <tr><td><strong>Falling cost of funds</strong></td><td>BWR AA upgrade → wider spreads</td><td class="mono">Margin ★★★★</td></tr>
+    <tr><td><strong>Clean book → confidence</strong></td><td>Nil net NPA supports aggressive-but-safe growth</td><td class="mono">Enabler ★★★★</td></tr>
+    <tr><td><strong>Ownership/strategic action</strong></td><td>Low promoter stake → possible re-rating event</td><td class="mono">Optionality ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Annual (₹ Cr)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th></tr>
+    <tr><td>Total income</td><td class="mono">242.0</td><td class="mono">260.1</td><td class="mono">276.8</td></tr>
+    <tr><td>PBT</td><td class="mono">113.9</td><td class="mono">128.0</td><td class="mono">~165</td></tr>
+    <tr><td>PAT</td><td class="mono">91.1</td><td class="mono">103.8</td><td class="mono">123.5</td></tr>
+    <tr><td>EPS (₹, FV 2)</td><td class="mono">~2.0</td><td class="mono">~2.24</td><td class="mono">2.67</td></tr>
+    <tr><td>Gross NPA</td><td class="mono">high</td><td class="mono">3.22%</td><td class="mono">0.37%</td></tr>
+    <tr><td>CRAR</td><td class="mono">~70%</td><td class="mono">69.7%</td><td class="mono">~55.5%</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call te">
+        <div class="lab">The good</div>
+        Steady PAT compounding (₹91→104→123 Cr), NII +36% and AUM +29% in FY26, a spotless post-cleanup book, fortress capital, rising dividend, and a ratings upgrade. Profit growth (+19%) is now outpacing income growth (+8.8%) as credit costs fell — operating leverage from the cleanup.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The caution</div>
+        <strong>Income growth is modest (~8.8%), and Screener flags "poor sales growth of 1.15% over 5 years"</strong> — historically TFCI has grown slowly. The profit jump leans partly on <strong>falling credit costs/recoveries</strong> (which don't repeat indefinitely) rather than pure book growth. The Q1 loan book <em>shrank</em> vs FY26-end. ROE is depressed by under-leverage. Growth must accelerate to justify the multiple.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹82 (m-cap ~₹3,900 Cr) on FY26 book, TFCI trades at <strong>~2.7–2.9x price-to-book and ~25–29x earnings</strong>. For a lender, P/B judged against ROE is the right frame — and here's the tension: <strong>2.7x book is a premium multiple, but TFCI's ROE is structurally depressed by its under-leverage</strong>. A ~2.7x P/B typically demands mid-teens+ ROE; TFCI's is lower because it barely uses leverage. The multiple is therefore pricing in <strong>future ROE expansion via capital deployment</strong>, not today's returns.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value TFCI</h3>
+    <div class="bm-sub">Over-capitalised niche NBFC → P/B vs (normalised, deployment-adjusted) ROE; the whole question is future ROE</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>P/B relative to sustainable ROE</td><td><span class="verdict v-prim">PRIMARY</span></td><td>The core lender valuation lens. At ~2.7x book, the market prices in ROE rising as excess capital gets deployed. If ROE stays low (under-leveraged), 2.7x is expensive; if leverage/ROE normalise, it can be justified.</td></tr>
+      <tr><td>Loan-book (AUM) growth &amp; deployment</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>The single driver of the thesis. FY26 AUM +29% was encouraging; the Q1 book dip is a warning. Sustained deployment of the ~55% CRAR is what turns capital into earnings.</td></tr>
+      <tr><td>Core (ex-one-off) earnings run-rate</td><td><span class="verdict v-ind">CRITICAL ADJUSTMENT</span></td><td>Strip the Q1 FY27 one-off recovery/gain. Value off normalised NII + fees, not the ₹61 Cr headline. Annualising Q1 is the trap.</td></tr>
+      <tr><td>Credit cost / asset quality trend</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>0.37% GNPA is excellent, but on a concentrated 63-borrower book credit is lumpy. Sustained low credit cost as the book grows is what protects the ROE.</td></tr>
+      <tr><td>P/E on reported EPS</td><td><span class="verdict v-sec">SECONDARY</span></td><td>Usable but noisy for a lender — distorted by recovery gains and credit-cost swings; P/B-vs-ROE is cleaner.</td></tr>
+      <tr><td>P/E on Q1-annualised earnings</td><td><span class="verdict v-avoid">AVOID</span></td><td>The Q1 FY27 PAT includes a large one-off; ×4 grossly overstates earnings power and makes the stock look far cheaper than it is.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> Core sustainable PAT is best anchored to the <b>FY26 ~₹123 Cr trajectory growing with AUM</b> — call it <b>~₹135–155 Cr FY27E core</b> (ex one-offs), for EPS ~₹2.9–3.4 and a P/E of ~24–28x. On book value, ~2.7x P/B is a <b>full multiple for a currently-low-ROE lender</b>. The bull case is straightforward and real: deploy the ~55% CRAR + ₹1,200 Cr into clean loan growth, lift ROE toward mid-teens, and both earnings <em>and</em> the justified multiple rise together — a double engine. The bear case is a slow-growing, under-leveraged lender whose profit is flattered by finite recovery gains, where 2.7x book is too rich for sub-par ROE. <b>Verdict: fairly-to-fully valued on today's fundamentals; the premium is an option on capital deployment + the tourism cycle + possible ownership action. Attractive only if you believe TFCI will finally put its fortress balance sheet to work — buy the deployment, not the current ROE, and don't pay up on the Q1 one-off.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹55–68</div><div class="sd">Loan book stays sluggish (Q1 dip persists), ROE stays low, recovery gains fade, growth disappoints. De-rates toward ~1.8–2.2x book as the market stops paying for un-deployed capital.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹78–95</div><div class="sd">AUM compounds ~15–20%, core PAT grows steadily, book stays clean, ROE inches up. Tracks book growth at ~2.5x P/B; dividend + tourism tailwind support. Near current levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹110–140</div><div class="sd">Aggressive clean deployment of excess capital, ROE to mid-teens, diversification + tourism boom drive 25%+ AUM growth; and/or a strategic-investor/ownership event re-rates the low-promoter stock.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">MoneyWorks4Me flags the stock as "Overvalued zone / below-average quality"; peers trade cheaper on P/B. Scenario prices assume no major credit event on the concentrated book. Verify CMP/ratios vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Deployment / growth risk — the central one</strong>The premium valuation rests on TFCI deploying its huge excess capital into profitable loan growth. Historically it has grown slowly (5-yr sales CAGR ~1%), and the Q1 FY27 book <em>shrank</em> vs FY26-end. If capital stays idle, ROE stays low and the multiple de-rates.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Earnings quality / one-offs</strong>Q1 FY27 PAT (₹61 Cr on ₹115 Cr income) and part of FY26's profit strength appear to include recovery/write-back gains from the NPA cleanup — non-recurring. Core earnings power is lower than headline; annualising overstates it.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Concentration risk</strong>A ₹2,088 Cr book across just 63 borrowers (~₹33 Cr average) means a single large default can spike NPAs — as the legacy 3.22% GNPA showed. Wholesale project credit is inherently lumpy.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Ownership / governance uncertainty</strong>Promoter holding just ~3.85% (down 14.1%/3yr); no dominant promoter. Can mean weak strategic direction or control-related volatility — though it's also potential re-rating optionality. Watch the shareholding pattern.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Sector cyclicality</strong>Hotels (52% of book) and real estate (19%) are cyclical, capex-heavy sectors sensitive to economic downturns, travel disruruptions (pandemics, etc.) and interest rates. Tourism concentration cuts both ways.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Funding-cost disadvantage vs banks</strong>As an NBFC, TFCI funds costlier than banks; competing for the same borrowers, especially larger ones, pressures spreads as it diversifies beyond its niche.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Valuation</strong>~2.7x book / ~25–29x earnings is full for a low-ROE, slow-historical-growth lender; third-party services flag it as "overvalued." Little margin of safety if deployment disappoints.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Asset quality</div><div class="scv">Nil net NPA <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Capital adequacy</div><div class="scv">~55% CRAR <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Niche franchise</div><div class="scv">Only tourism lender <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Tourism tailwind</div><div class="scv">Structural <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Growth runway</div><div class="scv">Huge headroom <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Historical growth</div><div class="scv">Slow (~1% 5yr) <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">ROE (under-levered)</div><div class="scv">Depressed <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Ownership clarity</div><div class="scv">Atypical/low <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~2.7x book, full <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Tourism Finance Corporation of India is a <strong>rare, fortress-capitalised niche NBFC</strong> — India's only dedicated tourism/hospitality lender — that has <strong>cleaned its book to near-zero NPAs (GNPA 3.22%→0.37%, nil net NPA), compounded profit ~19%, and sits on an extraordinary ~55% capital-adequacy ratio with barely any leverage</strong>, all against a genuine India-tourism structural tailwind and a diversifying loan book. <strong>But the whole investment case hinges on one unproven thing: whether TFCI finally deploys its mountain of idle capital into profitable, clean loan growth to lift a currently-depressed ROE.</strong> History says it grows slowly (~1% 5-yr sales CAGR); the Q1 FY27 profit is flattered by a one-off recovery gain and the loan book actually dipped; ownership is atypically diffuse (promoter ~3.85%); and at ~2.7x book / ~25–29x earnings the stock is <strong>fully valued for a lender still earning sub-par returns on equity.</strong> <strong>The honest framing: a high-quality, low-risk balance sheet wrapped around an unproven growth engine, priced as though the growth is already assured. Own it as an option on capital deployment + the tourism cycle + possible ownership action — buy the future ROE, not today's; insist on core (ex-one-off) earnings and loan-book growth as proof; and don't overpay on the Q1 headline. Watch AUM growth, ROE, credit cost on the concentrated book, and the shareholding pattern above all.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">20 Jul 2026</td><td><strong>Q1 FY27 results:</strong> total income ₹115.2 Cr, PAT ₹61.2 Cr (vs ₹30.56 Cr YoY — includes apparent one-off), loan portfolio ₹1,901.6 Cr, Gross NPL ~0.4%, CRAR 57.1%.</td></tr>
+    <tr><td class="mono">13 Jun 2026</td><td>LIC confirmed <strong>no fresh encumbrance</strong> on its TFCI shares in FY26.</td></tr>
+    <tr><td class="mono">13–15 May 2026</td><td><strong>FY26 audited results:</strong> total income ₹276.8 Cr (+8.8%), PAT ₹123.46 Cr (+19%), EPS ₹2.67, NII +36%, AUM +29%; <strong>GNPA 3.22%→0.37%, Net NPA nil, PCR 100%;</strong> CRAR ~55.5%, gearing 0.83x; ₹36.2 Cr impairment. Dividend ₹0.60/share; ₹1,200 Cr resource-raising and MD reappointment approved.</td></tr>
+    <tr><td class="mono">FY26</td><td><strong>Brickwork upgrade to BWR AA (Stable)</strong> citing portfolio growth and strong profitability (valid till Jul 2027).</td></tr>
+    <tr><td class="mono">FY25–FY26</td><td>Expanded into <strong>solar financing</strong> (hotels/resorts/tourism MSMEs), fintech-platform retail loans, and loan-against-shares — diversification beyond core tourism lending.</td></tr>
+    <tr><td class="mono">Ongoing</td><td>Portfolio ₹2,088 Cr across 63 borrowers; Hotels 52% / Real Estate 19% / Manufacturing 12% / Infra 5% / NBFC 4% / LAS 3%.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card g"><div class="k">CRAR</div><div class="v">~55%</div><div class="d">vs ~15% min</div></div>
+    <div class="card t"><div class="k">Gearing</div><div class="v">0.83x</div><div class="d">barely levered</div></div>
+    <div class="card s"><div class="k">Net NPA</div><div class="v">Nil</div><div class="d">PCR 100%</div></div>
+    <div class="card r"><div class="k">Dividend</div><div class="v">₹0.60/sh</div><div class="d">on FV ₹2</div></div>
+  </div>
+  <p>TFCI's balance sheet is its greatest strength: a <strong>~55% capital-adequacy ratio, gearing of just 0.83x, nil net NPA and 100% provision coverage</strong>. Few lenders anywhere carry this much capital relative to their book. It means near-zero solvency risk and vast capacity to grow. The flip side, repeated throughout this report, is that all that safety <strong>depresses ROE</strong> until the capital is put to work.</p>
+  <div class="call gd">
+    <div class="lab">The metric that decides the story</div>
+    <strong>ROE trajectory as leverage rises</strong> — nothing else matters as much for a lender this over-capitalised. TFCI's return on equity is structurally low precisely because it uses so little leverage; the entire bull case is that deploying the ~55% CRAR (toward a still-conservative but more normal gearing) lifts ROE meaningfully while the clean book keeps credit costs low. If FY27–FY28 show AUM compounding 20%+, ROE climbing, and asset quality holding on a growing book, the premium multiple is earned. If the book stagnates (as the Q1 dip hints) and profit leans on finite recoveries, the ~2.7x P/B de-rates. <strong>Track quarterly: AUM growth, ROE, gearing, and credit cost.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Strong up <span class="badge b-bull">↑</span></div><div class="tkd">+63% 1yr, +44% 6M</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹82</div><div class="tkd">Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹48 – 88</div><div class="tkd">near high</div></div>
+    <div class="tk"><div class="tkl">All-time high</div><div class="tkv">~₹88</div><div class="tkd">recent</div></div>
+    <div class="tk"><div class="tkl">Support</div><div class="tkv">₹70–74</div><div class="tkd">breakout base</div></div>
+    <div class="tk"><div class="tkl">3-yr return</div><div class="tkv">+~320%</div><div class="tkd">multibagger</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">TFCI has been a strong performer — up ~63% over a year, ~44% over six months, and ~320% over three years — trading near its all-time high around ₹82–88 after breaking out from a base near ₹70–74. Momentum is firmly positive, driven by the asset-quality cleanup, the tourism-lending narrative and the strong (one-off-aided) Q1 print. With the stock near highs and at a full ~2.7x book, upside from here likely needs <strong>proof of sustained loan-book growth</strong> rather than more recovery-driven earnings. Face value is ₹2 (post-split); vendor price/ratio data varies. Technicals are constructive but the fundamental burden of proof now sits with deployment.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary across vendors (CMP ₹79–87, m-cap ₹3,850–4,040 Cr, P/B 2.7–2.9x, P/E 25–29x); Q1 FY27 PAT appears one-off-inflated. Verify against company filings and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Tourism Finance Corporation of India Ltd</b> — NSE: TFCILTD · BSE: 526650 · ISIN: INE305A01023 · All-India Financial Institution / NBFC · Tourism, Hospitality &amp; Diversified Lending<br>
+  Report generated 28 July 2026 · Data through Q1 FY27 (reported 20 Jul 2026) + audited FY26 (year ended 31 Mar 2026).
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company FY26 audited results / press release / NSE-BSE filings, ScanX, Groww, ANI/PNN, DSIJ, ICICIdirect, INDmoney, Bajaj Finserv, Screener.in, MoneyWorks4Me, Tijori, Investing.com, Business Standard, Reuters. Key figures: FY26 total income ₹276.83 Cr (+8.8%; ₹27,683.49 lakh), PAT ₹123.46 Cr (+19%; from ₹103.81 Cr / ₹10,381 lakh FY25), EPS ₹2.67, EBITDA ₹249.45 Cr, NII +36%, AUM +29%; interest income ₹238.27 Cr. Asset quality: Gross NPA 0.37% (from 3.22% FY25), Net NPA nil (from 1.61%), PCR 100%, FY26 impairment ₹36.2 Cr. Capital: CRAR ~55.5% (FY26; 69.7% FY25), gearing 0.83x, opex ₹27.94 Cr; ₹1,200 Cr resource-raising approved; dividend ₹0.60/share (FV ₹2). Loan portfolio ₹2,088.14 Cr across 63 borrowers — Hotels 52% / Real Estate 19% / Manufacturing 12% / Infra & Social Infra 5% / NBFC 4% / LAS 3%; key geographies UP, Maharashtra, Gujarat. Q4 FY26: total income ₹73.94 Cr (+6.5%), revenue ₹73.89 Cr (+8.6%), PAT ₹32.02 Cr (+6%). Q1 FY27 (reported 20 Jul 2026): total income ₹115.2 Cr, PAT ₹61.2 Cr (vs ₹30.56 Cr / ₹6,120.93 lakh Q1 FY26; revenue ₹81.0 Cr +27% per Reuters), loan portfolio ₹1,901.6 Cr, Gross NPL ~0.4%, CRAR 57.1% — <b>Q1 PAT appears to include a large non-recurring recovery/gain; do not annualise.</b> Ratings: Brickwork upgrade to BWR AA (Stable), valid till Jul 2027. Incorporated 27 Jan 1989 (operational 1 Feb 1989), promoted by IFCI + institutions/banks; listed 8 Feb 1995; HQ Saket, New Delhi; Chairman S. Ravi (Non-Exec); Aditya Kumar Halwasiya (Non-Exec Director); LIC a holder (no fresh encumbrance FY26). Financed 50,000+ hotel rooms (Taj Kerala/Goa, Umaid Bhawan, Ananda, Palace on Wheels, Imagicaa, Essel World). Newer verticals: solar financing, fintech retail loans, LAS. <b>DATA CAVEAT: prices/ratios vary — CMP ₹79.28 (ICICIdirect, 3 Jul) to ₹87.27 (Investing.com, 25 Jul); market cap ₹3,852 Cr (Screener) to ₹4,038 Cr (Tijori); P/E ~25–29x; P/B ~2.66–2.93x; 52-wk ₹48.12–₹88.20; face value ₹2 (post-split, 1 split historically). Promoter holding ~3.85% (Screener, −14.1% over 3 years) — atypically low. All figures approximate; verify vs NSE/BSE and latest filing.</b> MoneyWorks4Me rates it "Overvalued zone / below-average quality." Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Tourism Finance Corporation of India Limited (TFCI)
+Ticker: NSE: TFCILTD / BSE: 526650
+Sector: NBFC / All-India Financial Institution - Tourism, Hospitality & Diversified Lending
+Report Date: July 28, 2026 (Q1 FY27 just reported Jul 20 + FY26 data)
+File: tourism_finance_corporation_equity_research.html
+CMP at Report: ~₹82 (Jul 2026; ranged ₹79-87; VERIFY vs NSE/BSE)
+Market Cap: ~₹3,900 Cr (varies ₹3,852-4,038 Cr)
+FY26 Total Income: ₹276.83 Cr (+8.8%)
+FY26 PAT: ₹123.46 Cr (+19%); EPS ₹2.67; NII +36%; AUM +29%
+Asset quality cleanup: GNPA 3.22%->0.37%, Net NPA NIL, PCR 100%, FY26 impairment ₹36.2 Cr
+Capital: CRAR ~55.5% (FORTRESS, vs ~15% reg min), gearing 0.83x (barely levered), ₹1,200 Cr resource-raising approved
+Loan book: ₹2,088 Cr / 63 borrowers - Hotels 52%/RE 19%/Mfg 12%/Infra 5%/NBFC 4%/LAS 3%
+Q1 FY27 (Jul 20): total income ₹115.2 Cr, PAT ₹61.2 Cr (vs ₹30.56 Cr - APPEARS ONE-OFF INFLATED, do not annualise), loan book ₹1,901.6 Cr (DIPPED vs FY26-end), CRAR 57.1%
+Valuation: P/B ~2.7-2.9x, P/E ~25-29x - FULL for a low-ROE lender
+KEY THESIS: over-capitalised niche NBFC; entire case = whether it DEPLOYS excess capital into clean loan growth to lift depressed ROE. History slow (~1% 5yr sales CAGR); Q1 book dipped.
+KEY RISKS: deployment/growth risk (central), earnings quality/one-offs, concentration (63 borrowers), atypical ownership (promoter ~3.85%, LIC holder), sector cyclicality, valuation
+Ownership: promoter ~3.85% (down 14.1%/3yr) - board-driven, atypical; Chairman S. Ravi; LIC holder
+Rating: Brickwork BWR AA (Stable)
+Bull Case: ₹110-140
+Base Case: ₹78-95
+Bear Case: ₹55-68
+Primary Valuation Metric: P/B vs sustainable/deployment-adjusted ROE + AUM growth co-primary + core ex-one-off earnings critical adjustment; Q1-annualised P/E = AVOID
+Investment Type: High-quality fortress balance sheet + unproven growth engine; option on capital deployment + tourism cycle + ownership action; fairly-to-fully valued on today's ROE
+-->

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vadilal Industries — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Figtree:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#2A1526; --plum-2:#3D1F37; --plum-3:#54294B;
+    --berry:#C0396B; --berry-dk:#9C2A54; --berry-lt:#E06B92; --berry-gl:rgba(192,57,107,.10);
+    --mint:#2E9D8A; --mint-dk:#1E7767; --mint-lt:#5CC3B2; --mint-gl:rgba(46,157,138,.11);
+    --cream:#E8B23C; --cream-dk:#C08A16; --cream-gl:rgba(232,178,60,.14);
+    --violet:#7B5EA7; --violet-gl:rgba(123,94,167,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#D24545;
+    --ink-1:#22131E; --ink-2:#4C3B46; --ink-3:#786673;
+    --line:#ECE4E9; --line-2:#F5EFF3; --paper:#FEFCFD; --paper-2:#FAF4F8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Figtree',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(42,21,38,.12)}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:700;letter-spacing:-.02em;line-height:1.12}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  /* HERO — scoop / swirl motif */
+  .hero{position:relative;background:linear-gradient(148deg,#2A1526 0%,#3D1F37 52%,#54294B 128%);color:#F6ECF2;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:440px;height:440px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(224,107,146,.30),rgba(92,195,178,.15) 55%,transparent 72%);filter:blur(5px)}
+  .scoop{position:absolute;right:82px;top:46px;width:150px;height:190px;z-index:2;opacity:.55}
+  .scoop svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.be{background:rgba(192,57,107,.22);border-color:rgba(224,107,146,.48);color:#F2B0C6}
+  .tag.mi{background:rgba(46,157,138,.22);border-color:rgba(92,195,178,.48);color:#A6E4D8}
+  .hero h1{font-size:44px;font-weight:900;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .serif-tag{font-family:'Fraunces',serif;font-style:italic;font-size:20px;color:var(--berry-lt);margin-bottom:12px;font-weight:600}
+  .hero .sub{font-size:16.5px;color:#D2C0CC;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:116px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#B29CAA;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Fraunces',serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE098}.down{color:#F2A0A8}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--plum);color:#B29CAA;
+    padding:11px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px}
+  .metabar b{color:#EFE2EB;font-weight:500}
+  .metabar .dot{color:var(--berry-lt)}
+
+  .alert{background:var(--cream-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--cream-dk);font-family:'IBM Plex Mono',monospace}
+  .alert b{color:var(--plum)}
+  .alert.q1{background:var(--mint-gl);color:var(--mint-dk)}
+  .alert.warn{background:var(--berry-gl);color:var(--berry-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--berry-dk);
+    border:1.5px solid var(--berry);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:25px;font-weight:700;color:var(--plum)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--berry);background:var(--berry-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.mi{border-color:var(--mint);background:var(--mint-gl)}
+  .call.cr{border-color:var(--cream);background:var(--cream-gl)}
+  .call.vi{border-color:var(--violet);background:var(--violet-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,69,69,.08)}
+  .call .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--berry-dk);margin-bottom:5px}
+  .call.mi .lab{color:var(--mint-dk)}.call.cr .lab{color:var(--cream-dk)}.call.vi .lab{color:#5E4585}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--plum-2);color:#EFE2EB;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'IBM Plex Mono',monospace}
+  .tr-hi td{background:var(--berry-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--plum);letter-spacing:-.02em;font-family:'Fraunces',serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.b{border-top:3px solid var(--berry)}.card.m{border-top:3px solid var(--mint)}
+  .card.c{border-top:3px solid var(--cream)}.card.v{border-top:3px solid var(--violet)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--berry);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--plum);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--berry-gl);border-color:var(--berry)}
+  .vnode.own .vt{color:var(--berry-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:150px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'IBM Plex Mono',monospace;font-weight:500}
+  .bar-val{width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.scoop{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,69,69,.06);border-color:rgba(210,69,69,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Fraunces',serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--plum);color:#F0E4EC;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,107,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Fraunces',serif}
+  .bm .bm-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--berry-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#D8C6D2}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#D4C2CE}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--berry);color:#fff}.v-co{background:var(--mint-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#6E4585;color:#E8D8F2}
+  .v-avoid{background:#7A2434;color:#F6C0C9}.v-cross{background:#3D2A48;color:#DCCCE8}
+  .bm .onenum{background:rgba(46,157,138,.16);border:1px solid rgba(92,195,178,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#BEE6DD;position:relative}
+  .bm .onenum b{color:#8FE0D0}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--plum)}
+  .stars{color:var(--cream);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--cream-dk)}.rl{background:var(--mint-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--berry),var(--mint))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--berry);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--berry)}
+  .tli .ty{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;color:var(--berry-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--plum);font-family:'Fraunces',serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,69,69,.14);color:var(--red)}
+  .b-neut{background:rgba(232,178,60,.22);color:var(--cream-dk)}
+
+  .foot{background:var(--plum);color:#97848F;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#D4C2CE}
+  .disc{font-size:10.5px;color:#786673;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="scoop">
+    <svg viewBox="0 0 150 190" fill="none">
+      <path d="M45 90 L75 180 L105 90 Z" fill="#E8B23C" opacity="0.4"/>
+      <path d="M45 90 L75 180 L105 90 Z" stroke="#E8B23C" stroke-width="1.5" opacity="0.5" fill="none"/>
+      <ellipse cx="75" cy="72" rx="34" ry="30" fill="#E06B92" opacity="0.6"/>
+      <ellipse cx="58" cy="62" rx="20" ry="18" fill="#5CC3B2" opacity="0.55"/>
+      <ellipse cx="90" cy="58" rx="22" ry="20" fill="#C0396B" opacity="0.5"/>
+      <circle cx="75" cy="42" r="14" fill="#F2B0C6" opacity="0.6"/>
+      <path d="M45 92 Q75 108 105 92" stroke="#fff" stroke-width="1" opacity="0.3" fill="none"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: VADILALIND</span>
+      <span class="tag">BSE: 519156</span>
+      <span class="tag be">India's #2 Ice-Cream Brand</span>
+      <span class="tag mi">Family Feud Resolved · Governance Re-set</span>
+    </div>
+    <h1>Vadilal Industries</h1>
+    <div class="serif-tag">A 100-year-old ice-cream house, finally at peace with itself</div>
+    <div class="sub">One of India's <b>largest ice-cream &amp; frozen-dessert makers</b>, riding a ~17%-a-year industry with a strong brand and export arm — its decade-long <b>promoter-family dispute now settled</b>, lifting a governance overhang. High-quality franchise, pronounced seasonality, and a full valuation.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (Jul)</div><div class="v">~₹5,000</div><div class="d">₹4,965–6,076 range</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹3.5–4.8k Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">~₹1,500 Cr</div><div class="d up">+~21%*</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">~₹155 Cr</div><div class="d up">+3.2%</div></div>
+      <div class="qs"><div class="k">ROCE</div><div class="v">22–27%</div><div class="d up">high quality</div></div>
+      <div class="qs"><div class="k">P/E</div><div class="v">~25–29x</div><div class="d">full</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>MDs:</b> Rajesh Gandhi &amp; Devanshu Gandhi</span>
+  <span class="dot">◆</span>
+  <span><b>Origin:</b> 1907 (soda) → inc. 1982</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Ahmedabad, Gujarat</span>
+  <span class="dot">◆</span>
+  <span><b>Plants:</b> Pundhra, Bareilly, Dharampur</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 28 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  ✅ <b>GOVERNANCE CATALYST:</b> The three branches of the Gandhi promoter family signed a <b>memorandum of family arrangement</b> settling their decade-long inter-se dispute — the stock jumped ~8.7% on the news. A long-standing overhang on the equity has lifted (see §10).
+</div>
+<div class="alert">
+  ⚠ <b>ENTITY &amp; DATA NOTE:</b> This report covers <b>Vadilal Industries Ltd (VADILALIND — the manufacturer)</b>, NOT the separate, loss-making Vadilal Enterprises Ltd (the marketer). *FY26 figures vary sharply by vendor and by standalone-vs-consolidated basis — consol revenue ~₹1,500 Cr / PAT ~₹155 Cr used here; CMP ₹4,965–6,076, m-cap ₹3,113–4,825 Cr, P/E ~25–29x across Jul 2026. Verify vs NSE/BSE. Latest reported quarter is Q4 FY26 (Q1 FY27 due ~Aug 2026).
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Vadilal Industries Ltd</strong> is one of India's largest and oldest ice-cream and frozen-dessert companies — a heritage brand tracing to 1907 (formally incorporated 1982), headquartered in Ahmedabad, run by the promoter <strong>Gandhi family</strong>. It manufactures <strong>150+ products</strong> across ice creams, frozen desserts, flavoured milk, and processed foods (frozen fruits &amp; vegetables, canned pulp, ready-to-eat) from plants at Pundhra (Gujarat), Bareilly (UP) and Dharampur, and <strong>exports to the US, UK and the Middle East</strong>.</p>
+  <p>The investment case rests on three legs: <strong>(1) a high-quality branded-FMCG franchise</strong> — ROCE consistently 22–27%, a top-tier brand in a category where &gt;50% of the market is still unorganised; <strong>(2) a genuine structural tailwind</strong> — the Indian ice-cream industry is estimated to be growing ~17% a year; and <strong>(3) a just-lifted governance overhang</strong> — the long-running Gandhi family dispute has finally been settled. Against those positives sit two persistent realities: <strong>pronounced seasonality</strong> (profits concentrated in the summer quarters) and a <strong>full valuation</strong>.</p>
+  <div class="cards">
+    <div class="card b"><div class="k">FY26 Revenue</div><div class="v">~₹1,500 Cr</div><div class="d up">+~21% (consol)*</div></div>
+    <div class="card m"><div class="k">FY26 PAT</div><div class="v">~₹155 Cr</div><div class="d up">+3.2% YoY</div></div>
+    <div class="card c"><div class="k">FY26 OCF</div><div class="v">₹143 Cr</div><div class="d up">+28.4%</div></div>
+    <div class="card v"><div class="k">Final dividend</div><div class="v">₹43/sh</div><div class="d">430% (FV ₹10)</div></div>
+  </div>
+  <div class="call mi">
+    <div class="lab">The investment character in one line</div>
+    Vadilal is a <strong>high-return, brand-led consumer franchise in a structurally growing category, with a governance cloud finally clearing</strong> — the kind of business that deserves a premium multiple. The debate is entirely about <strong>price and consistency</strong>: at ~25–29x earnings (and a high P/B), the quality is well-recognised, margins dipped slightly in FY26, and the earnings are seasonally lumpy. This is a "great business, watch the entry price" situation, not a value play.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1907 · The soda-fountain roots</div><div class="td">Founder Vadilal Gandhi began making ice cream by the traditional Kothi method; his son Ranchod Lal Gandhi ran a one-man, hand-cranked operation and opened a small retail outlet in 1926 — the origin of the Vadilal brand.</div></div>
+    <div class="tli"><div class="ty">1982 · Incorporated</div><div class="td">Vadilal Industries Ltd formally incorporated in Ahmedabad; scaled into modern ice-cream manufacturing and distribution across India.</div></div>
+    <div class="tli"><div class="ty">1990s–2010s · Category leadership &amp; exports</div><div class="td">Built one of India's largest cold-chain and distribution networks; expanded into frozen foods and processed foods; developed an export business to the US, UK and Middle East (Indian diaspora + retail).</div></div>
+    <div class="tli"><div class="ty">2010s–2020s · The family dispute overhang</div><div class="td">A prolonged, public dispute among the three branches of the Gandhi family over control of the business weighed on the stock's rating for years — a classic promoter-governance discount.</div></div>
+    <div class="tli"><div class="ty">FY26 · Record profits + rating upgrade</div><div class="td">Strong summer-driven Q4 (PAT +149% YoY); FY26 consol PAT ~₹155 Cr; OCF +28% to ₹143 Cr; <strong>India Ratings upgrade to IND A+ (Positive) / A1+</strong>; ₹43/share dividend.</div></div>
+    <div class="tli"><div class="ty">FY26 · Family dispute RESOLVED</div><div class="td">The three Gandhi branches signed a <strong>memorandum of family arrangement</strong> settling long-standing inter-se disputes — removing the single biggest structural overhang; stock rallied ~8.7%.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Value Chain</h2></div>
+  <p>Vadilal is a <strong>branded, vertically-integrated FMCG manufacturer</strong>: it sources dairy and inputs, manufactures at three plants, and distributes through a vast cold-chain network of distributors, retail freezers, parlours and modern trade — earning a <strong>brand-led gross margin</strong> and, increasingly, operating leverage as volumes scale. A separate processed-foods/export arm adds diversification beyond domestic ice cream.</p>
+  <div class="vchain">
+    <div class="vnode"><div class="vt">Dairy &amp; inputs</div><div class="vd">Milk, cream, fruit, packaging, sugar</div></div>
+    <div class="vnode own"><div class="vt">Manufacturing</div><div class="vd">Pundhra, Bareilly, Dharampur; 150+ SKUs</div></div>
+    <div class="vnode own"><div class="vt">Cold chain</div><div class="vd">Freezers, distributors — the real moat</div></div>
+    <div class="vnode own"><div class="vt">Brand &amp; retail</div><div class="vd">Vadilal brand, parlours, modern trade</div></div>
+    <div class="vnode"><div class="vt">Exports</div><div class="vd">US, UK, Middle East; processed foods</div></div>
+  </div>
+  <div class="call cr">
+    <div class="lab">The moat is distribution + brand, not the product</div>
+    Ice cream itself is easy to make; <strong>getting it frozen, intact, to a retail freezer across a hot, fragmented country is hard</strong>. Vadilal's real competitive assets are its <strong>decades-old cold-chain and distribution network</strong> and its <strong>trusted heritage brand</strong> — exactly the advantages that matter most when &gt;50% of the market is unorganised and shifting toward branded players. Every incremental freezer and distributor deepens the moat. This is why the business earns 22–27% ROCE despite being "just ice cream."
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The Industry Tailwind</h2></div>
+  <div class="two">
+    <div>
+      <div class="cards" style="grid-template-columns:1fr 1fr">
+        <div class="card b"><div class="k">Industry growth</div><div class="v">~17%/yr</div><div class="d">structural</div></div>
+        <div class="card m"><div class="k">Unorganised share</div><div class="v">&gt;50%</div><div class="d">to be captured</div></div>
+        <div class="card c"><div class="k">India per-capita</div><div class="v">Very low</div><div class="d">vs global — runway</div></div>
+        <div class="card v"><div class="k">Vadilal rank</div><div class="v">Top 2–3</div><div class="d">national brand</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="call mi">
+        <div class="lab">A long runway, structurally</div>
+        India's ice-cream market is growing ~17% annually, driven by <strong>rising incomes, cold-chain penetration, organised-retail expansion, and a shift from unorganised to branded players</strong>. India's per-capita ice-cream consumption remains a fraction of developed markets, giving a multi-decade runway. As a top-2/3 branded player with national distribution, <strong>Vadilal is a direct beneficiary of formalisation</strong> — it can grow faster than the market by taking share from the &gt;50% unorganised segment. This structural tailwind is the core reason the stock earns a premium multiple.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>Seasonality — The Defining Financial Feature</h2></div>
+  <p>Ice cream is <strong>intensely seasonal</strong>: demand peaks in the hot months (Q1: Apr–Jun and Q4: Jan–Mar summer build) and collapses in the monsoon/winter (Q2, Q3). This produces a <strong>violently lumpy quarterly earnings profile</strong> that must be understood before looking at any single quarter.</p>
+  <div class="bar-row"><div class="bar-lab">Q1 (Apr–Jun)</div><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--berry)">PEAK — summer</div></div><div class="bar-val">highest</div></div>
+  <div class="bar-row"><div class="bar-lab">Q2 (Jul–Sep)</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--violet)">monsoon dip</div></div><div class="bar-val">weak</div></div>
+  <div class="bar-row"><div class="bar-lab">Q3 (Oct–Dec)</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--mint-dk)">winter trough</div></div><div class="bar-val">near-nil profit</div></div>
+  <div class="bar-row"><div class="bar-lab">Q4 (Jan–Mar)</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--cream)">summer build</div></div><div class="bar-val">strong</div></div>
+  <div class="call red">
+    <div class="lab">The cardinal rule: NEVER annualise a single quarter</div>
+    Q3 FY26 net profit was roughly <strong>nil (−₹0.16 Cr)</strong>; Q4 FY26 profit surged <strong>+149% YoY</strong> on peak summer demand. Neither is representative. Annualising the strong Q1/Q4 quarters <strong>massively overstates</strong> earnings power; annualising the weak Q2/Q3 quarters massively understates it. The <strong>only valid earnings lens for Vadilal is the trailing-twelve-month / full-year figure</strong>, which nets the seasons together. This single fact invalidates most naive quarterly valuations of the stock — and is central to the Best Metric below.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Player</th><th>Type</th><th>Position vs Vadilal</th></tr>
+    <tr class="tr-hi"><td><strong>Vadilal</strong></td><td>Heritage national brand</td><td>Top 2–3; strongest in West/North; export arm</td></tr>
+    <tr><td><strong>Amul (GCMMF)</strong></td><td>Co-operative giant</td><td>Market leader; huge scale &amp; distribution</td></tr>
+    <tr><td><strong>Kwality Wall's (HUL)</strong></td><td>MNC-backed</td><td>Strong brand, deep pockets</td></tr>
+    <tr><td><strong>Mother Dairy, Cream Bell, Havmor</strong></td><td>Regional/national</td><td>Strong regional competition</td></tr>
+    <tr><td><strong>Krishival (Melt N Mellow), others</strong></td><td>Emerging</td><td>Small, fast-growing challengers</td></tr>
+    <tr><td><strong>&gt;50% unorganised</strong></td><td>Local/regional</td><td>The share pool organised players capture</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">A strong #2/#3 in Amul's shadow</div>
+    Vadilal is a genuine national brand but competes against <strong>Amul — a co-operative juggernaut with unmatched scale and distribution — and HUL's Kwality Wall's</strong>, both far larger. Its edge is regional strength (West/North India), heritage brand equity, product range and exports, not category leadership. The competitive intensity caps pricing power and requires continuous distribution/marketing investment. The good news: with &gt;50% of the market unorganised, <strong>all organised players can grow by formalisation</strong> — it isn't purely a share war among the big brands. But Vadilal is a challenger, not the king.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Amul, HUL, Mother Dairy, regional brands compete hard; heavy A&amp;P and distribution spend required.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Low-Moderate</td><td>Fragmented end-consumers; modern-trade/quick-commerce channels gaining leverage but brand pull protects Vadilal.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Dairy/sugar/packaging are commodity inputs; milk-price volatility can squeeze margins.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Low product barrier but <strong>high cold-chain/distribution barrier</strong> — the real deterrent to scaling nationally.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate</td><td>Other desserts, beverages, frozen treats; but ice cream is a distinct, growing indulgence category.</td></tr>
+  </table>
+  <p>Net: a <strong>brand-and-distribution-defended consumer business in a competitive but structurally growing category</strong>. The cold-chain barrier and heritage brand are Vadilal's durable advantages; scale-disadvantage vs Amul and input-cost volatility are the offsets.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The FY26 Result, Dissected (with a data caveat)</h2></div>
+  <div class="call red">
+    <div class="lab">Reconciling conflicting vendor figures — read this first</div>
+    FY26 numbers <strong>differ materially across data vendors</strong>, partly due to <strong>standalone-vs-consolidated</strong> reporting and partly to differing quarter tags. The figures that appear most consistent on a <strong>consolidated</strong> basis: <strong>FY26 revenue ~₹1,500 Cr (up ~21%), consolidated PAT ~₹155.1 Cr (up ~3.2% from ₹150.3 Cr)</strong>, OCF ₹143 Cr (+28%). Some sources cite ~₹1,028 Cr revenue / ₹113.9 Cr PAT (a standalone or prior-basis figure). <strong>Treat all absolute figures as approximate and verify against the company's filed consolidated results.</strong> The <em>direction</em> is clear and reliable: solid revenue growth, modest PAT growth (margins dipped slightly), strong cash generation.
+  </div>
+  <table>
+    <tr><th>Consolidated (₹ Cr)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th></tr>
+    <tr><td>Revenue</td><td class="mono">~1,243</td><td class="mono">~1,242</td><td class="mono">~1,503</td></tr>
+    <tr><td>PAT</td><td class="mono">95.8</td><td class="mono">150.3</td><td class="mono">155.1</td></tr>
+    <tr><td>PAT growth</td><td class="mono">—</td><td class="mono">+18.8%</td><td class="mono">+3.2%</td></tr>
+    <tr><td>OCF</td><td class="mono">—</td><td class="mono">111.5</td><td class="mono">143.1</td></tr>
+  </table>
+  <div class="call cr">
+    <div class="lab">The FY26 read</div>
+    A <strong>good top-line year (~21% revenue growth) but only modest profit growth (~3%)</strong> — margins compressed slightly on higher raw-material, employee and finance costs. The strong <strong>Q4 (peak season) PAT +149% YoY</strong> and the ~28% jump in operating cash flow are the encouraging signals; the flat-ish full-year PAT and slight margin dip are the watch-items. Net: a healthy but not spectacular year for a premium-priced stock — which is why the market wants to see FY27 margin recovery + the family-settlement dividend.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Costs &amp; Cash Flow</h2></div>
+  <p>Vadilal's economics are attractive: <strong>ROCE of 22–27% over the past three years</strong> reflects a brand-led, capital-efficient franchise. FY26 saw a <strong>slight margin dip</strong> as raw-material consumed (+12.5% in Q4), employee costs (+25% in Q4) and finance costs (+21%) rose — worth monitoring, though the peak-quarter operating leverage still drove strong Q4 profit.</p>
+  <div class="call mi">
+    <div class="lab">Cash generation is the quiet strength</div>
+    Operating cash flow rose <strong>28% to ₹143 Cr in FY26</strong> — outpacing reported profit growth — a sign of high earnings quality and improving working-capital discipline. Combined with the <strong>India Ratings upgrade to IND A+ (Positive) / A1+</strong> and a moderate balance sheet (D/E ~0.31 per SimplyWall.st), this points to a financially healthier Vadilal than in years past, when its balance sheet was flagged as "somewhat strained." Strong cash flow funds distribution expansion, the ₹43/share dividend, and de-leveraging — a virtuous setup <em>if</em> margins recover.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>The Family Settlement — Governance Re-set</h2></div>
+  <div class="cards">
+    <div class="card m"><div class="k">Promoter holding</div><div class="v">64.72%</div><div class="d">high, aligned</div></div>
+    <div class="card b"><div class="k">Dispute status</div><div class="v">RESOLVED</div><div class="d">MoU signed</div></div>
+    <div class="card c"><div class="k">Stock reaction</div><div class="v">+8.7%</div><div class="d">on settlement</div></div>
+    <div class="card v"><div class="k">Rating</div><div class="v">IND A+ / A1+</div><div class="d">upgraded, Positive</div></div>
+  </div>
+  <p>For over a decade, the defining risk on Vadilal was <strong>not the business but the boardroom</strong>: a public, litigious dispute among the three branches of the Gandhi family over control of the company. This <strong>governance overhang suppressed the stock's rating</strong> — investors demanded a discount for the uncertainty and the risk of value-destructive infighting.</p>
+  <div class="call mi">
+    <div class="lab">Why the settlement is a genuine re-rating catalyst</div>
+    The three branches signing a <strong>memorandum of family arrangement to settle their inter-se disputes</strong> removes that overhang. With <strong>promoter holding at 64.72%</strong> (high and now aligned), a resolved family means clearer strategic direction, less distraction, lower litigation risk, and the possibility that a previously-discounted quality franchise re-rates toward its fundamental worth. The ~8.7% pop on the news shows the market agrees it matters. <strong>This is arguably the most important non-operational development in Vadilal's investment case in years</strong> — though execution (does the settlement hold, does management now focus on growth?) still has to follow.
+  </div>
+  <div class="call red">
+    <div class="lab">The caution</div>
+    Settlements can be fragile, and a resolved dispute doesn't automatically make management best-in-class capital allocators. The re-rating thesis assumes the family now channels energy into growth and governance improves in practice. Watch subsequent shareholding disclosures, board composition, and capital-allocation decisions for confirmation.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capex &amp; Growth Investment</h2></div>
+  <p>Vadilal's growth is funded by <strong>capacity expansion, cold-chain/freezer deepening, and distribution widening</strong> rather than large one-off projects. FY26's strong cash flow was channelled toward operational growth and balance-sheet strength (no dividend was declared specifically for Q4, with the ₹43 final dividend at the FY level).</p>
+  <div class="call cr">
+    <div class="lab">The growth playbook is incremental and self-funding</div>
+    Unlike a cyclical capex story, Vadilal compounds via <strong>steady reinvestment into freezers, distributors, new SKUs, parlours and export markets</strong> — each rupee of distribution investment unlocking incremental branded volume from the unorganised pool. With OCF at ₹143 Cr and a healthier balance sheet, growth is largely <strong>self-funding</strong>. The key questions: can it push into South/East India (where it's weaker), scale processed foods/exports, and modernise (quick-commerce, premiumisation) fast enough to justify the multiple?
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Formalisation</strong></td><td>Capture &gt;50% unorganised share</td><td class="mono">Structural ★★★★★</td></tr>
+    <tr><td><strong>Industry growth ~17%</strong></td><td>Rising incomes, cold-chain, indulgence</td><td class="mono">Tailwind ★★★★</td></tr>
+    <tr><td><strong>Governance re-rating</strong></td><td>Family dispute resolved → clearer focus</td><td class="mono">Catalyst ★★★★</td></tr>
+    <tr><td><strong>Geographic expansion</strong></td><td>Push into weaker South/East regions</td><td class="mono">Under-penetrated ★★★★</td></tr>
+    <tr><td><strong>Premiumisation &amp; new formats</strong></td><td>Higher-margin SKUs, parlours, quick-commerce</td><td class="mono">Margin ★★★★</td></tr>
+    <tr><td><strong>Processed foods / exports</strong></td><td>Diversify beyond seasonal domestic ice cream</td><td class="mono">De-seasonalising ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Quarterly FY26 (illustrative, consol)</th><th class="mono">Q1</th><th class="mono">Q2</th><th class="mono">Q3</th><th class="mono">Q4</th></tr>
+    <tr><td>Season</td><td class="mono">peak</td><td class="mono">monsoon</td><td class="mono">winter</td><td class="mono">summer</td></tr>
+    <tr><td>Profit character</td><td class="mono">high</td><td class="mono">weak</td><td class="mono">~nil</td><td class="mono">strong</td></tr>
+    <tr><td>Q4 PAT</td><td class="mono" colspan="3" style="text-align:right">→</td><td class="mono">₹54.9 Cr (+149%)</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call mi">
+        <div class="lab">Quality signals</div>
+        ROCE 22–27%; 5-yr profit growth outpacing revenue (operating leverage); OCF +28% to ₹143 Cr; PAT CAGR strong over five years; ratings upgrade; high 64.7% promoter alignment. A genuinely high-quality consumer compounder on the numbers.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">Caution signals</div>
+        FY26 PAT growth only ~3% (margin dip); rising RM/employee/finance costs; earnings violently seasonal; vendor data inconsistent; third-party services flag it "overvalued" (SimplyWall.st fair value well below price) and "Strong Sell" on technicals (MarketsMojo). Quality is priced in.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹5,000 (m-cap ~₹3.5–4.8k Cr) on ~₹155 Cr FY26 PAT, Vadilal trades at <strong>~25–29x trailing earnings</strong> and a <strong>high P/B (~7.9x by one vendor)</strong> — a full, premium consumer multiple. For a branded FMCG business the right frame is <strong>P/E on full-year (never single-quarter) normalised earnings, cross-checked with EV/EBITDA</strong>, with P/B contextualised by the high ROCE (a 22–27%-ROCE brand legitimately earns a high book multiple).</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Vadilal Industries</h3>
+    <div class="bm-sub">Seasonal branded FMCG → full-year (TTM) P/E + EV/EBITDA; single-quarter annualisation is the fatal error; P/B only in ROCE context</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>P/E on full-year / TTM EPS</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Nets out the extreme seasonality. The only honest earnings multiple for an ice-cream business. Judge ~25–29x against a ~15–20% forward earnings growth path and premium-FMCG peers.</td></tr>
+      <tr><td>EV/EBITDA (forward)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Neutralises modest debt and D&amp;A; cleanest cross-check vs branded-consumer peers and against Vadilal's own history.</td></tr>
+      <tr><td>Revenue growth &amp; EBITDA-margin trend</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>The FY26 margin dip is the key debate. Margin recovery + sustained ~15%+ revenue growth is what justifies the multiple; continued compression does not.</td></tr>
+      <tr><td>P/B vs ROCE/ROE</td><td><span class="verdict v-ind">STRUCTURAL LENS</span></td><td>A high P/B is defensible <em>because</em> ROCE is 22–27%. Read them together — not P/B in isolation (which looks alarming standalone).</td></tr>
+      <tr><td>Governance-overhang removal</td><td><span class="verdict v-sec">RE-RATING FACTOR</span></td><td>The family settlement can compress the historical governance discount — a real but one-time multiple lever, not an earnings driver.</td></tr>
+      <tr><td>Any single-quarter annualised P/E</td><td><span class="verdict v-avoid">AVOID</span></td><td>Annualising peak Q1/Q4 grossly overstates, annualising trough Q2/Q3 grossly understates. Seasonality makes single-quarter multiples meaningless.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> On FY26 PAT of <b>~₹155 Cr</b>, the stock at ~₹3.5–4.8k Cr market cap sits at <b>~23–31x trailing earnings</b> (the range itself reflects the vendor price/market-cap dispersion — reconcile before acting). If Vadilal compounds earnings ~15–18% with a modest margin recovery, FY27 PAT of <b>~₹180–200 Cr</b> puts it at a more digestible <b>~18–25x forward</b>. That is <b>fair-to-full for a high-ROCE branded consumer compounder with a structural tailwind and a just-cleared governance overhang</b> — the quality justifies a premium, but there's limited margin of safety and third-party fair-value estimates sit below the current price. <b>Verdict: a high-quality franchise fairly-to-fully valued; the governance re-rating and formalisation tailwind are the upside, margin dip and full multiple the constraint. A quality-compounder to accumulate on seasonal weakness / market pullbacks and hold for the structural story — not an obvious bargain at ~₹5,000, and demanding you first reconcile the wide vendor data.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹3,400–4,000</div><div class="sd">Margins keep compressing, competitive intensity (Amul/HUL) bites, growth slows, multiple de-rates toward FMCG-average; third-party "overvalued" calls play out. Back toward 52-wk low.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹4,800–6,000</div><div class="sd">~15% revenue growth, modest margin recovery, governance discount fades, formalisation continues. Compounds with earnings at a steady premium multiple around current range.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹7,000–8,500</div><div class="sd">Margin recovery + South/East expansion + premiumisation + full governance re-rating; sustained 18%+ growth earns a richer multiple back toward/above the ₹7,398 52-wk high.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">SimplyWall.st flags a fair value well below CMP ("overvalued"); MarketsMojo rates "Strong Sell" on technicals. Scenario prices assume the family settlement holds. <strong>Reconcile the wide vendor price/market-cap/earnings dispersion against NSE/BSE + filed consolidated results before acting.</strong></p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation / limited margin of safety</strong>~25–29x earnings and a high P/B leave little cushion; independent services flag "overvalued" (SimplyWall.st fair value below CMP) and "Strong Sell" (MarketsMojo technicals). Any growth or margin disappointment could de-rate the stock sharply.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Margin compression</strong>FY26 PAT grew only ~3% as raw-material (dairy/sugar), employee and finance costs rose. Sustained input inflation or competitive pricing pressure could keep margins under pressure — the central operational watch-item.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Competitive intensity</strong>Amul (co-operative scale) and HUL's Kwality Wall's are far larger; regional brands crowd the space. Caps pricing power and demands continuous distribution/marketing spend.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Seasonality &amp; weather</strong>Earnings depend heavily on summer demand; a weak/short summer, early monsoon or unseasonal weather can materially dent a peak quarter and the full year.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Governance execution (post-settlement)</strong>The family settlement is positive but must hold and translate into focused, minority-friendly capital allocation. Family businesses carry ongoing governance-quality scrutiny; watch shareholding/board disclosures.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Data reliability / entity confusion</strong>Wide vendor dispersion in FY26 figures (standalone vs consolidated) and easy confusion with the separate, loss-making Vadilal Enterprises make careful sourcing essential before investing.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Input-cost &amp; cold-chain dependence</strong>Milk-price volatility and reliance on an extensive (energy-intensive) cold chain expose margins to dairy and power costs.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Brand &amp; franchise</div><div class="scv">Top 2–3, heritage <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Capital efficiency</div><div class="scv">ROCE 22–27% <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Industry tailwind</div><div class="scv">~17% growth <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Governance (post-fix)</div><div class="scv">Dispute resolved <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Cash generation</div><div class="scv">OCF +28% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">FY26 margin trend</div><div class="scv">Slight dip <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Seasonality</div><div class="scv">Very high <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Competitive scale</div><div class="scv">Below Amul <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation comfort</div><div class="scv">Full <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Vadilal Industries is a <strong>high-quality, brand-led ice-cream franchise</strong> — 22–27% ROCE, a top-2/3 national position, a ~17%-a-year structural tailwind from formalisation of a &gt;50%-unorganised market, strong and improving cash generation, and — crucially — a <strong>decade-long promoter-family dispute now settled, lifting a governance overhang that suppressed the stock's rating for years</strong>. That combination legitimately deserves a premium multiple, and the family settlement is a genuine re-rating catalyst. <strong>But the quality is well-recognised at ~25–29x earnings and a high P/B: FY26 profit grew only ~3% as margins dipped, earnings are violently seasonal (never annualise a single quarter), competition from Amul and HUL is formidable, and independent services flag the stock as fully-to-over-valued.</strong> <strong>The honest framing: a genuinely good business at a full price. Value it on full-year (TTM) P/E and EV/EBITDA — never a single peak/trough quarter — read its high P/B against its high ROCE, and treat it as a structural consumer compounder to accumulate on seasonal weakness or market pullbacks rather than a bargain to chase at ~₹5,000. Watch the margin trajectory, the durability of the family settlement, and — first of all — reconcile the unusually wide vendor data against the filed consolidated accounts.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">7 Jul 2026</td><td>Regulation 74(5) certificate for quarter ended 30 Jun 2026 filed (Q1 FY27 results due ~Aug 2026).</td></tr>
+    <tr><td class="mono">FY26</td><td><strong>Gandhi family dispute RESOLVED:</strong> three branches signed a memorandum of family arrangement settling long-standing inter-se disputes; stock rose ~8.7% on the news — governance overhang lifted.</td></tr>
+    <tr><td class="mono">27 May 2026</td><td><strong>Q4 &amp; FY26 results:</strong> Q4 consol PAT ₹54.86 Cr (+149.36% YoY), Q4 PBT +169% YoY; strong summer-season performance. FY26 consol PAT ~₹155.1 Cr (+3.2%); OCF ₹143 Cr (+28.4%). <strong>Final dividend ₹43/share (430%)</strong> recommended.</td></tr>
+    <tr><td class="mono">FY26</td><td><strong>India Ratings upgrade to IND A+ (Positive) / IND A1+</strong> — improved credit profile.</td></tr>
+    <tr><td class="mono">Q3 FY26</td><td>Seasonally weak quarter — net profit ~nil (−₹0.16 Cr), margins compressed (winter trough); a reminder of the extreme seasonality.</td></tr>
+    <tr><td class="mono">Upcoming</td><td>Q1 FY27 (peak summer quarter) results ~Aug 2026 — the key near-term catalyst; watch revenue growth + margin recovery + post-settlement strategy.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card m"><div class="k">Debt/Equity</div><div class="v">~0.31</div><div class="d">moderate (improved)</div></div>
+    <div class="card b"><div class="k">ROCE</div><div class="v">22–27%</div><div class="d">high quality</div></div>
+    <div class="card c"><div class="k">ROE</div><div class="v">~17%</div><div class="d">healthy</div></div>
+    <div class="card v"><div class="k">Rating</div><div class="v">IND A+ / A1+</div><div class="d">upgraded, Positive</div></div>
+  </div>
+  <p>Vadilal's balance sheet has <strong>improved markedly</strong> — from being flagged as "somewhat strained" in prior years to a moderate D/E (~0.31) with a ratings upgrade to IND A+ (Positive) / A1+. Strong operating cash flow (₹143 Cr, +28%) funds distribution expansion, the ₹43/share dividend, and de-leveraging. Capital efficiency is the standout — ROCE of 22–27% is top-tier for any consumer business.</p>
+  <div class="call mi">
+    <div class="lab">The metric that anchors quality</div>
+    <strong>ROCE (22–27%) alongside operating cash flow</strong> is the number that validates the premium multiple. It shows Vadilal earns exceptional returns on the capital it deploys — the hallmark of a durable brand + distribution moat — and that reported profits convert to cash. As long as ROCE stays in the mid-20s and OCF keeps growing while the balance sheet de-levers, the franchise quality is intact and the premium is defensible. A sustained fall in ROCE (from margin pressure or over-investment) would be the signal that the quality thesis — and the multiple — is eroding. Track ROCE, EBITDA margin and OCF each year.
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Volatile <span class="badge b-neut">mid-range</span></div><div class="tkd">−9% 1M, +9–28% 1yr (vendor-dep.)</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹5,000</div><div class="tkd">₹4,965–6,076 range</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹3,414 – 7,398</div><div class="tkd">wide, mid-range now</div></div>
+    <div class="tk"><div class="tkl">Promoter</div><div class="tkv">64.72%</div><div class="tkd">high, aligned</div></div>
+    <div class="tk"><div class="tkl">Support</div><div class="tkv">₹4,000–4,300</div><div class="tkd">recent base</div></div>
+    <div class="tk"><div class="tkl">Rating flag</div><div class="tkv">MMojo S-Sell</div><div class="tkd">technicals</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Vadilal trades in the <strong>middle of a very wide 52-week band (₹3,414–7,398)</strong> — a volatile, news-and-seasonality-driven stock. The family-settlement pop and strong Q4 lifted sentiment, but MarketsMojo flags weak technicals ("Strong Sell") and SimplyWall.st a fair value below CMP. As with most seasonal consumer names, price tends to build into summer (Q4/Q1 results) and cool afterward. The ₹4,000–4,300 zone is recent support; ₹6,000–6,800 is overhead. Note the <strong>high share price on a small ₹10-face-value equity base</strong> and wide vendor price dispersion — reconcile against NSE/BSE. Direction will track FY27 margin recovery, the Q1 (peak-season) print, and confirmation that the governance re-set is holding.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary widely across vendors (CMP ₹4,965–6,076, m-cap ₹3,113–4,825 Cr, P/E ~25–29x; FY26 revenue/PAT differ by standalone-vs-consolidated basis). This is Vadilal <em>Industries</em> (VADILALIND), not Vadilal Enterprises. Verify against filed consolidated results and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Vadilal Industries Ltd</b> — NSE: VADILALIND · BSE: 519156 · ISIN: INE694D01016 · Ice Cream, Frozen Desserts &amp; Processed Foods (Branded FMCG) · Ahmedabad<br>
+  Report generated 28 July 2026 · Latest reported quarter Q4 FY26 (ended 31 Mar 2026), declared 27 May 2026. Q1 FY27 due ~Aug 2026.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q4/FY26 results &amp; BSE-NSE filings, Univest, India Infoline, Axis Direct, Screener.in, StockAnalysis, SimplyWall.st, MarketsMojo, Torus Digital, Business Today, Business Standard. Key figures: Q4 FY26 consolidated PAT ₹54.86 Cr (+149.36% YoY vs ₹22.00 Cr), Q4 PBT ₹73.47 Cr (+169.12% YoY), Q4 revenue reported variously as ₹680 Cr (+9.7%, Univest/IIFL) and ₹415.83 Cr (+51.21%, standalone basis) — basis differences; Q4 total expenses ₹349.27 Cr (+39.46%), RM consumed ₹192.82 Cr (+12.52%), employee ₹45.69 Cr (+24.94%). FY26 consolidated: PAT ₹155.10 Cr (+3.17% vs ₹150.33 Cr FY25); revenue ~₹1,503 Cr (+20.98% per StockAnalysis) — some vendors cite ₹1,028.59 Cr FY25 revenue / ₹113.88 Cr PAT on a standalone/prior basis; OCF ₹143.07 Cr (+28.35% vs ₹111.47 Cr). Final dividend ₹43/share (430%, FV ₹10). India Ratings upgrade to IND A+ (Positive) / IND A1+. ROCE 22–27% (3-yr); ROE ~17.1%; net margin ~10%; D/E ~0.31 (SimplyWall.st). Q3 FY26 seasonally weak: net sales ₹238.02 Cr (−30.26% QoQ), net profit −₹0.16 Cr, OPM ~4.47%. Promoter holding 64.72% (Mar 2026, unchanged). <b>Gandhi family dispute resolved via memorandum of family arrangement (three branches); stock +~8.66% on the news.</b> Founded 1907 (soda/ice cream), incorporated 1982; MDs Rajesh R Gandhi &amp; Devanshu L Gandhi; plants Pundhra, Bareilly, Dharampur; 150+ products; exports US/UK/Middle East. India ice-cream industry ~17% annual growth, &gt;50% unorganised. <b>DATA CAVEAT: figures vary sharply by vendor and by standalone-vs-consolidated basis — CMP ₹4,965.50 (SimplyWall.st) to ₹6,075.90 (Torus, 10 Jul); market cap ₹3,113 Cr (BusinessToday, 22 May) to ₹4,825 Cr (Screener); P/E ~25.55–29.01x; P/B up to ~7.9x; 52-wk ₹3,414.05–₹7,398.50; face value ₹10; ~7.19 lakh... (small equity base). This is Vadilal INDUSTRIES (VADILALIND), NOT the separate loss-making Vadilal ENTERPRISES. All figures approximate; verify vs NSE/BSE and the filed consolidated results.</b> SimplyWall.st flags "overvalued" (fair value below CMP); MarketsMojo rates "Strong Sell" on technicals. Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Vadilal Industries Limited
+Ticker: NSE: VADILALIND / BSE: 519156
+Sector: Branded FMCG - Ice Cream, Frozen Desserts & Processed Foods
+Report Date: July 28, 2026 (latest reported = Q4 FY26; Q1 FY27 due ~Aug 2026)
+File: vadilal_industries_equity_research.html
+CMP at Report: ~₹5,000 (WIDE vendor range ₹4,965-6,076; VERIFY vs NSE/BSE)
+Market Cap: ~₹3.5-4.8k Cr (BIG dispersion ₹3,113-4,825 Cr)
+FY26 (consolidated): Revenue ~₹1,503 Cr (+~21%), PAT ₹155.10 Cr (+3.17%), OCF ₹143 Cr (+28.4%); margin DIPPED slightly
+Q4 FY26: consol PAT ₹54.86 Cr (+149.36% YoY, peak summer season), PBT +169%
+Dividend: ₹43/share (430%, FV ₹10)
+Rating: India Ratings upgrade to IND A+ (Positive) / A1+
+KEY CATALYST: decade-long Gandhi FAMILY DISPUTE RESOLVED via memorandum of family arrangement (3 branches) - governance overhang LIFTED, stock +8.7% on news
+Quality: ROCE 22-27%, ROE ~17%, D/E ~0.31; promoter 64.72%
+Industry: India ice cream ~17%/yr growth, >50% UNORGANISED (formalisation tailwind); top 2-3 brand behind Amul/HUL Kwality Wall's
+SEASONALITY: EXTREME - peaks Q1(Apr-Jun)/Q4(Jan-Mar summer), troughs Q2/Q3 (Q3 FY26 PAT ~nil). NEVER annualise single quarter.
+Valuation: P/E ~25-29x, high P/B (~7.9x) - FULL; SimplyWall.st "overvalued", MarketsMojo "Strong Sell" technicals
+ENTITY NOTE: This is Vadilal INDUSTRIES (manufacturer), NOT Vadilal ENTERPRISES (separate loss-making marketer)
+DATA CAVEAT: vendor figures conflict sharply (standalone vs consolidated); reconcile before acting
+Bull Case: ₹7,000-8,500
+Base Case: ₹4,800-6,000
+Bear Case: ₹3,400-4,000
+Primary Valuation Metric: full-year/TTM P/E + EV/EBITDA co-primary; P/B read vs ROCE (structural lens); governance-overhang removal = re-rating factor; SINGLE-QUARTER ANNUALISED P/E = AVOID (seasonality)
+Investment Type: High-quality branded consumer compounder + governance re-rating + formalisation tailwind; fairly-to-fully valued; accumulate on seasonal weakness/pullbacks, not a bargain at ~₹5,000
+-->

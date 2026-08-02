@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yasho Industries — Equity Research Report (Jul 2026 Refresh)</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0B1F1A; --forest-2:#123028; --forest-3:#1B4438;
+    --emerald:#0FA968; --emerald-dk:#0A7D4C; --emerald-lt:#3ED191; --emerald-gl:rgba(15,169,104,.11);
+    --violet:#7A5CD0; --violet-dk:#5B3EB0; --violet-lt:#A48CE8; --violet-gl:rgba(122,92,208,.11);
+    --amber:#E0972B; --amber-dk:#B5750E; --amber-gl:rgba(224,151,43,.13);
+    --coral:#E06A5C; --coral-gl:rgba(224,106,92,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#D24A3E;
+    --ink-1:#0E1C18; --ink-2:#3A4842; --ink-3:#657770;
+    --line:#E4EAE7; --line-2:#EFF4F1; --paper:#FCFDFC; --paper-2:#F4F8F6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Outfit',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(11,31,26,.12)}
+  h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.13}
+  .mono{font-family:'Space Mono',monospace}
+
+  /* HERO — molecular / benzene-ring motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0B1F1A 0%,#123028 52%,#1B4438 128%);color:#E9F4EF;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:450px;height:450px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(62,209,145,.30),rgba(164,140,232,.14) 55%,transparent 72%);filter:blur(5px)}
+  .mol{position:absolute;right:74px;top:44px;width:180px;height:190px;z-index:2;opacity:.55}
+  .mol svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.em{background:rgba(15,169,104,.24);border-color:rgba(62,209,145,.5);color:#96E8C2}
+  .tag.vi{background:rgba(122,92,208,.24);border-color:rgba(164,140,232,.5);color:#C8B8F0}
+  .hero h1{font-size:44px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .refresh{font-family:'Space Mono',monospace;font-size:11px;color:var(--emerald-lt);letter-spacing:.04em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#B6C8C1;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:114px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8CA79E;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Syne',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--forest);color:#8CA79E;
+    padding:11px 48px;font-family:'Space Mono',monospace;font-size:11px}
+  .metabar b{color:#E4F0EB;font-weight:400}
+  .metabar .dot{color:var(--emerald-lt)}
+
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'Space Mono',monospace}
+  .alert b{color:var(--forest)}
+  .alert.q1{background:var(--emerald-gl);color:var(--emerald-dk)}
+  .alert.rf{background:var(--violet-gl);color:var(--violet-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--emerald-dk);
+    border:1.5px solid var(--emerald);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--forest)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--emerald);background:var(--emerald-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.vi{border-color:var(--violet);background:var(--violet-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.co{border-color:var(--coral);background:var(--coral-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,74,62,.08)}
+  .call .lab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--emerald-dk);margin-bottom:5px}
+  .call.vi .lab{color:var(--violet-dk)}.call.am .lab{color:var(--amber-dk)}.call.co .lab{color:#B0402C}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--forest-2);color:#E4F0EB;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Space Mono',monospace}
+  .tr-hi td{background:var(--emerald-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--forest);letter-spacing:-.02em;font-family:'Syne',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.e{border-top:3px solid var(--emerald)}.card.v{border-top:3px solid var(--violet)}
+  .card.a{border-top:3px solid var(--amber)}.card.c{border-top:3px solid var(--coral)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:98px;background:var(--paper-2);border:1px solid var(--line);padding:12px 8px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--emerald);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--forest);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--emerald-gl);border-color:var(--emerald)}
+  .vnode.own .vt{color:var(--emerald-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:158px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Space Mono',monospace;font-weight:400}
+  .bar-val{width:110px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.mol{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,74,62,.06);border-color:rgba(210,74,62,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Syne',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--forest);color:#E6F2ED;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(15,169,104,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Syne',sans-serif}
+  .bm .bm-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--emerald-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C4D8D0}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0D4CC}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--emerald);color:#fff}.v-co{background:var(--violet-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#3A5850;color:#DCE8E2}
+  .v-avoid{background:#7A2E28;color:#F6C9BF}.v-cross{background:#243E38;color:#C6DAD2}
+  .bm .onenum{background:rgba(122,92,208,.16);border:1px solid rgba(164,140,232,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#D0C4F0;position:relative}
+  .bm .onenum b{color:#B8A4E8}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Space Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--forest)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amber-dk)}.rl{background:var(--emerald-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--emerald),var(--violet))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--emerald);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--emerald)}
+  .tli .ty{font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:var(--emerald-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--forest);font-family:'Syne',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,74,62,.14);color:var(--red)}
+  .b-neut{background:rgba(224,151,43,.2);color:var(--amber-dk)}
+
+  .foot{background:var(--forest);color:#7E948C;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C0D4CC}
+  .disc{font-size:10.5px;color:#657770;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="mol">
+    <svg viewBox="0 0 180 180" fill="none">
+      <polygon points="90,30 128,52 128,96 90,118 52,96 52,52" stroke="#3ED191" stroke-width="2" opacity="0.55" fill="none"/>
+      <polygon points="90,60 108,71 108,93 90,104 72,93 72,71" stroke="#A48CE8" stroke-width="1.5" opacity="0.5" fill="none"/>
+      <g stroke="#3ED191" stroke-width="1.5" opacity="0.5">
+        <line x1="90" y1="30" x2="90" y2="12"/><line x1="128" y1="52" x2="146" y2="42"/>
+        <line x1="128" y1="96" x2="146" y2="106"/><line x1="52" y1="96" x2="34" y2="106"/><line x1="52" y1="52" x2="34" y2="42"/>
+      </g>
+      <g fill="#E0972B" opacity="0.85"><circle cx="90" cy="12" r="4"/><circle cx="146" cy="42" r="4"/><circle cx="34" cy="106" r="4"/></g>
+      <g fill="#3ED191" opacity="0.8"><circle cx="90" cy="30" r="3.5"/><circle cx="128" cy="52" r="3.5"/><circle cx="52" cy="96" r="3.5"/></g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: YASHO</span>
+      <span class="tag">BSE: 541167</span>
+      <span class="tag em">Specialty &amp; Fine Chemicals · 148 Products</span>
+      <span class="tag vi">Q1 FY27 Margin Breakout</span>
+    </div>
+    <h1>Yasho Industries</h1>
+    <div class="refresh">◆ REFRESH — 31 JUL 2026 · supersedes 18 May 2026 report · incorporates today's Q1 FY27 result</div>
+    <div class="sub">A Mumbai-based <b>niche specialty-chemicals maker</b> whose long-promised margin inflection has <b>arrived</b> — Q1 FY27 EBITDA margin leapt to <b>23.2%</b> and profit surged nearly 9x. Ratings upgraded, a 15-year MNC contract ahead — but the stock has re-rated violently, +20% today to an all-time high.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (31 Jul)</div><div class="v">₹3,859</div><div class="d up">+20% today, ATH</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹4,542 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">Q1'27 Revenue</div><div class="v">₹307.7 Cr</div><div class="d up">+54.98% YoY</div></div>
+      <div class="qs"><div class="k">Q1'27 PAT</div><div class="v">₹36.05 Cr</div><div class="d up">+887% YoY</div></div>
+      <div class="qs"><div class="k">Q1'27 EBITDA mgn</div><div class="v">23.2%</div><div class="d up">from 17.2%</div></div>
+      <div class="qs"><div class="k">Rating</div><div class="v">CRISIL A</div><div class="d up">up from BBB</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>MD &amp; CEO:</b> Parag Jhaveri</span>
+  <span class="dot">◆</span>
+  <span><b>Chairman:</b> Vinod Jhaveri</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1985 (as Vasu Preservatives)</span>
+  <span class="dot">◆</span>
+  <span><b>Plants:</b> Vapi &amp; Pakhajan, Gujarat</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 31 Jul 2026</span>
+</div>
+
+<div class="alert rf">
+  🔄 <b>THIS IS A DATED REFRESH.</b> A prior Yasho report (18 May 2026, on FY26 annuals) exists and is retained. This version incorporates the <b>Q1 FY27 result reported TODAY (31 Jul 2026)</b>, which materially changes the margin picture and the stock (up ~20% today to an all-time high). Figures and thesis below reflect the new print.
+</div>
+<div class="alert q1">
+  ✅ <b>Q1 FY27 REPORTED TODAY (31 Jul 2026):</b> Consol revenue ₹307.74 Cr (+54.98% YoY), PAT ₹36.05 Cr (+887.41% YoY), EBITDA ₹73 Cr (+114% YoY), <b>EBITDA margin 23.2% (from 17.2% — a +6pp step-change)</b>, EPS ₹29.90 (from ₹3.02). A single quarter's profit now <b>exceeds the entire FY26 PAT (₹25.26 Cr)</b>. Earnings call 3 Aug.
+</div>
+<div class="alert">
+  ⚠ <b>DATA NOTE:</b> CMP ₹3,858.70 (NSE, 31 Jul, +20% / hit upper circuit-like move to ATH); m-cap ~₹4,542 Cr (~1.18 Cr shares). Some vendors show badly STALE prices (SimplyWall.st ₹1,500–1,752, Tipranks ₹1,590) — ignore these. Trailing P/E is very high (~100x+) on a just-inflected earnings base; use forward/normalised. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Yasho Industries Ltd</strong> is a Mumbai-headquartered (manufacturing at Vapi &amp; Pakhajan, Gujarat) <strong>specialty and fine-chemicals maker</strong>, founded in 1985 (as Vasu Preservatives) and led by MD &amp; CEO <strong>Parag Jhaveri</strong>. It produces <strong>148 products across five verticals</strong> — food antioxidants, aroma chemicals, rubber chemicals, lubricant additives and specialty chemicals — exporting ~62–68% of revenue to the US, Europe, the Middle East and Asia, serving global MNC customers.</p>
+  <p>This report is a <strong>refresh</strong>: Yasho's long-standing investment story was a leveraged, thin-margin specialty compounder "at an inflection." <strong>Today's Q1 FY27 result confirms the inflection has arrived — and then some.</strong> Revenue jumped 55%, EBITDA margin leapt to <strong>23.2% (from 17.2%)</strong>, and PAT surged nearly 9x to ₹36.05 Cr — a single quarter that <strong>outearned all of FY26</strong>. Credit ratings were upgraded (CRISIL to A/Stable from BBB), a landmark <strong>15-year MNC lubricant-additive contract (₹150 Cr/yr from Q4 FY27)</strong> still lies ahead, and the FY28 target is ₹1,500 Cr revenue at 20%+ margins. The catch: the market has <strong>re-rated the stock violently — +20% today to an all-time high ₹3,859</strong> — so the debate has shifted from "will margins inflect?" to "how much of this brilliant quarter is already in the price, and is 23% sustainable?"</p>
+  <div class="cards">
+    <div class="card e"><div class="k">Q1 FY27 Revenue</div><div class="v">₹307.7 Cr</div><div class="d up">+54.98% YoY</div></div>
+    <div class="card v"><div class="k">Q1 FY27 PAT</div><div class="v">₹36.05 Cr</div><div class="d up">+887% YoY</div></div>
+    <div class="card a"><div class="k">Q1 EBITDA margin</div><div class="v">23.2%</div><div class="d up">+6pp YoY</div></div>
+    <div class="card c"><div class="k">FY28 target</div><div class="v">₹1,500 Cr</div><div class="d">20%+ margin</div></div>
+  </div>
+  <div class="call vi">
+    <div class="lab">The investment character in one line — updated</div>
+    Yasho has transitioned from "<strong>promising but thin-margin and leveraged</strong>" (the old story) to "<strong>the margin inflection has visibly landed</strong>" — 23.2% EBITDA, near-9x profit growth, a two-notch ratings upgrade, and a 15-year MNC contract still to come. The business quality has clearly stepped up. <strong>But the stock has moved even faster</strong> — up ~114% YTD and +20% today to an ATH — so this is now a <strong>"great result, richly-priced" situation</strong>. The key questions are the <strong>sustainability of the new ~23% margin</strong> (vs a favourable-quarter high) and whether the valuation already discounts the FY28 vision.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1985–1996 · Origins</div><div class="td">Incorporated 1985 as Vasu Preservatives; renamed Yasho Industries in 1996. Built a base in food antioxidants and preservatives, expanding into aroma and rubber chemicals.</div></div>
+    <div class="tli"><div class="ty">2000s–2019 · Multi-vertical specialty maker</div><div class="td">Grew into a five-vertical specialty-chemicals house (food antioxidants, aroma, rubber chemicals, lubricant additives, specialty), exporting to global MNCs; listed on NSE/BSE.</div></div>
+    <div class="tli"><div class="ty">2021–FY24 · Pakhajan &amp; global footprint</div><div class="td">Built a second greenfield complex at <strong>Pakhajan (Dahej), Gujarat (20,000 MTPA)</strong>; set up subsidiaries in the Netherlands (2021) and US (2024). Revenue scaled toward ~₹680–830 Cr; debt rose to fund capex (Debt/EBITDA ~4.7x FY25).</div></div>
+    <div class="tli"><div class="ty">Sep 2025 · The 15-year MNC contract</div><div class="td">Signed a <strong>15-year lubricant-additive supply agreement with a global MNC — ₹150 Cr/yr from Q4 FY27, with the customer funding the dedicated Pakhajan capex (₹51.4 Cr advance received)</strong> — a rare, validating deal.</div></div>
+    <div class="tli"><div class="ty">Oct 2025 · R&amp;D centre</div><div class="td">Inaugurated a Pakhajan R&amp;D lab (40 chemists, ₹23 Cr) — the engine for the next product cycle and MNC qualifications.</div></div>
+    <div class="tli"><div class="ty">FY26 · Volume inflection</div><div class="td">Revenue ₹830 Cr (+22.7%), volume +33%, EBITDA ~17.4% margin, PAT ₹25.26 Cr (+314%); Debt/EBITDA improved to 3.75x.</div></div>
+    <div class="tli"><div class="ty">Q1 FY27 (today) · Margin breakout</div><div class="td"><strong>Revenue +55% to ₹307.7 Cr, EBITDA margin 23.2% (from 17.2%), PAT +887% to ₹36.05 Cr.</strong> CRISIL upgrade to A/Stable; ICRA 'A'. Stock +20% to ATH ₹3,859.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Verticals</h2></div>
+  <p>Yasho is a <strong>diversified, export-oriented specialty-chemicals manufacturer</strong> — its edge is <strong>breadth (148 products across five distinct chemistries)</strong> plus MNC-grade quality and long-term customer relationships. It buys chemical intermediates, manufactures at Vapi &amp; Pakhajan, and sells largely to global industrial customers who value supply reliability and China+1 diversification.</p>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Food antioxidants</div><div class="vd">Preservatives — heritage</div></div>
+    <div class="vnode own"><div class="vt">Aroma chemicals</div><div class="vd">Fragrance ingredients</div></div>
+    <div class="vnode own"><div class="vt">Rubber chemicals</div><div class="vd">Accelerators, tyre OEMs</div></div>
+    <div class="vnode own"><div class="vt">Lubricant additives</div><div class="vd">The 15-yr MNC growth engine</div></div>
+    <div class="vnode own"><div class="vt">Specialty</div><div class="vd">Industrial niches</div></div>
+  </div>
+  <div class="call am">
+    <div class="lab">Breadth is the moat — and the China+1 tailwind is real</div>
+    Few competitors can replicate Yasho's <strong>148-product, five-chemistry breadth</strong> — pure-play rivals compete in only one lane. That breadth, plus MNC qualifications (HALAL, KOSHER, NSF, REACH pre-registration) and now a <strong>two-notch-upgraded credit profile</strong>, makes Yasho a credible <strong>China+1 alternative in rubber chemicals, food antioxidants and lubricant additives</strong> — global customers restructuring away from Chinese suppliers is a direct tailwind. The 15-year, customer-funded MNC contract is the clearest proof: an MNC funding Yasho's capex signals genuine supply shortage and Yasho-specific technical capability. The offset is that most of these categories are still <strong>globally competitive with Chinese price pressure</strong> — which is why the sudden Q1 margin jump to 23% is both exciting and a "prove it's durable" question.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Revenue Mix &amp; Export Profile</h2></div>
+  <div class="bar-row"><div class="bar-lab">Industrial chemicals</div><div class="bar-track"><div class="bar-fill" style="width:86%;background:var(--emerald)">~86–87%</div></div><div class="bar-val">core</div></div>
+  <div class="bar-row"><div class="bar-lab">Exports (US/EU/ME/Asia)</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--violet)">~62–68%</div></div><div class="bar-val">majority</div></div>
+  <div class="bar-row"><div class="bar-lab">Domestic</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--amber)">~32–38%</div></div><div class="bar-val">balance</div></div>
+  <div class="call">
+    <div class="lab">Export-led — a strength and a tariff exposure</div>
+    With <strong>~62–68% of revenue exported</strong>, Yasho is levered to global specialty-chemical demand and the China+1 shift — a structural positive. The flip side is exposure to <strong>US trade policy (a 26% reciprocal tariff on Indian goods was flagged earlier in 2026) and global price cycles</strong>. The Q1 FY27 strength suggests Yasho is navigating this well — likely via richer mix (lubricant additives, specialty) and better realisations as global specialty-chem prices firm after the FY25–26 Chinese-oversupply trough. Watch US export volumes and tariff developments as a swing factor on the export book.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Q1 FY27 Margin Breakout, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue (₹ Cr)</td><td class="mono">198.6</td><td class="mono">246.7</td><td class="mono">307.7</td><td class="mono up">+54.98%</td></tr>
+    <tr><td>EBITDA (₹ Cr)</td><td class="mono">33.9</td><td class="mono">44.7</td><td class="mono">~73</td><td class="mono up">+114%</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">17.2%</td><td class="mono">18.1%</td><td class="mono">23.2%</td><td class="mono up">+6.0pp</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">3.64</td><td class="mono">12.26</td><td class="mono">36.05</td><td class="mono up">+887%</td></tr>
+    <tr><td>EPS (₹)</td><td class="mono">3.02</td><td class="mono">—</td><td class="mono">29.90</td><td class="mono up">~10x</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">Extraordinary — but understand WHERE the leap came from before extrapolating</div>
+    This is a genuinely stunning print: <strong>revenue +55%, EBITDA margin +6 percentage points to 23.2%, PAT nearly 9x, and one quarter out-earning all of FY26.</strong> The profit explosion is driven by <strong>operating leverage on the ~55% revenue jump</strong> (a mostly-fixed cost base spread over far more volume) <strong>plus a sharp margin step-up</strong> — a combination that flows enormously to the bottom line given Yasho's earlier thin (~3%) net margins and high interest cost. <strong>The critical question:</strong> is 23.2% EBITDA a <strong>new structural level</strong> (richer lubricant-additive/specialty mix, better realisations, deleveraging, operating leverage) or a <strong>favourable-quarter peak</strong> (a spike in realisations, a rich order mix, or timing) that normalises lower? Management's FY28 target of 20%+ margins suggests they see ~20%+ as durable — but <strong>one quarter at 23% is not yet proof of a permanent re-rating of the margin structure.</strong> Don't naively annualise ₹36 Cr ×4; wait for the Aug 3 call and the next 1–2 quarters to confirm the level.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Vertical</th><th>Key competitors</th><th>Yasho's position</th></tr>
+    <tr class="tr-hi"><td><strong>Rubber chemicals</strong></td><td>LANXESS, NOCIL, Chinese producers</td><td>Established; China+1 beneficiary</td></tr>
+    <tr><td><strong>Food antioxidants</strong></td><td>Camlin Fine Sciences, Chinese producers</td><td>Heritage strength</td></tr>
+    <tr><td><strong>Lubricant additives</strong></td><td>Afton, Infineum, Chevron Oronite (oligopoly)</td><td>Niche qualified supplier; 15-yr MNC deal</td></tr>
+    <tr><td><strong>Aroma chemicals</strong></td><td>Symrise, Givaudan, Indian producers</td><td>Mid-tier player</td></tr>
+    <tr><td><strong>Breadth (all five)</strong></td><td>Few multi-chemistry peers</td><td><strong>Differentiator — 148 products</strong></td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A qualified niche player winning share from China — now with margin proof</div>
+    Yasho competes against <strong>large global specialists and low-cost Chinese producers</strong> in each vertical, which historically capped its pricing power and margins. Its defence — <strong>product breadth, MNC-grade quality, long-term contracts, and now a stronger balance sheet/rating</strong> — is exactly what lets it win China+1 share. The 15-year lubricant-additive contract with a global MNC (in a category dominated by an Afton/Infineum oligopoly) is a standout validation. The Q1 FY27 margin jump suggests Yasho is <strong>capturing better economics as it moves up the value chain and global prices firm</strong> — but the competitive intensity means investors should confirm this is durable mix/pricing improvement, not a cyclical realisation spike.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Global specialists + Chinese producers in every vertical; price competition, though breadth/niche softens it.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate</td><td>MNC customers are demanding but sticky once qualified; long-term contracts (15-yr deal) reduce buyer churn.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Chemical-intermediate inputs; some price/availability volatility, managed via scale and integration.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low-Moderate</td><td>MNC qualification, R&amp;D, regulatory approvals (REACH etc.) and multi-chemistry capability are real barriers.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Moderate</td><td>Chinese supply is the main substitute; China+1 shift works in Yasho's favour.</td></tr>
+  </table>
+  <p>Net: a <strong>competitive but qualification-gated specialty niche</strong> where Yasho's breadth, MNC relationships and improving balance sheet build defensibility — and where the China+1 structural shift is a genuine tailwind. The forces explain why margins were historically thin and why a durable move to ~20%+ EBITDA would be a real structural upgrade worth paying up for (if proven).</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The 15-Year MNC Contract &amp; Growth Runway</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Contract value</div><div class="v">₹150 Cr/yr</div><div class="d">15 years</div></div>
+    <div class="card v"><div class="k">Starts</div><div class="v">Q4 FY27</div><div class="d">→ FY42</div></div>
+    <div class="card a"><div class="k">Customer advance</div><div class="v">₹51.4 Cr</div><div class="d">funds Yasho's capex</div></div>
+    <div class="card c"><div class="k">FY28 rev target</div><div class="v">₹1,500 Cr</div><div class="d">from ~₹830 Cr FY26</div></div>
+  </div>
+  <p>The landmark growth event still lies ahead: a <strong>15-year lubricant-additive supply agreement with a global MNC, generating ~₹150 Cr/yr from Q4 FY27</strong> — the largest and longest contract in Yasho's history. Uniquely, <strong>the customer is funding the dedicated Pakhajan capex</strong> (₹51.4 Cr advance already received), with a pre-agreed price formula.</p>
+  <div class="call vi">
+    <div class="lab">Why this contract is the anchor of the medium-term story</div>
+    A ₹150 Cr/yr contract adds ~18% to the FY26 revenue base <strong>with 15-year visibility and pre-agreed pricing</strong> — extraordinary stability for a specialty-chemicals company usually exposed to spot-price cycles. That an MNC <strong>funds Yasho's capex</strong> is rarer still, signalling genuine global supply shortage for this additive and deep confidence in Yasho's technical/supply reliability. Combined with the R&amp;D centre (40 chemists) driving the next qualification cycle and the FY28 target of ₹1,500 Cr at 20%+ margins, Yasho has a <strong>credible multi-year growth-and-margin runway</strong>. The Q1 FY27 result suggests the margin part is already materialising ahead of the contract even kicking in — which is what has excited the market. The contract is the visible anchor; execution (Q4 FY27 commissioning, ramp) is the watch-item.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Deleveraging &amp; Ratings Upgrade</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Q1 EBITDA margin</div><div class="v">23.2%</div><div class="d up">from 17.2%</div></div>
+    <div class="card v"><div class="k">CRISIL rating</div><div class="v">A / Stable</div><div class="d up">from BBB/Positive</div></div>
+    <div class="card a"><div class="k">ICRA rating</div><div class="v">A / Stable</div><div class="d">₹500 Cr facilities</div></div>
+    <div class="card c"><div class="k">Debt/EBITDA</div><div class="v">↓ improving</div><div class="d">3.75x FY26, falling</div></div>
+  </div>
+  <p>The FY26–Q1 FY27 arc shows <strong>two reinforcing improvements: margin expansion and deleveraging</strong>. EBITDA margin has climbed from ~17% to 23.2%, while Debt/EBITDA improved from 4.7x (FY25) to 3.75x (FY26) and should fall further as EBITDA scales — a virtuous cycle that the rating agencies have now formally recognised.</p>
+  <div class="call am">
+    <div class="lab">The ratings upgrade is a genuine, tangible validation</div>
+    <strong>CRISIL's two-notch upgrade to A/Stable (from BBB/Positive), plus ICRA's 'A' Stable</strong>, is a meaningful, independent confirmation that Yasho's balance sheet and earnings quality have structurally improved — it lowers the cost of debt (easing the high interest burden that kept net margins thin) and reflects agency confidence in the margin/deleveraging trajectory. This directly attacks the old bear case (high leverage + thin PAT margins). As EBITDA rises and debt is repaid from the ₹150+ Cr operating cash flow, the interest drag falls and <strong>PAT margins can expand structurally</strong> — exactly what Q1 FY27 (PAT margin ~11.7%, up from ~2–3%) demonstrates. The deleveraging-plus-margin story is the core fundamental improvement; sustaining it is the thesis.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Ownership &amp; The Kacholia Signal</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Promoter holding</div><div class="v">67.9%</div><div class="d up">high, aligned</div></div>
+    <div class="card v"><div class="k">MD &amp; CEO</div><div class="v">Parag Jhaveri</div><div class="d">promoter</div></div>
+    <div class="card a"><div class="k">Notable investor</div><div class="v">A. Kacholia</div><div class="d down">trimmed Q1 FY27</div></div>
+    <div class="card c"><div class="k">Dividend</div><div class="v">₹0.50/sh</div><div class="d">FY26</div></div>
+  </div>
+  <p>Yasho is a <strong>promoter-driven family business</strong> (Jhaveri family; MD &amp; CEO Parag Jhaveri, Chairman Vinod Jhaveri) with a <strong>high, aligned promoter holding of 67.9%</strong> — strong skin in the game. It has historically attracted marquee investor interest, notably <strong>ace investor Ashish Kacholia</strong>.</p>
+  <div class="call co">
+    <div class="lab">Read the Kacholia trim carefully — profit-taking, not necessarily a red flag</div>
+    A notable recent signal: <strong>Ashish Kacholia trimmed his stake in Yasho in Q1 FY27</strong> (alongside Fineotex and Tanfac). This is worth noting but <strong>shouldn't be over-read</strong>: after a ~114% YTD run and a move to an all-time high, a marquee investor <strong>booking partial profits is routine portfolio management</strong>, not necessarily a verdict on the business — especially as it occurred <em>before</em> today's blockbuster Q1 print. It does, however, underline the <strong>valuation tension</strong>: even long-term believers are trimming into strength. Investors should watch subsequent shareholding disclosures for whether the trim continues or reverses, but treat it as a valuation/positioning signal rather than a fundamental one. The high promoter stake remains the more important alignment anchor.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capex &amp; Capacity</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">FY27 capex</div><div class="v">₹125 Cr</div><div class="d">internal accruals</div></div>
+    <div class="card v"><div class="k">Capacity target</div><div class="v">26,000 TPA</div><div class="d">by FY27</div></div>
+    <div class="card a"><div class="k">MNC facility</div><div class="v">Customer-funded</div><div class="d">Pakhajan, Q4 FY27</div></div>
+    <div class="card c"><div class="k">R&amp;D centre</div><div class="v">40 chemists</div><div class="d">₹23 Cr, Pakhajan</div></div>
+  </div>
+  <p>Yasho is investing <strong>₹125 Cr of FY27 capex from internal accruals</strong> (a sign of improved cash generation) to reach <strong>26,000 TPA capacity</strong>, while the dedicated lubricant-additive facility for the 15-year MNC contract is <strong>funded by the customer</strong> — a capital-efficient way to add a high-visibility revenue stream. The R&amp;D centre underpins the next product/qualification cycle.</p>
+  <div class="call am">
+    <div class="lab">Capital-efficient growth is the quiet upgrade</div>
+    The shift to <strong>funding FY27 capex from internal accruals</strong> (rather than fresh debt), plus a <strong>customer-funded</strong> MNC facility, marks a real improvement in capital discipline versus the debt-funded Pakhajan build-out of prior years. This is what allows growth <em>and</em> deleveraging simultaneously — capacity expands toward 26,000 TPA while Debt/EBITDA falls. If the new capacity fills at the higher ~20%+ margins Q1 demonstrated, the operating leverage compounds. The watch-item is <strong>utilisation of the expanded capacity</strong> and on-time commissioning of the MNC facility for the Q4 FY27 contract start.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Margin sustainability at ~20%+</strong></td><td>Mix + operating leverage + deleverage</td><td class="mono">The whole story ★★★★★</td></tr>
+    <tr><td><strong>15-year MNC contract</strong></td><td>₹150 Cr/yr from Q4 FY27, customer-funded</td><td class="mono">Visible anchor ★★★★★</td></tr>
+    <tr><td><strong>China+1 share gains</strong></td><td>Qualified Indian alternative to China</td><td class="mono">Structural ★★★★</td></tr>
+    <tr><td><strong>Deleveraging</strong></td><td>Debt/EBITDA falling → lower interest drag</td><td class="mono">PAT driver ★★★★</td></tr>
+    <tr><td><strong>Capacity ramp (26,000 TPA)</strong></td><td>Internal-accrual + customer-funded capex</td><td class="mono">Volume ★★★★</td></tr>
+    <tr><td><strong>R&amp;D / new products</strong></td><td>40 chemists; next qualification cycle</td><td class="mono">Pipeline ★★★</td></tr>
+    <tr><td><strong>FY28 ₹1,500 Cr target</strong></td><td>~80% growth over FY26 base</td><td class="mono">Aspirational ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>(₹ Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Revenue</td><td class="mono">676</td><td class="mono">830</td><td class="mono">307.7 (Q)</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">~15%</td><td class="mono">17.4%</td><td class="mono">23.2%</td></tr>
+    <tr><td>PAT</td><td class="mono">6.1</td><td class="mono">25.26</td><td class="mono">36.05 (Q)</td></tr>
+    <tr><td>EPS (₹)</td><td class="mono">5.32</td><td class="mono">20.95</td><td class="mono">29.90 (Q)</td></tr>
+    <tr><td>Debt/EBITDA</td><td class="mono">4.70x</td><td class="mono">3.75x</td><td class="mono">falling</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call vi">
+        <div class="lab">The transformation in numbers</div>
+        PAT: ₹6.1 Cr (FY25) → ₹25.26 Cr (FY26) → ₹36.05 Cr in <em>one quarter</em> (Q1 FY27). EBITDA margin ~15% → 17.4% → 23.2%. Debt/EBITDA 4.7x → 3.75x → falling. Ratings BBB → A. This is a genuine, multi-dimensional step-up in the business's earning power and quality.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The valuation counterweight</div>
+        The stock has <strong>priced it aggressively</strong>: +114% YTD, +20% today to ATH ₹3,859, ~₹4,542 Cr m-cap; trailing P/E ~100x+ (on a just-inflected base), P/B very high. Trendlyne: "Strong Performer, Getting Expensive." Kacholia trimmed. One quarter at 23% margin isn't yet a proven permanent level. Priced for the vision.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ₹3,859 (m-cap ~₹4,542 Cr) the stock's <strong>trailing P/E is very high (~100x+)</strong> — but, as with any company at a sharp earnings inflection, that trailing figure is a poor anchor because it divides today's price by a profit base that just multiplied. The right lens is <strong>forward P/E and EV/EBITDA on the <em>new, higher</em> margin/earnings base — with an explicit haircut for how much of Q1's 23% margin is durable.</strong></p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Yasho Industries (post-Q1 FY27)</h3>
+    <div class="bm-sub">Specialty chemical at a margin inflection → forward P/E &amp; EV/EBITDA on normalised (sustainable-margin) earnings; the debate is margin durability, not the direction</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Forward P/E on normalised earnings</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Value on a full-year run-rate at a <em>sustainable</em> margin (not Q1's 23% peak nor FY26's 17%), plus the 15-yr contract from Q4 FY27. The key input is the assumed durable margin — the entire valuation swings on it.</td></tr>
+      <tr><td>EV/EBITDA (forward)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Neutralises the (falling but still meaningful) debt and D&amp;A; cleanest cross-check for a capital-intensive specialty maker mid-deleverage. Judge against the ~20%+ target margin.</td></tr>
+      <tr><td>EBITDA-margin sustainability</td><td><span class="verdict v-ind">CRITICAL INDICATOR</span></td><td>Is 23% structural (mix/leverage/deleverage) or a favourable-quarter peak? This single question determines whether the stock is fairly or over-valued. Watch the next 1–2 quarters + Aug 3 call.</td></tr>
+      <tr><td>Debt/EBITDA &amp; interest coverage</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>Falling leverage (3.75x→) directly lifts PAT margin. The deleveraging pace is a core value driver and de-risker.</td></tr>
+      <tr><td>P/B vs improving ROE</td><td><span class="verdict v-sec">SECONDARY</span></td><td>Very high P/B looks alarming standalone but must be read against a sharply rising ROE (5.7% FY26 → far higher on Q1 run-rate). Context, not anchor.</td></tr>
+      <tr><td>Trailing P/E (~100x+) / single-Q annualised</td><td><span class="verdict v-avoid">AVOID</span></td><td>Trailing P/E divides price by a pre-inflection base; annualising Q1's ₹36 Cr assumes 23% margin holds all year. Both mislead at an inflection.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> If Q1's momentum holds at a <em>sustainable</em> ~20% EBITDA margin, Yasho could earn roughly <b>₹120–150 Cr PAT in FY27</b> (vs ₹25 Cr FY26) — on ~1.18 Cr shares that's EPS of ~₹100–125, putting the ₹3,859 price at a <b>forward P/E of ~30–38x</b>. That is a <b>full-but-not-absurd multiple for a specialty-chem company growing 40%+ with a 15-year contract, China+1 tailwind, ratings upgrade and improving returns</b> — <em>if</em> the ~20%+ margin proves durable. If margins normalise back toward ~17–18%, FY27 PAT is lower and the same price looks expensive. <b>Verdict: the long-awaited margin inflection has clearly arrived and the business quality has genuinely stepped up — but the stock has re-rated violently (+114% YTD, +20% today to an ATH) and now discounts much of the good news. This is a "great business, prove-the-margin, watch-the-price" situation: fairly-to-fully valued if ~20% margins stick and the MNC contract ramps, expensive if Q1 was a peak. Value on forward earnings at a sustainable margin, never the trailing P/E; the Aug 3 call and the next two quarters are the referee. Accumulate on pullbacks / margin confirmation rather than chasing the post-result ATH spike.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹2,400–3,000</div><div class="sd">Q1's 23% margin proves a peak, normalises toward 17–18%; post-result euphoria fades, the rich multiple de-rates; US-tariff/China-price pressure returns. Pullback from the ATH.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹3,400–4,200</div><div class="sd">Margins settle ~19–21% (structural improvement, below Q1 peak), 15-yr contract ramps from Q4 FY27, deleveraging continues; earnings grow into the multiple. Around current levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹4,600–5,800</div><div class="sd">23%+ margin sustains, FY28 ₹1,500 Cr target on track, MNC contract scales, further China+1 wins + ratings upgrades; re-rates as a proven high-margin specialty compounder.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Trendlyne tags "Strong Performer, Getting Expensive" (momentum 67.6/100). Uniresearch 12-mo range ₹3,441–3,814 (pre-result, now exceeded). Scenario prices hinge almost entirely on margin durability. Verify CMP/ratios vs NSE/BSE post-result.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Margin sustainability — the central question</strong>Q1 FY27's 23.2% EBITDA margin is a huge jump from ~17%; if it proves a favourable-quarter peak rather than a structural level (mix/pricing normalising), earnings and the rich valuation both deflate. The entire thesis rests on ~20%+ being durable.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Valuation / post-result euphoria</strong>+114% YTD and +20% today to an ATH; trailing P/E ~100x+, very high P/B. Much of the good news is priced; any margin or growth disappointment could trigger a sharp de-rating. Kacholia trimming into strength underlines the valuation tension.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Global price cycles &amp; China competition</strong>Specialty-chem realisations are cyclical; the FY25–26 Chinese-oversupply trough compressed prices. A renewed price war or Chinese restocking could reverse the realisation gains behind the Q1 margin jump.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>US tariff / export exposure</strong>~62–68% exports; a 26% US reciprocal tariff (flagged 2026) and trade-policy shifts could pressure US-bound volumes and margins.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Leverage (improving but still meaningful)</strong>Debt/EBITDA 3.75x and falling, but still elevated; the deleveraging thesis depends on sustained high EBITDA. A margin relapse would slow deleveraging and re-pressure the interest-heavy P&amp;L.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>MNC contract execution</strong>The 15-yr ₹150 Cr/yr contract starts Q4 FY27 — commissioning, ramp and the pre-agreed price formula must execute as planned; delays would push out a key growth pillar.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Small-cap volatility &amp; concentration</strong>High-beta small-cap (weekly moves ~9%); customer/product concentration in some verticals; results-driven swings can be violent (as today's +20% shows, in both directions).</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Q1 margin breakout</div><div class="scv">23.2% EBITDA <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">+55% Q1 <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">15-yr MNC contract</div><div class="scv">₹150 Cr/yr <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Ratings / deleverage</div><div class="scv">CRISIL A <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Product breadth / China+1</div><div class="scv">148 products <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Promoter alignment</div><div class="scv">67.9% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Margin durability</div><div class="scv">Unproven at 23% <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Cyclicality/tariff</div><div class="scv">Export-priced <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">ATH, ~100x+ <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line (refresh)</div>
+    Yasho Industries' long-promised inflection has <strong>decisively arrived</strong>: today's Q1 FY27 print delivered <strong>+55% revenue, a +6pp EBITDA-margin jump to 23.2%, and a near-9x PAT surge (₹36.05 Cr — a single quarter out-earning all of FY26)</strong>, on top of a <strong>two-notch CRISIL ratings upgrade to 'A', ongoing deleveraging, a rare customer-funded 15-year MNC lubricant contract (₹150 Cr/yr from Q4 FY27), a genuine China+1 tailwind, 148-product breadth, and 67.9% aligned promoter ownership.</strong> The business quality has clearly stepped up a level. <strong>But the stock has re-rated even harder — up ~114% YTD and +20% today to an all-time high ₹3,859 (~₹4,542 Cr m-cap, trailing P/E ~100x+) — and marquee investor Ashish Kacholia trimmed into the strength.</strong> <strong>The one question that now decides everything is margin durability: is 23.2% a new structural level (mix, operating leverage, deleveraging) or a favourable-quarter peak? On a sustainable ~20% margin the forward P/E (~30–38x) is full but defensible for a 40%+ grower with 15-year contracted visibility; if margins normalise lower, the ATH price is expensive.</strong> <strong>The honest framing: a genuinely improved, high-quality specialty-chemicals franchise that has delivered a spectacular quarter — but is now priced for much of it. Value on forward earnings at a sustainable margin (never the trailing P/E or an annualised peak quarter), let the Aug 3 call and the next two quarters confirm the margin level, and prefer accumulating on pullbacks / margin proof over chasing the post-result spike.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">31 Jul 2026</td><td><strong>Q1 FY27 results (today):</strong> revenue ₹307.74 Cr (+54.98% YoY), PAT ₹36.05 Cr (+887.41%), EBITDA ₹73 Cr (+114%), EBITDA margin 23.2% (from 17.2%), EPS ₹29.90. Stock +20% to ATH ₹3,858.70. Board also proposed raising borrowing/charge limit to ₹1,250 Cr. Earnings call 3 Aug (4 PM).</td></tr>
+    <tr><td class="mono">30 Jul 2026</td><td><strong>CRISIL upgrade</strong> of ₹200 Cr facilities to A-/Stable &amp; A2+ (part of a broader upgrade to A/Stable from BBB/Positive; short-term to A2).</td></tr>
+    <tr><td class="mono">Jul 2026</td><td><strong>ICRA upgrade to 'A' Stable</strong> on ₹500 Cr facilities (₹218.25 Cr term loans, ₹225 Cr fund/non-fund limits, ₹56.75 Cr unallocated). Ashish Kacholia trimmed stake in Q1 FY27.</td></tr>
+    <tr><td class="mono">10 Jun 2026</td><td>Stock hit (then) all-time high ₹2,691.10 on sustained specialty-chem momentum.</td></tr>
+    <tr><td class="mono">18 May 2026</td><td><strong>Q4 &amp; FY26 results:</strong> FY26 revenue ₹830 Cr (+22.7%), PAT ₹25.26 Cr (+314%), EBITDA ~17.4% margin, volume +33%; Q4 PAT ₹12.26 Cr (+143.7%). Dividend ₹0.50/share. FY28 target ₹1,500 Cr revenue / 20%+ margin articulated.</td></tr>
+    <tr><td class="mono">Sep–Oct 2025</td><td>Signed <strong>15-year MNC lubricant-additive contract</strong> (₹150 Cr/yr from Q4 FY27, customer-funded, ₹51.4 Cr advance); inaugurated Pakhajan <strong>R&amp;D centre</strong> (40 chemists).</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Debt/EBITDA</div><div class="v">3.75x ↓</div><div class="d up">from 4.70x FY25</div></div>
+    <div class="card v"><div class="k">Ratings</div><div class="v">CRISIL/ICRA A</div><div class="d up">upgraded</div></div>
+    <div class="card a"><div class="k">OCF (FY26)</div><div class="v">₹152.75 Cr</div><div class="d up">strong</div></div>
+    <div class="card c"><div class="k">Borrowing limit</div><div class="v">→ ₹1,250 Cr</div><div class="d">proposed</div></div>
+  </div>
+  <p>Yasho's balance sheet has <strong>improved markedly</strong> — Debt/EBITDA down from 4.70x (FY25) to 3.75x (FY26) and falling as EBITDA scales, strong operating cash flow (₹152.75 Cr FY26), and the <strong>CRISIL/ICRA upgrades to 'A'</strong> formalising the better credit profile. FY27 capex (₹125 Cr) is internal-accrual-funded and the MNC facility is customer-funded.</p>
+  <div class="call am">
+    <div class="lab">The metric that decides earnings quality: sustainable EBITDA margin × deleveraging</div>
+    Yasho's earnings power is a <strong>leverage-and-margin story</strong>: it was historically a high-EBITDA-margin business whose <em>net</em> margin was crushed by interest on high debt. The Q1 FY27 breakout works on both fronts — <strong>higher EBITDA margin (23.2%) and lower leverage</strong> together convert far more revenue into PAT (net margin ~11.7% vs ~3% before). The virtuous cycle — rising EBITDA → faster deleveraging → lower interest → higher PAT → still faster deleveraging — is exactly what re-rated the credit and the stock. <strong>The whole thesis reduces to whether the ~20%+ EBITDA margin holds:</strong> if it does, deleveraging accelerates and PAT compounds; if it reverts, the interest drag returns. Watch quarterly EBITDA margin, Debt/EBITDA, interest coverage and OCF above all.
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Vertical ↑ <span class="badge b-bull">ATH</span></div><div class="tkd">+20% today, +114% YTD</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">₹3,859</div><div class="tkd">31 Jul 2026 (ATH)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹1,130 – 3,859</div><div class="tkd">at the very top</div></div>
+    <div class="tk"><div class="tkl">From 52-wk low</div><div class="tkv">+202%</div><div class="tkd">explosive</div></div>
+    <div class="tk"><div class="tkl">Prior ATH</div><div class="tkv">₹2,691</div><div class="tkd">10 Jun 2026 — cleared</div></div>
+    <div class="tk"><div class="tkl">Trendlyne</div><div class="tkv">Getting Expensive</div><div class="tkd">momentum 67.6</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Yasho is in a <strong>powerful uptrend that went vertical today</strong> — up ~20% on the Q1 FY27 result to a fresh all-time high of ₹3,858.70, having more than tripled from its ₹1,130 52-week low and cleared its prior ₹2,691 ATH. Momentum is strong (Trendlyne momentum 67.6/100, "Strong Performer, Getting Expensive"). The stock is now in blue-sky territory with no overhead resistance, but is <strong>extended and results-driven</strong> — a +20% single-day move to an ATH on a small-cap is a high-volatility signal that can retrace sharply if the Aug 3 call disappoints or margins are questioned. Prior breakout zones (₹2,691, then the ₹3,200–3,400 base) are reference supports on any pullback. As a high-beta specialty-chem small-cap (weekly moves ~9%), expect volatility around the earnings call and subsequent quarters. Note badly stale prices on some vendors (₹1,500–1,750) — use the live NSE quote.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Refresh of an 18 May 2026 report, incorporating today's Q1 FY27 result. CMP ₹3,858.70 (NSE, 31 Jul; +20%, ATH); some vendors show stale prices — verify vs NSE/BSE. Trailing P/E (~100x+) is distorted by the earnings inflection; a single quarter's 23% margin is not yet a proven durable level. Consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Yasho Industries Ltd</b> — NSE: YASHO · BSE: 541167 · ISIN: INE616Y01011 · Specialty &amp; Fine Chemicals (Food Antioxidants, Aroma, Rubber Chemicals, Lubricant Additives, Specialty) · Mumbai / Vapi &amp; Pakhajan, Gujarat<br>
+  Report generated 31 July 2026 (REFRESH — supersedes 18 May 2026 report; prior report retained) · Incorporates Q1 FY27 results reported 31 Jul 2026.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q1 FY27 result &amp; BSE-NSE filings (reported 31 Jul 2026), Free Press Journal, Groww, Screener.in, ScanX, BlinkX, Business Standard, Univest, INDmoney, Bajaj Finserv, HDFC Securities, Trendlyne, SimplyWall.st. Key figures: Q1 FY27 (consolidated, reported 31 Jul 2026) revenue from operations ₹307.74 Cr (+54.98% YoY vs ₹198.64 Cr), total income ₹309.06 Cr (+55.29% vs ₹199.02 Cr), PAT ₹36.05 Cr (+887.41% vs ₹3.64 Cr), EBITDA ~₹73 Cr (+114% YoY), EBITDA margin 23.2% (from 17.2% YoY), EPS ₹29.90 (from ₹3.02), total expenses ₹260.08 Cr (+34.57%). FY26: revenue ₹830 Cr (+22.7%), PAT ₹25.26 Cr (+314% vs ₹6.1 Cr), EPS ₹20.95 (from ₹5.32), EBITDA ~17.4% margin, volume +33%, OCF ₹152.75 Cr, Debt/EBITDA 3.75x (from 4.70x FY25); Q4 FY26 revenue ₹246.72 Cr, PAT ₹12.26 Cr (+143.7%), EBITDA ₹44.72 Cr. Ratings: CRISIL upgrade to A/Stable &amp; A2 from BBB/Positive (₹200 Cr facilities to A-/Stable/A2+ noted 30 Jul); ICRA 'A' Stable on ₹500 Cr facilities (₹218.25 Cr term loans + ₹225 Cr fund/non-fund + ₹56.75 Cr unallocated). Borrowing/charge limit proposed up to ₹1,250 Cr. 15-year MNC lubricant-additive contract: ₹150 Cr/yr from Q4 FY27, customer-funded Pakhajan facility, ₹51.4 Cr advance, pre-agreed price formula. FY27 capex ₹125 Cr (internal accruals), 26,000 TPA target; R&D centre Pakhajan (40 chemists, ₹23 Cr). FY28 target ₹1,500 Cr revenue / 20%+ EBITDA margin. 148 products across 5 verticals; exports ~62–68%; industrial ~86–87% of revenue; plants Vapi &amp; Pakhajan (Dahej, 20,000 MTPA); subsidiaries in Netherlands (2021) and US (2024). Founded 1985 (as Vasu Preservatives), renamed Yasho 1996; MD &amp; CEO Parag Jhaveri, Chairman Vinod Jhaveri, CFO Chirag Shah. Ashish Kacholia trimmed stake in Q1 FY27. FY26 dividend ₹0.50/share; 40th AGM 6 Aug 2026; earnings call 3 Aug 2026. <b>DATA CAVEAT: CMP ₹3,858.70 (NSE, 31 Jul 2026, +20.00% to all-time high); market cap ~₹4,541.90 Cr (Bajaj) on ~1.18 Cr shares; promoter 67.9%; 52-wk ₹1,130–₹3,858.70. TRAILING P/E is very high (~100x+, distorted by the earnings inflection) — use forward/normalised. Several vendors show STALE prices (SimplyWall.st ₹1,497–1,752, Tipranks ₹1,590) — IGNORE. Face value ₹10. All figures approximate; verify vs NSE/BSE and filed results.</b> Trendlyne: "Strong Performer, Getting Expensive" (momentum 67.6/100). This REFRESH supersedes the 18 May 2026 Yasho report (retained separately). Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Yasho Industries Limited
+Ticker: NSE: YASHO / BSE: 541167
+Sector: Specialty & Fine Chemicals (Food Antioxidants, Aroma, Rubber Chemicals, Lubricant Additives, Specialty)
+Report Date: July 31, 2026 (REFRESH - incorporates Q1 FY27 reported SAME DAY; supersedes May 18 2026 report which is RETAINED separately as yasho_industries_equity_research.html)
+File: yasho_industries_equity_research_jul2026.html
+CMP at Report: ₹3,858.70 (NSE, 31 Jul 2026, +20% to ALL-TIME HIGH on Q1 result; some vendors STALE ₹1,500-1,750 - ignore)
+Market Cap: ~₹4,542 Cr (~1.18 Cr shares)
+*** TRANSFORMATIONAL Q1 FY27 (reported 31 Jul 2026): revenue ₹307.74 Cr (+54.98% YoY), PAT ₹36.05 Cr (+887.41% YoY - SINGLE QUARTER EXCEEDS ENTIRE FY26 PAT of ₹25.26 Cr), EBITDA ₹73 Cr (+114%), EBITDA MARGIN 23.2% (from 17.2% - +6pp STEP-CHANGE), EPS ₹29.90 (from ₹3.02) ***
+FY26 (prior report basis): revenue ₹830 Cr (+22.7%), PAT ₹25.26 Cr (+314%), EBITDA ~17.4%, volume +33%, OCF ₹152.75 Cr, Debt/EBITDA 3.75x
+RATINGS UPGRADE: CRISIL to A/Stable from BBB/Positive (two-notch); ICRA 'A' Stable ₹500 Cr; borrowing limit proposed ₹1,250 Cr
+KEY THEME: long-promised margin INFLECTION HAS ARRIVED - from thin-margin leveraged compounder to proven 23% EBITDA + deleveraging; but stock re-rated violently (+114% YTD, +20% today to ATH)
+15-YR MNC CONTRACT: ₹150 Cr/yr lubricant additives from Q4 FY27, CUSTOMER-FUNDED capex (₹51.4 Cr advance), pre-agreed price - still ahead as catalyst
+Business: 148 products/5 verticals, exports 62-68%, China+1 beneficiary, Vapi+Pakhajan Gujarat, R&D 40 chemists, 26k TPA target, FY28 target ₹1,500 Cr/20%+ margin
+Ownership: promoter 67.9% (high/aligned); Ashish Kacholia TRIMMED stake Q1 FY27 (profit-taking into strength - valuation signal)
+CENTRAL QUESTION: is 23.2% EBITDA margin STRUCTURAL or a favourable-quarter PEAK? Entire valuation hinges on margin durability
+Valuation: trailing P/E ~100x+ (distorted by inflection - AVOID); on sustainable ~20% margin FY27 PAT ~₹120-150 Cr → fwd P/E ~30-38x (full but defensible if margin holds)
+KEY RISKS: margin sustainability (central), valuation/ATH euphoria, global price cycles/China competition, US tariff (26% export exposure), leverage (improving), MNC contract execution, small-cap volatility
+Bull Case: ₹4,600-5,800
+Base Case: ₹3,400-4,200
+Bear Case: ₹2,400-3,000
+Primary Valuation Metric: forward P/E + EV/EBITDA on NORMALISED (sustainable-margin) earnings; EBITDA-margin sustainability CRITICAL INDICATOR; Debt/EBITDA operating indicator; trailing P/E AND single-Q-annualised = AVOID
+Investment Type: genuinely improved high-quality specialty-chem franchise with arrived margin inflection + 15-yr contract + China+1 + ratings upgrade, BUT priced for much of it at ATH; "great business, prove-the-margin, watch-the-price"; accumulate on pullbacks/margin proof not chase spike
+NOTE: Aug 3 earnings call + next 1-2 quarters are the referee on margin durability
+-->

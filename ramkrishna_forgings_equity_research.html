@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramkrishna Forgings — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Public+Sans:wght@300;400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --iron:#12100E; --iron-2:#211D19; --iron-3:#332C25;
+    --molten:#E8641E; --molten-dk:#BC4C12; --molten-lt:#F5904F; --molten-gl:rgba(232,100,30,.11);
+    --steel:#5B7A94; --steel-dk:#3F5A70; --steel-lt:#83A0B8; --steel-gl:rgba(91,122,148,.11);
+    --ember:#E8A828; --ember-gl:rgba(232,168,40,.13);
+    --slate:#4A5D8C; --slate-gl:rgba(74,93,140,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#D2492F;
+    --ink-1:#16120E; --ink-2:#443E37; --ink-3:#6F675E;
+    --line:#E7E2DC; --line-2:#F1EDE8; --paper:#FDFCFA; --paper-2:#F7F3EE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Public Sans',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(18,16,14,.12)}
+  h1,h2,h3,h4{font-family:'Archivo','Public Sans',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.12}
+  .mono{font-family:'Azeret Mono',monospace}
+
+  /* HERO — forge / heat-glow motif */
+  .hero{position:relative;background:linear-gradient(150deg,#12100E 0%,#211D19 50%,#332C25 128%);color:#F4EEE7;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-25%;right:-6%;width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(245,144,79,.34),rgba(232,168,40,.16) 52%,transparent 72%);filter:blur(4px)}
+  .sparks{position:absolute;right:80px;top:60px;width:180px;height:170px;z-index:2;opacity:.6}
+  .sparks svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.mo{background:rgba(232,100,30,.2);border-color:rgba(232,100,30,.48);color:#F6B084}
+  .tag.st{background:rgba(91,122,148,.24);border-color:rgba(131,160,184,.48);color:#B6C9D8}
+  .hero h1{font-size:44px;font-weight:900;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .sub{font-size:16.5px;color:#C4BAAF;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:116px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Azeret Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#A99C8D;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:800;font-family:'Archivo','Public Sans',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE098}.down{color:#F2A08E}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--iron);color:#A99C8D;
+    padding:11px 48px;font-family:'Azeret Mono',monospace;font-size:11px}
+  .metabar b{color:#EDE4DA;font-weight:500}
+  .metabar .dot{color:var(--molten-lt)}
+
+  .alert{background:var(--ember-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:#8A6410;font-family:'Azeret Mono',monospace}
+  .alert b{color:var(--iron)}
+  .alert.q1{background:var(--molten-gl);color:var(--molten-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Azeret Mono',monospace;font-size:12px;font-weight:600;color:var(--molten-dk);
+    border:1.5px solid var(--molten);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:800;color:var(--iron)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--molten);background:var(--molten-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.st{border-color:var(--steel);background:var(--steel-gl)}
+  .call.em{border-color:var(--ember);background:var(--ember-gl)}
+  .call.sl{border-color:var(--slate);background:var(--slate-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,73,47,.08)}
+  .call .lab{font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--molten-dk);margin-bottom:5px}
+  .call.st .lab{color:var(--steel-dk)}.call.em .lab{color:#8A6410}.call.sl .lab{color:#3A4C78}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--iron-2);color:#EAE0D6;font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:500}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Azeret Mono',monospace}
+  .tr-hi td{background:var(--molten-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Azeret Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:800;color:var(--iron);letter-spacing:-.02em;font-family:'Archivo','Public Sans',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.m{border-top:3px solid var(--molten)}.card.s{border-top:3px solid var(--steel)}
+  .card.e{border-top:3px solid var(--ember)}.card.l{border-top:3px solid var(--slate)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 10px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--molten);font-size:12px}
+  .vnode .vt{font-size:12px;font-weight:600;color:var(--iron);margin-bottom:3px}
+  .vnode .vd{font-size:10.5px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--molten-gl);border-color:var(--molten)}
+  .vnode.own .vt{color:var(--molten-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:178px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Azeret Mono',monospace;font-weight:500}
+  .bar-val{width:100px;text-align:right;font-family:'Azeret Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.sparks{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,73,47,.06);border-color:rgba(210,73,47,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'Azeret Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;font-family:'Archivo','Public Sans',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--iron);color:#EDE3D8;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,100,30,.32),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Archivo','Public Sans',sans-serif}
+  .bm .bm-sub{font-family:'Azeret Mono',monospace;font-size:11px;color:var(--molten-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#D3C6B8}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#D0C4B6}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Azeret Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--molten);color:#fff}.v-co{background:var(--steel-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#6E5228;color:#F5E2C0}
+  .v-avoid{background:#7A2E1E;color:#F6C9BC}.v-cross{background:#2E3A54;color:#CCD6E8}
+  .bm .onenum{background:rgba(91,122,148,.18);border:1px solid rgba(131,160,184,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#C4D4E0;position:relative}
+  .bm .onenum b{color:#9FC0D4}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Azeret Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--iron)}
+  .stars{color:var(--ember);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Azeret Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--ember)}.rl{background:var(--steel-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--molten),var(--steel))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--molten);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--molten)}
+  .tli .ty{font-family:'Azeret Mono',monospace;font-weight:600;font-size:12.5px;color:var(--molten-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Azeret Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:800;color:var(--iron);font-family:'Archivo','Public Sans',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Azeret Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,73,47,.14);color:var(--red)}
+  .b-neut{background:rgba(232,168,40,.2);color:#8A6410}
+
+  .foot{background:var(--iron);color:#96897B;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#D0C4B6}
+  .disc{font-size:10.5px;color:#6F675E;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="sparks">
+    <svg viewBox="0 0 180 170" fill="none">
+      <rect x="30" y="120" width="120" height="18" rx="3" fill="#5B7A94" opacity="0.4"/>
+      <path d="M90 120 L78 60 L102 60 Z" fill="#E8641E" opacity="0.6"/>
+      <circle cx="90" cy="52" r="14" fill="#F5904F" opacity="0.7"/>
+      <g stroke="#E8A828" stroke-width="2" opacity="0.7" stroke-linecap="round">
+        <line x1="90" y1="30" x2="90" y2="14"/><line x1="72" y1="38" x2="60" y2="24"/>
+        <line x1="108" y1="38" x2="120" y2="24"/><line x1="66" y1="52" x2="48" y2="50"/>
+        <line x1="114" y1="52" x2="132" y2="50"/>
+      </g>
+      <g fill="#F5904F" opacity="0.8">
+        <circle cx="58" cy="20" r="2.5"/><circle cx="126" cy="22" r="2.5"/><circle cx="44" cy="44" r="2"/><circle cx="138" cy="46" r="2"/><circle cx="90" cy="8" r="2"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: RKFORGE</span>
+      <span class="tag">BSE: 532527</span>
+      <span class="tag mo">Largest Forging Co. in Eastern India</span>
+      <span class="tag st">CV · Railways · Casting · Exports</span>
+    </div>
+    <h1>Ramkrishna Forgings</h1>
+    <div class="sub">A cyclical <b>commercial-vehicle forging leader emerging from a trough</b> — margins at multi-quarter highs, profit up ~4x off a low base — and reinventing itself through <b>railways, rail-wheels and casting</b>. The story is real; the trailing multiple is a cyclical illusion.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹580</div><div class="d down">−17% 1yr</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹10,600 Cr</div><div class="d">mid/small-cap</div></div>
+      <div class="qs"><div class="k">Q1'27 Revenue</div><div class="v">₹1,217 Cr</div><div class="d up">+19.8% YoY</div></div>
+      <div class="qs"><div class="k">Q1'27 PAT</div><div class="v">₹46.9 Cr</div><div class="d up">+298% YoY</div></div>
+      <div class="qs"><div class="k">Q1 EBITDA mgn</div><div class="v">17.96%</div><div class="d up">multi-Q high</div></div>
+      <div class="qs"><div class="k">Trailing P/E</div><div class="v">~120x+</div><div class="d down">trough-distorted</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Chairman:</b> Mahabir Prasad Jalan</span>
+  <span class="dot">◆</span>
+  <span><b>MD:</b> Naresh Jalan</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1981 · Kolkata</span>
+  <span class="dot">◆</span>
+  <span><b>Capacity:</b> ~350,000 T (forging + casting)</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹2</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 28 Jul 2026</span>
+</div>
+
+<div class="alert q1">
+  ✅ <b>Q1 FY27 JUST REPORTED (24 Jul 2026):</b> Consolidated revenue ₹1,216.67 Cr (+19.83% YoY, flat QoQ), PAT ₹46.88 Cr (+297.63% YoY, −16.2% QoQ), EBITDA margin 17.96% (highest in recent quarters). Management: "the beginning of the best period for RKFL." ₹170 Cr capex announced.
+</div>
+<div class="alert">
+  ⚠ <b>VALUATION-OPTICS NOTE:</b> Trailing P/E looks extreme (~120–143x) <b>because FY26 profit was cyclically depressed</b> (Q2 FY26 was loss-making). This is a trough-earnings artifact, not a true valuation — see §14. Prices/ratios vary by vendor (CMP ₹565–615, m-cap ₹10,290–11,468 Cr across Jul 2026); verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead">Ramkrishna Forgings Ltd (RKFL) is <strong>the largest forging company in Eastern India and one of the top nationwide</strong> — a manufacturer of open- and closed-die forged, machined and fabricated components in carbon, alloy, micro-alloy and stainless steel. Founded in 1981 and headquartered in Kolkata under the promoter <strong>Jalan family</strong>, it supplies critical drivetrain and chassis parts (axle beams, crankshafts, knuckles, differential gears, spindles, yokes) primarily to the <strong>commercial-vehicle</strong> industry, alongside railways, farm equipment, mining, construction, oil &amp; gas and general engineering — in India and across export markets including North America.</p>
+  <p>The investment story has two intertwined threads. First, <strong>RKFL is a deeply cyclical CV-forging play emerging from a downturn</strong>: FY26 was weak (revenue up only ~5%, with a loss-making Q2), but Q1 FY27 delivered a sharp recovery — profit up ~4x year-on-year and EBITDA margin at a multi-quarter high of ~18%. Second, it is <strong>actively diversifying away from CV-cyclicality</strong> into railways (including a rail-wheel JV with Indian Railways), a new casting business, cold forging for passenger vehicles, and value-added exports. Management calls this "the beginning of the best period for RKFL."</p>
+  <div class="cards">
+    <div class="card m"><div class="k">Q1 FY27 Revenue</div><div class="v">₹1,216.7 Cr</div><div class="d up">+19.83% YoY</div></div>
+    <div class="card s"><div class="k">Q1 FY27 PAT</div><div class="v">₹46.88 Cr</div><div class="d up">+297.63% YoY</div></div>
+    <div class="card e"><div class="k">FY26 Revenue</div><div class="v">₹4,238 Cr</div><div class="d up">+5.05%</div></div>
+    <div class="card l"><div class="k">Capacity util. target</div><div class="v">80–85%</div><div class="d">FY27 (from ~70%)</div></div>
+  </div>
+  <div class="call st">
+    <div class="lab">The central framing: a cyclical at an inflection, valued on trough earnings</div>
+    The most important thing to understand about RKFL right now is that <strong>its trailing P/E of ~120x+ is meaningless as a valuation signal</strong> — it's high only because the denominator (FY26 profit) was cyclically crushed. The right lens is <strong>normalised, mid-cycle earnings power</strong> as the CV cycle recovers and diversification adds new profit streams. The question isn't "why is it 120x?" — it's "what can RKFL earn at 80–85% utilisation with railways and casting contributing, and is today's ₹10,600 Cr market cap reasonable against <em>that</em>?"
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1981 · Founded</div><div class="td">Incorporated as Ramkrishna Forgings Pvt Ltd in Kolkata; became a public company in 1995. Built a forging franchise serving India's commercial-vehicle industry.</div></div>
+    <div class="tli"><div class="ty">2000s–2010s · Scale &amp; exports</div><div class="td">Grew into <strong>Eastern India's largest forging company</strong> and a top-3 national player; expanded into export markets (notably North America) supplying axle and drivetrain forgings to global CV OEMs and Tier-1s.</div></div>
+    <div class="tli"><div class="ty">2020–2021 · Capacity &amp; capability</div><div class="td">Commissioned a hollow-spindle line, press line, warm-forging line and fabrication facilities; expanded machining (CNC turning, gear cutting, HMC/VMC) — moving up the value chain toward machined, higher-margin components.</div></div>
+    <div class="tli"><div class="ty">2023–FY25 · Diversification push</div><div class="td">Incorporated RKFL Engineering Industry (2023); entered <strong>castings</strong> and <strong>railways</strong>; pursued the <strong>rail-wheel JV with Indian Railways</strong>; raised capital (QIP, convertible warrants) for debt repayment and growth. FY25 revenue ~₹4,034 Cr.</td></div></div>
+    <div class="tli"><div class="ty">FY26 · Cyclical trough</div><div class="td">A tough year: revenue up only ~5% to ₹4,238 Cr, <strong>Q2 FY26 loss-making</strong> amid CV slowdown and export/tariff uncertainty — but a strong Q4 (revenue +28%, EBITDA +111%) signalled recovery. Re 1 dividend; casting commercial production began 31 Mar.</td></div></div>
+    <div class="tli"><div class="ty">Q1 FY27 · Inflection</div><div class="td">Profit +298% YoY, EBITDA margin ~18% (multi-quarter high), railways up to 6% of revenue. Management flags "the best period for RKFL"; FY27 guidance of 80–85% utilisation, ₹400–500 Cr debt reduction, rail-wheel JV contribution.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Value Chain</h2></div>
+  <p>RKFL converts <strong>steel into precision forged and machined components</strong> — heating billets, forging them to shape under presses/hammers, then machining, heat-treating and finishing to exacting drivetrain/chassis specs. Value increasingly accrues from the shift toward <strong>machined and value-added parts</strong> (not just raw forgings) and toward <strong>higher-margin end-segments</strong> (railways, exports) beyond commodity CV forging.</p>
+  <div class="vchain">
+    <div class="vnode"><div class="vt">Steel billets</div><div class="vd">Carbon / alloy / micro-alloy / stainless</div></div>
+    <div class="vnode own"><div class="vt">Forging</div><div class="vd">Open/closed die; presses, hammers, warm/cold lines</div></div>
+    <div class="vnode own"><div class="vt">Machining</div><div class="vd">CNC, gear cutting, HMC/VMC — value-add</div></div>
+    <div class="vnode own"><div class="vt">Casting (new)</div><div class="vd">ACIL / standalone; commercial from FY26-end</div></div>
+    <div class="vnode"><div class="vt">OEMs / Tier-1s</div><div class="vd">CV, railways, farm, exports (N. America)</div></div>
+  </div>
+  <div class="call em">
+    <div class="lab">Operating leverage is the whole margin story</div>
+    Forging is a <strong>high-fixed-cost, capital-intensive business</strong> — plants must run at high utilisation to be profitable. That's why RKFL's earnings swing so violently: at ~70% utilisation (FY26) margins and profit are squeezed; pushing toward <strong>80–85% (the FY27 target)</strong> drops incremental revenue through to profit with powerful operating leverage. The Q1 FY27 EBITDA margin of ~18% (vs a loss-making Q2 FY26) shows this leverage flipping positive. Utilisation is the number that drives everything — track it above all.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The Diversification Story</h2></div>
+  <p>RKFL's strategic thrust is reducing its dependence on the cyclical Indian CV market. The Q1 FY27 revenue mix shows the shift underway:</p>
+  <div class="bar-row"><div class="bar-lab">Domestic auto (CV-led)</div><div class="bar-track"><div class="bar-fill" style="width:49%;background:var(--molten)">48.8%</div></div><div class="bar-val">largest, ↓ share</div></div>
+  <div class="bar-row"><div class="bar-lab">Exports (incl. N. America)</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--steel)">~30%</div></div><div class="bar-val">value-added</div></div>
+  <div class="bar-row"><div class="bar-lab">Railways</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--ember)">6.0%</div></div><div class="bar-val">1.7%→6% since FY22</div></div>
+  <div class="bar-row"><div class="bar-lab">Other (farm/mining/industrial/casting)</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--slate)">balance</div></div><div class="bar-val">growing</div></div>
+  <table>
+    <tr><th>New engine</th><th>What it is</th><th class="mono">FY27 signpost</th></tr>
+    <tr class="tr-hi"><td><strong>Rail Wheel JV</strong></td><td>JV to supply forged wheels to Indian Railways</td><td class="mono">₹400–450 Cr rev / 40,000 wheels</td></tr>
+    <tr><td><strong>Railways (components)</strong></td><td>Forgings for wagons/coaches; 1.7%→6% of mix</td><td class="mono">Scaling fast</td></tr>
+    <tr><td><strong>Casting business</strong></td><td>Standalone casting; commercial from 31 Mar 2026</td><td class="mono">New capacity ramp</td></tr>
+    <tr><td><strong>Cold forging</strong></td><td>PV components; ~40% util, global approvals pending</td><td class="mono">PV market entry</td></tr>
+    <tr><td><strong>Trailer axles</strong></td><td>North America / exports</td><td class="mono">₹250 Cr (doubling)</td></tr>
+  </table>
+  <div class="call st">
+    <div class="lab">Why diversification is the real re-rating driver</div>
+    A pure CV-forging company deserves a cyclical multiple. But if RKFL genuinely builds <strong>structural, less-cyclical revenue streams</strong> — a rail-wheel JV with a captive Indian Railways offtake, a growing railways-components book, castings, and PV cold forging — it can <strong>lift both its through-cycle growth rate and the multiple the market assigns it</strong>. Railways rising from 1.7% to 6% of revenue in a few years is real evidence the pivot is working. The rail-wheel JV (₹400–450 Cr target) is the marquee piece. This is what could turn RKFL from a cyclical trading stock into a structural compounder — <em>if</em> executed.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Q1 FY27 Result, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue (₹ Cr)</td><td class="mono">1,015.3</td><td class="mono">1,216.8</td><td class="mono">1,216.7</td><td class="mono up">+19.83%</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">14.6%</td><td class="mono">~17.1%</td><td class="mono">17.96%</td><td class="mono up">+~340 bps</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">11.79</td><td class="mono">55.94</td><td class="mono">46.88</td><td class="mono up">+297.63%</td></tr>
+  </table>
+  <ul class="tight">
+    <li><strong>Revenue +19.8% YoY</strong> but <strong>flat QoQ</strong> (₹1,216.7 Cr vs ₹1,216.8 Cr) — top-line growth has stalled sequentially; the YoY jump flatters against a weak Q1 FY26 base.</li>
+    <li><strong>EBITDA margin ~18%</strong> — the highest in recent memory, the real story: profit rose on <strong>margin expansion and cost discipline</strong>, not volume growth.</li>
+    <li><strong>PAT +298% YoY</strong> off a depressed ₹11.79 Cr base — impressive but base-effect-flattered; <strong>−16% QoQ</strong> because Q4 FY26's ₹55.94 Cr was boosted by <strong>one-time tax benefits and other income</strong>.</li>
+  </ul>
+  <div class="call em">
+    <div class="lab">A genuine margin recovery — but read the two caveats honestly</div>
+    The quarter shows the <strong>operating leverage and mix-improvement thesis working</strong>: margins at multi-quarter highs as the cycle turns and value-added/railways grow. That's real and encouraging. <strong>But:</strong> (1) the +298% YoY is off a trough base and revenue was <em>flat sequentially</em> — this is a <strong>margin story, not yet a volume-growth story</strong>; and (2) the prior quarter's profit had one-offs, so the QoQ dip isn't deterioration. Net: quality of the <em>margin</em> improvement is good; sustainability depends on volume growth resuming as utilisation climbs. Don't extrapolate 298% growth.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Arena</th><th>Competitors</th><th>RKFL's position</th></tr>
+    <tr class="tr-hi"><td><strong>CV forgings (India)</strong></td><td>Bharat Forge, CIE Automotive, Happy Forgings</td><td>Top-3 nationally; largest in East India</td></tr>
+    <tr><td><strong>Exports (drivetrain)</strong></td><td>Bharat Forge, global forgers</td><td>Established N. America presence</td></tr>
+    <tr><td><strong>Railways / rail wheels</strong></td><td>SAIL, Titagarh, Jindal, imports</td><td>New JV entrant with Indian Railways offtake</td></tr>
+    <tr><td><strong>Castings</strong></td><td>Numerous foundries</td><td>New entrant; ramping</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">The Bharat Forge shadow</div>
+    RKFL is a strong #2/#3 in Indian forgings but operates in <strong>Bharat Forge's shadow</strong> — a far larger, more diversified, better-margin global leader with deeper defence/industrial exposure. RKFL competes on cost, capacity, machining capability and relationships, not scale leadership. Its diversification (railways, casting, rail wheels) is partly an attempt to build defensible niches where it isn't going head-to-head with the giant. The forging industry is also <strong>OEM-buyer-dominated and steel-cost-exposed</strong>, capping structural pricing power. RKFL's edge is real but it is a challenger, not a category king.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Bharat Forge, CIE, Happy Forgings compete hard; forging is capital-intensive with pressure to fill capacity.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>CV OEMs and global Tier-1s are large, concentrated, and dictate terms; RKFL is a supplier with limited pricing leverage.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Steel is a commodity input; pass-through exists but with lags that hit margins during price swings.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low</td><td>High capital intensity, OEM qualification and capability barriers deter entry — a genuine moat for incumbents.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Moderate</td><td>Castings/fabrication substitute for some forgings; EV transition reshapes (but doesn't eliminate) drivetrain content.</td></tr>
+  </table>
+  <p>Net: a <strong>capital-intensive, buyer-dominated, cyclical industry with meaningful entry barriers</strong>. RKFL enjoys scale and capability advantages over new entrants but faces powerful OEM buyers and a dominant peer. The diversification into railways/rail wheels is strategically aimed at less buyer-concentrated, more structural demand.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Cycle &amp; Utilisation, Dissected</h2></div>
+  <p>Because forging is a fixed-cost, capacity-utilisation game, RKFL's profitability is <strong>dominated by where it sits in the CV cycle</strong>. FY26 was a trough; FY27 is guided as a recovery. The utilisation ramp is the profit engine.</p>
+  <div class="cards">
+    <div class="card m"><div class="k">Forging util. (Q4 FY26)</div><div class="v">~70%</div><div class="d">recovering</div></div>
+    <div class="card s"><div class="k">FY27 target util.</div><div class="v">80–85%</div><div class="d">operating leverage</div></div>
+    <div class="card e"><div class="k">Cold forging util.</div><div class="v">~40%</div><div class="d">PV approvals pending</div></div>
+    <div class="card l"><div class="k">Total capacity</div><div class="v">~350,000 T</div><div class="d">forging + casting</div></div>
+  </div>
+  <div class="call st">
+    <div class="lab">The maths of the recovery</div>
+    Moving overall utilisation from ~70% toward <strong>80–85%</strong> on a ~350,000-tonne base means substantial incremental volume flowing through a largely fixed cost base — which is exactly why Q1 FY27 EBITDA margin jumped to ~18% and why management is optimistic. Cold forging at just ~40% (awaiting global PV approvals) is <strong>additional dormant operating leverage</strong>: if those approvals come, it's a further margin/volume kicker. The flip side: this leverage works in reverse in a downturn (as FY26's loss-making Q2 showed). The cycle giveth and taketh — which is why you value it on <em>mid-cycle</em>, not peak or trough.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Raw Materials &amp; Cost Structure</h2></div>
+  <p>Steel is the dominant input. Like most auto-ancillaries, RKFL operates on <strong>raw-material pass-through</strong> arrangements with OEMs, but with timing lags that pressure margins when steel prices rise sharply. The bigger cost lever, as noted, is <strong>fixed-cost absorption via utilisation</strong> rather than variable material cost.</p>
+  <div class="call em">
+    <div class="lab">Margin drivers, ranked</div>
+    <ul class="tight" style="margin-bottom:0">
+      <li><strong>Utilisation / operating leverage</strong> — the #1 swing factor (70%→85% target).</li>
+      <li><strong>Product mix</strong> — machined &gt; raw forgings; railways/exports &gt; domestic CV commodity parts.</li>
+      <li><strong>Steel-price pass-through timing</strong> — protects margin over time, hurts in sharp up-moves.</li>
+      <li><strong>Cost discipline</strong> — management cited this explicitly for the Q1 FY27 margin high.</li>
+    </ul>
+    The FY27 story is all of these pointing the same way: rising utilisation + richer mix + cost control = the ~18% EBITDA margin, up from a loss-making trough. Whether ~18% holds or was a favourable-quarter high is the key watch-item.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Guidance</h2></div>
+  <p>RKFL is a <strong>promoter-run Jalan family business</strong> — Mahabir Prasad Jalan (Chairman), Naresh Jalan (MD), Chaitanya Jalan (Whole-Time Director), with Lalit Kumar Khetan as ED &amp; CFO. Management has been transparent with detailed guidance and has steered the diversification aggressively.</p>
+  <div class="call st">
+    <div class="lab">FY27 guidance on record</div>
+    <ul class="tight" style="margin-bottom:0">
+      <li><strong>80–85% overall capacity utilisation</strong> (from ~70%).</li>
+      <li><strong>Debt reduction of ₹400–500 Cr</strong> — de-leveraging a key priority.</li>
+      <li><strong>Rail-wheel JV: ₹400–450 Cr revenue</strong> from ~40,000 wheels to Indian Railways.</li>
+      <li><strong>Trailer-axle revenue doubling to ₹250 Cr.</strong></li>
+      <li><strong>Capex capped ~₹400 Cr</strong>, focused on value-added segments + JV; a further ₹170 Cr capex announced with Q1.</li>
+      <li>Management framing: "the beginning of the best period for RKFL."</li>
+    </ul>
+  </div>
+  <div class="call red">
+    <div class="lab">Credit the transparency, watch the delivery &amp; the balance sheet</div>
+    The guidance is specific and the diversification is genuinely progressing (railways at 6%, casting live, JV imminent). <strong>But two cautions:</strong> (1) management has been <em>optimistic before</em> — FY26 guidance for a H2 margin recovery was only partly borne out, and the CV cycle is outside its control; (2) the balance sheet carries meaningful debt (D/E ~0.69) and <strong>low interest coverage</strong> (Screener flag), which is why debt reduction is a stated priority. Optimism plus a levered, cyclical balance sheet means execution and de-leveraging must both land. Treat the bullish framing as a target, not a certainty.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capex, Debt &amp; Balance Sheet</h2></div>
+  <div class="cards">
+    <div class="card m"><div class="k">Debt/Equity</div><div class="v">~0.69</div><div class="d">moderate-high</div></div>
+    <div class="card s"><div class="k">FY27 debt cut</div><div class="v">₹400–500 Cr</div><div class="d">guided priority</div></div>
+    <div class="card e"><div class="k">FY27 capex</div><div class="v">~₹400 Cr</div><div class="d">+ ₹170 Cr Q1</div></div>
+    <div class="card l"><div class="k">Interest coverage</div><div class="v">Low</div><div class="d">Screener flag</div></div>
+  </div>
+  <p>RKFL raised capital via a <strong>QIP (39.2 lakh shares) and 34 lakh convertible warrants</strong> (with India Ratings confirming no deviation in use of proceeds — debt repayment + general corporate purposes). The balance sheet carries <strong>moderate-to-high leverage (D/E ~0.69) with low interest coverage</strong> — a real vulnerability for a cyclical, which is why management has prioritised <strong>₹400–500 Cr of debt reduction in FY27</strong> alongside disciplined, value-added-focused capex (~₹400 Cr cap).</p>
+  <div class="call red">
+    <div class="lab">Leverage is the amplifier — in both directions</div>
+    For a cyclical forger, debt magnifies the swings: in the downturn (FY26), low interest coverage and fixed costs turned a revenue dip into a loss-making quarter; in the upturn, de-leveraging + operating leverage compound the profit recovery. The FY27 plan — grow utilisation, cut debt ₹400–500 Cr, spend capex only on value-added/JV — is the <strong>right playbook to reduce the cyclical fragility</strong>. Success would meaningfully de-risk the equity; failure (if the cycle stalls) would leave a levered balance sheet exposed. Debt reduction delivery is a core watch-item alongside utilisation.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>CV cycle recovery</strong></td><td>Utilisation 70%→85%; operating leverage</td><td class="mono">Cyclical, powerful ★★★★</td></tr>
+    <tr><td><strong>Rail Wheel JV</strong></td><td>₹400–450 Cr, Indian Railways offtake</td><td class="mono">Structural ★★★★</td></tr>
+    <tr><td><strong>Railways components</strong></td><td>1.7%→6% of mix, growing</td><td class="mono">De-cyclicalising ★★★★</td></tr>
+    <tr><td><strong>Casting business</strong></td><td>New capacity, commercial from FY26-end</td><td class="mono">New engine ★★★</td></tr>
+    <tr><td><strong>Cold forging (PV)</strong></td><td>~40% util; global approvals pending</td><td class="mono">Dormant leverage ★★★</td></tr>
+    <tr><td><strong>Value-added mix + machining</strong></td><td>Machined parts, exports, trailer axles</td><td class="mono">Margin ★★★★</td></tr>
+    <tr><td><strong>De-leveraging</strong></td><td>₹400–500 Cr debt cut → lower interest</td><td class="mono">De-risking ★★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Consolidated (₹ Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue</td><td class="mono">4,034</td><td class="mono">4,238</td><td class="mono up">+5.05%</td></tr>
+    <tr><td>Q4 revenue</td><td class="mono">947</td><td class="mono">1,216.8</td><td class="mono up">+28.4%</td></tr>
+    <tr><td>Q4 EBITDA</td><td class="mono">~99</td><td class="mono">208.2</td><td class="mono up">+111%</td></tr>
+    <tr><td>Dividend</td><td class="mono">—</td><td class="mono">Re 1</td><td class="mono">FV ₹2</td></tr>
+    <tr><td>D/E</td><td class="mono">~0.7</td><td class="mono">~0.69</td><td class="mono">moderate</td></tr>
+  </table>
+  <table>
+    <tr><th>Quarterly FY26→27 (₹ Cr)</th><th class="mono">Q1'26</th><th class="mono">Q2'26</th><th class="mono">Q4'26</th><th class="mono">Q1'27</th></tr>
+    <tr><td>Revenue</td><td class="mono">1,015</td><td class="mono">weak</td><td class="mono">1,217</td><td class="mono">1,217</td></tr>
+    <tr><td>PAT</td><td class="mono">11.79</td><td class="mono">loss</td><td class="mono">55.94*</td><td class="mono">46.88</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--ink-3)">*Q4 FY26 PAT boosted by one-time tax benefits + other income. The FY26 full-year profit was cyclically depressed — the reason trailing P/E looks extreme.</p>
+  <div class="two">
+    <div>
+      <div class="call st">
+        <div class="lab">The recovery signal</div>
+        The sequence — loss-making Q2 FY26 → strong Q4 (revenue +28%, EBITDA +111%) → Q1 FY27 margin at ~18% — is a clear <strong>trough-to-recovery arc</strong>. FY26 revenue barely grew (+5%), but the exit trajectory and margin expansion point to a much healthier FY27 earnings base as utilisation and diversification build.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The sobering context</div>
+        This is a <strong>cyclical that just went through a bad patch</strong>: a loss-making quarter, only 5% annual revenue growth, low interest coverage, moderate leverage, and a stock down ~17% over a year (and ~45% below its Oct-2024 ATH of ₹1,064). Q1 revenue was flat QoQ — the volume recovery isn't fully proven yet. Trailing P/E of 120x+ reflects the trough, not durable expensiveness — but it's a reminder earnings are volatile.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>RKFL is a <strong>textbook cyclical-valuation trap in both directions</strong>: the trailing P/E of ~120–143x screams "expensive," but that's purely because FY26 earnings were trough-depressed. Meanwhile P/B (~3.0x) is more stable and says the market is paying a moderate premium to book for a recovering, diversifying franchise. Neither trailing P/E nor a single quarter annualised is the right anchor — <strong>mid-cycle normalised earnings are.</strong></p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Ramkrishna Forgings</h3>
+    <div class="bm-sub">Cyclical, capital-intensive forger mid-recovery → mid-cycle P/E on normalised EPS + EV/EBITDA; trailing &amp; annualised P/E both mislead</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Mid-cycle P/E on normalised EPS</td><td><span class="verdict v-prim">PRIMARY</span></td><td>The only honest lens for a cyclical. Estimate through-cycle EPS at ~80–85% utilisation with railways/casting contributing — not the trough (FY26) or a single strong quarter — and apply a cyclical multiple.</td></tr>
+      <tr><td>EV/EBITDA (forward, normalised)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Neutralises the meaningful debt (D/E 0.69, low interest coverage) and capex intensity; the cleanest cross-cycle comparison vs Bharat Forge/Happy Forgings on a capital-heavy business.</td></tr>
+      <tr><td>Capacity utilisation &amp; EBITDA margin trend</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>The lead indicators of where in the cycle earnings sit. 70%→85% util and ~18% margin holding are what validate the normalised-earnings assumption.</td></tr>
+      <tr><td>P/B vs normalised ROE</td><td><span class="verdict v-ind">STRUCTURAL LENS</span></td><td>~3x book demands mid-teens ROE through the cycle; useful anchor because book is stable while earnings gyrate.</td></tr>
+      <tr><td>SOTP (forging vs railways/JV vs casting)</td><td><span class="verdict v-cross">CROSS-CHECK</span></td><td>As diversification matures, the less-cyclical railways/rail-wheel/casting pieces may merit higher multiples than base CV forging.</td></tr>
+      <tr><td>Trailing P/E (~120–143x) OR Q1 annualised</td><td><span class="verdict v-avoid">AVOID BOTH</span></td><td>Trailing P/E is trough-inflated (looks absurdly expensive); annualising a recovering quarter is peak-chasing. Both misvalue a cyclical — the classic error at an inflection.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> Annualising Q1 FY27 (PAT ₹46.9 Cr → ~₹188 Cr) is a starting point but likely conservative if the recovery builds and railways/JV/casting add through the year; a reasonable <b>FY27 normalised PAT is ~₹200–260 Cr</b> (well above FY26's depressed level), for EPS of roughly <b>₹11–14</b> on ~18.5 Cr shares. At a cyclical-but-diversifying <b>22–28x</b> mid-cycle multiple, that supports roughly <b>₹280–390</b> on FY27 — <em>below</em> today's ~₹580. On <b>FY28 normalised earnings</b> (full JV + casting + higher utilisation, say ~₹300–360 Cr PAT), the picture improves materially and the current price looks more defensible. So the stock is <b>pricing in FY28+ normalised earnings and successful diversification today</b> — reasonable if you believe the through-cycle story, but with <b>little margin of safety on FY27 alone</b>. Verdict: a quality cyclical at an inflection, <b>fairly-to-fully valued for the recovery it's delivering — attractive on cyclical weakness or once the rail-wheel JV and casting prove out, not obviously cheap at ~₹580.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹400–470</div><div class="sd">CV cycle stalls, US-tariff export drag persists, volume recovery fizzles (Q1's flat QoQ continues), margins slip from 18%, debt reduction lags. Re-rates to trough cyclical levels near 52-wk low.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹540–660</div><div class="sd">Utilisation climbs to ~80%, margins hold ~16–18%, railways/JV/casting ramp on plan, debt falls ₹400–500 Cr. Normalised earnings compound; stock tracks the recovery around current levels.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹760–950</div><div class="sd">Full CV upcycle + rail-wheel JV at scale + casting + PV cold-forging approvals; margins sustain ~18%+, ROE to mid-teens, diversification earns a structural re-rating back toward historic highs (~₹1,000).</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">MarketsMojo rates it "Sell" citing valuation; the stock sits ~45% below its Oct-2024 ATH of ₹1,064. Scenario prices assume no severe global CV/tariff shock. Verify CMP/ratios vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>CV-cycle cyclicality — dominant risk</strong>~49% of revenue is domestic auto (CV-led), a deeply cyclical, capital-intensive business with high operating leverage. FY26's loss-making Q2 shows how fast a downturn hits profit. The recovery thesis depends on the cycle staying supportive.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Leverage &amp; low interest coverage</strong>D/E ~0.69 with low interest coverage (Screener flag) amplifies cyclical swings. Debt reduction (₹400–500 Cr guided) must be delivered; if the cycle stalls, the levered balance sheet is exposed.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Valuation / earnings volatility</strong>Trailing P/E ~120x+ (trough-distorted) and ~3x book leave little margin of safety on FY27 earnings; the price already discounts a successful FY28 normalisation. Cyclical earnings are inherently hard to value and volatile.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Export / US-tariff uncertainty</strong>Meaningful export exposure (incl. North America) faces tariff and global-demand uncertainty — management cited export slowdown as a FY26 headwind; it could recur.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Execution of diversification</strong>The re-rating case rests on the rail-wheel JV (₹400–450 Cr), casting ramp, and cold-forging PV approvals delivering. Delays or under-delivery would leave RKFL a pure cyclical at a full price.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Volume growth not yet proven</strong>Q1 FY27 revenue was flat QoQ — the profit jump was margin-led, not volume-led. Sustained top-line growth must resume to validate the "best period" framing.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Steel-price &amp; EV-transition</strong>Steel-cost pass-through lags pressure margins in price spikes; the long-run EV transition reshapes drivetrain content (a slow, manageable but real structural consideration).</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Market position</div><div class="scv">Top-3 forger <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Diversification</div><div class="scv">Railways/JV/casting <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Q1 margin recovery</div><div class="scv">~18% EBITDA <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Operating leverage</div><div class="scv">Util 70→85% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Cyclicality</div><div class="scv">CV-heavy <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Levered, low ICR <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Volume growth</div><div class="scv">Flat QoQ <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Management/guidance</div><div class="scv">Transparent, bullish <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation comfort</div><div class="scv">Full on FY27 <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Ramkrishna Forgings is a <strong>top-tier Indian forging leader emerging from a cyclical trough, with margins at multi-quarter highs (~18% EBITDA), profit up ~4x off a low base, and a genuine, progressing diversification into railways, a rail-wheel JV with Indian Railways, casting and value-added exports</strong> that could structurally de-cyclicalise the business and earn a re-rating. Management's "best period for RKFL" framing has real support in the numbers. <strong>But the core remains a deeply cyclical, capital-intensive, moderately-levered CV forger with low interest coverage, meaningful export/tariff exposure, and — crucially — a trailing P/E (~120x+) that is a trough-earnings illusion rather than a valuation signal.</strong> Valued honestly on <strong>mid-cycle normalised earnings</strong>, the stock at ~₹580 is <strong>fairly-to-fully priced for the FY27–FY28 recovery it's delivering</strong> — it already embeds successful normalisation and diversification. <strong>This is a quality cyclical at an inflection to accumulate on weakness or on proof-points (rail-wheel JV at scale, casting ramp, sustained volume growth + de-leveraging), not an obvious bargain at today's price. Value it on normalised EPS and EV/EBITDA — never on the trailing or single-quarter-annualised P/E — and watch utilisation, the diversification ramp, and debt reduction above all.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">24 Jul 2026</td><td><strong>Q1 FY27 results:</strong> consol revenue ₹1,216.67 Cr (+19.83% YoY, flat QoQ), PAT ₹46.88 Cr (+297.63% YoY, −16.2% QoQ), EBITDA margin 17.96% (multi-quarter high). ₹170 Cr capex + director redesignation announced. Investor call held; "best period for RKFL."</td></tr>
+    <tr><td class="mono">May 2026</td><td>Casting business (standalone) commenced <strong>commercial production 31 Mar 2026</strong>; railways up to 6% of revenue (from 1.7% in FY22).</td></tr>
+    <tr><td class="mono">3–4 May 2026</td><td><strong>Q4/FY26 results:</strong> Q4 revenue ₹1,216.78 Cr (+28.4%), EBITDA ₹208.2 Cr (+111%); FY26 revenue ₹4,238 Cr (+5.05%); Q4 PAT ₹55.94 Cr (incl. one-time tax benefits). <strong>Re 1 interim dividend;</strong> ESOP allotment; MD re-appointment.</td></tr>
+    <tr><td class="mono">4 May 2026</td><td><strong>FY27 guidance (concall):</strong> 80–85% capacity utilisation; ₹400–500 Cr debt reduction; rail-wheel JV ₹400–450 Cr / 40,000 wheels; trailer-axle revenue doubling to ₹250 Cr; capex capped ~₹400 Cr.</td></tr>
+    <tr><td class="mono">FY26</td><td>QIP (39.2 lakh shares) + 34 lakh convertible warrants; India Ratings confirmed no deviation in use of proceeds (debt repayment + GCP).</td></tr>
+    <tr><td class="mono">Upcoming</td><td>Rail-wheel JV commercial ramp, cold-forging PV approvals, and quarterly utilisation/margin/debt-reduction progress — key FY27 watch-items.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet &amp; De-leveraging</h2></div>
+  <div class="cards">
+    <div class="card m"><div class="k">Debt/Equity</div><div class="v">~0.69</div><div class="d">moderate-high</div></div>
+    <div class="card s"><div class="k">P/B</div><div class="v">~3.0x</div><div class="d">moderate premium</div></div>
+    <div class="card e"><div class="k">ROE</div><div class="v">~14%</div><div class="d">recovering</div></div>
+    <div class="card l"><div class="k">Debt-cut target</div><div class="v">₹400–500 Cr</div><div class="d">FY27</div></div>
+  </div>
+  <p>RKFL carries <strong>moderate-to-high leverage (D/E ~0.69) with low interest coverage</strong> — the balance-sheet fragility typical of a capital-intensive cyclical, and the single biggest reason FY26's downturn stung. Management has made <strong>de-leveraging (₹400–500 Cr in FY27) a headline priority</strong>, funded by improving cash flows from the recovery and disciplined capex. The QIP/warrant raise already went partly to debt repayment.</p>
+  <div class="call st">
+    <div class="lab">The metric that de-risks the equity</div>
+    For a levered cyclical, <strong>net debt reduction + interest-coverage improvement</strong> matter as much as earnings. If FY27 delivers the guided ₹400–500 Cr debt cut alongside rising utilisation, RKFL's cyclical fragility falls sharply — lower fixed financial costs mean future downturns hurt less and the through-cycle earnings stream becomes more valuable (and more highly rated). Conversely, if the cycle stalls before de-leveraging happens, the low interest coverage is a genuine risk. <strong>Track net debt, interest coverage and operating cash flow each quarter</strong> — they, together with utilisation, decide whether the recovery is durable.
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Recovering <span class="badge b-neut">off lows</span></div><div class="tkd">+10% 6M, −17% 1yr</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹580</div><div class="tkd">late Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹460 – 691</div><div class="tkd">mid-range</div></div>
+    <div class="tk"><div class="tkl">All-time high</div><div class="tkv">₹1,064</div><div class="tkd">Oct 2024 (~45% below)</div></div>
+    <div class="tk"><div class="tkl">Support</div><div class="tkv">₹500–520</div><div class="tkd">recent base</div></div>
+    <div class="tk"><div class="tkl">Rating flag</div><div class="tkv">MMojo Sell</div><div class="tkd">valuation-based</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">RKFL is <strong>recovering off its December 2025 low (~₹460–473) but still ~45% below its October 2024 all-time high of ₹1,064</strong> and down ~17% over the past year — a classic cyclical that de-rated hard through the downturn and is now basing/recovering. The Q1 FY27 result drew a muted market reaction (stock roughly flat), suggesting investors are weighing the strong margin recovery against the full trailing multiple and unproven volume growth. The ₹500–520 zone is recent support; ₹630–690 is overhead resistance. As a cyclical, moves will track CV-cycle data, utilisation prints and diversification news more than chart patterns.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Figures vary across vendors (CMP ₹565–615, m-cap ₹10,290–11,468 Cr, trailing P/E ~120–143x — trough-distorted); Q1 FY27 profit is base-effect-flattered. Verify against company filings and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Ramkrishna Forgings Ltd</b> — NSE: RKFORGE · BSE: 532527 · ISIN: INE399G01023 · Forged, Machined &amp; Fabricated Components · Commercial Vehicles · Railways · Casting · Exports<br>
+  Report generated 28 July 2026 · Data through Q1 FY27 (quarter ended 30 Jun 2026), reported 24 Jul 2026.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q1 FY27 / Q4 FY26 investor presentations, earnings calls &amp; BSE-NSE filings, EquityBulls, Investing.com, MarketsMojo, ScanX, InvestyWise, Screener.in, Value Research, Kotak Neo, Bajaj Finserv, SimplyWall.st, Business Standard. Key figures: Q1 FY27 consolidated revenue ₹1,216.67 Cr (+19.83% YoY vs ₹1,015.26 Cr; −0.01% QoQ vs ₹1,216.78 Cr), PAT ₹46.88 Cr (+297.63% YoY vs ₹11.79 Cr; −16.2% QoQ vs ₹55.94 Cr), EBITDA margin 17.96%; ₹170 Cr capex announced. Q1 FY26 EBITDA margin 14.6%, new orders ₹683 Cr (incl. ₹502 Cr exports), production 44,170 T at 69% utilisation. FY26: consolidated revenue ₹4,238.08 Cr (+5.05% vs ₹4,034.11 Cr); Q4 FY26 revenue ₹1,216.78 Cr (+28.44%), EBITDA ₹208.19 Cr (+111%), PAT ₹55.94 Cr (incl. one-time tax benefits + other income); Q2 FY26 loss-making. Re 1 interim dividend (FV ₹2); ESOP allotment 1,64,413 shares at ₹556; QIP 39,21,568 shares + 34,00,000 convertible warrants + 6,40,000 equity shares on conversion (proceeds: debt repayment + GCP, no deviation per India Ratings). FY27 guidance: 80–85% capacity utilisation (from ~70% Q4 FY26; cold forging ~40%), debt reduction ₹400–500 Cr, rail-wheel JV ₹400–450 Cr revenue / 40,000 wheels to Indian Railways, trailer-axle revenue doubling to ₹250 Cr, capex ≤₹400 Cr; total capacity ~350,000 T (forging + casting); casting commercial production from 31 Mar 2026. Revenue mix Q1 FY27: domestic auto 48.8%, railways 6.0% (from 1.7% FY22), balance exports/farm/industrial/casting. Founded 1981, Kolkata; promoter Jalan family (Chairman Mahabir Prasad Jalan, MD Naresh Jalan, WTD Chaitanya Jalan, ED/CFO Lalit Kumar Khetan); ~2,776 employees; two segments (Forging Components + Others). <b>DATA CAVEAT: prices/ratios vary — CMP ₹565 (13 Jul, Value Research) to ₹615 (27 Jul, Bajaj); market cap ₹10,290–11,468 Cr; trailing P/E ~120–143x (CYCLICALLY DISTORTED — FY26 profit was depressed, so trailing P/E is NOT a valid valuation signal); P/B ~3.0–3.1x; D/E ~0.69; ROE ~14%; 52-wk ₹460.15–₹691.50; ATH ₹1,064 (Oct 2024); face value ₹2; ~18.5 Cr shares. All figures approximate; verify vs NSE/BSE and latest filing.</b> MarketsMojo rates "Sell" on valuation. Normalised estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Ramkrishna Forgings Limited
+Ticker: NSE: RKFORGE / BSE: 532527
+Sector: Auto Ancillary / Forgings (CV drivetrain + Railways + Casting + Exports)
+Report Date: July 28, 2026 (Q1 FY27 just reported Jul 24)
+File: ramkrishna_forgings_equity_research.html
+CMP at Report: ~₹580 (late Jul 2026; ranged ₹565-615; VERIFY vs NSE/BSE)
+Market Cap: ~₹10,600 Cr (varies ₹10,290-11,468 Cr)
+Q1 FY27 Revenue: ₹1,216.67 Cr (+19.83% YoY, FLAT QoQ)
+Q1 FY27 PAT: ₹46.88 Cr (+297.63% YoY off LOW BASE, -16.2% QoQ from Q4's one-off-boosted ₹55.94 Cr)
+Q1 FY27 EBITDA margin: 17.96% (multi-quarter high - margin-led, NOT volume-led recovery)
+FY26: Revenue ₹4,238 Cr (+5.05%); Q4 rev ₹1,216.78 Cr (+28%), EBITDA ₹208 Cr (+111%); Q2 FY26 LOSS-MAKING (cyclical trough)
+KEY THEME: Cyclical CV-forging leader emerging from trough + diversifying (railways 1.7%->6%, Rail Wheel JV ₹400-450 Cr/40k wheels Indian Railways, casting commercial from Mar 31, cold forging PV, trailer axles ₹250 Cr)
+Utilisation: ~70% (Q4 FY26) -> 80-85% target FY27 = operating leverage engine
+Balance sheet: D/E ~0.69, LOW interest coverage; FY27 debt-cut target ₹400-500 Cr; capex ~₹400 Cr + ₹170 Cr Q1
+Valuation: trailing P/E ~120-143x is TROUGH-DISTORTED (NOT a valid signal); P/B ~3.0x
+Bull Case: ₹760-950
+Base Case: ₹540-660
+Bear Case: ₹400-470
+Primary Valuation Metric: Mid-cycle P/E on NORMALISED EPS + forward EV/EBITDA co-primary; trailing P/E AND Q1-annualised P/E = AVOID BOTH (cyclical at inflection)
+Investment Type: Quality cyclical at an inflection + diversification re-rating optionality; fairly-to-fully valued on FY27; accumulate on weakness/proof-points; value on normalised earnings only
+-->
