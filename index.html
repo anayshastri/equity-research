@@ -276,6 +276,27 @@ const SC = {
 };
 const FALLBACK = ["#E8B84B","rgba(232,184,75,0.10)","rgba(232,184,75,0.25)"];
 
+// Auto-assign a stable, distinct color to any sector not in SC above.
+// Same sector name always maps to the same color; no need to edit this file for new sectors.
+const AUTO_PALETTE = [
+  "#A78BFA","#38BDF8","#34D399","#F87171","#FBBF24","#FB923C",
+  "#60A5FA","#2DD4BF","#F472B6","#818CF8","#FB7185","#A3E635",
+  "#E879F9","#22D3EE","#4ADE80","#FCA5A5","#FDBA74","#93C5FD",
+  "#5EEAD4","#F9A8D4","#C4B5FD","#BEF264","#67E8F9","#FCD34D"
+];
+function hexToRgba(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+function colorFor(sector) {
+  if (SC[sector]) return SC[sector];              // curated colors win
+  if (!sector)    return FALLBACK;                // safety net for blank sector
+  let h = 0;
+  for (let i = 0; i < sector.length; i++) h = (h * 31 + sector.charCodeAt(i)) >>> 0;
+  const col = AUTO_PALETTE[h % AUTO_PALETTE.length];
+  return [col, hexToRgba(col, 0.10), hexToRgba(col, 0.25)];
+}
+
 const grid  = document.getElementById('grid');
 const inp   = document.getElementById('search');
 const pills = document.getElementById('pills');
@@ -352,7 +373,7 @@ function render() {
   }
 
   filtered.forEach(r => {
-    const [col, bg, bdr] = SC[r.sector] || FALLBACK;
+    const [col, bg, bdr] = colorFor(r.sector);
     const card = document.createElement('a');
     card.href = r.file;
     card.className = 'card';
