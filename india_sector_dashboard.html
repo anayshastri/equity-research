@@ -227,6 +227,7 @@
     <div class="ctrl-group">
       <label>Sort</label>
       <select id="sort">
+        <option value="pos_desc" selected>% Positive ↓</option>
         <option value="count">Stock count</option>
         <option value="ret_desc">Avg return ↓</option>
         <option value="ret_asc">Avg return ↑</option>
@@ -384,10 +385,14 @@ function barColor(pct){
   return 'var(--red)';
 }
 
-function renderIndustry(ind){
-  const stocks = STOCKS[ind.industry] || [];
+function renderIndustry(ind, rankIndex){
+  const rawStocks = STOCKS[ind.industry] || [];
+  // Group positives together, negatives together at the end; within each group, strongest moves first
+  const stocks = [...rawStocks].sort((a, b) => b.r - a.r);
   const maxMc = Math.max(...stocks.map(s => s.mc), 1);
-  const isOpen = openState[ind.industry] ?? (INDUSTRIES.indexOf(ind) < 8);
+  const isOpen = openState[ind.industry] ?? (rankIndex < 8);
+  const pctPositive = ind.count ? (ind.adv / ind.count * 100) : 0;
+  const pctNegative = ind.count ? (ind.dec / ind.count * 100) : 0;
 
   const tiles = stocks.map(s => `
     <div class="tile" style="width:${tileWidth(s.mc, maxMc)}px; background:${heatColor(s.r)};" title="${s.n} · ₹${s.p} · ${fmtRet(s.r)} · ${fmtMcap(s.mc)} · ${s.dfh}% from 52W high">
@@ -404,6 +409,16 @@ function renderIndustry(ind){
           <div class="meta">${ind.count} stocks · ${fmtMcap(ind.mcap)} combined m-cap · ${ind.adv}▲ ${ind.dec}▼</div>
         </div>
         <div class="ind-metrics">
+          <div class="metric">
+            <div class="mlabel">% Positive</div>
+            <div class="mval" style="color:var(--green)">${fmtPct(pctPositive)}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${pctPositive}%; background:var(--green)"></div></div>
+          </div>
+          <div class="metric">
+            <div class="mlabel">% Negative</div>
+            <div class="mval" style="color:var(--red)">${fmtPct(pctNegative)}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${pctNegative}%; background:var(--red)"></div></div>
+          </div>
           <div class="metric">
             <div class="mlabel">% &gt; DMA 50</div>
             <div class="mval">${fmtPct(ind.pct_above_dma50)}</div>
@@ -446,12 +461,13 @@ function currentList(){
   if (q) list = list.filter(i => i.industry.toLowerCase().includes(q));
 
   switch(sortVal){
+    case 'pos_desc': list.sort((a,b)=> (b.adv/b.count) - (a.adv/a.count)); break;
     case 'ret_desc': list.sort((a,b)=>b.avg_return-a.avg_return); break;
     case 'ret_asc': list.sort((a,b)=>a.avg_return-b.avg_return); break;
     case 'dma200_desc': list.sort((a,b)=>b.pct_above_dma200-a.pct_above_dma200); break;
     case 'nh_desc': list.sort((a,b)=>b.pct_near_high-a.pct_near_high); break;
     case 'az': list.sort((a,b)=>a.industry.localeCompare(b.industry)); break;
-    default: list.sort((a,b)=>b.count-a.count);
+    default: list.sort((a,b)=> (b.adv/b.count) - (a.adv/a.count));
   }
   return list;
 }
@@ -463,7 +479,7 @@ function render(){
     container.innerHTML = `<div class="empty-state">No industries match your filters.</div>`;
     return;
   }
-  container.innerHTML = list.map(renderIndustry).join('');
+  container.innerHTML = list.map((ind, idx) => renderIndustry(ind, idx)).join('');
 }
 
 document.getElementById('search').addEventListener('input', render);
