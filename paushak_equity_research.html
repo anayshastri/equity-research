@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paushak Limited — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slate:#0E1613; --slate-2:#18231F; --slate-3:#22332C;
+    --chlor:#4F9E5B; --chlor-dk:#2F7439; --chlor-lt:#7BD08A; --chlor-gl:rgba(79,158,91,.12);
+    --caut:#E0A72E; --caut-dk:#B57F0E; --caut-lt:#F2C568; --caut-gl:rgba(224,167,46,.13);
+    --teal:#2AA1A8; --teal-dk:#177178; --teal-gl:rgba(42,161,168,.11);
+    --rust:#D26340; --rust-gl:rgba(210,99,64,.10);
+    --green:#2C9E5E; --green-dk:#1A7644; --red:#CE4B44;
+    --ink-1:#0E1613; --ink-2:#3A473F; --ink-3:#66756B;
+    --line:#E4EAE6; --line-2:#EFF3F0; --paper:#FCFDFC; --paper-2:#F4F8F5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'IBM Plex Sans',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(14,22,19,.13)}
+  h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:700;letter-spacing:-.015em;line-height:1.13}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  /* HERO — hexagonal molecule / hazard motif */
+  .hero{position:relative;background:linear-gradient(150deg,#0E1613 0%,#18231F 52%,#22332C 128%);color:#E7F0EA;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-8%;width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(123,208,138,.24),rgba(242,197,104,.13) 55%,transparent 72%);filter:blur(5px)}
+  .hex{position:absolute;right:60px;top:44px;width:170px;height:170px;z-index:2;opacity:.55}
+  .hex svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.ch{background:rgba(79,158,91,.26);border-color:rgba(123,208,138,.5);color:#A6E4B0}
+  .tag.ca{background:rgba(224,167,46,.24);border-color:rgba(242,197,104,.5);color:#F2D492}
+  .hero h1{font-size:44px;font-weight:800;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .sub{font-size:16.5px;color:#AFC0B5;margin-bottom:24px;font-weight:300;max-width:775px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#82998C;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Archivo',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--slate);color:#82998C;
+    padding:11px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px}
+  .metabar b{color:#E3EFE8;font-weight:400}
+  .metabar .dot{color:var(--caut-lt)}
+
+  .alert{background:var(--caut-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--caut-dk);font-family:'IBM Plex Mono',monospace}
+  .alert b{color:var(--slate)}
+  .alert.warn{background:var(--rust-gl);color:#B0402C}
+  .alert.ch{background:var(--chlor-gl);color:var(--chlor-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--chlor-dk);
+    border:1.5px solid var(--chlor);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--slate)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--chlor);background:var(--chlor-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.ca{border-color:var(--caut);background:var(--caut-gl)}
+  .call.te{border-color:var(--teal);background:var(--teal-gl)}
+  .call.ru{border-color:var(--rust);background:var(--rust-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,75,68,.08)}
+  .call .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--chlor-dk);margin-bottom:5px}
+  .call.ca .lab{color:var(--caut-dk)}.call.te .lab{color:var(--teal-dk)}.call.ru .lab{color:#B0402C}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--slate-2);color:#E3EFE8;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'IBM Plex Mono',monospace}
+  .tr-hi td{background:var(--chlor-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--slate);letter-spacing:-.01em;font-family:'Archivo',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.c{border-top:3px solid var(--chlor)}.card.a{border-top:3px solid var(--caut)}
+  .card.t{border-top:3px solid var(--teal)}.card.r{border-top:3px solid var(--rust)}
+
+  /* product family cards */
+  .prod{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  @media(max-width:820px){.prod{grid-template-columns:1fr}}
+  .pcard{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--paper);border-top:3px solid var(--chlor)}
+  .pcard:nth-child(2){border-top-color:var(--teal)}
+  .pcard:nth-child(3){border-top-color:var(--caut)}
+  .pcard:nth-child(4){border-top-color:var(--rust)}
+  .pcard:nth-child(5){border-top-color:var(--chlor-dk)}
+  .pcard .ph{font-family:'Archivo',sans-serif;font-size:15px;font-weight:700;color:var(--slate);margin-bottom:2px}
+  .pcard .pchem{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--teal-dk);margin-bottom:9px}
+  .pcard .pex{font-size:12px;color:var(--ink-3);margin-bottom:9px}
+  .pcard .pex b{color:var(--ink-2);font-weight:600}
+  .pcard .puse{font-size:13px;color:var(--ink-2)}
+  .pcard .puse strong{color:var(--slate)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--chlor);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--slate);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--chlor-gl);border-color:var(--chlor)}
+  .vnode.own .vt{color:var(--chlor-dk)}
+  .vnode.hz{background:var(--rust-gl);border-color:var(--rust)}
+  .vnode.hz .vt{color:#B0402C}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:190px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'IBM Plex Mono',monospace;font-weight:400}
+  .bar-val{width:96px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.hex{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,75,68,.06);border-color:rgba(206,75,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(44,158,94,.07);border-color:rgba(44,158,94,.3)}
+  .scen .st{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Archivo',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--slate);color:#E6F0EA;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(79,158,91,.32),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Archivo',sans-serif}
+  .bm .bm-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--chlor-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C4D6C9}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0D2C6}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--chlor-dk);color:#fff}.v-co{background:var(--teal-dk);color:#fff}
+  .v-ind{background:#1A7644;color:#B6EFCA}.v-sec{background:#3A473F;color:#DCE6E0}
+  .v-avoid{background:#7A2E28;color:#F6C9BF}.v-cross{background:#243B32;color:#C6DACE}
+  .v-crit{background:var(--caut-dk);color:#FBE6B8}
+  .bm .onenum{background:rgba(224,167,46,.14);border:1px solid rgba(242,197,104,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#EDD9A6;position:relative}
+  .bm .onenum b{color:#F2C86A}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--slate)}
+  .stars{color:var(--caut);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--caut-dk)}.rl{background:var(--chlor-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--chlor),var(--caut))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--chlor);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--chlor)}
+  .tli .ty{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;color:var(--chlor-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--slate);font-family:'Archivo',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(44,158,94,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,75,68,.14);color:var(--red)}
+  .b-neut{background:rgba(224,167,46,.2);color:var(--caut-dk)}
+
+  .foot{background:var(--slate);color:#7C9384;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C0D2C6}
+  .disc{font-size:10.5px;color:#66756B;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hex">
+    <svg viewBox="0 0 170 170" fill="none">
+      <polygon points="85,25 130,50 130,100 85,125 40,100 40,50" fill="none" stroke="#7BD08A" stroke-width="1.8" opacity="0.65"/>
+      <g stroke="#7BD08A" stroke-width="1.4" opacity="0.5">
+        <line x1="85" y1="25" x2="85" y2="8"/><line x1="130" y1="50" x2="148" y2="40"/><line x1="130" y1="100" x2="148" y2="110"/>
+        <line x1="40" y1="100" x2="22" y2="110"/><line x1="40" y1="50" x2="22" y2="40"/><line x1="85" y1="125" x2="85" y2="143"/>
+      </g>
+      <circle cx="85" cy="75" r="15" fill="none" stroke="#F2C568" stroke-width="1.5" opacity="0.7"/>
+      <text x="85" y="80" text-anchor="middle" fill="#F2C568" font-size="13" font-family="monospace" opacity="0.85">COCl₂</text>
+      <g fill="#E0A72E" opacity="0.85"><circle cx="85" cy="8" r="3.5"/><circle cx="148" cy="40" r="3.5"/><circle cx="22" cy="110" r="3.5"/></g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: PAUSHAKLTD</span>
+      <span class="tag">BSE: 532742</span>
+      <span class="tag ch">India's #1 Phosgene Chemistry</span>
+      <span class="tag ca">Alembic Group · ~118-yr Pedigree</span>
+    </div>
+    <h1>Paushak Limited</h1>
+    <div class="sub">India's <b>largest phosgene-based specialty-chemicals manufacturer</b> — a niche, high-barrier "picks-and-shovels" toll-chemistry house making the reactive building blocks that go into <b>pharma APIs, agrochemicals, polyurethanes and personal care</b>. A genuine hazmat moat and blue-chip Alembic pedigree — colliding with years of stagnant growth, compressed margins and a premium multiple.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹500</div><div class="d down">−26% 3M earlier</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹1,200–1,550 Cr</div><div class="d">micro-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">~₹216 Cr</div><div class="d down">~flat</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹39.3 Cr</div><div class="d down">margin squeeze</div></div>
+      <div class="qs"><div class="k">P/E · P/B</div><div class="v">~28–30x · ~2.8x</div><div class="d down">premium</div></div>
+      <div class="qs"><div class="k">ROE (3-yr)</div><div class="v">~10%</div><div class="d down">low</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Chairman:</b> Chirayu R. Amin</span>
+  <span class="dot">◆</span>
+  <span><b>Group:</b> Alembic (est. 1907)</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 1972</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Panelav / Vadodara, Gujarat</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹5</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 02 Aug 2026</span>
+</div>
+
+<div class="alert warn">
+  ⚠ <b>WEAK FY26 — MARGIN &amp; RETURNS PRESSURE:</b> Revenue ~flat (~₹216 Cr), PAT ₹39.33 Cr; through-year margin compression (Q2 FY26 PAT −39% YoY, PAT margin 21.5%→14.65%; Q3 EBITDA margin 29.8%→23.4%), and a <b>Q4 profit flattered by ₹8.21 Cr of other income (&gt;half of quarterly PAT non-operating)</b>. ROE has slid to ~7.6% recently (~10% 3-yr) — inadequate for specialty chem. Yet the stock trades at a <b>premium ~28–30x P/E</b>. This tension is the core of the report.
+</div>
+<div class="alert ch">
+  ℹ️ <b>WHAT PAUSHAK ACTUALLY MAKES (expanded in §1):</b> It reacts <b>phosgene (COCl₂)</b> with alcohols and amines to make five families of reactive intermediates — <b>chloroformates, isocyanates, carbamoyl chlorides, carbonates/carbamates, and specialty reagents</b> — that its customers use as building blocks to synthesise pharma APIs, crop-protection molecules, polyurethanes and personal-care ingredients. The extreme toxicity of phosgene is precisely what keeps competitors out.
+</div>
+<div class="alert">
+  ⚠ <b>DATA CAVEAT:</b> Vendor figures diverge — CMP ₹455 (May) / ₹500 (Q4) / ₹588 (Dec '25); m-cap ₹1,122 Cr (Screener) to ₹1,552 Cr (ICICIdirect, 31 Jul); P/E ~28–30x; P/B ~2.3–3.16x; 52-wk ₹342.50–688 (some vendors show a stale ₹991 high). Face value ₹5; ~3.08 million shares (tiny equity base → high absolute price &amp; volatility). This report anchors CMP ~₹500. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 — EXPANDED COMPANY OVERVIEW WITH DEEP PRODUCT/END-USE DETAIL -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview &amp; What Paushak Actually Makes</h2></div>
+  <p class="lead"><strong>Paushak Limited</strong> is <strong>India's largest manufacturer of phosgene-based specialty chemicals</strong> — a small (~₹216 Cr revenue) but strategically unique Vadodara-based company, part of the ~118-year-old <strong>Alembic Group</strong> (whose flagship Alembic Ltd, founded 1907, is India's oldest pharmaceutical company). Everything Paushak does flows from mastering one exceptionally difficult, dangerous molecule: <strong>phosgene (COCl₂)</strong>.</p>
+
+  <div class="call ru">
+    <div class="lab">Start with the molecule: why phosgene is the whole story</div>
+    <strong>Phosgene is a colourless, highly toxic gas</strong> — infamously used as a chemical weapon in World War 1 — made simply by combining carbon monoxide and chlorine under UV light. The <em>chemistry</em> is simple; the <strong>safe handling is extraordinarily hard</strong>. It must be cooled to a liquid to transport, demands "Responsible Care"-grade process safety, and carries severe regulatory and environmental scrutiny. <strong>That danger is precisely Paushak's moat:</strong> very few players are licensed, equipped and experienced enough to run phosgene chemistry at scale, so Paushak — with a 14,400 MT/year phosgene plant and 30+ years of know-how — enjoys a genuine, hazardous-materials-based barrier to entry that a well-capitalised newcomer cannot easily replicate. Paushak doesn't sell phosgene; it sells the <strong>useful, safer downstream derivatives</strong> made from it.</p>
+  </div>
+
+  <p>Paushak reacts phosgene with <strong>alcohols</strong> and <strong>amines</strong> to produce five families of reactive intermediates. Crucially, these are <strong>not end-products</strong> — they are the <strong>building blocks that Paushak's customers use in their own synthesis</strong> to make finished pharmaceuticals, crop-protection chemicals, plastics and personal-care ingredients. This is a classic <strong>"picks-and-shovels" business</strong>: Paushak sits one or two steps upstream of the products consumers actually see. Here is the portfolio and, importantly, <strong>how each is used on the customer's side:</strong></p>
+
+  <div class="prod">
+    <div class="pcard">
+      <div class="ph">1 · Chloroformates</div>
+      <div class="pchem">alcohol + phosgene → R-O-CO-Cl &nbsp;·&nbsp; Paushak is a top-global producer</div>
+      <div class="pex">Examples: <b>benzyl, ethyl, methyl, myristyl chloroformate</b></div>
+      <div class="puse"><strong>Client-side use:</strong> The workhorse of the range. <strong>Benzyl chloroformate</strong> is the reagent that installs the <strong>"Cbz" (benzyloxycarbonyl) protecting group</strong> on amines — a fundamental step in <strong>peptide and complex-API synthesis</strong>, where chemists must temporarily "mask" a reactive amine while they build the rest of the molecule. Others are used as <strong>agrochemical intermediates, polymerisation initiators, and in personal-care</strong> synthesis. Without chloroformates, large parts of modern peptide-drug and fine-chemical manufacturing wouldn't work.</div>
+    </div>
+    <div class="pcard">
+      <div class="ph">2 · Isocyanates</div>
+      <div class="pchem">amine + phosgene → R-N=C=O</div>
+      <div class="pex">Examples: <b>phenyl, stearyl, 2-chloroethyl isocyanate</b></div>
+      <div class="puse"><strong>Client-side use:</strong> Highly reactive toward alcohols and amines, making them the <strong>backbone of polyurethane chemistry</strong> (foams, coatings, adhesives, elastomers) and key <strong>building blocks for agrochemicals</strong> (notably carbamate-class insecticides) and <strong>pharmaceutical actives</strong>. Specialty (non-commodity) isocyanates like Paushak's are used where a precise, functionalised molecule is needed rather than bulk TDI/MDI.</div>
+    </div>
+    <div class="pcard">
+      <div class="ph">3 · Carbamoyl Chlorides</div>
+      <div class="pchem">amine + phosgene → R₂N-CO-Cl</div>
+      <div class="pex">Examples: <b>dimethyl-, diethyl-carbamoyl chloride, 3-chloropropionyl chloride</b></div>
+      <div class="puse"><strong>Client-side use:</strong> Used to introduce the <strong>carbamoyl group</strong> into target molecules — central to making <strong>carbamate-class pesticides/herbicides</strong> and a range of <strong>pharmaceutical actives</strong> (e.g. certain anticholinergic and CNS drugs), as well as <strong>dyes</strong>. Dimethyl carbamoyl chloride in particular is a heavily-used agro/pharma intermediate.</div>
+    </div>
+    <div class="pcard">
+      <div class="ph">4 · Carbonates &amp; Carbamates</div>
+      <div class="pchem">phosgene-derived carbonate/carbamate linkages</div>
+      <div class="pex">Examples: <b>chloromethyl isopropyl carbonate, bis-(4-nitrophenyl) carbonate, polyquaternium</b></div>
+      <div class="puse"><strong>Client-side use:</strong> Higher-value, often pharma-directed intermediates. <strong>Chloromethyl isopropyl carbonate</strong> is a known building block for <strong>prodrug APIs</strong> (used to make drug molecules more absorbable). <strong>Bis-(4-nitrophenyl) carbonate</strong> is an <strong>activating/coupling agent</strong> for forming carbamate linkages in drug synthesis. <strong>Polyquaternium</strong> feeds <strong>personal-care/cosmetics</strong> (hair and skin conditioning). This is the family with the richest margin and "custom-synthesis" potential.</div>
+    </div>
+    <div class="pcard">
+      <div class="ph">5 · Specialty Reagents &amp; Others</div>
+      <div class="pchem">phosgene-enabled reagents for fine-chemical synthesis</div>
+      <div class="pex">Examples: <b>Vilsmeier reagent, dicyclohexyl-carbodiimide (DCC), tetrabutyl urea</b></div>
+      <div class="puse"><strong>Client-side use:</strong> <strong>Vilsmeier reagent</strong> performs <strong>formylation</strong> (adding a –CHO group), a key transformation in <strong>pharma and dye synthesis</strong>. <strong>DCC</strong> is a classic <strong>coupling agent used to form amide/peptide bonds</strong> — a staple reagent in medicinal-chemistry and peptide labs. These position Paushak not just as a bulk-intermediate maker but as a <strong>supplier of specialised synthesis tools</strong> to R&amp;D-driven customers.</div>
+    </div>
+  </div>
+
+  <div class="call te">
+    <div class="lab">Why the Alembic pharma pedigree matters to customers</div>
+    Paushak's phosgene derivatives feed demanding, regulated customers — especially in <strong>pharmaceuticals, where "key intermediates" must meet GMP-grade quality and documentation.</strong> Here the Alembic linkage is a real commercial asset: <strong>Paushak's QA reports into the Alembic Group QA head</strong>, who also oversees Alembic's <strong>US-FDA-approved API and formulation facilities</strong>. Because Alembic has filed numerous DMFs and ANDAs, Paushak <strong>understands regulatory and GMP expectations</strong> the way few small chemical firms do — letting it credibly serve global innovator and generic pharma clients (and do <strong>custom synthesis / contract manufacturing</strong>, i.e. toll phosgenation) that a standalone micro-cap would struggle to win. The customer base spans <strong>pharma APIs, agrochemicals, performance/specialty chemicals, and personal care</strong>, across India and export markets.
+  </div>
+
+  <p>So the character of the business is: a <strong>high-barrier, pedigree-backed, niche "toll-chemistry" franchise</strong> that is genuinely differentiated and hard to displace — but also <strong>small, single-chemistry-concentrated, and (recently) low-growth and low-return.</strong> That combination — a real moat wrapped around a currently under-performing, richly-valued micro-cap — is exactly what makes the investment case a debate rather than a slam-dunk, and it frames everything that follows.</p>
+
+  <div class="cards">
+    <div class="card c"><div class="k">Phosgene capacity</div><div class="v">14,400 MT/yr</div><div class="d">Responsible Care certified</div></div>
+    <div class="card a"><div class="k">Product families</div><div class="v">5</div><div class="d">~20+ molecules</div></div>
+    <div class="card t"><div class="k">End-industries</div><div class="v">Pharma · Agro</div><div class="d">+ performance, personal care</div></div>
+    <div class="card r"><div class="k">Promoter (Alembic)</div><div class="v">~67%</div><div class="d">no pledge</div></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1907 · Alembic founded</div><div class="td">The Alembic Group's flagship, Alembic Ltd, is founded in Vadodara — India's oldest pharmaceutical company, building deep chemistry and regulatory pedigree that Paushak later inherits.</div></div>
+    <div class="tli"><div class="ty">1972 · Paushak established</div><div class="td">Paushak set up near Vadodara (Panelav), Gujarat, to build <strong>phosgene chemistry capability</strong> — a deliberately hard, high-barrier niche within the Alembic fold.</div></div>
+    <div class="tli"><div class="ty">1990s–2000s · Indigenous process mastery</div><div class="td">Over 25+ years, Paushak develops <strong>indigenous process-development capability</strong> in phosgene and its derivatives, becoming <strong>India's largest phosgene-based specialty-chemicals maker</strong> and a top-global chloroformate producer; adds custom synthesis / contract research.</div></div>
+    <div class="tli"><div class="ty">2010s · Domestic leadership &amp; premium re-rating</div><div class="td">Establishes domestic market leadership across most of its product portfolio; the scarcity, moat and Alembic pedigree earn the stock a <strong>persistent premium valuation</strong> (and, for a time, marquee investor interest incl. Ashish Kacholia).</div></div>
+    <div class="tli"><div class="ty">FY21–FY25 · Growth stalls</div><div class="td">Despite the strong positioning, <strong>revenue growth stagnates</strong> — ~9% 5-year CAGR, just ~2% in FY25 — as scale stays modest and end-markets soften. The "great business" starts to show a "not-growing" problem.</div></div>
+    <div class="tli"><div class="ty">FY26 · Margin &amp; returns squeeze</div><div class="td">A cyclical specialty-chem downturn bites: <strong>margins compress</strong> (Q2 PAT −39%), earnings lean on <strong>other income</strong>, and <strong>ROE slides toward single digits</strong> — colliding with the still-premium multiple and prompting "expensive" flags from analysts.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Value Chain &amp; The Toll-Chemistry Model</h2></div>
+  <div class="vchain">
+    <div class="vnode hz"><div class="vt">CO + Cl₂ → Phosgene</div><div class="vd">The dangerous, gated step (14,400 MT/yr)</div></div>
+    <div class="vnode own"><div class="vt">+ Alcohols/Amines</div><div class="vd">Paushak's core reactions</div></div>
+    <div class="vnode own"><div class="vt">5 derivative families</div><div class="vd">Chloroformates, isocyanates, etc.</div></div>
+    <div class="vnode"><div class="vt">Customer synthesis</div><div class="vd">APIs, crop chem, PU, personal care</div></div>
+    <div class="vnode"><div class="vt">End products</div><div class="vd">Drugs, pesticides, plastics</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Two revenue modes: own products + toll/custom phosgenation</div>
+    Paushak earns in two ways. First, it <strong>makes and sells its own catalogue</strong> of phosgene derivatives. Second — and strategically important — it offers <strong>toll / custom manufacturing ("phosgenation-as-a-service")</strong>: because so few players can safely handle phosgene, pharma and agro customers who need a phosgene-derived intermediate <strong>bring their molecule to Paushak</strong> rather than build their own (prohibitively hazardous) phosgene capability. This is a high-value, sticky, relationship-and-trust-driven model with <strong>in-house process development and R&amp;D</strong> to scale new molecules from lab to plant. The strength is a defensible, capability-based niche; the limitation is that Paushak is a <strong>small link in its customers' chains</strong> — its growth is tied to its customers' demand and its own (so far modest) capacity additions, giving it limited pricing power at ~₹216 Cr scale.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>End-Market Mix</h2></div>
+  <div class="bar-row"><div class="bar-lab">Pharmaceuticals (APIs/intermediates)</div><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--chlor)">~major</div></div><div class="bar-val">core</div></div>
+  <div class="bar-row"><div class="bar-lab">Agrochemicals</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--teal)">~significant</div></div><div class="bar-val">core</div></div>
+  <div class="bar-row"><div class="bar-lab">Performance / specialty</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--caut)">polyurethane, dyes</div></div><div class="bar-val">mid</div></div>
+  <div class="bar-row"><div class="bar-lab">Personal care / custom synthesis</div><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--rust)">niche/growing</div></div><div class="bar-val">small</div></div>
+  <div class="call ca">
+    <div class="lab">Diversified end-uses — but exposed to the specialty-chem cycle</div>
+    Serving <strong>pharma, agrochemicals, performance chemicals and personal care</strong> gives Paushak useful diversification across end-markets that don't all move together. Pharma (APIs, key intermediates, custom synthesis) is the highest-quality, stickiest, most regulatory-moated slice; agrochemicals add volume but are more cyclical and price-competitive. <strong>The catch in FY26 is that several of these end-markets softened simultaneously</strong> — the global specialty-chemicals sector has been in a cyclical destocking/demand-weakness phase, and agrochemical demand in particular has been soft — which is a big part of why Paushak's revenue stalled and margins compressed. So the diversification is real but did not shield the company from a broad-based cyclical downturn. A recovery in agro and specialty-chem end-demand is one of the key swing factors for the earnings rebound.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The FY26 Weakness, Dissected</h2></div>
+  <table>
+    <tr><th>Quarter (FY26)</th><th class="mono">Revenue</th><th class="mono">PAT</th><th class="mono">Margin / note</th></tr>
+    <tr><td>Q1 FY26</td><td class="mono">~₹56 Cr</td><td class="mono">₹12.03 Cr</td><td class="mono">PAT margin ~21.5%</td></tr>
+    <tr><td>Q2 FY26</td><td class="mono">₹58.78 Cr</td><td class="mono">₹8.61 Cr</td><td class="mono down">−39% YoY; margin 14.65%</td></tr>
+    <tr><td>Q3 FY26</td><td class="mono">~₹49 Cr</td><td class="mono">~₹6 Cr</td><td class="mono down">EBITDA margin 23.4% (from 29.8%)</td></tr>
+    <tr class="tr-hi"><td>Q4 FY26</td><td class="mono">₹55.14 Cr</td><td class="mono">₹12.51 Cr</td><td class="mono">+30% YoY but ₹8.21 Cr other income</td></tr>
+    <tr><td><strong>FY26 total</strong></td><td class="mono">~₹216 Cr</td><td class="mono">₹39.33 Cr</td><td class="mono down">~flat rev; ROE slid</td></tr>
+  </table>
+  <div class="call red">
+    <div class="lab">The uncomfortable truth: weak operations, flattered headline</div>
+    FY26 was a <strong>genuinely weak operating year</strong>, and it's important to see through the headline. Margins compressed sharply and consistently — <strong>Q2 PAT fell ~39% YoY with PAT margin collapsing from ~21.5% to ~14.65%</strong>, and Q3 EBITDA margin dropped to ~23.4% from ~29.8%. Then <strong>Q4's optically strong result (PAT +30% YoY) was heavily flattered by ₹8.21 Cr of "other income" — more than half of the quarter's profit came from non-operating sources</strong> (treasury/investment income on the cash-rich balance sheet), while <em>core</em> operating profitability stayed weak; that quarter's ROE was just ~7.58%. The takeaway: <strong>the reported profit overstates the health of the underlying chemicals business.</strong> Investors must <strong>strip out other income to see true operating earnings</strong>, which reveal a franchise whose margins and returns deteriorated through a cyclical downturn — not a company firing on all cylinders. Earnings quality, not just earnings level, is the FY26 problem.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Moat &amp; Competition</h2></div>
+  <table>
+    <tr><th>Dimension</th><th>Detail</th><th class="mono">Read</th></tr>
+    <tr class="tr-hi"><td><strong>Phosgene hazmat barrier</strong></td><td>Extreme toxicity, licensing, safety, EHS</td><td class="mono">Real, durable moat</td></tr>
+    <tr><td><strong>Market position</strong></td><td>India's #1 phosgene chemistry; leader in most SKUs</td><td class="mono">Dominant niche</td></tr>
+    <tr><td><strong>Alembic pedigree / GMP</strong></td><td>QA under Alembic; DMF/ANDA know-how</td><td class="mono">Pharma credibility</td></tr>
+    <tr><td><strong>Domestic peers</strong></td><td>Atul, Hikal, Valiant Organics, Sadhana Nitro</td><td class="mono">Adjacent, not identical</td></tr>
+    <tr><td><strong>Global context</strong></td><td>Large global phosgene players (PU majors)</td><td class="mono">Different scale/segment</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A genuine moat — but a moat around a small, slow-growing castle</div>
+    Paushak's competitive position is <strong>genuinely strong and unusual for a micro-cap:</strong> the phosgene hazmat barrier is real (few can safely operate this chemistry), it is the <strong>domestic market leader in most of its portfolio</strong>, and the Alembic GMP pedigree gives it pharma credibility competitors lack. This is why the market has long awarded it a premium multiple. <strong>The problem is not the moat — it's what's inside it:</strong> a business that has grown revenue at only ~9% over five years, with modest scale (~₹216 Cr) that limits pricing power and the ability to absorb cost/raw-material volatility. A wide moat protects returns but doesn't, by itself, create growth. So the investment debate is whether Paushak can <strong>finally convert its strong, defensible position into faster growth and better returns</strong> (via capacity, custom-synthesis wins, and an end-market recovery) — or whether it remains a high-quality-but-stagnant niche that doesn't justify a premium multiple. The moat is the bull case; the lack of growth is the bear case.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">Low-Moderate</td><td>Few can run phosgene chemistry; Paushak leads most SKUs domestically — but adjacent specialty-chem players compete for the same customer wallets.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate</td><td>Pharma/agro customers are large and demanding, but switching a qualified phosgene-intermediate supplier is hard (GMP re-validation) — stickiness offsets.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>CO, chlorine, alcohols/amines; raw-material and energy cost volatility hit margins (a FY26 factor).</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low</td><td>Phosgene's toxicity, licensing, safety and capital needs are a formidable barrier — the core moat.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Moderate</td><td>Non-phosgene routes exist for some molecules but are often costlier/less efficient; phosgene remains the workhorse for many intermediates.</td></tr>
+  </table>
+  <p>Net: a <strong>structurally attractive, barrier-protected niche</strong> where Paushak's position is defensible and switching costs are real — but where modest scale, cyclical end-markets and raw-material volatility cap the near-term earnings power. The forces support a quality premium; they don't, on their own, guarantee growth.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Earnings-Quality Question</h2></div>
+  <div class="cards">
+    <div class="card r"><div class="k">Q4 other income</div><div class="v">₹8.21 Cr</div><div class="d down">&gt;half of Q4 PAT</div></div>
+    <div class="card a"><div class="k">Q4 ROE</div><div class="v">~7.6%</div><div class="d down">inadequate</div></div>
+    <div class="card c"><div class="k">5-yr sales CAGR</div><div class="v">~9%</div><div class="d down">poor for spec-chem</div></div>
+    <div class="card t"><div class="k">3-yr ROE</div><div class="v">~10%</div><div class="d down">low</div></div>
+  </div>
+  <p>Two structural issues sit beneath the FY26 numbers and are central to the thesis: <strong>earnings increasingly leaned on non-operating "other income"</strong> (treasury income on the cash-rich, debt-free balance sheet), and <strong>returns on capital have fallen to inadequate levels</strong> (recent ROE ~7.6%, 3-year ~10%) for a business carrying a premium multiple.</p>
+  <div class="call red">
+    <div class="lab">The metric that matters: other-income-adjusted operating earnings &amp; ROCE</div>
+    For Paushak, the single most important analytical discipline is to <strong>separate core operating profit from other income.</strong> When "more than half of quarterly profits come from non-operating sources while core profitability declines," as in Q4 FY26, the headline PAT flatters a weak operating reality — and a stock priced at ~28–30x earnings needs its <em>operating</em> engine to justify that multiple, not its treasury. The second discipline is watching <strong>ROCE/ROE</strong>: a moaty specialty-chem business should earn high-teens-to-20%+ returns; Paushak's slide toward single-digit ROE signals either under-utilised capital, margin pressure, or capital tied up without commensurate returns. <strong>The bull case requires both to inflect up</strong> — operating margins recovering (end-market upturn, mix, operating leverage on any capacity addition) and ROCE climbing back toward the levels a premium multiple implies. Until they do, the valuation rests on the moat and hope rather than delivered returns. <strong>Track: other-income-adjusted operating margin, ROCE/ROE, and revenue growth each quarter.</strong>
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Raw Materials, Costs &amp; Safety</h2></div>
+  <p>Paushak's key inputs are <strong>carbon monoxide and chlorine</strong> (to make phosgene in-house) plus <strong>alcohols and amines</strong> (the reaction partners). Costs are exposed to <strong>chemical raw-material and energy price volatility</strong>, which — alongside soft demand — pressured FY26 margins. Uniquely, <strong>process safety and environmental compliance are not just costs but core competitive requirements</strong>: the "Responsible Care" certification and rigorous EHS are what license Paushak to operate at all.</p>
+  <div class="call ru">
+    <div class="lab">Safety is the moat and the tail risk simultaneously</div>
+    Phosgene's danger cuts both ways. On one hand, <strong>the safety burden is the barrier that keeps competitors out</strong> — Paushak's decades of incident-managed operation and Responsible-Care certification are a genuine asset. On the other, it is a <strong>real tail risk</strong>: any serious safety, environmental or regulatory incident at a phosgene plant could force a shutdown (as COVID-era oxygen-diversion once briefly did), carry severe liability, and damage the licence-to-operate. Investors in Paushak are implicitly underwriting <strong>continued flawless safety execution.</strong> This is a lower-probability but high-severity risk that is intrinsic to the business model and should be sized accordingly — it is the price of the moat.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Group &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Promoter (Alembic)</div><div class="v">~67%</div><div class="d">no pledge</div></div>
+    <div class="card a"><div class="k">Chairman</div><div class="v">C. R. Amin</div><div class="d">Alembic group</div></div>
+    <div class="card t"><div class="k">Public</div><div class="v">~33%</div><div class="d">retail-heavy</div></div>
+    <div class="card r"><div class="k">Shares o/s</div><div class="v">~3.08 M</div><div class="d">tiny base</div></div>
+  </div>
+  <p>Paushak is firmly within the <strong>Alembic Group</strong> (promoter/Amin family ~67%, <strong>no pledge</strong>), chaired by <strong>Chirayu R. Amin</strong>. Group backing provides financial stability, pharma-regulatory pedigree, QA integration, and potential customer synergies — a real quality signal for a micro-cap.</p>
+  <div class="call te">
+    <div class="lab">Strong, stable, aligned ownership — but watch capital allocation &amp; ambition</div>
+    The ownership profile is a clear positive: a <strong>reputable, ~118-year group, high aligned promoter stake, no pledging, minimal debt, and a strong balance sheet.</strong> This is not a governance-risk situation. The more subtle question is <strong>capital allocation and growth ambition:</strong> Paushak sits on a cash-rich, debt-free balance sheet earning "other income," yet has grown revenue only ~9% over five years — which raises the question of whether the company is <strong>investing aggressively enough in capacity, R&amp;D and custom-synthesis expansion to convert its moat into growth</strong>, or running the franchise conservatively for stability and dividends. For the stock to justify its premium multiple, investors need to see the group <strong>deploy capital into growth</strong> (new capacity, new molecules, custom-synthesis wins) rather than let it accumulate. The stability is excellent; the growth-orientation of capital allocation is the thing to watch.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Debt</div><div class="v">minimal</div><div class="d">near debt-free</div></div>
+    <div class="card a"><div class="k">Promoter pledge</div><div class="v">nil</div><div class="d">clean</div></div>
+    <div class="card t"><div class="k">Rating (hist.)</div><div class="v">CRISIL A-</div><div class="d">stable</div></div>
+    <div class="card r"><div class="k">Dividend FY26</div><div class="v">₹2.50/sh</div><div class="d">+ special history</div></div>
+  </div>
+  <p>The balance sheet is a clear <strong>strength: minimal debt, no promoter pledging, healthy financial risk profile (historically CRISIL A-/Stable), and surplus cash</strong> generating the "other income" seen in results. Working capital is reasonably controlled. This financial resilience is what lets Paushak weather a cyclical downturn comfortably.</p>
+  <div class="call ca">
+    <div class="lab">The metric that decides the thesis: is the cash earning its keep?</div>
+    A pristine, cash-rich balance sheet is a genuine comfort — Paushak can survive any downturn and fund growth without stress. But it is a <strong>double-edged feature</strong>: the same surplus cash that de-risks the company is also <strong>depressing ROE</strong> (idle cash earns low returns and dilutes return-on-equity) and <strong>flattering earnings via other income</strong> (masking weak operations). The decisive question is therefore <strong>whether management deploys this capital into high-return growth</strong> — capacity expansion, new phosgene-derivative molecules, custom-synthesis capability — that lifts <strong>ROCE back toward the high-teens/20%+</strong> a premium multiple demands. If it does, the moat + reinvestment could compound attractively; if the cash keeps accumulating while operations stagnate, the premium multiple is unsupported by returns. <strong>Watch capex plans, capacity announcements, ROCE trend, and the operating-vs-other-income split.</strong>
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Specialty-chem cycle recovery</strong></td><td>End-market destocking ends; agro/pharma demand revives</td><td class="mono">Key swing ★★★★</td></tr>
+    <tr><td><strong>Custom synthesis / CDMO</strong></td><td>Toll phosgenation for pharma/agro innovators</td><td class="mono">High-value ★★★★</td></tr>
+    <tr><td><strong>Capacity expansion</strong></td><td>Debottleneck / new phosgene-derivative capacity</td><td class="mono">Needs capital ★★★</td></tr>
+    <tr><td><strong>New molecules / mix</strong></td><td>Higher-value carbonates/carbamates, pharma intermediates</td><td class="mono">Margin-accretive ★★★</td></tr>
+    <tr><td><strong>China+1 / import substitution</strong></td><td>Global supply-chain diversification to India</td><td class="mono">Structural ★★★</td></tr>
+    <tr><td><strong>Alembic synergies</strong></td><td>Pharma-intermediate demand, GMP credibility</td><td class="mono">Steady ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>(₹ Cr)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th></tr>
+    <tr><td>Revenue</td><td class="mono">~211</td><td class="mono">~215</td><td class="mono">~216</td></tr>
+    <tr><td>Revenue growth</td><td class="mono">—</td><td class="mono">~2%</td><td class="mono">~flat</td></tr>
+    <tr><td>PAT</td><td class="mono">~45</td><td class="mono">~48</td><td class="mono">39.3</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">~28–30%</td><td class="mono">~28%</td><td class="mono">~23–25%</td></tr>
+    <tr><td>ROE</td><td class="mono">~12%</td><td class="mono">~11%</td><td class="mono">~8–10%</td></tr>
+  </table>
+  <div class="two">
+    <div>
+      <div class="call te">
+        <div class="lab">The quality case</div>
+        A genuinely moated, market-leading, Alembic-backed niche franchise, debt-free, cash-rich, with high-barrier phosgene chemistry, sticky pharma/custom-synthesis relationships, and diversified regulated end-markets. A high-quality <em>business</em>.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The performance case</div>
+        <strong>~Flat revenue (9% 5-yr CAGR), FY26 margin compression, ROE down to ~8–10%, earnings propped by other income</strong> — yet valued at ~28–30x P/E, ~2.8x book. A high-quality business at a demanding price delivering low-quality recent numbers. Analysts flag "expensive."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹500 (m-cap ~₹1,200–1,550 Cr), Paushak trades at <strong>~28–30x trailing earnings and ~2.3–3.2x book</strong> — a clear <strong>premium</strong> for a company with ~flat revenue, compressed FY26 margins, ~10% ROE, and other-income-flattered profit. The premium reflects the <strong>moat and Alembic quality</strong>, not current performance. So the right lens is <strong>normalised / mid-cycle earnings power</strong> (what the business earns once the cycle recovers and other income is stripped out), not the depressed trailing figure — while being honest that even normalised, the multiple is full.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Paushak</h3>
+    <div class="bm-sub">Moaty but low-growth specialty-chem at trough earnings + premium multiple → normalised/mid-cycle P/E &amp; EV/EBITDA on recovered operating margins; ROCE/ROE trajectory is the critical indicator; strip other income; trailing P/E on depressed earnings is not a clean anchor</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Normalised / mid-cycle P/E</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Value on through-cycle <em>operating</em> earnings (ex-other-income), not the depressed FY26 print. This is a cyclical-quality compounder; judge it on normalised power — while noting the multiple is full even so.</td></tr>
+      <tr><td>EV/EBITDA on recovered margin</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Neutralises the cash pile / other-income distortion; cleanest read of the core chemicals engine. Judge against a mid-cycle ~28–30% EBITDA margin, not FY26's compressed level.</td></tr>
+      <tr><td>ROCE / ROE trajectory</td><td><span class="verdict v-crit">CRITICAL INDICATOR</span></td><td>The whole debate. A premium multiple needs high-teens/20%+ returns; the slide to ~8–10% is the central concern. Re-rating (or de-rating) tracks this above all.</td></tr>
+      <tr><td>Other-income-adjusted operating profit</td><td><span class="verdict v-ind">GATE</span></td><td>Strip treasury income to see the real business. If core operating profit stays weak, the headline is a mirage and the multiple unjustified.</td></tr>
+      <tr><td>Revenue growth &amp; capex</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>~9% 5-yr CAGR is the growth problem. Capacity/custom-synthesis announcements and a return to double-digit growth are what would validate the quality premium.</td></tr>
+      <tr><td>Trailing P/E on FY26 earnings; P/B alone</td><td><span class="verdict v-avoid">AVOID as sole anchor</span></td><td>FY26 earnings are cyclically depressed and other-income-flattered; trailing P/E is both high and low-quality. Neither it nor P/B alone captures normalised power.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> On FY26 PAT of ~₹39 Cr, the ~₹1,200–1,550 Cr market cap is <b>~30–40x depressed, other-income-flattered earnings</b> — demanding. On a <b>normalised mid-cycle</b> view (margins recovering toward ~28–30% EBITDA, other income stripped), Paushak's through-cycle earnings power is higher — perhaps ~₹50–60 Cr — putting it at a still-full <b>~22–28x normalised</b>. Either way, <b>the market is paying a clear premium for the moat, the Alembic pedigree and the <em>option</em> on a growth/return recovery — not for delivered growth or returns, which have been poor.</b> <b>Verdict: a genuinely high-quality, high-barrier, market-leading niche franchise (the phosgene hazmat moat + Alembic GMP pedigree are real and durable) that is, right now, a low-growth, margin-compressed, low-ROE business flattered by other income and carrying a demanding ~28–30x multiple. The bull case is a cyclical + capital-deployment inflection: end-markets recover, custom synthesis scales, capacity and ROCE climb, and the premium is finally earned. The bear case is a persistent value trap — a lovely moat around a stagnant, over-valued castle. This is best judged on normalised operating earnings and, above all, the ROCE/ROE trajectory — never the depressed, other-income-flattered trailing print. A wonderful business at a price that already assumes the recovery; attractive to accumulate only on meaningful de-rating or clear evidence of a growth/returns inflection, not at a premium multiple on trough fundamentals.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹330–400</div><div class="sd">Growth stays stagnant, margins/ROE don't recover, other-income dependence persists, the premium multiple de-rates toward the business's actual returns; toward the 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹460–560</div><div class="sd">Cycle bottoms and gradually recovers, margins normalise toward mid-cycle, modest growth resumes; the stock holds its quality premium around current levels as earnings recover into it.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹650–850</div><div class="sd">End-market upturn + custom-synthesis wins + capacity deployment drive double-digit growth and ROCE back toward high-teens; the moat premium is re-validated and re-rates higher.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Peers (Atul, Hikal, Valiant Organics, Sadhana Nitro) trade at varied multiples; Paushak has historically commanded a premium for its niche/moat. MarketsMojo flagged "SELL"/expensive on FY26 metrics. Scenarios hinge on the specialty-chem cycle, margin/ROCE recovery, and capital deployment. Verify CMP/ratios vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation vs fundamentals (value-trap risk)</strong>~28–30x P/E and ~2.8x book on ~flat revenue, ~10% ROE and other-income-flattered earnings. If growth/returns don't inflect, the premium de-rates. The central risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Stagnant growth</strong>~9% five-year sales CAGR (just ~2% in FY25) signals market saturation in core SKUs or execution/scale limits. A moat without growth doesn't justify a premium multiple.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Margin &amp; earnings-quality erosion</strong>FY26 margin compression plus heavy reliance on other income (>half of Q4 PAT) mean reported profit overstates operating health; ROE fell to ~7.6%.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Specialty-chem cyclicality</strong>End-markets (agro especially) are in a cyclical downturn; a prolonged slump would keep revenue and margins depressed.</div></div>
+  <div class="risk"><div class="rn rh">5</div><div class="rb"><strong>Phosgene safety / environmental / regulatory</strong>Handling an extremely toxic gas carries low-probability, high-severity risk — any serious incident could force shutdown, liability, or licence loss. Intrinsic to the model.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Small scale / concentration</strong>~₹216 Cr revenue and single-chemistry (phosgene) concentration limit pricing power and cushion against raw-material/energy volatility; customer concentration adds risk.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Liquidity / tiny float</strong>~3.08 M shares and modest free float make the stock illiquid and volatile; small trades move the price, and vendor data diverges widely.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Moat (phosgene barrier)</div><div class="scv">Strong <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Market leadership</div><div class="scv">India #1 <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Group / balance sheet</div><div class="scv">Alembic, debt-free <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Pharma pedigree / GMP</div><div class="scv">Strong <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">~9% 5-yr CAGR <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Margins (trend)</div><div class="scv">Compressing <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">ROE / ROCE</div><div class="scv">~8–10% <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Earnings quality</div><div class="scv">Other-income-lean <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~28–30x, premium <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Paushak is a <strong>genuinely high-quality, high-barrier niche business</strong> — <strong>India's largest phosgene-based specialty-chemicals maker</strong>, turning a dangerous, tightly-gated molecule into the <strong>reactive building blocks (chloroformates, isocyanates, carbamoyl chlorides, carbonates/carbamates and specialty reagents) that its customers use to synthesise pharma APIs, agrochemicals, polyurethanes and personal-care ingredients</strong> — backed by the ~118-year Alembic Group's GMP pedigree, a debt-free balance sheet, market leadership across most of its portfolio, and a real hazmat moat that keeps competitors out. <strong>But it is, right now, a low-growth, margin-pressured, low-return business carrying a demanding valuation.</strong> Revenue has grown only ~9% over five years; FY26 saw sharp margin compression (Q2 PAT −39%), ROE slid toward ~8%, and reported profit was <strong>increasingly propped up by non-operating other income</strong> (over half of Q4 PAT) — all while the stock trades at a premium <strong>~28–30x earnings and ~2.8x book</strong> that analysts have flagged as expensive. <strong>The honest framing: a wonderful, moaty franchise whose recent fundamentals (growth, margins, returns, earnings quality) don't currently justify its premium price — a classic "great business, demanding valuation, poor recent delivery" set-up. Value it on normalised, other-income-adjusted operating earnings and, above all, on the ROCE/ROE trajectory — never the depressed, flattered trailing print — and require either a meaningful de-rating or clear evidence of a growth-and-returns inflection (cycle recovery + custom-synthesis scale-up + capital deployed into capacity) before the premium is warranted. Own the moat, but not at any price — and not on the current fundamentals.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">5 May 2026</td><td><strong>FY26 audited results:</strong> PAT ₹39.33 Cr; final dividend ₹2.50/share recommended. Q4 FY26 revenue ₹55.14 Cr, PAT ₹12.51 Cr (+30.3% YoY, +102.8% QoQ) — but <strong>flattered by ₹8.21 Cr other income</strong>; EBITDA ₹16.7 Cr (margin ~30.3%); Q4 ROE ~7.58%.</td></tr>
+    <tr><td class="mono">Q3 FY26</td><td>EBITDA fell to ~₹11.4 Cr (margin 23.4% vs 29.8% YoY) — continued margin compression.</td></tr>
+    <tr><td class="mono">Q2 FY26</td><td><strong>Weak print:</strong> revenue ₹58.78 Cr (+2.56% YoY), PAT ₹8.61 Cr (−39.37% YoY, −39.33% QoQ); PAT margin 21.5%→14.65%. Stock −26% over the prior three months.</td></tr>
+    <tr><td class="mono">FY25</td><td>Revenue growth just ~2%; dividend ₹20/share (on ₹10 FV basis then) declared May 2025 — Alembic-group dividend consistency.</td></tr>
+    <tr><td class="mono">Ongoing</td><td>Toll/custom phosgenation for pharma &amp; agro customers; in-house process development &amp; R&amp;D; Responsible Care-certified 14,400 MT/yr phosgene plant; promoter (Alembic) ~67%, no pledge.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Debt</div><div class="v">minimal</div><div class="d">near debt-free</div></div>
+    <div class="card a"><div class="k">Surplus cash</div><div class="v">material</div><div class="d">→ other income</div></div>
+    <div class="card t"><div class="k">Pledge</div><div class="v">nil</div><div class="d">clean</div></div>
+    <div class="card r"><div class="k">ROCE trend</div><div class="v">declining</div><div class="d">even without capex</div></div>
+  </div>
+  <p>Paushak's balance sheet is <strong>unambiguously strong — near debt-free, cash-surplus, unpledged, historically CRISIL A-/Stable.</strong> It underwrites resilience through the downturn and full funding capacity for growth. The subtlety, again, is that the <strong>surplus cash both de-risks the company and depresses its returns</strong> (idle cash → lower ROE, and other income masking weak operations).</p>
+  <div class="call ca">
+    <div class="lab">The metric that decides the thesis: ROCE recovery via capital deployment</div>
+    The balance-sheet strength is real but, for the equity story, <strong>the question is productivity of capital, not solvency.</strong> Tijori and others note ROCE has <strong>declined even without significant capex</strong> — a red flag that capital is not being worked hard. The decisive path: <strong>deploy the surplus into growth (capacity, new molecules, custom synthesis) that lifts ROCE back toward the high-teens/20%+</strong> a premium multiple requires, and let an end-market recovery restore operating margins. If that happens, the debt-free base becomes a springboard for compounding; if the cash simply keeps accumulating while operations stagnate, the strong balance sheet flatters a low-return business and the premium multiple stays unjustified. <strong>Track ROCE, capex/capacity announcements, the operating-vs-other-income split, and revenue growth as the signals that matter most.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Weak / recovering <span class="badge b-bear">↓</span></div><div class="tkd">−26% 3M earlier in FY26</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹500</div><div class="tkd">late Jul 2026 (diverges)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹342.50 – 688</div><div class="tkd">some vendors show ₹991</div></div>
+    <div class="tk"><div class="tkl">From 52-wk low</div><div class="tkv">+~45%</div><div class="tkd">off the ₹342 base</div></div>
+    <div class="tk"><div class="tkl">9-yr CAGR</div><div class="tkv">~18%</div><div class="tkd">long-term compounder</div></div>
+    <div class="tk"><div class="tkl">Liquidity</div><div class="tkv">Low (tiny float)</div><div class="tkd">volatile</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Paushak had a <strong>weak FY26 in price terms</strong> — down ~26% over a three-month stretch amid the profit slump — before stabilising; it trades well off its 52-week high (₹688; some vendors show a stale ₹991) but ~45% above its ₹342.50 low. Over the long run (9 years) it has still compounded at ~18%, reflecting the historical quality premium. As a <strong>tiny-float micro-cap (~3.08 M shares)</strong> it is illiquid and volatile — small trades move the price, and vendor data diverges widely (see caveat). Near-term direction will track quarterly margins/ROE, any capacity or custom-synthesis news, and the broader specialty-chem cycle far more than chart patterns. Treat technicals as secondary to the quality-vs-valuation debate. Verify the live NSE quote.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Vendor data diverges (CMP ₹455–588; m-cap ₹1,122–1,552 Cr; P/E ~28–30x; P/B ~2.3–3.2x; 52-wk high ₹688–991). FY26 earnings are cyclically depressed and other-income-flattered; a premium multiple prices in a recovery not yet delivered. Phosgene handling carries intrinsic safety risk. Verify vs NSE/BSE and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Paushak Limited</b> — NSE: PAUSHAKLTD · BSE: 532742 · ISIN: INE111F01016 · Specialty Chemicals (phosgene-based intermediates) · Alembic Group · Vadodara, Gujarat<br>
+  Report generated 02 August 2026 · Data through FY26 audited results (reported 5 May 2026).
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company FY26 audited results &amp; BSE-NSE filings, company website (paushak.com), Screener.in, MarketsMojo, MarketScreener, Crunchbase, Value Educator, Value Research, MoneyWorks4Me, Tijori Finance, ICICIdirect, Groww, INDmoney, Bajaj Finserv, Business Standard. Key figures: FY26 (reported 5 May 2026) — PAT ₹39.33 Cr, final dividend ₹2.50/share; TTM revenue ~₹216 Cr; Q4 FY26 net sales ₹55.14 Cr, PAT ₹12.51 Cr (+30.31% YoY, +102.76% QoQ) with other income ₹8.21 Cr (>50% of quarterly PAT), EBITDA ~₹16.7 Cr (margin ~30.3%), Q4 ROE ~7.58%; Q3 FY26 EBITDA ~₹11.4 Cr (margin 23.4% vs 29.8% YoY); Q2 FY26 revenue ₹58.78 Cr (+2.56% YoY), PAT ₹8.61 Cr (−39.37% YoY / −39.33% QoQ), PAT margin 21.53%→14.65%; Q1 FY26 PAT ₹12.03 Cr. 5-year sales CAGR ~9% (FY25 growth ~2%); 3-year ROE ~10%. Products (phosgene, COCl₂, derivatives): (1) Chloroformates — benzyl/ethyl/methyl/myristyl chloroformate (Cbz amine-protecting groups in peptide/API synthesis, agro intermediates, personal care; Paushak a top-global producer, 30+ yrs); (2) Isocyanates — phenyl/stearyl/2-chloroethyl isocyanate (polyurethanes, agrochemicals, pharma); (3) Carbamoyl chlorides — dimethyl/diethyl carbamoyl chloride, 3-chloropropionyl chloride (carbamate pesticides, pharma actives, dyes); (4) Carbonates/carbamates — chloromethyl isopropyl carbonate (prodrug API intermediate), bis-(4-nitrophenyl) carbonate (coupling/activating agent), polyquaternium (personal care); (5) Others — Vilsmeier reagent (formylation), dicyclohexylcarbodiimide/DCC (peptide coupling), tetrabutyl urea. End-industries: pharmaceuticals (APIs/key intermediates, GMP; QA under Alembic group QA head overseeing FDA-approved API/formulation facilities; DMF/ANDA experience), agrochemicals, performance/specialty chemicals, personal care, and custom synthesis / toll phosgenation. Phosgene plant 14,400 MT/yr (150 T/month), Responsible Care certified; Panelav/Vadodara; workforce 200+; in-house process development & R&D. Part of Alembic Group (Alembic Ltd founded 1907, oldest Indian pharma; ~118-yr legacy); associate cos incl. Shreno, Nirayu, Whitefield Chemtech, Sierra Investment, Viramya Packlight; Chairman Chirayu R. Amin; incorporated 1972. Ownership: promoter (Alembic/Amin family) ~66.97–67.28%, no pledge; public ~33%; IEPF ~3.64%; ~3.08 million shares outstanding (tiny equity base); historically an Ashish Kacholia holding. Historically CRISIL A-/Stable. Peers (per Tijori): Atul, Hikal, Valiant Organics, Sadhana Nitro Chem, Vikram Thermo. <b>DATA CAVEAT: vendor figures diverge — CMP ₹455.20 (Value Research, 19 May) / ₹500.15 (Q4-result day) / ₹588.90 (INDmoney, 22 Dec '25); market cap ₹1,122–1,123 Cr (Screener/Value Research) / ₹1,233 Cr (Q4) / ₹1,256 Cr (Tijori) / ₹1,323 Cr (Q2) / ₹1,552.65 Cr (ICICIdirect, 31 Jul); P/E ~28.56x (Value Research); P/B ~2.31–3.16x; 52-wk ₹342.50–688 (MoneyWorks4Me shows a stale ₹991.20 high); face value ₹5; ~3.08 million shares. Note some vendors erroneously list a "1 Dec 2025 listing date" — Paushak has been listed for years. This report anchors CMP ~₹500. All figures approximate; verify vs NSE/BSE and filed results.</b> MarketsMojo flagged "SELL"/expensive on FY26 metrics (investment score 42/100). Normalised/mid-cycle estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Paushak Limited
+Ticker: NSE: PAUSHAKLTD / BSE: 532742
+Sector: Specialty Chemicals (phosgene-based intermediates) / Alembic Group
+Report Date: August 2, 2026 (FY26 audited results reported May 5 2026)
+File: paushak_equity_research.html
+CMP at Report: ~₹500 (late Jul 2026; VENDOR-DIVERGENT ₹455-588; m-cap ₹1,122-1,552 Cr; VERIFY vs NSE/BSE)
+Market Cap: ~₹1,200-1,550 Cr; face value ₹5; ~3.08 million shares (TINY float → high price & volatility)
+*** NOTE: Company overview section EXPANDED per user request with deep product chemistry + client-side end-uses ***
+BUSINESS: India's LARGEST phosgene-based specialty chemicals manufacturer; Alembic Group (~118yr pedigree, Alembic Ltd founded 1907); Vadodara/Panelav; phosgene plant 14,400 MT/yr Responsible Care certified
+PRODUCTS (phosgene COCl2 derivatives, 5 families): (1) Chloroformates (benzyl/ethyl/methyl/myristyl - Cbz amine-protecting groups in peptide/API synthesis, agro, personal care; top-global producer); (2) Isocyanates (phenyl/stearyl/2-chloroethyl - polyurethanes, agro, pharma); (3) Carbamoyl chlorides (dimethyl/diethyl - carbamate pesticides, pharma, dyes); (4) Carbonates/carbamates (chloromethyl isopropyl carbonate=prodrug API intermediate, bis-(4-nitrophenyl) carbonate=coupling agent, polyquaternium=personal care); (5) Others (Vilsmeier reagent=formylation, DCC=peptide coupling, tetrabutyl urea)
+MOAT: phosgene hazmat barrier (extreme toxicity/WW1 weapon - keeps competitors out) + Alembic GMP pedigree (QA under Alembic group head overseeing FDA-approved facilities, DMF/ANDA know-how); toll/custom phosgenation model; India #1, leader most SKUs
+END-MARKETS: pharma (APIs/intermediates), agrochemicals, performance/specialty, personal care, custom synthesis
+*** WEAK FY26: revenue ~flat (~₹216 Cr, 5yr CAGR ~9% poor, FY25 ~2%), PAT ₹39.33 Cr; MARGIN COMPRESSION (Q2 PAT -39% YoY, PAT margin 21.5%→14.65%; Q3 EBITDA margin 29.8%→23.4%); Q4 PAT ₹12.51 Cr FLATTERED by ₹8.21 Cr OTHER INCOME (>half of PAT non-operating), Q4 ROE 7.58%; 3yr ROE ~10% - LOW ***
+VALUATION PARADOX: premium P/E ~28-30x, P/B ~2.3-3.2x DESPITE flat growth + compressed margins + low ROE + other-income-flattered earnings. MarketsMojo flagged SELL/expensive (score 42/100)
+Balance sheet: near debt-free, no pledge, cash-surplus (→ other income), CRISIL A-/Stable historically; ROCE declining even without capex
+Ownership: promoter Alembic/Amin family ~67% (no pledge), public ~33%, IEPF ~3.64%; Chairman Chirayu R Amin; ~3.08M shares (tiny); historically Ashish Kacholia holding
+KEY RISKS: valuation/value-trap (central), stagnant growth (~9% 5yr CAGR), margin+earnings-quality erosion (other-income reliance), specialty-chem cyclicality, PHOSGENE SAFETY/environmental/regulatory (low-prob high-severity), small scale/single-chemistry concentration, tiny-float illiquidity
+Bull Case: ₹650-850
+Base Case: ₹460-560
+Bear Case: ₹330-400
+Primary Valuation Metric: normalised/mid-cycle P/E (PRIMARY) + EV/EBITDA on recovered margin (CO-PRIMARY); ROCE/ROE trajectory CRITICAL INDICATOR (the whole debate); other-income-adjusted operating profit GATE; revenue growth/capex OPERATING INDICATOR; trailing P/E on depressed FY26 earnings & P/B alone AVOID as sole anchor. On normalised ~₹50-60 Cr earnings → ~22-28x (still full)
+Investment Type: high-quality moaty niche (phosgene hazmat barrier + Alembic pedigree + market leadership) BUT low-growth/margin-compressed/low-ROE/other-income-flattered at a PREMIUM multiple; "great business, demanding valuation, poor recent delivery"; value on normalised operating earnings & ROCE trajectory not depressed trailing print; own the moat but not at any price - accumulate only on de-rating or clear growth/returns inflection
+Palette: slate/graphite/chlorine-green/caution-amber molecular-hazard (distinct from Yasho emerald-chem)
+-->

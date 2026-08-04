@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNGS Reva Diamond Jewellery — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Jost:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#141117; --char-2:#211C28; --char-3:#2E2738;
+    --plat:#9AA6B8; --plat-dk:#697588; --plat-lt:#C4CEDC;
+    --rose:#C8887A; --rose-dk:#A66456; --rose-lt:#E0A99C; --rose-gl:rgba(200,136,122,.12);
+    --diamond:#5BC0D4; --diamond-dk:#2E8DA0; --diamond-lt:#8FDDEC; --diamond-gl:rgba(91,192,212,.11);
+    --gold:#C9A24B; --gold-dk:#9A7826; --gold-gl:rgba(201,162,75,.13);
+    --green:#2FA46A; --green-dk:#1C7A4C; --red:#CF4A45;
+    --ink-1:#1A151E; --ink-2:#443C4C; --ink-3:#726A7B;
+    --line:#E9E5EC; --line-2:#F2EFF4; --paper:#FDFCFE; --paper-2:#F7F4F9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Jost',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(20,17,23,.13)}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;line-height:1.13}
+  .mono{font-family:'Space Mono',monospace}
+
+  /* HERO — diamond facet motif */
+  .hero{position:relative;background:linear-gradient(150deg,#141117 0%,#211C28 52%,#2E2738 128%);color:#EDE8F2;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-8%;width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(143,221,236,.24),rgba(224,169,156,.14) 55%,transparent 72%);filter:blur(5px)}
+  .gem{position:absolute;right:70px;top:46px;width:150px;height:150px;z-index:2;opacity:.6}
+  .gem svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.di{background:rgba(91,192,212,.24);border-color:rgba(143,221,236,.5);color:#A6E6F2}
+  .tag.ro{background:rgba(200,136,122,.26);border-color:rgba(224,169,156,.5);color:#EDBEB2}
+  .hero h1{font-size:43px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .refresh{font-family:'Space Mono',monospace;font-size:11px;color:var(--diamond-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#BDB2C6;margin-bottom:24px;font-weight:300;max-width:770px}
+  .hero .sub b{color:#fff;font-weight:500}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#8E869A;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:600;font-family:'Fraunces',serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--char);color:#8E869A;
+    padding:11px 48px;font-family:'Space Mono',monospace;font-size:11px}
+  .metabar b{color:#EDE8F2;font-weight:400}
+  .metabar .dot{color:var(--rose-lt)}
+
+  .alert{background:var(--gold-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--gold-dk);font-family:'Space Mono',monospace}
+  .alert b{color:var(--char)}
+  .alert.id{background:var(--diamond-gl);color:var(--diamond-dk)}
+  .alert.warn{background:var(--rose-gl);color:var(--rose-dk)}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--diamond-dk);
+    border:1.5px solid var(--diamond);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:600;color:var(--char)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--diamond);background:var(--diamond-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.ro{border-color:var(--rose);background:var(--rose-gl)}
+  .call.go{border-color:var(--gold);background:var(--gold-gl)}
+  .call.pl{border-color:var(--plat-dk);background:rgba(105,117,136,.10)}
+  .call.red{border-color:var(--red);background:rgba(207,74,69,.08)}
+  .call .lab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--diamond-dk);margin-bottom:5px}
+  .call.ro .lab{color:var(--rose-dk)}.call.go .lab{color:var(--gold-dk)}.call.pl .lab{color:var(--plat-dk)}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--char-2);color:#EDE8F2;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Space Mono',monospace}
+  .tr-hi td{background:var(--diamond-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:600;color:var(--char);letter-spacing:-.01em;font-family:'Fraunces',serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.d{border-top:3px solid var(--diamond)}.card.r{border-top:3px solid var(--rose)}
+  .card.g{border-top:3px solid var(--gold)}.card.p{border-top:3px solid var(--plat-dk)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:100px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--diamond);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--char);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--diamond-gl);border-color:var(--diamond)}
+  .vnode.own .vt{color:var(--diamond-dk)}
+  .vnode.new{background:var(--rose-gl);border-color:var(--rose)}
+  .vnode.new .vt{color:var(--rose-dk)}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:172px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Space Mono',monospace;font-weight:400}
+  .bar-val{width:112px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.gem{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(207,74,69,.06);border-color:rgba(207,74,69,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(47,164,106,.07);border-color:rgba(47,164,106,.3)}
+  .scen .st{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px;font-family:'Fraunces',serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--char);color:#EEE9F3;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(91,192,212,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Fraunces',serif}
+  .bm .bm-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--diamond-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#CDC4D6}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C6BDD0}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--diamond-dk);color:#fff}.v-co{background:var(--rose-dk);color:#fff}
+  .v-ind{background:#1C7A4C;color:#B6EFCA}.v-sec{background:#4A4256;color:#DCD4E2}
+  .v-avoid{background:#7A2A26;color:#F6C9BF}.v-cross{background:#2A3540;color:#C6D6DC}
+  .bm .onenum{background:rgba(201,162,75,.14);border:1px solid rgba(201,162,75,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#EAD6A6;position:relative}
+  .bm .onenum b{color:#E0C070}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Space Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--char)}
+  .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--gold-dk)}.rl{background:var(--diamond-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--diamond),var(--rose))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--diamond);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--diamond)}
+  .tli .ty{font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:var(--diamond-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:600;color:var(--char);font-family:'Fraunces',serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(47,164,106,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(207,74,69,.14);color:var(--red)}
+  .b-neut{background:rgba(201,162,75,.2);color:var(--gold-dk)}
+
+  .foot{background:var(--char);color:#8A8296;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C6BDD0}
+  .disc{font-size:10.5px;color:#726A7B;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="gem">
+    <svg viewBox="0 0 150 150" fill="none">
+      <path d="M35 55 L75 20 L115 55 L75 130 Z" fill="none" stroke="#8FDDEC" stroke-width="1.8" opacity="0.7"/>
+      <path d="M35 55 L115 55" stroke="#8FDDEC" stroke-width="1.5" opacity="0.55"/>
+      <path d="M35 55 L55 55 L75 130 M115 55 L95 55 L75 130" stroke="#E0A99C" stroke-width="1.3" opacity="0.5"/>
+      <path d="M55 55 L75 20 L95 55" fill="none" stroke="#C9A24B" stroke-width="1.3" opacity="0.6"/>
+      <path d="M55 55 L75 78 L95 55 M75 78 L75 130" stroke="#8FDDEC" stroke-width="1.2" opacity="0.5"/>
+      <circle cx="75" cy="20" r="2.5" fill="#C9A24B" opacity="0.9"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: PNGSREVA</span>
+      <span class="tag">BSE Listed · Mar 2026 IPO</span>
+      <span class="tag di">Diamond-Focused Jewellery</span>
+      <span class="tag ro">Brand "Reva" · P.N. Gadgil &amp; Sons Legacy</span>
+    </div>
+    <h1>PNGS Reva Diamond Jewellery</h1>
+    <div class="refresh">◆ NOT to be confused with P N Gadgil Jewellers Ltd (a separate ₹10,700 Cr listed giant) — see §1</div>
+    <div class="sub">A freshly-listed (<b>March 2026 IPO</b>), <b>diamond-focused jewellery retailer</b> under the near-two-century P.N. Gadgil & Sons legacy — growing fast off a small base via an <b>asset-light shop-in-shop network</b> plus a new company-owned store rollout funded by IPO cash. High growth, high ambition, but early-stage and promoter-network-dependent.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (late Jul)</div><div class="v">~₹440</div><div class="d up">+14% vs IPO ₹386</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹1,350 Cr</div><div class="d">micro-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">₹439 Cr</div><div class="d up">+70% YoY*</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">₹64.7 Cr</div><div class="d up">off small base</div></div>
+      <div class="qs"><div class="k">EBITDA margin</div><div class="v">~22%</div><div class="d down">from 31%</div></div>
+      <div class="qs"><div class="k">P/E · P/B</div><div class="v">~15x · 2.5x</div><div class="d">ROE ~21%</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>CEO:</b> Amit Modak</span>
+  <span class="dot">◆</span>
+  <span><b>Promoters:</b> P.N. Gadgil &amp; Sons Ltd; Govind &amp; Renu Gadgil</span>
+  <span class="dot">◆</span>
+  <span><b>Origin:</b> 2004 (partnership) → 2024 (Ltd)</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Pune</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 02 Aug 2026</span>
+</div>
+
+<div class="alert id">
+  💎 <b>IDENTITY — READ FIRST (three similarly-named entities):</b> <b>(1) PNGS Reva Diamond Jewellery Ltd</b> = THIS company (brand "Reva", diamond-focused, IPO'd Mar 2026). <b>(2) P N Gadgil Jewellers Ltd (PNGJL)</b> = a SEPARATE, far larger listed jeweller (₹10,739 Cr FY26 revenue, Dr. Saurabh Gadgil) — a different family branch, NOT this company. <b>(3) P.N. Gadgil &amp; Sons Ltd (PNGS)</b> = Reva's promoter/parent, whose stores host Reva's shop-in-shops. Do not conflate their financials.
+</div>
+<div class="alert">
+  ⚠ <b>Q1 FY27 IMMINENT:</b> The board met <b>29 Jul 2026</b> to approve Q1 FY27 unaudited results — figures were not yet available at the time of writing. This report is built on <b>FY26 audited results</b> (reported 11 May 2026, first full year as a listed company). Check the just-released Q1 print for the latest.
+</div>
+<div class="alert warn">
+  ⚠ <b>DATA CAVEAT:</b> As a recent IPO, vendor data is inconsistent — CMP ₹365 (SimplyWall.st) / ₹440 (Investing) / ₹441.95 (ICICIdirect, 29 Jul); m-cap ₹1,315 Cr (Screener) to ₹1,446 Cr; face value ₹10; ~3.06 Cr shares; 52-wk ₹324.25–478.90. <b>Many vendors show "P/E = 0"</b> (TTM EPS not yet updated post-listing) — real P/E is ~15x on FY26 EPS. FY25 base is reported inconsistently (₹64.5 Cr vs ₹258 Cr — restated/standalone vs consolidated), distorting the YoY growth figure. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>PNGS Reva Diamond Jewellery Ltd</strong> is a Pune-based, <strong>diamond-focused jewellery retailer</strong> operating under the flagship brand <strong>"Reva"</strong> and the near-two-century legacy of the <strong>P.N. Gadgil &amp; Sons</strong> group. It <strong>listed on the NSE and BSE on 4 March 2026</strong> after a ₹380 Cr fresh-issue IPO, and specialises in <strong>certified natural diamonds</strong> (premium VVS EF/FG offerings) studded in gold and platinum, with exchange and buyback programs to build customer confidence.</p>
+  <p>The business model is distinctive: rather than building expensive standalone showrooms from scratch, Reva has scaled largely through an <strong>asset-light "shop-in-shop" (SIS) network embedded within P.N. Gadgil &amp; Sons' existing stores</strong> — 34 SIS plus 2 exclusive brand outlets (EBOs) as of May 2026, ~36 locations, concentrated in Maharashtra. It is now layering on a <strong>company-owned (COCO/EBO) store rollout</strong> — ~15 new stores over 24 months from the IPO — funded by the fresh capital. <strong>This is an early-stage, high-growth IPO story:</strong> FY26 revenue grew ~70% to ₹439 Cr and PAT reached ₹64.7 Cr, but off a small base, with <strong>EBITDA margins compressing from ~31% to ~22%</strong> as it invested heavily in inventory and expansion — and with most of the IPO cash still undeployed.</p>
+  <div class="cards">
+    <div class="card d"><div class="k">FY26 Revenue</div><div class="v">₹439 Cr</div><div class="d up">+70% YoY*</div></div>
+    <div class="card r"><div class="k">FY26 PAT</div><div class="v">₹64.7 Cr</div><div class="d up">from ₹6.6 Cr*</div></div>
+    <div class="card g"><div class="k">Stores</div><div class="v">~36</div><div class="d">34 SIS + 2 EBO</div></div>
+    <div class="card p"><div class="k">IPO undeployed</div><div class="v">₹326 Cr</div><div class="d">in FD/escrow</div></div>
+  </div>
+  <div class="call ro">
+    <div class="lab">The investment character in one line</div>
+    PNGS Reva is a <strong>newly-listed, high-growth, diamond-focused jewellery micro-cap</strong> riding a trusted legacy brand and an asset-light shop-in-shop model, now pivoting to funded company-owned expansion. The bull case is a <strong>premium-diamond niche + trusted brand + a long store-rollout runway + high ROE (~21%)</strong> in a structurally growing branded-jewellery market. The bear case is that it is <strong>small, early, promoter-network-dependent, with sharply compressing margins, a distorted growth-base optics, and most of its IPO cash still to be deployed</strong> — so the story is largely prospective. This is an <strong>execution-and-expansion bet on a young listed company</strong>, best valued on forward earnings as the stores actually open, not on a still-forming track record.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1832 · The Gadgil legacy</div><div class="td">The P.N. Gadgil &amp; Sons lineage traces back nearly two centuries — one of India's oldest jewellery names, giving Reva deep brand recall and trust in Maharashtra.</div></div>
+    <div class="tli"><div class="ty">2004 · Partnership origins</div><div class="td">Formed as the partnership firm <strong>"Gadgil Metals and Commodities"</strong> at Pune (deed dated 26 Jul 2004) — the operating vehicle that would become Reva.</div></div>
+    <div class="tli"><div class="ty">Building the Reva brand</div><div class="td">Developed <strong>"Reva"</strong> as a dedicated <strong>diamond-focused jewellery brand</strong>, scaling via <strong>shop-in-shop counters inside P.N. Gadgil &amp; Sons stores</strong> — an asset-light way to reach customers using the parent's footprint and footfall.</div></div>
+    <div class="tli"><div class="ty">20 Dec 2024 · Incorporated as a company</div><div class="td">The partnership was converted into a public limited company, <strong>PNGS Reva Diamond Jewellery Ltd</strong> — the step that set up the IPO.</div></div>
+    <div class="tli"><div class="ty">4 Mar 2026 · IPO &amp; listing</div><div class="td"><strong>Listed on NSE &amp; BSE</strong> after a ₹380 Cr fresh issue (price band ₹367–386; subscribed ~1.23x; debuted ~₹372, a slight discount). Raised ~₹349 Cr net for store expansion, inventory and branding.</div></div>
+    <div class="tli"><div class="ty">FY26 · First full year listed</div><div class="td">Revenue ~₹439 Cr (+70%), PAT ₹64.7 Cr, 34 SIS + 2 EBOs; began the COCO rollout (1 store Mar 2026). Margins compressed (31%→22%) on aggressive scaling.</div></div>
+    <div class="tli"><div class="ty">Jul 2026 · Expansion underway</div><div class="td">Opened an EBO at Amanora Mall, Hadapsar (Pune); Q1 FY27 board meeting 29 Jul. ₹326 Cr of IPO proceeds still in FD/escrow for FY27 deployment.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Store Formats</h2></div>
+  <p>Reva's model blends <strong>asset-light distribution</strong> (riding the parent's network) with a new <strong>owned-store growth engine</strong> — a two-track approach designed to scale a premium-diamond brand efficiently.</p>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Shop-in-shop (SIS)</div><div class="vd">34 counters inside P.N. Gadgil &amp; Sons stores — passive growth</div></div>
+    <div class="vnode new"><div class="vt">EBOs / COCO</div><div class="vd">Company-owned exclusive stores; 15 over 24 months</div></div>
+    <div class="vnode own"><div class="vt">Certified diamonds</div><div class="vd">VVS EF/FG natural diamonds, premium positioning</div></div>
+    <div class="vnode own"><div class="vt">Exchange / buyback</div><div class="vd">Trust-building programs</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Asset-light passive growth + funded owned expansion — a clever but dependent model</div>
+    The <strong>shop-in-shop model is the clever core</strong>: by placing Reva diamond counters inside established P.N. Gadgil &amp; Sons stores, the company gets instant reach, footfall and trust <strong>without the capex and ramp-up risk of standalone stores</strong> — "passive growth" that scales with the parent's network. The <strong>new COCO/EBO rollout</strong> (15 stores over 24 months, IPO-funded) adds an owned growth engine with fuller economics and brand control. The tension: the SIS model's efficiency comes with <strong>heavy dependence on the promoter group's stores and goodwill</strong> (a related-party reliance), and the owned-store expansion is <strong>capital-intensive and unproven at scale for Reva.</strong> The diamond focus (vs gold-heavy peers) is a genuine differentiator — higher margins, studded-jewellery tailwind — but also concentrates the business in a narrower, more discretionary category. The model is smart; its success hinges on execution of the owned rollout and the durability of the parent relationship.
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Product &amp; Positioning</h2></div>
+  <div class="bar-row"><div class="bar-lab">Diamond / studded focus</div><div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--diamond)">premium natural diamonds</div></div><div class="bar-val">core</div></div>
+  <div class="bar-row"><div class="bar-lab">Maharashtra concentration</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--rose)">home market</div></div><div class="bar-val">high</div></div>
+  <div class="bar-row"><div class="bar-lab">Owned stores (today)</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--gold)">2 EBO of 36</div></div><div class="bar-val">early</div></div>
+  <div class="call go">
+    <div class="lab">A differentiated premium-diamond niche in a gold-dominated market</div>
+    Reva's <strong>exclusive focus on certified natural diamonds</strong> — premium VVS EF/FG quality, studded jewellery — sets it apart from India's overwhelmingly <strong>gold-centric</strong> jewellery retailers. This is strategically attractive: diamonds/studded jewellery carry <strong>higher margins and value-density</strong> than plain gold, benefit from a structural shift toward branded, certified, design-led jewellery, and appeal to a premium, wedding-and-occasion customer. The trust of the P.N. Gadgil name (near two centuries) de-risks the "will customers buy expensive diamonds from a new brand?" question. The flip side: diamonds are a <strong>narrower, more discretionary, more fashion/sentiment-sensitive category</strong> than gold (which doubles as a store of value), and the business is <strong>heavily concentrated in Maharashtra</strong> — so it is exposed to regional demand and a single high-end category. Differentiated and margin-rich, but narrower and more discretionary than a diversified jeweller.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The FY26 Result, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Change</th></tr>
+    <tr><td>Revenue from ops (₹ Cr)</td><td class="mono">64.5 / 258*</td><td class="mono">439.0</td><td class="mono up">+70% (see note)</td></tr>
+    <tr><td>PAT (₹ Cr)</td><td class="mono">6.6 / 59.5*</td><td class="mono">64.7</td><td class="mono up">strong</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">~31%</td><td class="mono">~22%</td><td class="mono down">−9pp</td></tr>
+    <tr><td>Q4 FY26 revenue</td><td class="mono">—</td><td class="mono">138.1</td><td class="mono up">Q4</td></tr>
+    <tr><td>Q4 FY26 PAT</td><td class="mono">—</td><td class="mono">21.4</td><td class="mono up">+350% YoY</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--ink-3)">*Base-year figures are reported inconsistently across sources (₹64.5 Cr / ₹258 Cr revenue; ₹6.6 Cr / ₹59.5 Cr PAT) — likely restated, standalone-vs-consolidated, or pre-conversion partnership accounting. Treat the exact YoY growth rate with caution; the <em>direction</em> (strong growth) is clear, the <em>magnitude</em> is base-dependent.</p>
+  <div class="call red">
+    <div class="lab">Strong growth — but read the two big caveats</div>
+    FY26 shows <strong>genuine, strong growth</strong> — revenue to ₹439 Cr, PAT to ₹64.7 Cr, Q4 PAT +350% — driven by aggressive retail expansion and the diamond/studded tailwind. But two caveats are essential. <strong>First, the growth base is distorted:</strong> FY25 figures are reported inconsistently (a tiny ₹64.5 Cr in some filings, ₹258 Cr in the IPO doc), reflecting the partnership-to-company conversion and restatements — so the headline "+70%" (or larger) overstates the like-for-like trajectory and should not be naively extrapolated. <strong>Second, and more importantly, margins compressed sharply — EBITDA margin fell from ~31% to ~22%</strong> as the company spent heavily on inventory, new stores and brand-building. So this was <strong>growth bought with margin</strong> — a classic and not-unreasonable growth-stage trade-off, but one that means <strong>profit grew far less than revenue optics suggest, and the "31% margin" business is now a "22% margin" business.</strong> Whether margins stabilise here, recover with scale/owned-store mix, or compress further is the single biggest question for the earnings trajectory.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Arena</th><th>Players</th><th>Reva's position</th></tr>
+    <tr class="tr-hi"><td><strong>Branded diamond jewellery</strong></td><td>Tanishq (Titan), Kalyan, Senco, Reliance</td><td>Small, premium-diamond niche; legacy-brand trust</td></tr>
+    <tr><td><strong>Regional (Maharashtra)</strong></td><td>P N Gadgil Jewellers, PNG, local players</td><td>Strong local recall via Gadgil name</td></tr>
+    <tr><td><strong>National gold-led chains</strong></td><td>Tanishq, Kalyan, Joyalukkas, Malabar</td><td>Not competing on scale; niche focus</td></tr>
+    <tr><td><strong>Diamond specialists</strong></td><td>ORRA, Hazoorilal, regional diamond brands</td><td>Peer set; differentiated by parent legacy</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A small niche player in a market dominated by giants — trust is the edge</div>
+    Reva competes in one of India's <strong>most competitive retail categories</strong>, dominated by well-capitalised national giants (Tanishq/Titan, Kalyan, Malabar, Joyalukkas) and strong regional players — <strong>including, notably, P N Gadgil Jewellers Ltd, a separate and vastly larger listed entity from the same broader family lineage.</strong> Reva is tiny by comparison (~₹439 Cr revenue vs peers' many thousands of crores). Its defence is <strong>focus and trust</strong>: a dedicated premium-diamond positioning (rather than competing head-on across all gold categories) and the deep brand equity of the P.N. Gadgil name in Maharashtra. That is a viable niche strategy, but investors must be realistic — Reva is a <strong>small, regional, category-focused challenger</strong>, not a scale player, and its growth depends on carving out and defending a premium-diamond niche against far larger competitors with deeper pockets and wider networks. The brand legacy helps; scale and capital are on the competitors' side.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td>Crowded jewellery retail; national giants + strong regionals; brand and design competition intense.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate-High</td><td>Discerning, price-aware premium customers; diamonds are discretionary and comparison-shopped.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Diamond/gold sourcing; certified-diamond supply and gold-price volatility affect costs/inventory.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Brand trust, capital and inventory are barriers; but many well-funded players already exist.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate</td><td>Gold jewellery, lab-grown diamonds (a real emerging threat to natural-diamond value), other luxury.</td></tr>
+  </table>
+  <p>Net: a <strong>competitive, discretionary retail category</strong> where Reva's edge is brand-legacy trust and premium-diamond focus, but where scale, capital, and the <strong>emerging lab-grown-diamond substitution risk</strong> to natural-diamond pricing are real structural headwinds. The forces underline that this is a focused niche bet, not a wide-moat business.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The IPO &amp; Capital Deployment</h2></div>
+  <div class="cards">
+    <div class="card d"><div class="k">IPO size (fresh)</div><div class="v">₹380 Cr</div><div class="d">~₹349 Cr net</div></div>
+    <div class="card r"><div class="k">Deployed by Mar'26</div><div class="v">₹22.7 Cr</div><div class="d">15 stores + mktg</div></div>
+    <div class="card g"><div class="k">Still in FD/escrow</div><div class="v">₹326 Cr</div><div class="d">for FY27</div></div>
+    <div class="card p"><div class="k">Rollout plan</div><div class="v">15 stores</div><div class="d">/ 24 months</div></div>
+  </div>
+  <p>The March 2026 IPO raised <strong>~₹349 Cr net</strong> (fresh issue) earmarked for <strong>store capex, inventory and brand-building</strong>. Critically, as of March 2026 only <strong>₹22.7 Cr had been deployed — leaving ₹326 Cr sitting in fixed deposits and escrow</strong> for deployment through FY27, funding the planned ~15 COCO stores over 24 months.</p>
+  <div class="call go">
+    <div class="lab">Most of the growth capital is undeployed — the story is still to be executed</div>
+    This is a <strong>double-edged fact and a defining feature of the current setup.</strong> On the positive side, the balance sheet is <strong>cash-rich and debt-light</strong> — ₹326 Cr of firepower fully funds the expansion plan without needing more capital, and that cash currently earns interest (flattering "other income" modestly). On the cautionary side, it means <strong>the growth thesis is overwhelmingly prospective — the stores that justify the valuation mostly haven't opened yet.</strong> Investors are underwriting management's ability to deploy ₹326 Cr into ~15 profitable owned stores over two years, ramp them successfully, and do so while defending margins — an execution track record Reva does not yet have as a standalone owned-store operator (its history is largely shop-in-shop). <strong>The pace and profitability of IPO-cash deployment is the single most important thing to watch over FY27–28</strong> — it is the bridge between today's small base and the growth the valuation implies. Watch store-opening cadence, new-store payback, and same-store metrics closely.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins &amp; Unit Economics</h2></div>
+  <div class="cards">
+    <div class="card d"><div class="k">EBITDA margin FY26</div><div class="v">~22%</div><div class="d down">from ~31%</div></div>
+    <div class="card r"><div class="k">PAT margin FY26</div><div class="v">~14.7%</div><div class="d">healthy for jewellery</div></div>
+    <div class="card g"><div class="k">ROE</div><div class="v">~21%</div><div class="d">strong</div></div>
+    <div class="card p"><div class="k">P/B</div><div class="v">~2.5x</div><div class="d">growth-priced</div></div>
+  </div>
+  <p>Reva's margins are <strong>high for jewellery retail</strong> — a ~22% EBITDA margin and ~15% PAT margin far exceed typical gold-jeweller margins (often mid-single-digits), reflecting the <strong>premium-diamond/studded mix</strong>. ROE of ~21% is strong. But the <strong>sharp compression from ~31% to ~22%</strong> in FY26 is the headline margin story.</p>
+  <div class="call red">
+    <div class="lab">The margin question is central — is ~22% the new normal, or a waypoint?</div>
+    The diamond focus gives Reva <strong>structurally attractive margins</strong> versus gold peers — that is a genuine strength and a key part of the bull case. But the <strong>9-point EBITDA-margin drop in a single year is a real caution</strong>: it shows that rapid scaling (inventory build, new stores, marketing, and possibly a shift in mix or pricing to drive volume) came at a <strong>meaningful cost to profitability.</strong> The critical unknowns: does the margin <strong>stabilise around ~22%</strong> (a still-healthy level) as scaling normalises; does it <strong>recover</strong> as owned stores mature and mix richens; or does it <strong>compress further</strong> as competition and expansion costs bite? Because the valuation prices growth, the market implicitly assumes margins hold near current levels while revenue scales — so <strong>any further compression would hit earnings doubly (on both the margin and the growth-multiple).</strong> Margin trajectory over the next few quarters — especially as new owned stores open and carry ramp-up losses — is the metric that most determines whether the growth translates into proportionate profit.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Promoters, Ownership &amp; the Parent Relationship</h2></div>
+  <div class="cards">
+    <div class="card d"><div class="k">Promoter holding</div><div class="v">~60–63%</div><div class="d">post-IPO</div></div>
+    <div class="card r"><div class="k">FII</div><div class="v">~5.3%</div><div class="d">early institutional</div></div>
+    <div class="card g"><div class="k">DII</div><div class="v">~8.6%</div><div class="d">early institutional</div></div>
+    <div class="card p"><div class="k">Public</div><div class="v">~16–18%</div><div class="d">free float</div></div>
+  </div>
+  <p>Reva is <strong>promoter-controlled (~60–63%)</strong> by <strong>P.N. Gadgil &amp; Sons Ltd</strong> and the Gadgil family (Govind &amp; Renu Gadgil), with early institutional interest (FII ~5%, DII ~9%). Promoters had <strong>no share encumbrance</strong> in FY26, and Screener notes promoter holding <em>increased</em> ~1.68% recently — a mild positive signal.</p>
+  <div class="call ro">
+    <div class="lab">The parent relationship is both the biggest asset and the biggest dependency</div>
+    Reva's link to <strong>P.N. Gadgil &amp; Sons is the crux of both the opportunity and the risk.</strong> On the asset side: the near-two-century brand legacy, the ready-made store network hosting Reva's shop-in-shops, instant customer trust, and aligned promoter ownership are enormous advantages for a young company — few micro-cap IPOs launch with this kind of built-in distribution and brand equity. On the dependency side: a large part of Reva's current revenue flows through <strong>SIS counters inside promoter-group stores — a related-party arrangement</strong> — so its growth, terms and even continuity partly rest on the parent's decisions and health. Investors are therefore <strong>underwriting the promoter relationship as much as the standalone business.</strong> The owned-store (COCO) rollout is, in part, a strategic move to build a growth engine <em>less</em> dependent on the parent — which is healthy — but for now the SIS reliance, and related-party dynamics generally, are a structural feature to monitor (fair transfer pricing, continuity of arrangements, and the parent's own trajectory). Strong, aligned promoter; but unusually high dependence.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card d"><div class="k">IPO cash (FD/escrow)</div><div class="v">₹326 Cr</div><div class="d">undeployed</div></div>
+    <div class="card r"><div class="k">Debt</div><div class="v">low</div><div class="d">post-IPO</div></div>
+    <div class="card g"><div class="k">ROE</div><div class="v">~21%</div><div class="d">strong</div></div>
+    <div class="card p"><div class="k">Inventory</div><div class="v">rising</div><div class="d">diamond stock build</div></div>
+  </div>
+  <p>Post-IPO, the balance sheet is <strong>cash-rich and lightly levered</strong> — ₹326 Cr of undeployed proceeds, low debt, and a strong ~21% ROE. This gives ample funding for the expansion plan. The key working-capital feature is <strong>rising inventory</strong> — inherent to jewellery retail (especially diamonds), and a driver of the FY26 margin/cash investment.</p>
+  <div class="call go">
+    <div class="lab">The metric that decides the thesis: return on the deploying capital</div>
+    For a growth-stage retailer flush with IPO cash, the decisive question is <strong>the return the company earns as it deploys that ₹326 Cr.</strong> Today's ~21% ROE is strong, but it is partly flattered by the fact that a large cash pile is sitting in deposits (low-risk, low-return) rather than yet being at work in stores — and by the small base. As the capital is deployed into inventory and new stores, the real test is whether <strong>incremental capital earns attractive returns (new-store ROIC, inventory turns, same-store growth)</strong> or whether returns dilute as the easy asset-light SIS growth gives way to capital-heavy owned stores. <strong>Watch: inventory turnover, new-store payback periods, same-store sales growth (SSSG), and ROCE trend as the cash is deployed.</strong> If Reva can deploy ₹326 Cr at high incremental returns, the growth compounds attractively; if new stores ramp slowly or dilute returns, the cash-rich balance sheet flatters a decelerating core. Capital-deployment efficiency is the number that matters.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Owned-store rollout</strong></td><td>~15 COCO/EBO stores over 24 months (IPO-funded)</td><td class="mono">Core engine ★★★★</td></tr>
+    <tr><td><strong>SIS network expansion</strong></td><td>More counters as parent adds stores (passive)</td><td class="mono">Asset-light ★★★★</td></tr>
+    <tr><td><strong>Diamond/studded tailwind</strong></td><td>Shift to branded, certified, studded jewellery</td><td class="mono">Structural ★★★★</td></tr>
+    <tr><td><strong>Brand legacy leverage</strong></td><td>P.N. Gadgil trust → premium pricing/trust</td><td class="mono">Differentiator ★★★★</td></tr>
+    <tr><td><strong>Geographic expansion</strong></td><td>Beyond Maharashtra over time</td><td class="mono">Optionality ★★★</td></tr>
+    <tr><td><strong>Margin recovery / mix</strong></td><td>Owned-store maturity, richer mix</td><td class="mono">If it happens ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <div class="two">
+    <div>
+      <div class="call">
+        <div class="lab">The bull-supporting facts</div>
+        Strong growth (revenue ₹439 Cr, PAT ₹64.7 Cr), high margins for jewellery (~22% EBITDA, ~15% PAT), ROE ~21%, a differentiated premium-diamond niche, a trusted near-two-century brand, ₹326 Cr of funded expansion runway, and a long store-rollout story ahead. A genuine high-growth franchise in a growing category.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The bear-supporting facts</div>
+        Tiny/early (~₹439 Cr revenue, ~36 stores, Maharashtra-concentrated); <strong>margins compressed 31%→22%</strong>; growth base distorted by restatements; <strong>heavy promoter-SIS dependence</strong>; most IPO cash undeployed (thesis prospective); no long listed track record; lab-grown-diamond substitution risk. Priced for growth (~15x P/E, ~2.5x P/B) it must now deliver.
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financial picture is that of a <strong>promising, high-margin, high-growth young retailer in the early innings of a funded expansion</strong> — attractive category and returns, but a short, restatement-distorted track record and a largely prospective growth story. Judge it on forward execution (store openings, SSSG, margins) rather than the still-forming historical trend.</p>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>At ~₹440 (m-cap ~₹1,350 Cr), Reva trades at roughly <strong>~15x FY26 earnings and ~2.5x book, with ROE ~21%</strong> — note that many vendors erroneously show "P/E = 0" because TTM EPS hasn't been updated since listing. For a recently-listed, high-growth jeweller, the right lens is <strong>forward P/E on post-expansion earnings, cross-checked with same-store metrics and store-rollout execution</strong> — not the trailing multiple off a distorted base.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value PNGS Reva Diamond Jewellery</h3>
+    <div class="bm-sub">Recently-listed, high-growth, diamond-focused retailer mid-expansion → forward P/E on post-rollout earnings + SSSG / revenue-per-store + store-rollout execution; margin sustainability is critical; promoter-SIS dependence is the gate; trailing P/E off a distorted base is not an anchor</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Forward P/E on post-expansion earnings</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Value on FY27–28E earnings as owned stores open and ramp — the growth the price implies. The whole case is forward; trailing (off a tiny/restated base) understates the picture in both directions.</td></tr>
+      <tr><td>SSSG &amp; revenue / profit per store</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>The truest gauge of underlying retail health and new-store productivity — cuts through base distortions and shows whether growth is quality (like-for-like + productive new stores) or just store-count.</td></tr>
+      <tr><td>Store-rollout &amp; IPO-cash deployment</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>15 stores / 24 months, ₹326 Cr to deploy. Opening cadence and new-store payback are the visible proof the growth thesis is executing.</td></tr>
+      <tr><td>EBITDA-margin sustainability</td><td><span class="verdict v-ind">CRITICAL INDICATOR</span></td><td>The 31%→22% drop is the key risk. Whether margins hold ~22%, recover, or compress further swings earnings and the multiple together.</td></tr>
+      <tr><td>Promoter / SIS related-party dependence</td><td><span class="verdict v-cross">GATE</span></td><td>Much of revenue runs through promoter-group stores. Fair terms, continuity and the parent's health gate the quality of the earnings.</td></tr>
+      <tr><td>Trailing P/E off FY26 base; P/B alone</td><td><span class="verdict v-avoid">AVOID as anchor</span></td><td>Base is restatement-distorted and IPO cash sits idle; vendors even show P/E "0". Neither trailing P/E nor P/B alone captures a funded, early-expansion story.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At ~₹1,350 Cr for a business doing ₹439 Cr revenue / ₹64.7 Cr PAT (~15x earnings, ~2.5x book, ROE ~21%), Reva is priced as a <b>high-growth premium-diamond compounder</b> — reasonable <em>if</em> it deploys its ₹326 Cr into ~15 productive owned stores, sustains SSSG, and holds ~22% margins, plausibly growing PAT toward ~₹90–120 Cr over the next couple of years (putting the forward P/E in the low-teens). It looks <b>expensive if</b> margins compress further, the owned rollout ramps slowly, or the promoter-SIS growth stalls. <b>Verdict: a genuinely differentiated, high-margin, high-ROE, trusted-legacy diamond retailer with a funded, credible expansion runway in a growing branded-jewellery market — but an early-stage, Maharashtra-concentrated, promoter-network-dependent micro-cap whose growth story is still mostly ahead of it, whose margins have just compressed sharply, and whose track record as a standalone owned-store operator is unproven. Value it on forward earnings and same-store/new-store execution — never the trailing multiple off a distorted base — make EBITDA-margin sustainability and the pace/returns of IPO-cash deployment the deciding indicators, and treat the promoter-SIS dependence as a gate on earnings quality. A promising growth-stage jeweller for investors comfortable with micro-cap, execution and concentration risk; fairly priced for delivery, with limited margin of safety if execution slips.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹300–360</div><div class="sd">Margins compress further, owned-store rollout slows or ramps poorly, SSSG fades, promoter-SIS growth stalls, or gold/diamond-price/discretionary weakness bites; de-rates toward the IPO/52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹420–500</div><div class="sd">Stores roll out on plan, margins hold ~22%, SSSG steady, IPO cash deploys productively; earnings grow into the multiple. Around current levels / 52-wk range.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹560–700</div><div class="sd">Rapid, profitable store expansion, margin recovery with owned-store maturity, geographic broadening, strong SSSG; re-rates as a proven premium-diamond growth compounder.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">No meaningful sell-side coverage yet (recent listing). Scenario ranges hinge on rollout execution and margin sustainability. As a low-float recent IPO, expect volatility. Verify CMP/ratios vs NSE/BSE and check the just-released Q1 FY27 print.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Margin sustainability</strong>EBITDA margin fell from ~31% to ~22% in FY26 on scaling costs; further compression (from competition, expansion drag, or mix) would hit earnings and the growth multiple simultaneously. The central financial risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Promoter / SIS related-party dependence</strong>A large share of revenue flows through shop-in-shop counters in promoter-group (P.N. Gadgil &amp; Sons) stores. Growth, terms, and continuity depend on the parent — a structural dependency and related-party consideration.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Execution risk on owned-store rollout</strong>The growth thesis rests on deploying ₹326 Cr into ~15 profitable owned stores over 24 months — an unproven capability for a company whose history is largely asset-light SIS. Slow or unprofitable ramp would undercut the story.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Concentration (category &amp; geography)</strong>Heavily focused on premium natural diamonds and concentrated in Maharashtra — exposed to a single discretionary category and regional demand; less diversified than a broad gold jeweller.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Lab-grown-diamond substitution</strong>The rise of lab-grown diamonds is a structural threat to natural-diamond pricing and margins — a real medium-term risk to a natural-diamond-focused retailer.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Gold/diamond price &amp; inventory risk</strong>Rising precious-metal/diamond prices and large inventory holdings create working-capital and mark-to-market exposure; demand is sensitive to price and discretionary sentiment.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Recent-IPO / micro-cap risks</strong>Short listed track record, low float, distorted growth base, limited analyst coverage, and name-confusion with larger Gadgil entities → potential volatility and mispricing. Verify data carefully.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">Strong <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Margins (level)</div><div class="scv">~22% EBITDA <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">ROE</div><div class="scv">~21% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Brand / legacy</div><div class="scv">Near 2 centuries <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Funded runway</div><div class="scv">₹326 Cr <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Margin trend</div><div class="scv">31%→22% <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Promoter dependence</div><div class="scv">High (SIS) <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Scale / diversification</div><div class="scv">Small, regional <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Track record (listed)</div><div class="scv">Very short <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    PNGS Reva Diamond Jewellery is a <strong>freshly-listed (March 2026), high-growth, premium-diamond-focused jewellery micro-cap</strong> that pairs a genuinely differentiated niche (certified natural diamonds, studded jewellery) with the powerful trust of the near-two-century <strong>P.N. Gadgil &amp; Sons</strong> legacy and a clever, asset-light shop-in-shop distribution model — delivering strong FY26 growth (revenue ~₹439 Cr, PAT ₹64.7 Cr), high-for-jewellery margins (~22% EBITDA, ~15% PAT), a robust ~21% ROE, and a fully-funded expansion runway (₹326 Cr of undeployed IPO cash for ~15 owned stores over 24 months). <strong>But it is emphatically an early-stage, execution-dependent story.</strong> The margin compressed sharply (~31%→~22%) as it scaled; the growth base is distorted by partnership-to-company restatements (so headline YoY overstates the trend); it is <strong>small, Maharashtra-concentrated, and heavily dependent on the promoter group's stores</strong> (a related-party reliance); most of the growth capital is still undeployed (the thesis is largely prospective); it faces the structural lab-grown-diamond threat; and it carries the usual recent-IPO risks of a short track record and name-confusion with the far larger, separate <strong>P N Gadgil Jewellers Ltd.</strong> <strong>The honest framing: a promising, high-margin, high-ROE, trusted-brand diamond retailer at the start of a funded growth journey — attractive in category, returns and ambition, but unproven as a standalone owned-store operator and priced (~15x earnings, ~2.5x book) for delivery it has yet to demonstrate. Value it on forward earnings, same-store metrics and store-rollout execution — never the distorted trailing multiple — and make margin sustainability, IPO-cash-deployment returns, and the promoter-SIS relationship the deciding gates. A growth-stage jeweller for investors comfortable with micro-cap, concentration and execution risk; the differentiation and runway are real, the proof is still to come.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">29 Jul 2026</td><td><strong>Board meeting to approve Q1 FY27 unaudited results</strong> (figures awaited at time of writing — check the released print).</td></tr>
+    <tr><td class="mono">Jul 2026</td><td>Opened an <strong>Exclusive Brand Store at Amanora Mall, Hadapsar, Pune</strong> — part of the owned-store (EBO/COCO) rollout.</td></tr>
+    <tr><td class="mono">11 May 2026</td><td><strong>FY26 audited results</strong> (first full year as listed co): revenue ₹439.03 Cr (from ₹64.47 Cr FY25), PAT ₹64.66 Cr (from ₹6.59 Cr), Q4 revenue ₹138.13 Cr / PAT ₹21.41 Cr; unmodified audit opinion (MSKA &amp; Associates). 34 SIS + 2 EBO stores; ₹22.7 Cr of IPO proceeds deployed, ₹326 Cr remaining.</td></tr>
+    <tr><td class="mono">2 Apr 2026</td><td>Promoter Govind Gadgil declared <strong>no encumbrance</strong> on promoter-group shares for FY26.</td></tr>
+    <tr><td class="mono">4 Mar 2026</td><td><strong>Listed on NSE &amp; BSE</strong> (debut ~₹372); IPO subscribed ~1.23x, price band ₹367–386, ₹380 Cr fresh issue.</td></tr>
+    <tr><td class="mono">Mar 2026</td><td>Opened first COCO store as part of the ~15-store / 24-month expansion plan.</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card d"><div class="k">Cash (FD/escrow)</div><div class="v">₹326 Cr</div><div class="d">IPO proceeds</div></div>
+    <div class="card r"><div class="k">Debt</div><div class="v">low</div><div class="d">post-IPO</div></div>
+    <div class="card g"><div class="k">ROE</div><div class="v">~21%</div><div class="d">strong</div></div>
+    <div class="card p"><div class="k">P/B</div><div class="v">~2.5x</div><div class="d">growth-priced</div></div>
+  </div>
+  <p>The post-IPO balance sheet is a <strong>strength</strong>: ₹326 Cr of cash, low debt, and a healthy ~21% ROE. It fully funds the expansion without further dilution and cushions downside. The main working-capital dynamic is <strong>inventory build</strong> — intrinsic to diamond retail and a key use of the IPO proceeds.</p>
+  <div class="call go">
+    <div class="lab">The metric that decides the thesis: incremental return on deployed capital &amp; inventory turns</div>
+    A cash-rich, debt-light balance sheet is a comfort, but for a growth retailer the real test is <strong>what returns the deploying capital earns.</strong> The current ~21% ROE is genuinely good but partly flattered by idle IPO cash and a small base; as ₹326 Cr moves into inventory and owned stores, watch whether <strong>incremental ROIC, inventory turnover and same-store sales</strong> hold up. Jewellery is working-capital-heavy (slow inventory turns tie up cash), so <strong>inventory efficiency and new-store payback are the quality signals.</strong> If Reva deploys its cash into high-return, quick-ramping stores while turning inventory efficiently, the compounding is attractive; if inventory bloats or new stores ramp slowly, the strong headline ROE will fade as the cash is put to work. <strong>Track ROCE trend, inventory days, new-store payback, and SSSG each quarter as the capital deploys.</strong>
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Status</div><div class="tkv">Recent IPO <span class="badge b-neut">Mar '26</span></div><div class="tkd">~5 months listed</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹440</div><div class="tkd">late Jul 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹324 – 479</div><div class="tkd">since listing</div></div>
+    <div class="tk"><div class="tkl">IPO price</div><div class="tkv">₹367–386</div><div class="tkd">now ~+14%</div></div>
+    <div class="tk"><div class="tkl">vs 52-wk high</div><div class="tkv">−~8%</div><div class="tkd">₹478.90 high</div></div>
+    <div class="tk"><div class="tkl">Float</div><div class="tkv">Low</div><div class="tkd">~16–18% public</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">PNGS Reva is a <strong>recently-listed stock (~5 months of trading history)</strong>, so technical signals are limited and less reliable. After debuting at a slight discount (~₹372 vs ₹386 issue price), it has traded up to ~₹440 (about +14% over the IPO price), ranging ₹324–479, and currently sits ~8% below its ₹478.90 high. The <strong>low free float (~16–18% public)</strong> makes it prone to sharp moves on limited volume, and the stock will be sensitive to the just-released Q1 FY27 print, store-opening news and any lock-up-expiry supply. With no established trend or meaningful coverage yet, <strong>fundamentals (rollout execution, SSSG, margins) should dominate over technicals</strong> at this stage. Verify the live NSE quote — vendor data is inconsistent for this recent listing.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Recent IPO with a short track record and inconsistent vendor data (CMP ₹365–442; m-cap ₹1,315–1,446 Cr; many vendors show P/E "0" — real P/E ~15x on FY26 EPS; FY25 base reported inconsistently). Do not confuse with P N Gadgil Jewellers Ltd (a separate, larger listed entity). Verify against NSE/BSE and filed results, check the released Q1 FY27 numbers, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>PNGS Reva Diamond Jewellery Ltd</b> — NSE: PNGSREVA · BSE Listed · Consumer Discretionary / Gems &amp; Jewellery (diamond-focused retail) · brand "Reva" · Pune<br>
+  Report generated 02 August 2026 · Data through FY26 audited results (reported 11 May 2026, first full year as a listed company). Q1 FY27 board meeting held 29 Jul 2026 — check released figures.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company FY26 audited results &amp; BSE-NSE filings, IPO prospectus, Screener.in, Univest, IndiaIPO, Tradebrains, ICICIdirect, Tickertape, INDmoney, Share.market, India Infoline, Bajaj Finserv, Investing.com, SimplyWall.st, JM Financial. Key figures: FY26 (reported 11 May 2026) — revenue from operations ₹439.03 Cr (₹4,390.28 million, vs ₹64.47 Cr / ₹644.70 million FY25 per audited filing; note IPO-doc cites FY25 revenue ₹258.2 Cr — base reported inconsistently due to partnership-to-company conversion/restatement), total income ₹441.06 Cr (₹4,410.63 million), PAT ₹64.66 Cr (₹646.55 million, vs ₹6.59 Cr / ₹65.85 million FY25); Q4 FY26 revenue ₹138.13 Cr (₹1,381.26 million), Q4 PAT ₹21.41 Cr (+350.74% YoY, −7.36% QoQ), Q4 EPS ₹8.40; unmodified audit opinion (MSKA &amp; Associates LLP). EBITDA margin compressed from ~31% (FY25) to ~22% (FY26) on scaling/inventory/store investment (per Tradebrains); PAT margin ~14.7%; ROE ~21%. IPO: listed 4 Mar 2026 on NSE &amp; BSE, fresh issue 98,32,000 shares of ₹10 at ₹367–386 band (₹380 Cr; ~₹349.12 Cr net; subscribed ~1.23x; debut ~₹372); ₹22.68 Cr deployed by 31 Mar 2026 (15 new stores + marketing), ₹326.44 Cr remaining in FD/escrow for FY27. Stores: 34 shop-in-shop (SIS, within P.N. Gadgil &amp; Sons stores) + 2 exclusive brand outlets (EBO) as of 11 May 2026, ~36 locations, Maharashtra-concentrated; plan for ~15 COCO/EBO stores over 24 months from IPO (1 opened Mar 2026; EBO at Amanora Mall, Hadapsar, Pune, Jul 2026). Product: certified natural diamonds (premium VVS EF/FG), studded jewellery, exchange/buyback programs; brand "Reva". Originally partnership "Gadgil Metals and Commodities" (26 Jul 2004) → PNGS Reva Diamond Jewellery Ltd (incorporated 20 Dec 2024); HQ Abhiruchi Mall, Sinhgad Road, Wadgaon Budruk, Pune; CEO Amit Modak; promoters P.N. Gadgil &amp; Sons Ltd + Govind &amp; Renu Gadgil (no share encumbrance FY26). Shareholding (varies by date): promoter ~60.32–63.10%, FII ~5.3%, DII ~8.6%, public ~16–18% (Screener notes promoter holding +1.68% recent quarter). <b>IDENTITY CAVEAT: distinct from (a) P N Gadgil Jewellers Ltd / PNGJL — a SEPARATE, far larger listed jeweller (₹10,739 Cr FY26 revenue, PAT ₹410 Cr, Dr. Saurabh Gadgil) — and (b) P.N. Gadgil &amp; Sons Ltd (PNGS), Reva's promoter/parent. Do not conflate financials.</b> <b>DATA CAVEAT: recent-IPO vendor data inconsistent — CMP ₹365.45 (SimplyWall.st) / ₹440 (Investing.com, 29 Jul) / ₹441.95 (ICICIdirect, 29 Jul) / ₹446.30 (INDmoney); market cap ₹1,315 Cr (Screener) / ₹1,343.85 Cr (INDmoney) / ₹1,400.89 Cr (ICICIdirect) / ₹1,446.20 Cr (Bajaj); P/B ~2.35–2.61x; MANY VENDORS SHOW P/E = 0 (TTM EPS not updated post-listing) — real P/E ~15x on FY26 EPS (~₹21) / EPS TTM ₹28.41 per Investing.com; face value ₹10; ~3.06 Cr shares; 52-wk ₹324.25–478.90; ROE ~21%. All figures approximate — verify vs NSE/BSE and filed results.</b> No meaningful sell-side coverage yet (recent listing). Normalised/forward estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice.</b> Verify all figures against primary filings, check the released Q1 FY27 results, and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: PNGS Reva Diamond Jewellery Limited
+Ticker: NSE: PNGSREVA (also seen as PNGR/PNGSREVA) / BSE Listed
+Sector: Gems & Jewellery (diamond-focused retail) / Consumer Discretionary
+Report Date: August 2, 2026 (FY26 audited May 11; Q1 FY27 board meeting Jul 29 - results imminent)
+File: pngs_reva_diamond_jewellery_equity_research.html
+CMP at Report: ~₹440 (late Jul 2026; VENDOR-DIVERGENT ₹365 SimplyWall.st to ₹442 ICICI; VERIFY vs NSE/BSE)
+Market Cap: ~₹1,350 Cr (diverges ₹1,315-1,446 Cr); face value ₹10; ~3.06 Cr shares; micro-cap
+*** IDENTITY CRITICAL - THREE similarly-named entities: (1) PNGS Reva Diamond Jewellery = THIS co (brand "Reva", diamond-focused, IPO Mar 2026); (2) P N Gadgil Jewellers Ltd/PNGJL = SEPARATE far larger listed jeweller (₹10,739 Cr FY26 rev, Dr Saurabh Gadgil) - NOT this; (3) P.N. Gadgil & Sons Ltd = Reva's PROMOTER/parent hosting its shop-in-shops. Do not conflate. ***
+IPO: listed NSE & BSE 4 Mar 2026, ₹380 Cr fresh issue, band ₹367-386, subscribed 1.23x, debut ~₹372
+FY26 (first full year listed, reported May 11): revenue ₹439.03 Cr (+70%, but base distorted - FY25 ₹64.47 Cr audited vs ₹258 Cr IPO-doc), PAT ₹64.66 Cr (from ₹6.59 Cr), Q4 rev ₹138.13 Cr/PAT ₹21.41 Cr (+350% YoY); unmodified opinion (MSKA)
+KEY ISSUE: EBITDA MARGIN COMPRESSED ~31%→~22% on scaling/inventory/store investment (growth bought with margin); PAT margin ~14.7%, ROE ~21%
+BUSINESS MODEL: diamond-focused (certified natural VVS EF/FG), brand "Reva"; asset-light SHOP-IN-SHOP (34 SIS within P.N. Gadgil & Sons stores) + 2 EBO = ~36 locations, Maharashtra-concentrated; expanding to ~15 COCO/EBO stores over 24 months (IPO-funded)
+IPO CASH: ₹326 Cr still UNDEPLOYED in FD/escrow (only ₹22.7 Cr used by Mar'26) - growth thesis largely PROSPECTIVE
+Ownership: promoter (P.N. Gadgil & Sons + Govind/Renu Gadgil) ~60-63%, FII ~5.3%, DII ~8.6%, public ~16-18%; no encumbrance; promoter holding +1.68% recent qtr
+Valuation: ~15x FY26 P/E (vendors show "0" - stale TTM), P/B ~2.5x, ROE ~21%; priced for growth
+KEY RISKS: margin sustainability (31%→22%), promoter/SIS related-party dependence, owned-store rollout execution (unproven standalone operator), category+geography concentration (diamonds+Maharashtra), lab-grown-diamond substitution, gold/diamond price+inventory, recent-IPO/micro-cap/low-float/name-confusion
+Bull Case: ₹560-700
+Base Case: ₹420-500
+Bear Case: ₹300-360
+Primary Valuation Metric: forward P/E on post-expansion earnings (PRIMARY) + SSSG/revenue-per-store (CO-PRIMARY); store-rollout & IPO-cash deployment OPERATING INDICATOR; EBITDA-margin sustainability CRITICAL INDICATOR; promoter/SIS related-party dependence GATE; trailing P/E off distorted base & P/B alone AVOID as anchor
+Investment Type: recently-listed high-growth premium-diamond jeweller with trusted legacy + funded expansion runway + high margins/ROE, BUT early-stage/small/Maharashtra-concentrated/promoter-SIS-dependent + margins just compressed + most IPO cash undeployed (thesis prospective) + unproven standalone operator; "promising growth-stage, prove-it" - value on forward earnings & execution, not distorted trailing multiple
+NOTE: Q1 FY27 results imminent (board met Jul 29) - check released print. Distinct diamond-facet charcoal/platinum/rose-gold palette (not Thangamayil).
+-->

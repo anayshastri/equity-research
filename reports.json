@@ -70,5 +70,21 @@
     "file": "63_moons_technologies_equity_research.html",
     "desc": "Ex-FTIL special situation; below-book, cash-rich, NSEL overhang lifting (₹1,950 Cr OTS), 63SATS cybersecurity call option",
     "date": "2026"
+  },
+  {
+    "name": "PNGS Reva Diamond Jewellery",
+    "ticker": "PNGSREVA",
+    "sector": "Gems & Jewellery",
+    "file": "pngs_reva_diamond_jewellery_equity_research.html",
+    "desc": "Recently-IPO'd (Mar 2026) diamond-focused jeweller under P.N. Gadgil & Sons legacy; asset-light shop-in-shop model, funded store rollout, margins compressing on scale",
+    "date": "2026"
+  },
+  {
+    "name": "Paushak",
+    "ticker": "PAUSHAKLTD",
+    "sector": "Specialty Chemicals",
+    "file": "paushak_equity_research.html",
+    "desc": "India's largest phosgene-based specialty chemicals maker (Alembic Group); real hazmat moat & pharma/agro intermediates, but flat growth, compressed margins & premium valuation",
+    "date": "2026"
   }
 ]
