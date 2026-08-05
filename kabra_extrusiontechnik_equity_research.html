@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabra Extrusiontechnik — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gun:#12161B; --gun-2:#1C232B; --gun-3:#28323C;
+    --lime:#8CD117; --lime-dk:#5F9410; --lime-lt:#B4E85A; --lime-gl:rgba(140,209,23,.12);
+    --molten:#F0741E; --molten-dk:#C0560C; --molten-lt:#F79F5C; --molten-gl:rgba(240,116,30,.12);
+    --steel:#4D9BC7; --steel-dk:#2E7299; --steel-gl:rgba(77,155,199,.11);
+    --amber:#E0A72E; --amber-dk:#B5820E; --amber-gl:rgba(224,167,46,.13);
+    --coral:#E0685C; --coral-gl:rgba(224,104,92,.10);
+    --green:#2E9E58; --green-dk:#1C763F; --red:#D2483C;
+    --ink-1:#12161B; --ink-2:#3C444D; --ink-3:#68717A;
+    --line:#E5E8EC; --line-2:#EFF2F4; --paper:#FCFDFD; --paper-2:#F4F7F8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Manrope',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(18,22,27,.14)}
+  h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.13}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .hero{position:relative;background:linear-gradient(150deg,#12161B 0%,#1C232B 52%,#28323C 128%);color:#EAF0F2;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-8%;width:470px;height:470px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(180,232,90,.22),rgba(247,159,92,.13) 54%,transparent 72%);filter:blur(5px)}
+  .die{position:absolute;right:62px;top:44px;width:160px;height:160px;z-index:2;opacity:.6}
+  .die svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.lm{background:rgba(140,209,23,.24);border-color:rgba(180,232,90,.5);color:#C6EE7E}
+  .tag.mo{background:rgba(240,116,30,.24);border-color:rgba(247,159,92,.5);color:#F7B98A}
+  .hero h1{font-size:41px;font-weight:800;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .flip{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lime-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#B3BEC4;margin-bottom:24px;font-weight:300;max-width:775px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#7E8890;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Chakra Petch',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#7CE0A0}.down{color:#F2A098}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--gun);color:#7E8890;padding:11px 48px;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .metabar b{color:#E6ECEE;font-weight:400}
+  .metabar .dot{color:var(--lime-lt)}
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'JetBrains Mono',monospace}
+  .alert b{color:var(--gun)}
+  .alert.turn{background:var(--lime-gl);color:var(--lime-dk)}
+  .alert.warn{background:var(--coral-gl);color:#B0402C}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--lime-dk);border:1.5px solid var(--lime);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--gun)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--lime);background:var(--lime-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.mo{border-color:var(--molten);background:var(--molten-gl)}
+  .call.st{border-color:var(--steel);background:var(--steel-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.co{border-color:var(--coral);background:var(--coral-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,72,60,.08)}
+  .call .lab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--lime-dk);margin-bottom:5px}
+  .call.mo .lab{color:var(--molten-dk)}.call.st .lab{color:var(--steel-dk)}.call.am .lab{color:var(--amber-dk)}.call.co .lab{color:#B0402C}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--gun-2);color:#E6ECEE;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'JetBrains Mono',monospace}
+  .tr-hi td{background:var(--lime-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--gun);letter-spacing:-.01em;font-family:'Chakra Petch',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.l{border-top:3px solid var(--lime)}.card.m{border-top:3px solid var(--molten)}
+  .card.s{border-top:3px solid var(--steel)}.card.c{border-top:3px solid var(--coral)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--gun);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--lime-gl);border-color:var(--lime)}
+  .vnode.own .vt{color:var(--lime-dk)}
+  .vnode.new{background:var(--molten-gl);border-color:var(--molten)}
+  .vnode.new .vt{color:var(--molten-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:184px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'JetBrains Mono',monospace;font-weight:400}
+  .bar-val{width:104px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.die{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,72,60,.06);border-color:rgba(210,72,60,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(46,158,88,.07);border-color:rgba(46,158,88,.3)}
+  .scen .st2{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Chakra Petch',sans-serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--gun);color:#EAF0F2;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(140,209,23,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Chakra Petch',sans-serif}
+  .bm .bm-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lime-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C6D0D6}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0CAD0}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--lime-dk);color:#fff}.v-co{background:var(--molten-dk);color:#fff}
+  .v-ind{background:#1C763F;color:#B6EFCA}.v-sec{background:#3C444D;color:#DCE2E6}
+  .v-avoid{background:#7A2A24;color:#F6C9BF}.v-cross{background:#28323C;color:#C6D6DC}
+  .v-crit{background:var(--amber-dk);color:#FBE6B8}
+  .bm .onenum{background:rgba(240,116,30,.14);border:1px solid rgba(247,159,92,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F5CFA6;position:relative}
+  .bm .onenum b{color:#F7A85C}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--gun)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amber-dk)}.rl{background:var(--lime-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--lime),var(--molten))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--lime);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--lime)}
+  .tli .ty{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12.5px;color:var(--lime-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--gun);font-family:'Chakra Petch',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(46,158,88,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,72,60,.14);color:var(--red)}
+  .b-neut{background:rgba(224,167,46,.2);color:var(--amber-dk)}
+  .foot{background:var(--gun);color:#7E8890;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C0CAD0}
+  .disc{font-size:10.5px;color:#68717A;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="die">
+    <svg viewBox="0 0 160 160" fill="none">
+      <circle cx="80" cy="80" r="52" fill="none" stroke="#B4E85A" stroke-width="2" opacity="0.6"/>
+      <circle cx="80" cy="80" r="34" fill="none" stroke="#F79F5C" stroke-width="1.6" opacity="0.6"/>
+      <circle cx="80" cy="80" r="16" fill="none" stroke="#B4E85A" stroke-width="1.4" opacity="0.55"/>
+      <g stroke="#4D9BC7" stroke-width="1.2" opacity="0.5">
+        <line x1="80" y1="28" x2="80" y2="12"/><line x1="80" y1="132" x2="80" y2="148"/>
+        <line x1="28" y1="80" x2="12" y2="80"/><line x1="132" y1="80" x2="148" y2="80"/>
+      </g>
+      <rect x="118" y="62" width="26" height="36" rx="3" fill="none" stroke="#8CD117" stroke-width="1.6" opacity="0.7"/>
+      <rect x="127" y="57" width="8" height="5" fill="#8CD117" opacity="0.7"/>
+      <text x="131" y="84" text-anchor="middle" fill="#8CD117" font-size="10" font-family="monospace" opacity="0.85">Li</text>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: KABRAEXTRU</span>
+      <span class="tag">BSE: 524109</span>
+      <span class="tag lm">Extrusion Machinery Leader</span>
+      <span class="tag mo">+ Geon Li-ion Batteries (ex-Battrixx)</span>
+    </div>
+    <h1>Kabra Extrusiontechnik</h1>
+    <div class="flip">&#9670; Kolsite Group &middot; dual-engine: mature machinery cash business + high-growth EV-battery bet</div>
+    <div class="sub">A <b>small-cap in mid-transition</b>: India's leading plastic-extrusion-machinery maker (cyclical, currently soft) is pivoting toward a fast-growing <b>lithium-ion battery business, Geon</b> (EV + energy storage). FY26 was a weak transition year &mdash; a standalone loss, a CRISIL downgrade, no dividend &mdash; but <b>Q1 FY27 shows a real operating turnaround</b> led by Geon's 133% growth. High optionality, real execution risk.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (early Aug)</div><div class="v">~&#8377;400</div><div class="d up">+36% 1yr</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~&#8377;1,400 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">FY26 Revenue</div><div class="v">&#8377;451 Cr</div><div class="d down">transition yr</div></div>
+      <div class="qs"><div class="k">FY26 result</div><div class="v">~breakeven</div><div class="d down">standalone loss</div></div>
+      <div class="qs"><div class="k">Q1 FY27 rev</div><div class="v">&#8377;124.5 Cr</div><div class="d up">+44.8%; Geon +133%</div></div>
+      <div class="qs"><div class="k">Promoter</div><div class="v">60.44%</div><div class="d up">0% pledge</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>MD:</b> Anand Kabra</span><span class="dot">&#9670;</span>
+  <span><b>Group:</b> Kolsite (60+ yrs)</span><span class="dot">&#9670;</span>
+  <span><b>Est:</b> 1982</span><span class="dot">&#9670;</span>
+  <span><b>HQ:</b> Mumbai &middot; Plants: Daman + Chakan</span><span class="dot">&#9670;</span>
+  <span><b>FV:</b> &#8377;5</span><span class="dot">&#9670;</span>
+  <span><b>Report:</b> 05 Aug 2026</span>
+</div>
+
+<div class="alert turn">
+  &#9889; <b>Q1 FY27 TURNAROUND SIGNS:</b> Revenue &#8377;124.5 Cr (+44.8% YoY), <b>Geon battery revenue +133% to &#8377;70.1 Cr</b> (now &gt;half of total), EBITDA turned positive to &#8377;6.0 Cr (from a &#8377;3.0 Cr loss a year ago; margin 5.0%, +251 bps QoQ). Backed by a <b>&#8377;150 Cr battery-system order</b> (plus an earlier &#8377;133 Cr energy-storage order). The pivot to batteries is starting to show in the numbers.
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT FY26 WAS WEAK &amp; THERE ARE FORENSIC FLAGS (see &sect;14):</b> FY26 was a "transition year" &mdash; <b>standalone swung from &#8377;33.87 Cr profit (FY25) to a &#8377;2.44 Cr loss</b>, consolidated near-breakeven, EBITDA a thin &#8377;10.4 Cr, <b>CRISIL downgraded the short-term rating (A2 from A1), no dividend</b>. Governance/operational flags: <b>three CFOs in ~two months, a Company-Secretary change, and the Kachigam (Daman) plant flooded &amp; suspended on 23 Jul 2026.</b> Trailing P/E is negative/NA.
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT:</b> Vendor figures diverge widely &mdash; CMP &#8377;269.61 (ICICI, 30 Jun, stale) / &#8377;351.65 (Value Research, 20 Jul) / &#8377;417.8 (MoneyWorks4Me, 3 Aug); m-cap &#8377;1,229 Cr (VR) / &#8377;1,470 Cr (Screener); P/E negative/NA (TTM loss; ICICI &minus;176.5); P/B ~2.1x (ICICI) to ~3.36x (Screener); 52-wk &#8377;171&ndash;407.9. TTM revenue &#8377;490 Cr, TTM profit &#8377;0.51 Cr. Face value &#8377;5. This report anchors CMP ~&#8377;400. Verify vs NSE/BSE.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Kabra Extrusiontechnik Ltd (KET)</strong>, part of the six-decade-old <strong>Kolsite Group</strong>, is a <strong>dual-segment small-cap in the middle of a strategic transition.</strong> Its established engine is <strong>plastic-extrusion machinery</strong> &mdash; KET is <strong>India's leading maker of pipe and film extrusion lines</strong>, with 15,000+ installations across 100+ countries. Its future engine is <strong>Geon (formerly Battrixx)</strong> &mdash; a <strong>lithium-ion battery-pack and module business</strong> serving electric mobility (2-/3-wheelers, expanding to LCVs and 4-wheelers) and energy storage (BESS).</p>
+  <p>The investment story is precisely this <strong>pivot from a mature, cyclical machinery business to a high-growth, capital-hungry EV-battery business &mdash; captured mid-stride.</strong> FY26 was, in management's own words, a <strong>"transition year": the core extrusion business hit infrastructure/capex-cycle headwinds, dragging the group to a standalone loss and a thin consolidated result, a CRISIL rating downgrade, and no dividend.</strong> But <strong>Q1 FY27 delivered a genuine operating turnaround</strong> &mdash; revenue up 44.8%, EBITDA back to positive, and <strong>Geon's battery revenue up 133% to become the larger half of the business.</strong> So this is a <strong>turnaround-plus-optionality story</strong>: a legacy cash business cyclically depressed but recovering, bolted to an EV-battery growth bet that is scaling fast but not yet consistently profitable &mdash; value that must be weighed segment-by-segment, not on a single (currently negative) earnings line.</p>
+  <div class="cards">
+    <div class="card l"><div class="k">Extrusion FY26 rev</div><div class="v">&#8377;315 Cr</div><div class="d">the cash engine</div></div>
+    <div class="card m"><div class="k">Geon FY26 rev</div><div class="v">&#8377;136 Cr</div><div class="d up">the growth bet</div></div>
+    <div class="card s"><div class="k">Installations</div><div class="v">15,000+</div><div class="d">100+ countries</div></div>
+    <div class="card c"><div class="k">FY26 EBITDA</div><div class="v">&#8377;10.4 Cr</div><div class="d down">thin margin</div></div>
+  </div>
+  <div class="call mo">
+    <div class="lab">The investment character in one line</div>
+    Kabra is a <strong>two-engine small-cap turnaround-and-optionality play</strong>: a market-leading but cyclical plastic-extrusion-machinery business (currently soft on the infra-capex downcycle, but poised to benefit from pipe demand under schemes like Jal Jeevan Mission) fused with <strong>Geon, a fast-scaling lithium-ion battery business</strong> riding India's EV and energy-storage boom. The bull case is a <strong>double recovery: extrusion cyclically rebounds while Geon compounds into a large, profitable EV-battery franchise &mdash; and the sum re-rates.</strong> The bear case is that <strong>extrusion stays weak, Geon burns capital in a brutally competitive, thin-margin battery market without reaching scale profitability, and the group keeps hovering near breakeven while carrying execution, governance and cyclicality risks.</strong> It is a <strong>SOTP-and-path-to-profitability bet</strong>, not a trailing-earnings investment &mdash; and, as Section 14 details, one that currently warrants extra forensic care.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1960s&ndash;1982 &middot; Kolsite roots</div><div class="td">The Kolsite Group builds decades of plastic-processing expertise; <strong>Kabra Extrusiontechnik incorporated 1982</strong> to make plastic-extrusion machinery.</div></div>
+    <div class="tli"><div class="ty">1990s&ndash;2010s &middot; Extrusion leadership</div><div class="td">KET becomes <strong>India's leading extrusion-machinery maker</strong> (pipe &amp; film lines) with a global installed base (100+ countries), riding India's pipe/infrastructure and packaging growth.</div></div>
+    <div class="tli"><div class="ty">FY21 &middot; The battery pivot begins</div><div class="td">Launches the <strong>lithium-ion battery-pack business (Battrixx)</strong> with a plant at Chakan, Pune &mdash; a bold diversification into EV/energy storage. Acquires Varos Technology (BMS, 2022) and Kolsite Energy (2023).</div></div>
+    <div class="tli"><div class="ty">FY23 &middot; Peak &amp; EV tailwind</div><div class="td">Record revenue ~&#8377;670 Cr as Battrixx explodes (+217% in FY23) on India's first 1M+ EV-sales year &mdash; the battery bet looks vindicated.</div></div>
+    <div class="tli"><div class="ty">FY24&ndash;FY25 &middot; Headwinds build</div><div class="td">FAME-II subsidy cuts, EV-demand volatility and a softening machinery capex cycle pressure both segments; earnings and the stock come under strain.</div></div>
+    <div class="tli"><div class="ty">FY26 &middot; Transition &amp; rebrand</div><div class="td">A weak <strong>"transition year"</strong>: standalone loss, thin EBITDA, <strong>CRISIL downgrade, no dividend</strong>; Battrixx <strong>rebranded "Geon"</strong>; CFO churn. Extrusion soft, batteries regrouping.</div></div>
+    <div class="tli"><div class="ty">Q1 FY27 &middot; Turnaround signs</div><div class="td"><strong>Revenue +44.8%, EBITDA positive again, Geon +133%</strong>, &#8377;150 Cr battery order &mdash; the pivot re-accelerates, even as a Daman plant flood (Jul) adds near-term noise.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>The Two Segments</h2></div>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Extrusion Machinery</div><div class="vd">Pipe &amp; film lines &mdash; mature, cyclical, cash-generative, market leader</div></div>
+    <div class="vnode new"><div class="vt">Geon (ex-Battrixx)</div><div class="vd">Li-ion battery packs/modules &mdash; high-growth, capital-hungry, thin-margin</div></div>
+    <div class="vnode own"><div class="vt">Jal Jeevan / infra</div><div class="vd">Pipe-demand catalyst for machinery</div></div>
+    <div class="vnode new"><div class="vt">EV + BESS</div><div class="vd">Structural demand for Geon</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">A "cash-cow + growth-option" structure &mdash; with very different economics</div>
+    KET is best understood as <strong>two very different businesses under one roof.</strong> <strong>Extrusion machinery</strong> is a <strong>mature, market-leading, cyclical capital-goods business</strong> &mdash; historically cash-generative and profitable, with a strong global installed base and aftermarket, but tied to the infrastructure/pipe/packaging capex cycle (hence its FY26 softness; and a potential beneficiary of pipe demand from Jal Jeevan Mission 2.0). <strong>Geon</strong> is a <strong>high-growth, capital-intensive, structurally-lower-margin EV/energy-storage business</strong> &mdash; riding a huge secular tailwind (EV adoption, battery storage) but in a fiercely competitive market where scale, technology, OEM partnerships and cost control decide winners, and where profitability at scale is still to be proven. The strategic logic is sound &mdash; <strong>use the machinery cash cow to fund the battery growth option</strong> &mdash; but it means the consolidated P&amp;L blends a cyclical-mature margin profile with a growth-investment drag, which is exactly why the two must be valued <strong>separately (SOTP)</strong> rather than on one blended multiple.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Segment Mix &amp; The Shifting Balance</h2></div>
+  <div class="bar-row"><div class="bar-lab">Extrusion (FY26)</div><div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--lime)">&#8377;315 Cr &middot; 70%</div></div><div class="bar-val">mature</div></div>
+  <div class="bar-row"><div class="bar-lab">Geon battery (FY26)</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--molten)">&#8377;136 Cr &middot; 30%</div></div><div class="bar-val">growing</div></div>
+  <div class="bar-row"><div class="bar-lab">Extrusion (Q1 FY27)</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:var(--lime)">&#8377;54 Cr &middot; ~44%</div></div><div class="bar-val">soft</div></div>
+  <div class="bar-row"><div class="bar-lab">Geon battery (Q1 FY27)</div><div class="bar-track"><div class="bar-fill" style="width:56%;background:var(--molten)">&#8377;70 Cr &middot; ~56%</div></div><div class="bar-val up">now larger</div></div>
+  <div class="call mo">
+    <div class="lab">The mix is tipping toward batteries &mdash; fast</div>
+    The most striking structural shift is <strong>how quickly Geon is becoming the larger business.</strong> In FY26, extrusion was ~70% of revenue and Geon ~30%; by <strong>Q1 FY27, Geon (&#8377;70 Cr, +133%) overtook extrusion (~&#8377;54 Cr) to become the majority of revenue.</strong> This is the pivot playing out in real time &mdash; and it has two big implications. <strong>Positive:</strong> KET is increasingly a <strong>play on the structural EV/energy-storage growth theme</strong> rather than just a cyclical machinery stock, which is why the market awards it optionality/premium despite weak earnings. <strong>Cautionary:</strong> the fast-growing segment is also the <strong>lower-margin, more capital-intensive, more competitive one</strong>, so a rising Geon mix can <em>dilute</em> blended margins even as it lifts growth &mdash; meaning revenue growth and profit growth can diverge. The key watch-item is whether Geon's scale eventually brings <strong>margin expansion</strong> (operating leverage, better mix, technology) or whether growth keeps coming at thin/negative margins. The mix shift is the story; its profitability is the question.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Q1 FY27 Turnaround, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Revenue (&#8377; Cr)</td><td class="mono">86.0</td><td class="mono">120.1</td><td class="mono">124.5</td></tr>
+    <tr><td>Revenue growth YoY</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono up">+44.8%</td></tr>
+    <tr class="tr-hi"><td>Geon battery rev (&#8377; Cr)</td><td class="mono">30.1</td><td class="mono">27.1</td><td class="mono">70.1</td></tr>
+    <tr><td>Geon growth YoY</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono up">+133.1%</td></tr>
+    <tr><td>EBITDA (&#8377; Cr)</td><td class="mono">(3.0)</td><td class="mono">3.0</td><td class="mono">6.0</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono down">negative</td><td class="mono">2.5%</td><td class="mono up">5.0%</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A real operating inflection &mdash; led by batteries, but still early and low-margin</div>
+    Q1 FY27 was a <strong>genuine, encouraging inflection.</strong> Revenue grew 44.8% YoY (and 3.6% sequentially), <strong>EBITDA turned firmly positive (&#8377;6.0 Cr) from a &#8377;3.0 Cr loss a year earlier</strong>, with margin recovering to 5.0% (+251 bps QoQ). The driver was unambiguous: <strong>Geon's battery revenue more than doubled (+133% to &#8377;70.1 Cr)</strong>, powering the top line and operating leverage. This is exactly the shape a battery-pivot turnaround should take &mdash; the growth engine firing and dragging the group back to operating profit. <strong>But keep three caveats in view.</strong> First, <strong>5.0% EBITDA margin is still thin</strong> &mdash; this is a low-margin business at this stage, and net profitability remains fragile. Second, the <strong>extrusion segment stayed soft</strong> (the recovery is battery-led, not broad-based), so KET is now more exposed to battery-market dynamics. Third, <strong>one strong quarter is not a trend</strong> &mdash; Geon's revenue has been lumpy (it was &#8377;30 Cr in Q1 FY26, &#8377;27 Cr in Q4 FY26, then &#8377;70 Cr), so order-timing can swing quarters. The inflection is real and welcome; its <strong>durability and margin trajectory</strong> are what must now be proven.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Segment</th><th>Competes with</th><th>KET position</th></tr>
+    <tr><td><strong>Extrusion machinery</strong></td><td>Rajoo Engineers, Windsor, global majors</td><td>India leader; strong installed base &amp; exports</td></tr>
+    <tr class="tr-hi"><td><strong>Geon (Li-ion packs)</strong></td><td>Amara Raja, Exide, Livguard, imports</td><td>Emerging player; OEM-partnership-driven</td></tr>
+    <tr><td><strong>BESS / energy storage</strong></td><td>Large integrators, global cell makers</td><td>Early, order-led entry</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">Strong moat in machinery; a much tougher, contested field in batteries</div>
+    KET's competitive position is <strong>asymmetric across its two businesses.</strong> In <strong>extrusion machinery</strong>, it enjoys a <strong>genuine, durable leadership position</strong> &mdash; decades of engineering know-how, India's largest installed base, a global footprint (100+ countries), aftermarket/spares stickiness, and high switching costs for customers. That's a real, defensible moat, even if the end-demand is cyclical. In <strong>batteries (Geon)</strong>, the picture is far tougher: it is an <strong>emerging player in a crowded, fast-evolving, capital-intensive market</strong> where it competes with large, well-funded incumbents (Amara Raja, Exide, Livguard), specialist start-ups, and cheap imports, and where <strong>cell sourcing, technology, OEM relationships and cost are the battlegrounds</strong> and no durable moat is yet established. So KET brings <strong>a strong balance-sheet-and-engineering pedigree into a growth market</strong>, but must <em>build</em> its battery moat (via technology-agnostic solutions, marquee OEM partnerships, and scale) rather than relying on an existing one. The machinery leadership is an asset; the battery position is a promising-but-unproven challenge.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Machinery</th><th class="mono">Batteries (Geon)</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">Moderate (leader)</td><td class="mono">Very High</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate</td><td class="mono">High (OEMs)</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td class="mono">High (cell imports)</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low (barriers)</td><td class="mono">High</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Mod</td><td class="mono">Moderate (chemistries)</td></tr>
+  </table>
+  <p>Net: the <strong>machinery business sits in a favourable structure</strong> (leadership, barriers, sticky customers) tempered by end-market cyclicality; the <strong>battery business sits in a harsh structure</strong> &mdash; intense rivalry, powerful OEM buyers, dependence on imported cells (supplier power), low entry barriers, and evolving chemistries. KET's challenge is to <strong>use the former's strengths to win in the latter's tough arena.</strong> A key structural vulnerability for Geon is <strong>cell-supply dependence</strong> (India lacks large domestic cell manufacturing), which pressures margins and sits largely outside KET's control.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Geon &mdash; The Growth Bet</h2></div>
+  <div class="cards">
+    <div class="card m"><div class="k">Q1 FY27 rev</div><div class="v">&#8377;70.1 Cr</div><div class="d up">+133% YoY</div></div>
+    <div class="card l"><div class="k">Battery order</div><div class="v">&#8377;150 Cr</div><div class="d">system win</div></div>
+    <div class="card s"><div class="k">Energy-storage order</div><div class="v">&#8377;133 Cr</div><div class="d">FY27 execution</div></div>
+    <div class="card c"><div class="k">Plant</div><div class="v">Chakan</div><div class="d">Pune, Maharashtra</div></div>
+  </div>
+  <p>Geon (formerly Battrixx) is the reason the stock carries a growth premium. It makes <strong>lithium-ion battery packs and modules</strong> for electric 2-/3-wheelers (expanding into e-3-wheelers, battery swapping, and preparing for e-LCVs and e-4-wheelers) and is investing in <strong>Battery Energy Storage Systems (BESS)</strong> for grid/renewable integration. Recent momentum: <strong>revenue +133% in Q1, a &#8377;150 Cr battery-system order, and an earlier &#8377;133 Cr energy-storage contract-manufacturing order.</strong></p>
+  <div class="call mo">
+    <div class="lab">A genuine growth call option on India's EV/storage boom &mdash; but capital-hungry and margin-unproven</div>
+    Geon gives KET real exposure to <strong>two of India's biggest structural growth themes &mdash; electric mobility and energy storage.</strong> The addressable market is huge and growing fast, KET has first-mover manufacturing presence (Chakan plant since FY21), a technology-agnostic solutions approach, expanding OEM partnerships, and a visible order pipeline (&#8377;150 Cr + &#8377;133 Cr). If it executes, Geon could become <strong>substantially larger and more valuable than the legacy machinery business</strong> &mdash; which is the core of the bull thesis. <strong>But treat it as a call option, not a certainty:</strong> the battery business is <strong>capital-intensive</strong> (needs continuous investment in capacity, technology, working capital), <strong>structurally lower-margin</strong> (Q1 group EBITDA margin only 5%), <strong>exposed to imported-cell costs and EV-policy shifts (FAME/subsidy volatility)</strong>, and operates in a <strong>brutally competitive field</strong> against far larger players. Its revenue has also been <strong>lumpy and order-dependent.</strong> The key watch-items: order-book conversion, margin trajectory as it scales, OEM-partnership wins, and whether it can fund growth without straining the balance sheet. High-potential, high-uncertainty &mdash; the classic growth-optionality profile.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Raw Materials, Costs &amp; the Cell Dependence</h2></div>
+  <p>KET's cost structure differs sharply by segment. <strong>Extrusion machinery</strong> is steel/components/engineering-labour driven &mdash; exposed to metal prices but with pricing power as market leader. <strong>Geon batteries</strong> are dominated by <strong>lithium-ion cell costs</strong>, largely <strong>imported</strong> (India lacks large-scale domestic cell manufacturing), making margins sensitive to global cell prices, currency, and supply availability.</p>
+  <div class="call am">
+    <div class="lab">Cell dependence is Geon's structural margin constraint</div>
+    The single biggest cost-and-margin issue for the growth engine is <strong>dependence on imported lithium-ion cells.</strong> Because cells are the dominant cost of a battery pack and India imports most of them, Geon's <strong>gross margins are structurally compressed and exposed to factors outside its control</strong> &mdash; global cell price cycles, rupee weakness, and supply-chain disruptions. This is a key reason battery-pack assembly (as opposed to cell manufacturing) is an inherently thinner-margin activity, and why Geon's rapid revenue growth hasn't yet translated into rich profits. The mitigants KET is pursuing &mdash; <strong>technology-agnostic design, value-added BMS/electronics integration (via Varos), moving up to systems/BESS, and scale-driven procurement</strong> &mdash; can improve the mix over time, and any future domestic cell ecosystem (PLI-driven) would help. But investors should be clear-eyed: <strong>until cell sourcing improves or KET moves decisively up the value chain, Geon's margins will be capped by cell economics</strong>, which is central to the "growth-but-thin-margin" character of the battery bet.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card l"><div class="k">Promoter holding</div><div class="v">60.44%</div><div class="d up">0% pledge</div></div>
+    <div class="card s"><div class="k">MD</div><div class="v">Anand Kabra</div><div class="d">Kolsite family</div></div>
+    <div class="card m"><div class="k">Recent promoter move</div><div class="v">+4.35%</div><div class="d">from Kolsite Corp LLP</div></div>
+    <div class="card c"><div class="k">CFO changes</div><div class="v">3 in ~2 mo</div><div class="d down">see &sect;14</div></div>
+  </div>
+  <p>KET is a <strong>Kolsite-family-promoted company</strong> (promoter ~60.44%, <strong>0% pledge</strong>), led by MD <strong>Anand Kabra.</strong> A recent, notable move: promoters <strong>Anand S. Kabra and Ekta Kabra are acquiring ~4.35% (15.2 lakh shares each) from Kolsite Corporation LLP</strong> &mdash; an intra-promoter transfer that lifts direct family holding (a mild positive-conviction signal).</p>
+  <div class="call am">
+    <div class="lab">Aligned, unpledged promoter &mdash; but recent management-suite churn needs watching (detailed in &sect;14)</div>
+    On ownership, the signals are <strong>reassuring</strong>: a high promoter stake (60.44%), <strong>zero pledging</strong> (clean), and promoters <em>increasing</em> their direct holding via the Kolsite Corporation LLP transfer &mdash; all indicating alignment and conviction, not distress. <strong>The area that warrants genuine attention is management-suite stability:</strong> KET saw <strong>three CFOs in roughly two months in 2026</strong> (Daulat Jain resigned in April, an interim CFO in May, a permanent CFO from June) plus a <strong>Company-Secretary change in July.</strong> Rapid turnover in key finance/compliance roles during a difficult transition year is the kind of item a careful analyst flags &mdash; not necessarily sinister (the permanent CFO Bhavin Sheth brings 23 years' experience, and departures cited career moves), but a stability/continuity concern to monitor, especially given the concurrent standalone loss and rating downgrade. Because these governance/continuity items are material to the risk assessment, they are examined in depth in the new <strong>Forensic Analysis (Section 14).</strong> Net: <strong>clean, aligned ownership; unsettled recent management continuity.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Capex &amp; Balance Sheet</h2></div>
+  <div class="cards">
+    <div class="card l"><div class="k">Bank facilities rated</div><div class="v">&#8377;354 Cr</div><div class="d">CRISIL</div></div>
+    <div class="card c"><div class="k">CRISIL ST rating</div><div class="v">A2</div><div class="d down">cut from A1</div></div>
+    <div class="card s"><div class="k">P/B</div><div class="v">~2.1&ndash;3.4x</div><div class="d">growth-priced</div></div>
+    <div class="card c"><div class="k">Interest coverage</div><div class="v">low</div><div class="d down">flagged</div></div>
+  </div>
+  <p>KET's balance sheet reflects the <strong>strain of a transition year plus capital-hungry battery investment.</strong> CRISIL rates &#8377;354 Cr of bank facilities and <strong>downgraded the short-term rating to A2 (from A1)</strong> on weak Q3 performance (long-term A/Stable). Screener flags a <strong>low interest-coverage ratio</strong> &mdash; unsurprising given the thin FY26 EBITDA (&#8377;10.4 Cr) against interest costs. Capex continues to flow into Geon capacity.</p>
+  <div class="call am">
+    <div class="lab">The metric that decides the thesis: funding Geon's growth without over-stretching the balance sheet</div>
+    The central balance-sheet question is <strong>whether KET can fund Geon's capital-hungry growth while its cash-cow machinery business is cyclically weak &mdash; without over-leveraging.</strong> The FY26 combination of thin EBITDA, low interest coverage, and a rating downgrade shows the strain is real: the machinery business wasn't throwing off enough cash to comfortably fund the battery build-out, pressuring credit metrics. The <strong>path forward depends on two things recovering together:</strong> (1) extrusion machinery cyclically rebounding (restoring cash generation) and (2) Geon scaling to <em>profitable</em> growth (so it funds more of itself). The Q1 FY27 EBITDA turnaround is an encouraging first step. But investors must watch <strong>debt levels, interest coverage, working capital (batteries are WC-heavy), and any further rating action</strong> &mdash; if growth outruns funding capacity, KET could face either dilution or balance-sheet stress. The <strong>0% promoter pledge and rated facilities</strong> provide some comfort, but this is a <strong>balance sheet to monitor closely</strong>, not a fortress. Track: net debt, interest coverage, OCF, and rating trajectory each quarter.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Geon EV-battery scale-up</strong></td><td>2W/3W &rarr; LCV/4W, order pipeline, OEM wins</td><td class="mono">Core engine &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Energy storage / BESS</strong></td><td>Grid/renewable storage orders (&#8377;133 Cr)</td><td class="mono">Big optionality &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Extrusion cyclical recovery</strong></td><td>Infra/pipe capex upturn, Jal Jeevan 2.0</td><td class="mono">Swing factor &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Machinery exports</strong></td><td>100+ country base, global OEM ties</td><td class="mono">Steady &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Value-chain move-up</strong></td><td>BMS/electronics, systems integration</td><td class="mono">Margin lever &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Domestic cell ecosystem</strong></td><td>PLI-driven local cells &rarr; better margins</td><td class="mono">Long-term &#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>(&#8377; Cr)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Revenue</td><td class="mono">~560</td><td class="mono">~490</td><td class="mono">451</td><td class="mono">124.5</td></tr>
+    <tr><td>EBITDA</td><td class="mono">~45</td><td class="mono">~30</td><td class="mono">10.4</td><td class="mono">6.0</td></tr>
+    <tr><td>Standalone PAT</td><td class="mono">~30</td><td class="mono">33.9</td><td class="mono down">(2.4)</td><td class="mono">~small</td></tr>
+    <tr><td>Dividend</td><td class="mono">yes</td><td class="mono">yes</td><td class="mono down">none</td><td class="mono">&mdash;</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call">
+      <div class="lab">The bull-supporting facts</div>
+      Q1 FY27 turnaround (rev +44.8%, EBITDA positive, Geon +133%), a large EV/storage order pipeline (&#8377;150 Cr + &#8377;133 Cr), market-leading machinery franchise, structural EV/BESS tailwinds, aligned unpledged promoters increasing their stake, and infra/pipe-demand optionality. A two-engine growth-and-recovery story.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      FY26 <strong>standalone loss</strong>, thin EBITDA, <strong>CRISIL downgrade, no dividend</strong>, low interest coverage; battery margins thin &amp; cell-dependent; extrusion cyclically weak; <strong>CFO churn + plant flood</strong> (&sect;14); lumpy order-driven revenue; negative TTM P/E; ~3x book on a near-breakeven business.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials show a <strong>business emerging from a difficult transition year with a promising but early turnaround.</strong> Judge it on segment trajectories (Geon scale &amp; margins, extrusion recovery) and the path to <em>consistent</em> profitability &mdash; not the distorted, near-breakeven trailing numbers. Revenue lumpiness and the standalone-vs-consolidated gap make conventional trend-reading tricky (see &sect;14).</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: KET is a near-breakeven company that just posted a standalone loss, absorbed a rating downgrade, and cycled through three CFOs in two months &mdash; precisely the profile that demands scrutiny of <strong>earnings quality, balance-sheet integrity, promoter conduct, governance, audit/disclosure and cash flows.</strong> Unlike a clean compounder, KET carries <strong>several genuine yellow/amber flags</strong> here &mdash; none clearly fraudulent, but collectively a reason for caution and close monitoring. <strong>Bottom line up front: this is a "transition-stress, watch-closely" forensic profile &mdash; flags of continuity, funding and cyclicality rather than evidence of manipulation, but more cautionary than a typical quality name.</strong></p>
+
+  <div class="call co">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings quality</td><td class="mono">&#128993; Amber</td><td>Q1 turnaround real but thin (5% EBITDA) &amp; battery-led; revenue lumpy/order-driven.</td></tr>
+      <tr><td>Balance-sheet integrity</td><td class="mono">&#128993; Amber</td><td>Rating downgrade, low interest coverage, capital-hungry Geon; not distressed, but strained.</td></tr>
+      <tr><td>Promoter conduct</td><td class="mono">&#128994; Green</td><td>60.44%, 0% pledge, promoters increasing stake &mdash; genuinely reassuring.</td></tr>
+      <tr><td>Governance / management</td><td class="mono">&#128308;&rarr;&#128993; Watch</td><td>Three CFOs in ~2 months + CS change = real continuity concern; monitor closely.</td></tr>
+      <tr><td>Audit &amp; accounting</td><td class="mono">&#128993; Amber</td><td>Standalone-vs-consolidated divergence; verify opinion in annual report; no known qualification.</td></tr>
+      <tr><td>Disclosure &amp; structure</td><td class="mono">&#128993; Amber</td><td>Multiple subsidiaries, segment rebrand, plant-flood disclosure; complexity to track.</td></tr>
+      <tr><td>Cash-flow corroboration</td><td class="mono">&#128993; Amber</td><td>Thin EBITDA + WC-heavy batteries; cash conversion is the key thing to verify.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.1 &middot; Latest-earnings quality (Q1 FY27 &amp; FY26)</h3>
+  <div class="cards">
+    <div class="card l"><div class="k">Q1 EBITDA margin</div><div class="v">5.0%</div><div class="d">thin, but +ve</div></div>
+    <div class="card m"><div class="k">Geon share of rev</div><div class="v">~56%</div><div class="d">now the majority</div></div>
+    <div class="card c"><div class="k">Revenue lumpiness</div><div class="v">high</div><div class="d">order-driven</div></div>
+    <div class="card s"><div class="k">FY26 standalone</div><div class="v">&#8377;(2.4) Cr</div><div class="d down">from +&#8377;33.9 Cr</div></div>
+  </div>
+  <div class="call am">
+    <div class="lab">A real but low-quality-of-durability turnaround &mdash; verify it holds</div>
+    The Q1 FY27 turnaround is <strong>operationally genuine</strong> (EBITDA swung from &minus;&#8377;3 Cr to +&#8377;6 Cr on 44.8% revenue growth) &mdash; this is not accounting sleight-of-hand; it's a real volume/mix recovery led by Geon. <strong>But the forensic quality caveats are material.</strong> (1) <strong>Margins are thin (5% EBITDA)</strong> &mdash; small absolute profit, so the result is fragile and sensitive to cost/mix swings. (2) <strong>Revenue is lumpy and order-driven</strong> &mdash; Geon went &#8377;30 Cr &rarr; &#8377;27 Cr &rarr; &#8377;70 Cr across three quarters, so a single quarter can be flattered by order-execution timing; <strong>do not annualise one strong quarter.</strong> (3) The <strong>FY26 base is genuinely weak</strong> &mdash; a standalone <em>loss</em> (&#8377;2.44 Cr) versus a &#8377;33.87 Cr profit the year before is a sharp deterioration, so YoY growth optics flatter against a depressed comparator. The honest read: <strong>the direction is positive and real, but the earnings are early-stage, thin, and lumpy</strong> &mdash; this is a turnaround to be <em>confirmed</em> over 2&ndash;3 quarters, not a proven profit engine. Watch sequential margin and whether Geon revenue holds above &#8377;50&ndash;70 Cr/quarter or reverts.
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.2 &middot; Balance-sheet integrity &amp; the rating downgrade</h3>
+  <div class="call am">
+    <div class="lab">Strained but not distressed &mdash; the downgrade is the headline forensic signal</div>
+    The most concrete negative signal is the <strong>CRISIL downgrade &mdash; the short-term rating cut to A2 from A1 (long-term A, outlook moved from Negative to Stable)</strong> on the back of weak Q3 FY26 performance, across &#8377;354 Cr of rated facilities. A rating action is an <strong>independent third party flagging deteriorated credit metrics</strong> &mdash; it corroborates that FY26 stress was real, not cosmetic. Combined with Screener's <strong>low interest-coverage flag</strong> and thin FY26 EBITDA (&#8377;10.4 Cr), the picture is a <strong>balance sheet under transition strain:</strong> a cyclically-weak cash cow funding a capital-hungry battery business. <strong>The mitigants matter and prevent a red flag:</strong> promoters hold 60.44% with <strong>zero pledge</strong> (no distress selling/encumbrance), the long-term rating remains investment-grade 'A' with a <em>stabilised</em> outlook, and Q1 FY27 EBITDA recovered. So the forensic grade is <strong>amber, not red:</strong> integrity is intact but the balance sheet is <strong>stretched and must be watched</strong> &mdash; net debt, interest coverage, working capital (batteries tie up cash), and any further rating action are the signals. The key question: can extrusion recover and Geon turn self-funding before the strain forces dilution or more leverage?
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.3 &middot; Promoter conduct</h3>
+  <div class="call">
+    <div class="lab">The cleanest part of the forensic picture</div>
+    Promoter conduct is <strong>genuinely reassuring &mdash; the strongest pillar here.</strong> The Kabra/Kolsite promoters hold <strong>60.44% with 0% pledged</strong> (verified across sources) &mdash; no encumbrance, no distress-selling signal. Crucially, promoters are <strong>increasing their direct stake:</strong> Anand S. Kabra and Ekta Kabra are acquiring ~4.35% (15.2 lakh shares each) from <strong>Kolsite Corporation LLP</strong> &mdash; an intra-promoter-group transfer that <em>raises</em> direct family holding. Promoters buying more during a tough transition year is a <strong>positive conviction signal</strong>, the opposite of the classic red flag (promoters selling/pledging into weakness). The one nuance the forensic lens notes: this is a <strong>related-party (intra-group) transfer</strong> rather than an open-market purchase, and the awarding entity for the separate &#8377;133 Cr order was explicitly disclosed as one in which the <strong>promoter group has no interest</strong> &mdash; good disclosure practice. Net: <strong>aligned, unpledged, conviction-signalling promoters &mdash; a clear green flag</strong> that materially offsets the governance-continuity and balance-sheet ambers elsewhere.
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.4 &middot; Governance &amp; management continuity &mdash; the key flag</h3>
+  <div class="cards">
+    <div class="card c"><div class="k">CFOs in 2026</div><div class="v">3</div><div class="d down">Apr / May / Jun</div></div>
+    <div class="card c"><div class="k">CS change</div><div class="v">Jul 2026</div><div class="d down">Rathi &rarr; Vala</div></div>
+    <div class="card s"><div class="k">Permanent CFO</div><div class="v">B. Sheth</div><div class="d">23 yrs exp, Jun 20</div></div>
+    <div class="card l"><div class="k">43rd AGM</div><div class="v">12 Aug 2026</div><div class="d">engagement</div></div>
+  </div>
+  <div class="call red">
+    <div class="lab">The item that most warrants caution: rapid key-personnel turnover</div>
+    This is the <strong>forensic flag that most warrants attention.</strong> In 2026 KET cycled through <strong>three CFOs in roughly two months</strong> &mdash; Daulat Jain resigned (effective 27 Apr, citing another career opportunity), Uttam Singh served as interim CFO (from 13 May), and Bhavin Sheth was appointed permanent CFO (from 20 Jun, as Singh stepped down 19 Jun) &mdash; <strong>plus a Company-Secretary/Compliance-Officer change in July</strong> (Shilpa Rathi &rarr; Hiren Vala). <strong>Rapid turnover in the two most important finance-and-compliance roles, during a loss-making, rating-downgrade transition year, is a classic yellow-to-red forensic signal:</strong> it can indicate internal friction, disagreement over accounting/strategy, or instability in financial control &mdash; exactly when steady hands matter most. <strong>The mitigating context that keeps this "watch" rather than "red":</strong> the departures were <em>disclosed</em> with stated (benign) reasons, the permanent CFO Bhavin Sheth brings 23 years of experience (a credible stabilising appointment), and there is <strong>no allegation of an accounting dispute or auditor exit.</strong> Still, the honest forensic position is that <strong>management-continuity is genuinely unsettled and must be monitored</strong> &mdash; watch for any further senior exits, auditor commentary, or restatement. Everything else being equal, this single cluster is the strongest argument for extra caution on KET today. The <strong>43rd AGM (12 Aug 2026)</strong> is a near-term window for management to address stability and strategy.
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.5 &middot; Audit, accounting &amp; the standalone-vs-consolidated gap</h3>
+  <div class="call am">
+    <div class="lab">No known qualification &mdash; but mind which "profit" you're reading</div>
+    On the available record there is <strong>no reported audit qualification, modified opinion, or accounting controversy</strong> &mdash; a reassuring baseline, and the FY26 results were board-approved and audited in the normal course. The forensic point that most needs care here is the <strong>divergence between standalone and consolidated results:</strong> FY26 showed a <strong>standalone net loss (&#8377;2.44 Cr)</strong> but a <strong>consolidated near-breakeven/tiny profit</strong> &mdash; the gap reflects the subsidiary structure (Geon/battery entities, Varos Technologies, Kabra/Kolsite Energy). This isn't inherently a red flag, but it <strong>demands that analysts always specify which basis they're quoting</strong> (headline "profit" figures for KET can look very different standalone vs consolidated), and that they watch <strong>inter-company flows, subsidiary-level profitability, and any goodwill/investment carrying values</strong> for impairment risk as the battery business matures. Also worth tracking: the segment <strong>rebrand from Battrixx to Geon</strong> (ensure continuity/comparability of segment disclosures across the name change). Grade: <strong>amber &mdash; clean opinion, but a structurally complex reporting picture that rewards careful reading.</strong> Verify the exact FY26 audit opinion and any emphasis-of-matter in the annual report (43rd AGM, 12 Aug 2026).
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.6 &middot; Disclosure, structure &amp; the plant-flood event</h3>
+  <div class="call am">
+    <div class="lab">Reasonable disclosure of a real operational disruption &mdash; but complexity and event-risk to track</div>
+    Two forensic-relevant structural/event items. <strong>(1) The Kachigam (Daman) plant flood:</strong> KET disclosed that operations at its Kachigam, Daman manufacturing facility were <strong>temporarily suspended on 23 July 2026 due to heavy rainfall/flooding</strong>, with assets stated to be covered under standard corporate insurance and short-term order-execution likely delayed. The disclosure itself is <strong>timely and reasonable</strong> (a governance positive), but the event is a <strong>real near-term operational risk</strong> &mdash; potential Q2 FY27 revenue/margin impact and a reminder of single-site concentration in the machinery business. <strong>(2) Structural complexity:</strong> KET carries multiple subsidiaries (Varos Technologies, Kabra/Kolsite Energy) and has had associate/subsidiary changes (Penta Auto Feeding ceased to be an associate in Feb 2025) plus the Battrixx&rarr;Geon rebrand &mdash; a <strong>moderately complex group structure</strong> that requires tracking of consolidation scope and related-party dealings. Neither is a red flag, but both add <strong>items to monitor</strong>: the flood's actual financial impact in Q2, and clean, consistent disclosure across the evolving subsidiary/segment structure. Grade: <strong>amber &mdash; disclosure practice appears adequate, complexity and event-risk are the watch-items.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.7 &middot; Cash-flow corroboration</h3>
+  <div class="call am">
+    <div class="lab">The check that most needs doing &mdash; thin profits + WC-heavy batteries</div>
+    Cash-flow corroboration is <strong>the single most important forensic test for KET, and the one where the data most needs verifying against filings.</strong> The concern is structural: <strong>FY26 EBITDA was thin (&#8377;10.4 Cr) and the group was near breakeven, while the fast-growing battery business is working-capital-intensive</strong> (inventory of cells/packs, receivables from OEMs) and capital-hungry &mdash; a combination that can <strong>strain operating cash flow even as revenue grows.</strong> The forensic questions to answer from the cash-flow statement: <strong>(1) Is operating cash flow positive and converting a reasonable share of EBITDA</strong>, or is growth being funded by ballooning working capital and debt? <strong>(2) How large is capex (Geon capacity) versus OCF</strong> &mdash; i.e. how much external funding does growth require? <strong>(3) Are receivables/inventory growing faster than revenue</strong> (a warning sign)? Given the rating downgrade and low interest coverage, the likely picture is <strong>constrained free cash flow with growth partly debt/working-capital-funded</strong> &mdash; which is why the balance sheet is strained. Unlike a clean compounder where OCF comfortably exceeds profit, KET's cash conversion is a <strong>question to verify, not a strength to assume.</strong> This is the number to check first in the annual report. Grade: <strong>amber &mdash; corroboration required; do not assume healthy conversion given the thin-margin, WC-heavy, capital-hungry profile.</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Kabra earns a "transition-stress, watch-closely" forensic grade &mdash; more cautionary than a typical quality name, but not a fraud-risk profile.</strong> The reassuring anchor is <strong>promoter conduct</strong> (60.44%, 0% pledge, promoters <em>increasing</em> their stake &mdash; a genuine green flag) and the absence of any known audit qualification or accounting dispute. But the <strong>amber/watch flags are real and cluster meaningfully:</strong> a rating downgrade and low interest coverage (strained balance sheet), thin and lumpy order-driven earnings (a turnaround to be confirmed, not assumed), a <strong>standalone loss masked by consolidation</strong>, a complex evolving subsidiary structure, a <strong>flooded plant</strong> with near-term impact, and &mdash; most notably &mdash; <strong>three CFOs in two months plus a CS change</strong>, a key-personnel-continuity signal that always warrants heightened scrutiny. None of these individually screams manipulation; collectively they say <strong>this is a company under genuine transition stress where financial control, funding, and execution all need to prove out.</strong> The honest forensic conclusion: <strong>the Q1 turnaround and EV-optionality are real, but so is the elevated risk &mdash; treat KET as a "prove-it, verify-the-cash, watch-the-management" situation, insist on cash-flow corroboration and 2&ndash;3 quarters of margin/continuity evidence before trusting the turnaround, and size the position for the above-average uncertainty.</strong> Monitor each quarter: CFO/management stability, interest coverage &amp; rating, OCF conversion &amp; working capital, Geon margin durability, extrusion recovery, and the flood's Q2 impact.
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation</h2></div>
+  <p>KET is <strong>near breakeven with a negative/NA trailing P/E</strong>, so earnings multiples don't work. For a two-engine business &mdash; a mature machinery arm plus a high-growth battery arm &mdash; the right frame is a <strong>sum-of-the-parts (SOTP)</strong>: value extrusion on normalised EV/EBITDA (mid-cycle) and Geon on EV/Sales given its growth-and-optionality profile, cross-checked with the path to consolidated profitability. P/B (~2.1&ndash;3.4x) is only a weak cross-check on a near-breakeven, transitioning business.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Kabra Extrusiontechnik</h3>
+    <div class="bm-sub">Near-breakeven, two-engine small-cap in transition &rarr; SOTP (extrusion on mid-cycle EV/EBITDA + Geon on EV/Sales-growth) + EV/Sales + path-to-profitability; Geon scale &amp; margins are critical; extrusion cyclical recovery is the swing; trailing P/E is negative and not an anchor</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Sum-of-the-parts (SOTP)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Value the mature extrusion business (mid-cycle EV/EBITDA) and the high-growth Geon battery business (EV/Sales + optionality) separately, then sum. The only frame that captures two very different economic profiles.</td></tr>
+      <tr><td>EV/Sales (group &amp; Geon)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Appropriate for a fast-growing, near-breakeven business where earnings are distorted. Judge Geon's multiple against its growth and eventual margins.</td></tr>
+      <tr><td>Geon scale &amp; margin trajectory</td><td><span class="verdict v-crit">CRITICAL INDICATOR</span></td><td>The whole growth premium rests here &mdash; can Geon scale profitably (not just fast)? Margin at scale is the swing between value creation and capital destruction.</td></tr>
+      <tr><td>Path to consolidated PAT profitability</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>When does the group cross into sustained, self-funding profit? Q1 EBITDA turnaround is step one; net-profit consistency is the target.</td></tr>
+      <tr><td>Extrusion mid-cycle earnings</td><td><span class="verdict v-ind">SWING FACTOR</span></td><td>Normalise the cyclically-depressed machinery business to mid-cycle; its recovery (Jal Jeevan, infra) is a key upside lever and cash source.</td></tr>
+      <tr><td>Trailing P/E; P/B alone</td><td><span class="verdict v-avoid">AVOID</span></td><td>P/E negative/NA (near-breakeven); P/B (~2&ndash;3.4x) distorted by transition. Neither captures a two-engine turnaround-plus-optionality story.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At ~&#8377;1,400 Cr market cap on ~&#8377;490 Cr TTM revenue (~2.9x EV/Sales) with the group <b>only just back to positive EBITDA</b>, KET is priced as a <b>credible EV-battery-optionality turnaround, not a value stock</b> &mdash; the market is paying for Geon's growth (now ~56% of revenue, +133%) and a machinery recovery, discounting the weak trailing earnings. That multiple is <b>reasonable if</b> Geon scales toward profitable growth, extrusion cyclically recovers, and the group builds to consistent PAT over the next 1&ndash;2 years; it is <b>expensive if</b> battery margins stay thin/negative, extrusion stays soft, the balance-sheet strain (downgrade, low coverage) bites, or the management-continuity/execution risks flagged in &sect;14 disrupt the turnaround. <b>Verdict: a genuine two-engine turnaround-plus-optionality small-cap &mdash; a market-leading (but cyclical, currently soft) extrusion-machinery cash business fused to a fast-scaling (but thin-margin, capital-hungry, cell-dependent) lithium-ion battery business (Geon) that is riding real EV/energy-storage tailwinds and just overtook machinery as the larger segment. The Q1 FY27 operating inflection is real and the EV optionality is valuable, but the company is only at breakeven, carries a rating downgrade, thin/lumpy earnings, a strained balance sheet, and &mdash; per the forensic section &mdash; a cluster of continuity/execution flags (three CFOs in two months, a flooded plant) that warrant above-average caution. Value it strictly on SOTP and EV/Sales with a hard focus on Geon's margin-at-scale and the path to consistent profit &mdash; never trailing P/E &mdash; treat the extrusion recovery as the swing and Geon profitability as the critical gate, insist on cash-flow corroboration, and size it as the high-risk, high-optionality transition bet it is. Attractive to those who back the battery pivot and can tolerate the transition risk; not for investors needing proven profits, stability, or a margin of safety today.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">&#8377;200&ndash;270</div><div class="sd">Geon growth stalls/stays loss-making, extrusion stays weak, balance-sheet strain deepens (further rating action), continuity/flood disruptions bite; the optionality premium de-rates toward the 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">&#8377;350&ndash;430</div><div class="sd">Q1 momentum holds, Geon scales at thin-but-improving margins, extrusion gradually recovers, group grinds toward consistent profit; stock holds around current levels as earnings build into the multiple.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">&#8377;520&ndash;680</div><div class="sd">Geon scales to profitable growth (BESS + OEM wins), extrusion cyclically rebounds (Jal Jeevan/infra), group returns to healthy consolidated profit; SOTP re-rates on a proven battery franchise.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Peers span capital goods (Rajoo Engineers, Windsor) and battery players (Amara Raja, Exide) &mdash; no clean comparable given the dual model, reinforcing SOTP. Scenarios hinge on Geon margins/scale, extrusion recovery, balance-sheet trajectory, and the &sect;14 execution/continuity risks. As a lumpy-earnings small-cap with wide vendor-price divergence, expect volatility. Verify CMP vs NSE/BSE.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Geon profitability / battery-market risk</strong>The growth engine is thin-margin, cell-import-dependent, capital-hungry, and fiercely competitive; if it scales without reaching profitability, it destroys rather than creates value. The central risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Balance-sheet strain / rating</strong>CRISIL short-term downgrade (A2 from A1), low interest coverage, and thin EBITDA funding a capital-hungry battery build-out; further rating action or a funding squeeze would pressure the stock and could force dilution.</div></div>
+  <div class="risk"><div class="rn rm">3</div><div class="rb"><strong>Management continuity (see &sect;14)</strong>Three CFOs in ~two months plus a CS change signal unsettled financial/compliance leadership during a difficult year &mdash; a genuine continuity/control concern to monitor.</div></div>
+  <div class="risk"><div class="rn rh">4</div><div class="rb"><strong>Extrusion cyclicality</strong>The cash-cow machinery business is tied to the infra/pipe capex cycle and was soft in FY26; a prolonged downcycle would starve the battery bet of funding and keep the group near breakeven.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Lumpy, order-driven earnings</strong>Geon revenue swings quarter to quarter on order timing (&#8377;30&rarr;&#8377;27&rarr;&#8377;70 Cr); one strong quarter isn't a trend, and results can disappoint on execution/timing.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Operational event risk</strong>The Kachigam (Daman) plant flood (Jul 2026) may hit Q2 execution; single-site concentration and weather/EHS events are recurring risks.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Valuation &amp; small-cap volatility</strong>~2.9x EV/Sales and ~2&ndash;3.4x book on a near-breakeven business prices in the turnaround; wide vendor-price divergence and low liquidity make it volatile and event-sensitive.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Geon growth / EV optionality</div><div class="scv">+133% Q1 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Extrusion franchise</div><div class="scv">India leader <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Promoter (aligned, unpledged)</div><div class="scv">60.44%, 0% <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Order pipeline</div><div class="scv">&#8377;150+&#8377;133 Cr <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Profitability (current)</div><div class="scv">Near-breakeven <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet / rating</div><div class="scv">Downgrade <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Management continuity</div><div class="scv">Unsettled (&sect;14) <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Margins (Geon)</div><div class="scv">Thin/cell-dep. <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Earnings durability</div><div class="scv">Lumpy, early <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Kabra Extrusiontechnik is a <strong>two-engine small-cap turnaround-and-optionality play</strong>: India's <strong>leading plastic-extrusion-machinery maker</strong> (a market-leading, globally-installed, but cyclical and currently-soft cash business) fused with <strong>Geon (ex-Battrixx), a fast-scaling lithium-ion battery business</strong> that just grew 133% to become the larger half of revenue, riding India's EV and energy-storage boom with a visible order pipeline (&#8377;150 Cr + &#8377;133 Cr). After a <strong>weak FY26 "transition year" &mdash; a standalone loss, thin EBITDA, a CRISIL downgrade and no dividend &mdash; Q1 FY27 delivered a genuine operating turnaround</strong> (revenue +44.8%, EBITDA back to positive), and aligned, unpledged promoters are <em>increasing</em> their stake. <strong>But this is emphatically a high-risk transition bet, and the forensic review (Section 14) flags real cautions:</strong> the group is only at breakeven with thin, lumpy, order-driven earnings; the balance sheet is strained (downgrade, low interest coverage) while funding a capital-hungry, thin-margin, cell-import-dependent battery business; and there is a cluster of continuity/execution flags &mdash; <strong>three CFOs in two months, a Company-Secretary change, and a flooded Daman plant.</strong> <strong>The honest framing: a genuinely interesting EV-battery-optionality turnaround with a market-leading legacy franchise and clean promoter conduct &mdash; but one still at breakeven, under transition stress, and carrying above-average governance-continuity and execution risk. Value it on SOTP and EV/Sales with a hard focus on Geon's margin-at-scale and the path to consistent profit; never on trailing P/E. Treat extrusion recovery as the swing, Geon profitability as the critical gate, and cash-flow corroboration as mandatory. Own it only as the high-risk, high-optionality "prove-it, watch-closely" bet it is &mdash; the pivot and the momentum are real, but so is the risk, and the profits and stability are still to be demonstrated.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">Q1 FY27 (Jul '26)</td><td><strong>Q1 FY27 results:</strong> revenue &#8377;124.5 Cr (+44.8% YoY), Geon battery &#8377;70.1 Cr (+133.1%), EBITDA &#8377;6.0 Cr (+ve from &minus;&#8377;3.0 Cr), margin 5.0%; &#8377;150 Cr battery-system order highlighted.</td></tr>
+    <tr><td class="mono">30 Jul 2026</td><td><strong>Promoters Anand S. Kabra &amp; Ekta Kabra to acquire ~4.35%</strong> (15.2 lakh shares each) from Kolsite Corporation LLP; Hiren Vala appointed Company Secretary/Compliance Officer (succeeding Shilpa Rathi).</td></tr>
+    <tr><td class="mono">23 Jul 2026</td><td><strong>Kachigam (Daman) manufacturing facility temporarily suspended</strong> due to heavy rainfall/flooding; assets insured; short-term order-execution likely delayed.</td></tr>
+    <tr><td class="mono">20 Jun 2026</td><td><strong>Bhavin Sheth appointed CFO</strong> (23 yrs experience); interim CFO Uttam Singh stepped down 19 Jun. (Daulat Jain had resigned effective 27 Apr; Uttam Singh was interim from 13 May.)</td></tr>
+    <tr><td class="mono">29 May 2026</td><td><strong>FY26 results:</strong> revenue &#8377;451.1 Cr (Extrusion &#8377;314.9 Cr, Geon &#8377;136.1 Cr), EBITDA &#8377;10.4 Cr; standalone net loss &#8377;2.44 Cr (from &#8377;33.87 Cr profit FY25); <strong>no dividend</strong>; CRISIL short-term downgrade to A2 (from A1), long-term A/Stable; &#8377;354 Cr facilities. Also: &#8377;133 Cr energy-storage order.</td></tr>
+    <tr><td class="mono">12 Aug 2026</td><td><strong>43rd AGM</strong> scheduled &mdash; near-term window on strategy, management stability and outlook.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card l"><div class="k">Promoter pledge</div><div class="v">0%</div><div class="d up">clean</div></div>
+    <div class="card c"><div class="k">CRISIL ST</div><div class="v">A2</div><div class="d down">downgraded</div></div>
+    <div class="card c"><div class="k">Interest coverage</div><div class="v">low</div><div class="d down">flagged</div></div>
+    <div class="card s"><div class="k">Rated facilities</div><div class="v">&#8377;354 Cr</div><div class="d">bank lines</div></div>
+  </div>
+  <p>The balance sheet is the <strong>pressure point of the story:</strong> a cyclically-weak machinery business and a capital-hungry battery build-out combined to produce <strong>thin FY26 EBITDA, low interest coverage, and a CRISIL short-term downgrade.</strong> The offsetting strengths are a <strong>clean promoter holding (0% pledge)</strong> and a still-investment-grade long-term rating ('A') with a stabilised outlook.</p>
+  <div class="call am">
+    <div class="lab">The metric that decides the thesis: self-funding growth &amp; cash conversion</div>
+    As flagged in the forensic section, the decisive balance-sheet question is <strong>whether KET can fund Geon's growth increasingly from its own cash generation</strong> rather than ever-more debt/working capital. Today the strain is evident (downgrade, low coverage); the resolution requires <strong>extrusion recovering (restoring the cash cow) and Geon reaching profitable, cash-generative scale.</strong> The Q1 EBITDA turnaround is a start, but the group must convert improving EBITDA into <strong>operating cash flow</strong> faster than working capital and capex consume it. <strong>Track each quarter: net debt, interest coverage, OCF vs capex, working-capital days (inventory/receivables), and rating trajectory.</strong> If these improve alongside the operating turnaround, the balance-sheet risk recedes and the SOTP can re-rate; if growth keeps outrunning funding, expect either dilution or further credit pressure. <strong>Self-funding, cash-converting growth is the number that matters</strong> &mdash; and, on current evidence, it is a question to verify, not a strength to assume.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Recovering <span class="badge b-bull">&uarr;</span></div><div class="tkd">+36% 1yr (Screener)</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~&#8377;400</div><div class="tkd">early Aug '26 (diverges)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">&#8377;171 &ndash; 408</div><div class="tkd">wide</div></div>
+    <div class="tk"><div class="tkl">From 52-wk low</div><div class="tkv">+~130%</div><div class="tkd">strong bounce</div></div>
+    <div class="tk"><div class="tkl">9-yr CAGR</div><div class="tkv">~14.7%</div><div class="tkd">long-term</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">High-beta</div><div class="tkd">lumpy, event-driven</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">KET has <strong>rebounded sharply</strong> &mdash; up ~36% over one year (Screener) and roughly 130% off its &#8377;171 52-week low toward the &#8377;400&ndash;408 zone, as the market re-rated the EV-battery optionality and the Q1 turnaround. It's a <strong>high-beta, lumpy, event-driven small-cap</strong>: prices move hard on order wins, quarterly Geon numbers, and news (the flood, CFO changes). Note the <strong>very wide vendor-price divergence</strong> (&#8377;269 to &#8377;418 across sources/dates) and stale quotes on some platforms &mdash; the live NSE quote is essential. From here, direction will track <strong>Geon's order/margin trajectory, extrusion recovery, balance-sheet/rating news, and the &sect;14 continuity items</strong> far more than chart levels. Treat technicals as secondary to the SOTP-and-execution debate. MoneyWorks4Me flags "Overvalued zone" on quality-vs-valuation.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Regenerated report incorporating FY26 results, Q1 FY27, and the new Forensic Analysis (&sect;14). KET is near-breakeven (trailing P/E negative/NA); vendor data diverges widely (CMP &#8377;269&ndash;418; m-cap &#8377;1,229&ndash;1,470 Cr; P/B ~2.1&ndash;3.4x). Verify against NSE/BSE and filed results, attend to the &sect;14 forensic flags, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Kabra Extrusiontechnik Ltd</b> &mdash; NSE: KABRAEXTRU &middot; BSE: 524109 &middot; ISIN: INE900B01029 &middot; Capital Goods (plastic-extrusion machinery) + Li-ion Batteries (Geon) &middot; Kolsite Group &middot; Mumbai<br>
+  Report generated 05 August 2026 &middot; Data through FY26 audited results (29 May 2026) + Q1 FY27 results + events to end-Jul 2026. Includes new Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; company FY26 &amp; Q1 FY27 results &amp; BSE-NSE filings, EquityBulls, Whalesbook, Groww, Screener.in, Value Research, ICICIdirect, MoneyWorks4Me, Ventura, Univest, Business Standard, SimplyWall.st, Tipranks, sahi.com. Key figures: <b>Q1 FY27 (ended 30 Jun 2026)</b> &mdash; total operating revenue &#8377;124.5 Cr / &#8377;1,245 Mn (+44.8% YoY vs &#8377;86.0 Cr / &#8377;860 Mn; +3.6% QoQ vs &#8377;120.1 Cr / &#8377;1,201 Mn Q4 FY26); <b>Geon (ex-Battrixx) revenue &#8377;70.1 Cr / &#8377;701 Mn (+133.1% YoY)</b>; EBITDA &#8377;6.0 Cr / &#8377;60 Mn (from EBITDA loss &#8377;3.0 Cr / &#8377;30 Mn Q1 FY26; +109.4% QoQ vs &#8377;30 Mn Q4 FY26); EBITDA margin 5.0% (+251 bps QoQ from 2.5%); &#8377;150 Cr battery-system order noted. <b>FY26 (ended 31 Mar 2026, reported 29 May 2026)</b> &mdash; consolidated operating revenue &#8377;451.1 Cr / &#8377;4,511 Mn (Extrusion Machinery &#8377;314.9 Cr / &#8377;3,149 Mn; Geon &#8377;136.1 Cr / &#8377;1,361 Mn); EBITDA &#8377;10.4 Cr / &#8377;104 Mn; Q4 FY26 revenue &#8377;120.1 Cr / &#8377;1,201 Mn (Extrusion &#8377;930 Mn, Geon &#8377;271 Mn), Q4 EBITDA &#8377;30 Mn; <b>standalone net loss &#8377;2.44 Cr (from &#8377;33.87 Cr profit FY25)</b>; consolidated near-breakeven; <b>no dividend for FY25-26</b>; management-described "transition year." <b>Ratings: CRISIL downgraded short-term to 'CRISIL A2' from 'CRISIL A1'; long-term 'CRISIL A/Stable' (outlook revised from Negative to Stable), based on weak Q3 FY26; total bank facilities &#8377;354 Cr.</b> TTM (Screener/VR): revenue &#8377;490 Cr, profit &#8377;0.51 Cr. <b>Governance/management events (forensic, &sect;14): CFO Daulat Jain resigned effective 27 Apr 2026 (cited career opportunity); Uttam Singh interim CFO from 13 May 2026; Bhavin Sheth (23 yrs exp) appointed CFO from 20 Jun 2026 (Singh stepped down 19 Jun) &mdash; three CFOs in ~2 months; Hiren Vala appointed Company Secretary/Compliance Officer 30 Jul 2026 (succeeding Shilpa Rathi); Kachigam, Daman facility temporarily suspended 23 Jul 2026 due to heavy rainfall/flooding (assets insured, short-term execution delays); promoters Anand S. Kabra &amp; Ekta Kabra to acquire ~4.35% (15.2 lakh shares each) from Kolsite Corporation LLP (30 Jul 2026); &#8377;133 Cr energy-storage contract-manufacturing order (promoter group no interest in awarding entity); reappointed Independent Director 5 yrs; new COO, CXO re-designated CEO; 43rd AGM 12 Aug 2026.</b> Business: incorporated 1982, part of Kolsite Group (60+ yrs); India's leading plastic-extrusion-machinery maker (pipe &amp; film lines; 15,000+ installations, 100+ countries); two Daman plants; battery division Geon (ex-Battrixx, launched FY21) at Chakan, Pune &mdash; Li-ion packs/modules for EV (2W/3W &rarr; e-3W, battery swapping, preparing e-LCV/e-4W) + BESS; subsidiaries Varos Technology (BMS/IoT, acq. 2022), Kabra/Kolsite Energy (green energy, 2023); Penta Auto Feeding ceased associate Feb 2025. MD Anand Kabra. Ownership: promoter (Kabra/Kolsite) 60.44%, <b>0% pledge</b>. Peers: Rajoo Engineers, Windsor Machines (machinery); Amara Raja, Exide, Livguard (batteries). <b>DATA CAVEAT: vendor figures diverge widely &mdash; CMP &#8377;269.61 (ICICI, 30 Jun, stale) / &#8377;351.65 (Value Research, 20 Jul) / &#8377;417.8 (MoneyWorks4Me, 3 Aug); market cap &#8377;1,229 Cr (VR, 20 Jul) / &#8377;1,470 Cr (Screener, +36% 1yr); P/E negative/NA (TTM near-breakeven/loss; ICICI &minus;176.5 on 30 Jun); P/B ~2.14x (ICICI) / ~2.78x (VR) / ~3.09&ndash;3.36x (MoneyWorks4Me/Screener); 52-wk &#8377;171.0&ndash;407.9 (MoneyWorks4Me) / &#8377;180&ndash;355 (VR); face value &#8377;5; 9-yr price CAGR ~14.7%, 3-yr return ~&minus;7% to &minus;16%. This report anchors CMP ~&#8377;400. All figures approximate &mdash; verify vs NSE/BSE and filed results.</b> MoneyWorks4Me: "below average quality," "Overvalued zone," but "Price Trend Strong." Normalised/SOTP estimates and scenarios in Section 15 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice &mdash; a near-breakeven, transition-stage small-cap with elevated forensic/execution risk (see &sect;14).</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Kabra Extrusiontechnik Limited
+Ticker: NSE: KABRAEXTRU / BSE: 524109
+Sector: Capital Goods (plastic-extrusion machinery) + Li-ion Batteries (Geon) / Kolsite Group
+Report Date: August 5, 2026 (FY26 results May 29; Q1 FY27; events to end-Jul 2026)
+File: kabra_extrusiontechnik_equity_research.html
+*** REGENERATED with NEW SECTION 14 FORENSIC ANALYSIS - now a 20-section report ***
+CMP at Report: ~Rs 400 (early Aug 2026; VENDOR-DIVERGENT Rs 269 ICICI-stale to Rs 418 MoneyWorks4Me; VERIFY vs NSE/BSE)
+Market Cap: ~Rs 1,400 Cr (Rs 1,229 VR / Rs 1,470 Screener, +36% 1yr); face value Rs 5; small-cap
+*** NEAR-BREAKEVEN two-engine TRANSITION small-cap - NOT an earnings-multiple stock (trailing P/E negative/NA) ***
+BUSINESS: Kolsite Group (60+ yrs), incorporated 1982. DUAL SEGMENT: (1) Extrusion Machinery - India's LEADING plastic-extrusion-machinery maker (pipe/film lines, 15,000+ installs 100+ countries), mature/cyclical/currently-soft cash cow; (2) GEON (ex-Battrixx) - Li-ion battery packs/modules for EV (2W/3W to e-LCV/e-4W, battery swapping) + BESS energy storage, high-growth/capital-hungry/thin-margin/cell-import-dependent. Chakan Pune battery plant. MD Anand Kabra.
+FY26 WEAK "TRANSITION YEAR" (reported May 29): consol rev Rs 451.1 Cr (Extrusion Rs 314.9 + Geon Rs 136.1), EBITDA thin Rs 10.4 Cr; STANDALONE NET LOSS Rs 2.44 Cr (from Rs 33.87 Cr profit FY25); consol near-breakeven; NO DIVIDEND; CRISIL DOWNGRADE short-term A2 from A1 (LT A/Stable, outlook Neg-to-Stable), Rs 354 Cr facilities
+Q1 FY27 TURNAROUND: rev Rs 124.5 Cr (+44.8% YoY, +3.6% QoQ), GEON +133.1% to Rs 70.1 Cr (NOW ~56% of rev, overtook extrusion), EBITDA +ve Rs 6.0 Cr (from -Rs 3.0 Cr loss), margin 5.0% (+251bps QoQ). Orders: Rs 150 Cr battery-system + Rs 133 Cr energy-storage
+*** SECTION 14 FORENSIC ANALYSIS (7 subsections) - "transition-stress, watch-closely" grade, MORE CAUTIONARY than Yasho ***
+- 14.1 earnings quality: AMBER - Q1 turnaround real but thin (5% EBITDA)/lumpy/order-driven (Geon Rs 30-27-70 Cr), FY26 base weak (standalone loss); don't annualise one quarter
+- 14.2 balance-sheet integrity: AMBER - CRISIL downgrade + low interest coverage = strained not distressed; mitigant 0% pledge + IG 'A'
+- 14.3 promoter conduct: GREEN - 60.44%, 0% pledge, promoters INCREASING stake (Kabra+Ekta +4.35% from Kolsite Corp LLP) = conviction signal
+- 14.4 governance/management: RED-to-WATCH (KEY FLAG) - THREE CFOs in ~2 months (Daulat Jain resigned Apr 27, Uttam Singh interim May 13, Bhavin Sheth permanent Jun 20) + CS change Jul 30 (Rathi-to-Vala); continuity/control concern; mitigant: disclosed benign reasons, Sheth 23yrs exp, no accounting-dispute/auditor-exit
+- 14.5 audit/accounting: AMBER - no known qualification but STANDALONE-vs-CONSOLIDATED divergence (standalone loss vs consol breakeven); subsidiary structure; Battrixx-to-Geon rebrand; verify opinion at AGM
+- 14.6 disclosure/structure: AMBER - Kachigam Daman plant FLOODED/suspended Jul 23 2026 (insured, Q2 impact); multiple subs (Varos, Kabra/Kolsite Energy); disclosure timely
+- 14.7 cashflow corroboration: AMBER - thin EBITDA + WC-heavy capital-hungry batteries; OCF conversion is a QUESTION TO VERIFY not a strength to assume; check receivables/inventory vs revenue
+- FORENSIC VERDICT: transition-stress/watch-closely; flags of continuity+funding+cyclicality NOT manipulation; promoter conduct clean; insist on cash-flow corroboration + 2-3 quarters margin/continuity evidence; size for above-average uncertainty
+Ownership: promoter (Kabra/Kolsite) 60.44%, 0% pledge
+Valuation: NEAR-BREAKEVEN, P/E negative/NA, P/B ~2.1-3.4x, EV/Sales ~2.9x
+KEY RISKS: Geon profitability/battery-market (thin-margin/cell-dependent/competitive), balance-sheet strain/rating, management continuity (sec 14), extrusion cyclicality, lumpy order-driven earnings, plant-flood/operational event, valuation/small-cap volatility
+Bull Case: Rs 520-680
+Base Case: Rs 350-430
+Bear Case: Rs 200-270
+Primary Valuation Metric: SOTP (extrusion mid-cycle EV/EBITDA + Geon EV/Sales-growth) PRIMARY + EV/Sales CO-PRIMARY; Geon scale/margin trajectory CRITICAL INDICATOR; path to consol PAT profitability OPERATING INDICATOR; extrusion mid-cycle earnings SWING FACTOR; trailing P/E and P/B alone AVOID (negative/distorted)
+Investment Type: high-risk two-engine turnaround-plus-optionality small-cap; market-leading cyclical extrusion cash business + fast-scaling thin-margin capital-hungry Geon battery bet on EV/storage tailwinds (now larger segment); Q1 inflection real + EV optionality valuable BUT near-breakeven + rating downgrade + strained balance sheet + sec 14 continuity/execution flags (3 CFOs, plant flood); "prove-it, verify-the-cash, watch-management"; value on SOTP/EV-Sales not P/E; clean aligned promoter offsets some risk
+Palette: graphite/gunmetal + electric-lime (battery) + molten-extrusion-orange; Chakra Petch/Manrope/JetBrains Mono; extrusion-die + battery hero motif
+NOTE: This report REGENERATED to include the new Forensic Analysis section (sec 14), following the same template applied to Yasho. Sections: 01-13 standard, 14 Forensic Analysis (NEW), 15 Valuation, 16 Risks, 17 Scorecard, 18 Recent Announcements, 19 Balance Sheet Strength, 20 Technical.
+-->
