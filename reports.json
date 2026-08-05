@@ -86,5 +86,13 @@
     "file": "paushak_equity_research.html",
     "desc": "India's largest phosgene-based specialty chemicals maker (Alembic Group); real hazmat moat & pharma/agro intermediates, but flat growth, compressed margins & premium valuation",
     "date": "2026"
+  },
+  {
+    "name": "Restaurant Brands Asia",
+    "ticker": "RBA",
+    "sector": "QSR / Restaurants",
+    "file": "restaurant_brands_asia_equity_research.html",
+    "desc": "Burger King India (+Indonesia) master franchisee; loss-making QSR turnaround at inflection - record 12.6% India SSSG, EBITDA +266%, new promoter Inspira Global infused ₹1,050 Cr",
+    "date": "2026"
   }
 ]

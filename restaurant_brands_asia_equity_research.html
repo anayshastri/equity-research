@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Brands Asia — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#161009; --char-2:#231A10; --char-3:#332618;
+    --ember:#E8641A; --ember-dk:#B84A0C; --ember-lt:#F79556; --ember-gl:rgba(232,100,26,.12);
+    --bun:#D9A441; --bun-dk:#A87A1E; --bun-lt:#EFC877; --bun-gl:rgba(217,164,65,.13);
+    --char-red:#C33A2E; --char-red-gl:rgba(195,58,46,.10);
+    --leaf:#4E9E52; --leaf-dk:#2F7434; --leaf-gl:rgba(78,158,82,.11);
+    --green:#2E9E58; --green-dk:#1C763F; --red:#CE4438;
+    --ink-1:#161009; --ink-2:#443A2E; --ink-3:#6E6252;
+    --line:#EAE3D8; --line-2:#F3EEE6; --paper:#FDFBF7; --paper-2:#F7F2EA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(22,16,9,.14)}
+  h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.12}
+  .mono{font-family:'Spline Sans Mono',monospace}
+
+  /* HERO — flame / grill motif */
+  .hero{position:relative;background:linear-gradient(150deg,#161009 0%,#231A10 50%,#332618 128%);color:#F5EEE3;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-25%;right:-8%;width:480px;height:480px;border-radius:50%;
+    background:radial-gradient(circle at 42% 42%,rgba(247,149,86,.30),rgba(217,164,65,.14) 52%,transparent 72%);filter:blur(4px)}
+  .flame{position:absolute;right:64px;top:40px;width:150px;height:150px;z-index:2;opacity:.7}
+  .flame svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tag.em{background:rgba(232,100,26,.26);border-color:rgba(247,149,86,.5);color:#F7B98A}
+  .tag.bn{background:rgba(217,164,65,.24);border-color:rgba(239,200,119,.5);color:#EFD096}
+  .hero h1{font-size:42px;font-weight:800;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .flip{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--ember-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#C4B7A6;margin-bottom:24px;font-weight:300;max-width:775px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.10)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#9C8E7A;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#6CE0A0}.down{color:#F2A098}
+
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--char);color:#9C8E7A;
+    padding:11px 48px;font-family:'Spline Sans Mono',monospace;font-size:11px}
+  .metabar b{color:#F0E8DC;font-weight:400}
+  .metabar .dot{color:var(--ember-lt)}
+
+  .alert{background:var(--bun-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--bun-dk);font-family:'Spline Sans Mono',monospace}
+  .alert b{color:var(--char)}
+  .alert.deal{background:var(--ember-gl);color:var(--ember-dk)}
+  .alert.warn{background:var(--char-red-gl);color:#A5352A}
+
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;color:var(--ember-dk);
+    border:1.5px solid var(--ember);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--char)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+
+  .call{border-left:4px solid var(--ember);background:var(--ember-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.bn{border-color:var(--bun);background:var(--bun-gl)}
+  .call.lf{border-color:var(--leaf);background:var(--leaf-gl)}
+  .call.cr{border-color:var(--char-red);background:var(--char-red-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,68,56,.08)}
+  .call .lab{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--ember-dk);margin-bottom:5px}
+  .call.bn .lab{color:var(--bun-dk)}.call.lf .lab{color:var(--leaf-dk)}.call.cr .lab{color:#A5352A}.call.red .lab{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--char-2);color:#F0E8DC;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Spline Sans Mono',monospace}
+  .tr-hi td{background:var(--ember-gl)!important;font-weight:600;color:var(--ink-1)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--char);letter-spacing:-.02em;font-family:'Bricolage Grotesque',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.e{border-top:3px solid var(--ember)}.card.b{border-top:3px solid var(--bun)}
+  .card.l{border-top:3px solid var(--leaf)}.card.c{border-top:3px solid var(--char-red)}
+
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"▸";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--ember);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--char);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.own{background:var(--ember-gl);border-color:var(--ember)}
+  .vnode.own .vt{color:var(--ember-dk)}
+  .vnode.dr{background:var(--char-red-gl);border-color:var(--char-red)}
+  .vnode.dr .vt{color:#A5352A}
+
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:180px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Spline Sans Mono',monospace;font-weight:400}
+  .bar-val{width:108px;text-align:right;font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.flame{display:none}}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,68,56,.06);border-color:rgba(206,68,56,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(46,158,88,.07);border-color:rgba(46,158,88,.3)}
+  .scen .st{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;font-family:'Bricolage Grotesque',sans-serif}
+  .scen .bear .st{color:var(--red)}.scen .base .st{color:var(--ink-2)}.scen .bull .st{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+
+  .bm{background:var(--char);color:#F2EADE;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(232,100,26,.34),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Bricolage Grotesque',sans-serif}
+  .bm .bm-sub{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--ember-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#D6C9B8}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#D0C3B2}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--ember-dk);color:#fff}.v-co{background:var(--bun-dk);color:#fff}
+  .v-ind{background:#1C763F;color:#B6EFCA}.v-sec{background:#463A2E;color:#E4D8C8}
+  .v-avoid{background:#7A2A24;color:#F6C9BF}.v-cross{background:#3A2E18;color:#E0CDA8}
+  .v-rerate{background:var(--bun-dk);color:#FBE8BE}
+  .bm .onenum{background:rgba(217,164,65,.14);border:1px solid rgba(239,200,119,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#EDD9A6;position:relative}
+  .bm .onenum b{color:#F2C86A}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Spline Sans Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--char)}
+  .stars{color:var(--bun);font-size:13px;letter-spacing:1px}
+
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--bun-dk)}.rl{background:var(--ember-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--ember),var(--bun))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--ember);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--ember)}
+  .tli .ty{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:12.5px;color:var(--ember-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Spline Sans Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--char);font-family:'Bricolage Grotesque',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(46,158,88,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,68,56,.14);color:var(--red)}
+  .b-neut{background:rgba(217,164,65,.2);color:var(--bun-dk)}
+
+  .foot{background:var(--char);color:#8A7C69;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#D0C3B2}
+  .disc{font-size:10.5px;color:#6E6252;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="flame">
+    <svg viewBox="0 0 150 150" fill="none">
+      <path d="M75 20 C90 45 108 55 105 85 C103 112 88 128 75 128 C62 128 47 112 45 85 C43 62 58 52 62 40 C66 55 70 58 75 55 C80 50 76 34 75 20 Z" fill="none" stroke="#F79556" stroke-width="2" opacity="0.8"/>
+      <path d="M75 55 C84 70 92 78 90 96 C88 114 82 122 75 122 C68 122 60 112 60 96 C60 80 70 74 72 62 C73 72 74 74 75 72 Z" fill="none" stroke="#E8641A" stroke-width="1.6" opacity="0.7"/>
+      <path d="M75 82 C80 92 83 98 82 108 C80 118 78 120 75 120 C72 120 69 116 69 106 C69 96 74 92 75 82 Z" fill="#D9A441" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: RBA</span>
+      <span class="tag">BSE: 543248</span>
+      <span class="tag em">Burger King India Master Franchisee</span>
+      <span class="tag bn">New Promoter · Inspira Global (Jul '26)</span>
+    </div>
+    <h1>Restaurant Brands Asia</h1>
+    <div class="flip">◆ formerly Burger King India Ltd · Burger King (India + Indonesia) + Popeyes (Indonesia)</div>
+    <div class="sub">A <b>loss-making QSR growth story at a genuine turnaround inflection</b>: a fast-scaling India Burger King business (record 12.6% same-store growth, EBITDA up 266%) has just been handed to a <b>new, capital-rich promoter — Inspira Global (Chinese Wok)</b> — who has infused ₹1,050 Cr and taken control. Strong India momentum, a stubborn Indonesia drag, and still-elusive bottom-line profit.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (Aug 4)</div><div class="v">~₹78–82</div><div class="d up">20% UC on Q1</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~₹4,800–5,000 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">Q1 FY27 rev</div><div class="v">₹822.6 Cr</div><div class="d up">+17.9% YoY</div></div>
+      <div class="qs"><div class="k">India SSSG</div><div class="v">12.6%</div><div class="d up">15-qtr high</div></div>
+      <div class="qs"><div class="k">Q1 net loss</div><div class="v">₹(28.4) Cr</div><div class="d up">narrowed from ₹42–48</div></div>
+      <div class="qs"><div class="k">New promoter</div><div class="v">~42%→48%</div><div class="d">Inspira/Lenexis</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Group CEO:</b> Rajeev Varman</span>
+  <span class="dot">◆</span>
+  <span><b>New promoter:</b> Inspira Global (Lenexis Foodworks)</span>
+  <span class="dot">◆</span>
+  <span><b>Est:</b> 2013 (BK India)</span>
+  <span class="dot">◆</span>
+  <span><b>HQ:</b> Mumbai</span>
+  <span class="dot">◆</span>
+  <span><b>FV:</b> ₹10</span>
+  <span class="dot">◆</span>
+  <span><b>Report:</b> 05 Aug 2026</span>
+</div>
+
+<div class="alert deal">
+  🔥 <b>DEFINING EVENT — CHANGE OF CONTROL (completed Jul 2026):</b> <b>Inspira Global</b> (owner of homegrown QSR <b>Chinese Wok</b>, 250+ outlets), via vehicle <b>Lenexis Foodworks</b>, acquired a controlling <b>~42% stake (rising to ~48% on warrant conversion)</b> for ~₹1,960 Cr — including a <b>₹1,050 Cr fresh capital infusion</b> (+₹450 Cr more on warrants). <b>Everstone Capital fully exited</b>; old promoters (QSR Asia/F&B Asia Ventures) reclassified to public. A new, food-service-experienced, capital-rich owner now drives the turnaround.
+</div>
+<div class="alert warn">
+  ⚠ <b>STILL LOSS-MAKING + AN LBO FEATURE:</b> RBA remains <b>deeply loss-making at the PAT level</b> (FY26 consol net loss ~₹204 Cr incl. a ₹120 Cr Indonesia impairment; Q1 FY27 loss ₹28.4 Cr) — trailing P/E is meaningless and book is eroded (P/B ~5.7–7x). Note also that Lenexis <b>pledged ~16.7% of the company's shares (~₹844 Cr) to fund the acquisition itself</b> — a leverage feature to monitor. Profitability is improving fast but not yet here.
+</div>
+<div class="alert">
+  ⚠ <b>DATA CAVEAT:</b> Ownership data is mid-transition — Screener shows "promoter 9.22%" (a reclassification artifact); the real controlling block is Inspira/Lenexis ~41.78% → ~47.8% fully diluted. CMP ₹70.76 (pre-Q1) → ₹78–82.80 (post-Q1, +16–20%); m-cap ₹4,833 Cr (MarketsMojo) / ₹5,036 Cr (Screener); consol revenue ₹2,948 Cr, loss ~₹192–204 Cr; P/B ~5.7–7x; 3-yr ROE ~−26.8%; 52-wk ₹57.15–87.65; FV ₹10. This report anchors CMP ~₹78–82. Verify vs NSE/BSE.
+</div>
+
+<main>
+
+<!-- 01 -->
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Restaurant Brands Asia Ltd (RBA)</strong>, formerly <strong>Burger King India Ltd</strong>, is the <strong>national master franchisee of the Burger King brand in India</strong> and the operator of <strong>Burger King and Popeyes in Indonesia</strong> — a listed quick-service-restaurant (QSR) company running two reportable segments (India and Indonesia). It is one of India's larger Western QSR chains by store count (~752 restaurants group-wide), competing with McDonald's (Westlife, Devyani), KFC/Pizza Hut (Sapphire/Devyani), Domino's (Jubilant) and a rising tide of local players and cloud kitchens.</p>
+  <p>The investment story today is defined by <strong>two things happening at once.</strong> First, a <strong>genuine operational turnaround in the core India business</strong>: Q1 FY27 delivered <strong>12.6% same-store sales growth (SSSG) — the highest in 15 quarters</strong> — and India Company EBITDA (pre-Ind AS 116) surged <strong>+266% year-on-year</strong>, as tighter cost control, value offers and menu/format work finally translated scale into operating leverage. Second, a <strong>transformational change of ownership</strong>: in July 2026, <strong>Inspira Global</strong> (owner of homegrown QSR chain <strong>Chinese Wok</strong>) took a controlling ~42% stake (rising to ~48%) and injected <strong>₹1,050 Cr of fresh capital</strong>, replacing the exiting private-equity owners (Everstone) with a food-service operator promising to accelerate growth and profitability. <strong>The catch: RBA is still loss-making at the net level</strong> (heavy depreciation and interest on a store-and-lease-heavy model, plus a persistent Indonesia drag), so this is a <strong>revenue-compounding, profitability-still-elusive turnaround with fresh capital and a new driver</strong> — not yet an earnings story.</p>
+  <div class="cards">
+    <div class="card e"><div class="k">Restaurants (group)</div><div class="v">~752</div><div class="d">India ~590 + Indonesia 162</div></div>
+    <div class="card b"><div class="k">Revenue mix</div><div class="v">83% India</div><div class="d">15% BK Indo, 2% Popeyes</div></div>
+    <div class="card l"><div class="k">India SSSG (Q1)</div><div class="v">12.6%</div><div class="d up">15-qtr high</div></div>
+    <div class="card c"><div class="k">Fresh capital</div><div class="v">₹1,050 Cr</div><div class="d">+₹450 Cr on warrants</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">The investment character in one line</div>
+    RBA is a <strong>loss-making QSR growth-and-turnaround play at an inflection</strong>: a fast-scaling, momentum-rich India Burger King business (record SSSG, EBITDA inflecting) that has just been recapitalised and handed to a new, food-service-savvy, capital-rich promoter — but which still bleeds at the net line thanks to depreciation, interest and a loss-making Indonesia arm. The bull case is a <strong>classic QSR operating-leverage + new-owner turnaround: revenue compounds, SSSG stays strong, store economics improve, Indonesia is fixed or exited, and the business finally crosses into profit — re-rating on the promise.</strong> The bear case is that <strong>it stays loss-making longer than hoped, Indonesia keeps draining cash, competition/discounting pressures margins, and a ~6x-book valuation on a loss-maker proves too rich.</strong> This is an <strong>EV/sales-and-turnaround-execution bet</strong>, not an earnings-multiple investment — value it on the path to profitability, not trailing P/E.
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2013 · Burger King enters India</div><div class="td">Burger King India Ltd formed as the <strong>national master franchisee</strong>, backed by Everstone Capital (via QSR Asia); opens its first Indian restaurants and scales rapidly through the late 2010s.</div></div>
+    <div class="tli"><div class="ty">Dec 2020 · Blockbuster IPO</div><div class="td">Burger King India lists in a hugely-oversubscribed IPO, riding QSR-growth enthusiasm — one of the most talked-about listings of the year.</div></div>
+    <div class="tli"><div class="ty">2022 · Indonesia acquisition &amp; rename</div><div class="td">Acquires the <strong>Burger King &amp; Popeyes Indonesia</strong> business and renames itself <strong>Restaurant Brands Asia</strong> — a bid to become a multi-country QSR platform. Indonesia later becomes the problem child.</div></div>
+    <div class="tli"><div class="ty">FY23–FY25 · Growth without profit</div><div class="td">Aggressive India store expansion drives revenue, but <strong>persistent net losses</strong> (depreciation, interest, Indonesia drag) and weak SSSG in a tough demand environment leave the stock down heavily (−55% over five years).</div></div>
+    <div class="tli"><div class="ty">Jan–Jul 2026 · The Inspira takeover</div><div class="td"><strong>Inspira Global agrees (Jan) and completes (Jul) a change of control</strong> at ₹70/share: buys out old promoters, infuses ₹1,050 Cr, launches an open offer; <strong>Everstone exits</strong>. Lenexis Foodworks becomes promoter (~42%→48%).</div></div>
+    <div class="tli"><div class="ty">Aug 2026 · Turnaround shows up in the numbers</div><div class="td"><strong>Q1 FY27: India SSSG 12.6% (15-quarter high), EBITDA +266%, losses narrowing</strong> — the stock hits a 20% upper circuit. The new owner inherits genuine momentum.</div></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Structure &amp; Segments</h2></div>
+  <div class="vchain">
+    <div class="vnode own"><div class="vt">Burger King India</div><div class="vd">83% of revenue — the engine, inflecting up</div></div>
+    <div class="vnode"><div class="vt">Burger King Indonesia</div><div class="vd">15% — turning (store EBITDA +ve Q4)</div></div>
+    <div class="vnode dr"><div class="vt">Popeyes Indonesia</div><div class="vd">2% — the loss-making drag</div></div>
+    <div class="vnode own"><div class="vt">New promoter capital</div><div class="vd">₹1,050 Cr fuel for expansion</div></div>
+  </div>
+  <div class="call bn">
+    <div class="lab">One great engine, one problem region — and now fresh fuel</div>
+    RBA's value is <strong>overwhelmingly the India Burger King business</strong> (83% of revenue) — a large, scaling, momentum-rich chain that is the reason to own the stock and the part that's clearly working. <strong>Indonesia (17%) is the complication:</strong> Burger King Indonesia is <em>improving</em> (it reached positive store-level EBITDA in Q4 FY26 after store rationalisation), but <strong>Popeyes Indonesia continues to lose money</strong> (negative store EBITDA), and the segment overall dragged FY26 into a ₹120 Cr impairment. The strategic questions the new owner must answer: <strong>can Indonesia be turned to sustained profit, or should it be scaled back/exited to stop the bleed?</strong> Meanwhile the ₹1,050 Cr infusion gives RBA the <strong>balance-sheet firepower to accelerate India expansion</strong> (80 stores planned in FY27) and invest in digital/brand — turning the story from "cash-constrained loss-maker" to "capitalised growth-and-turnaround." The clean read: <strong>own it for India; watch Indonesia as the swing factor.</strong>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The India Business — The Engine</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">India revenue Q1</div><div class="v">₹682.8 Cr</div><div class="d up">+23.6% YoY</div></div>
+    <div class="card l"><div class="k">India SSSG Q1</div><div class="v">12.6%</div><div class="d up">15-qtr high</div></div>
+    <div class="card b"><div class="k">India stores</div><div class="v">~590</div><div class="d">+80 planned FY27</div></div>
+    <div class="card c"><div class="k">India EBITDA (pre-116)</div><div class="v">+266%</div><div class="d up">operating leverage</div></div>
+  </div>
+  <p>The India Burger King business is <strong>firing on all cylinders</strong>: Q1 FY27 revenue up 23.6% to ₹682.8 Cr, <strong>SSSG of 12.6% — the best in 15 quarters</strong>, driven by strong dine-in and delivery traction and sharp <strong>value offerings</strong> (₹79 two-burger deals, ₹99 meals). Full-year FY26 India revenue rose 15.4% to ₹2,271.7 Cr with Company EBITDA (pre-Ind AS 116) up 33.2%. The chain is <strong>expanding (~80 new stores planned in FY27)</strong> while finally showing <strong>operating leverage.</strong></p>
+  <div class="call lf">
+    <div class="lab">Why the India momentum is credible — and what's driving it</div>
+    This is the <strong>strongest part of the thesis, and the momentum looks real rather than cosmetic.</strong> Industry-leading SSSG of 12.6% (accelerating from ~2.8% the prior quarter and 4% for FY26) reflects a <strong>genuine demand recovery in Indian QSR</strong> (moderating inflation, consumption-tax cuts leaving consumers with more to spend) that RBA is capturing through aggressive value menus, dual-channel strength (dine-in + delivery), and disciplined cost control. Crucially, this SSSG is <strong>flowing through to operating leverage</strong> — a 266% jump in India Company EBITDA shows that as same-store sales climb on a largely-fixed store cost base, incremental revenue drops disproportionately to operating profit. That is <strong>exactly the dynamic a QSR turnaround needs:</strong> a maturing store base + rising SSSG + new-store additions = compounding operating profit. The risks to watch: the value-led SSSG is partly <strong>discount-driven</strong> (which can pressure per-unit margins), and Western QSR faces <strong>intense competition from local diners and cloud kitchens</strong>. But the direction — strong, accelerating, leverage-generating India growth — is the clearest positive in the whole story.
+  </div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Q1 FY27 Inflection, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q1 FY26</th><th class="mono">Q1 FY27</th><th class="mono">Change</th></tr>
+    <tr><td>Consol revenue (₹ Cr)</td><td class="mono">697.7</td><td class="mono">822.6</td><td class="mono up">+17.9%</td></tr>
+    <tr><td>India revenue (₹ Cr)</td><td class="mono">552</td><td class="mono">682.8</td><td class="mono up">+23.6%</td></tr>
+    <tr><td>Indonesia revenue (₹ Cr)</td><td class="mono">145.4</td><td class="mono">139.7</td><td class="mono down">−4%</td></tr>
+    <tr><td>India SSSG</td><td class="mono">~2%</td><td class="mono">12.6%</td><td class="mono up">15-qtr high</td></tr>
+    <tr class="tr-hi"><td>Co EBITDA pre-Ind AS 116 (₹ Cr)</td><td class="mono">11.9</td><td class="mono">43.5</td><td class="mono up">+265.7%</td></tr>
+    <tr><td>Net loss (₹ Cr)</td><td class="mono">(41.9)–(48)</td><td class="mono">(28.4)</td><td class="mono up">narrowed</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A real operating inflection — but mind the two EBITDA definitions and the still-red bottom line</div>
+    Q1 FY27 was a <strong>genuine operating inflection</strong>, and the market rewarded it with a 20% upper circuit. Revenue grew 18%, India SSSG hit a 15-quarter high, and — the key number — <strong>Company EBITDA (pre-Ind AS 116) leapt 266% to ₹43.5 Cr</strong>, with margin expanding from 1.7% to 5.3%. Two clarifications matter. <strong>First, watch which EBITDA is quoted:</strong> "pre-Ind AS 116" (₹43.5 Cr, ~5.3% margin) strips out the lease-accounting benefit and is the <em>cleaner, harder</em> read of true operating profit; "post-Ind AS 116" (₹108.4 Cr, ~13.2% margin) looks far healthier only because it moves rent below the EBITDA line — <strong>use the pre-116 number to judge the real business.</strong> <strong>Second, the company is still loss-making</strong> (net loss ₹28.4 Cr): even with EBITDA inflecting, <strong>heavy depreciation and interest</strong> (the store-and-lease-heavy model) keep the bottom line red. So the honest read is <strong>strongly improving, clearly inflecting — but not yet profitable.</strong> The trajectory is what matters: if SSSG and operating leverage hold, the pre-116 EBITDA line is where profitability will first become visible, quarter by quarter.
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>The New Promoter — Inspira Global</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Stake acquired</div><div class="v">~42%</div><div class="d">→ ~48% on warrants</div></div>
+    <div class="card b"><div class="k">Total investment</div><div class="v">~₹1,960 Cr</div><div class="d">₹1,050 Cr infused now</div></div>
+    <div class="card l"><div class="k">Inspira's Chinese Wok</div><div class="v">250+</div><div class="d">outlets, 45+ cities</div></div>
+    <div class="card c"><div class="k">Price paid</div><div class="v">₹70/sh</div><div class="d">~10% premium</div></div>
+  </div>
+  <p>The July 2026 change of control brought in <strong>Inspira Global</strong> — owner of homegrown QSR brands including <strong>Chinese Wok</strong> (250+ restaurants across 45+ cities, 10+ years of QSR operating experience) — as the new promoter via <strong>Lenexis Foodworks</strong> (Aayush Madhusudan Agrawal). Inspira paid ₹70/share (~10% premium), <strong>bought out the old PE owners, and infused ₹1,050 Cr of fresh capital</strong> (with ₹450 Cr more on warrant exercise), taking a controlling ~42% (→~48%) stake. <strong>Everstone Capital fully exited.</strong></p>
+  <div class="call bn">
+    <div class="lab">A strategic operator, not a financial owner — the potential upgrade, and the leverage caveat</div>
+    This is potentially a <strong>meaningful upgrade in ownership character.</strong> RBA moves from a <strong>private-equity owner (Everstone), whose horizon is an exit,</strong> to a <strong>strategic food-service operator (Inspira/Chinese Wok) whose expertise is running QSR chains.</strong> The thesis: Inspira brings <strong>operational know-how (supply chain, unit economics, menu, delivery), a long-term orientation, and — critically — ₹1,050 Cr of fresh capital</strong> to accelerate India expansion, fix or rationalise Indonesia, and invest in digital/brand. For a business that had been <strong>cash-tightening</strong> (FY26 closing cash fell to ₹30 Cr from ₹534 Cr as capex outran operating cash), that recapitalisation is genuinely de-risking. <strong>The caveats to weigh:</strong> (1) <strong>execution is unproven at this scale</strong> — running a ~750-store, two-country, multi-brand platform is a big step up from Chinese Wok; (2) there is an <strong>LBO feature</strong> — Lenexis <strong>pledged ~16.7% of the company's shares (~₹844 Cr) to fund the acquisition</strong>, so the new promoter itself carries acquisition leverage (a risk if the stock or business weakens); and (3) minority investors are, in effect, <strong>underwriting a new owner's turnaround plan</strong>. On balance, a capital-rich strategic operator taking charge of an inflecting business is a positive setup — but it is a <strong>promise to be proven</strong>, with a leverage asterisk.
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Rationale</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">Very High</td><td>McDonald's, KFC, Domino's, Pizza Hut, Subway + local chains &amp; cloud kitchens; heavy discounting for share.</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>Low switching costs, price-sensitive, deal-driven consumers; delivery aggregators increase comparison.</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Food/packaging inputs, aggregator commissions (Zomato/Swiggy), and franchisor royalties to Burger King global.</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">High</td><td>Cloud kitchens and D2C food brands enter cheaply; but scaled dine-in QSR has real capital/brand barriers.</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Very High</td><td>Endless food options — local QSR, casual dining, home delivery, home cooking. Little captive demand.</td></tr>
+  </table>
+  <p>Net: QSR is a <strong>brutally competitive, low-switching-cost, substitute-rich industry</strong> where success comes from <strong>brand, scale, store economics, value perception and execution</strong> rather than any structural moat. RBA's edge is the <strong>Burger King brand + scale + improving execution</strong>; the constant threat is discount-driven margin pressure and a crowded field. Note too the <strong>master-franchisee model</strong>: RBA pays royalties to Burger King's global owner and doesn't own the brand — an inherent structural cost/limit.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>The Indonesia Problem</h2></div>
+  <div class="cards">
+    <div class="card b"><div class="k">Indonesia stores</div><div class="v">162</div><div class="d">137 BK + 25 Popeyes</div></div>
+    <div class="card e"><div class="k">BK Indonesia</div><div class="v">turning +ve</div><div class="d up">store EBITDA +ve Q4</div></div>
+    <div class="card c"><div class="k">Popeyes Indonesia</div><div class="v">loss-making</div><div class="d down">store EBITDA −ve</div></div>
+    <div class="card c"><div class="k">FY26 impairment</div><div class="v">₹120 Cr</div><div class="d down">Indonesia sub</div></div>
+  </div>
+  <p>Indonesia (17% of revenue) is the <strong>drag on the story.</strong> The segment's FY26 revenue fell (to ₹550.9 Cr from ₹582.9 Cr) and RBA took a <strong>₹120 Cr impairment on its Indonesia subsidiary.</strong> Within it, <strong>Burger King Indonesia is improving</strong> — it reached positive store-level EBITDA in Q4 FY26 after closing underperforming stores — but <strong>Popeyes Indonesia keeps losing money</strong> (negative store EBITDA). Consolidated Indonesia Company EBITDA (pre-Ind AS 116) improved but stayed negative (~IDR −100 Bn).</p>
+  <div class="call red">
+    <div class="lab">The key swing factor the new owner must resolve — fix or exit</div>
+    Indonesia is <strong>where the bear case lives and where the new promoter's first big strategic decision sits.</strong> The good news is directional improvement — BK Indonesia turning store-EBITDA-positive after rationalisation shows the unit economics <em>can</em> work with discipline. The bad news is that the segment as a whole still <strong>loses money, shrank in FY26, and forced a ₹120 Cr writedown</strong> — a persistent cash and earnings drain on an already loss-making group. For minority investors, the <strong>cleanest bull outcome is a decisive resolution:</strong> either turn Indonesia (especially Popeyes) to sustained profit quickly, or <strong>scale it back / exit it</strong> to stop the bleed and let the profitable, high-momentum India business carry the valuation. Continued muddle — a slowly-improving-but-still-loss-making Indonesia — is the outcome that keeps consolidated profitability out of reach and the stock's loss-making optics intact. <strong>How Inspira handles Indonesia is one of the two or three most important things to watch</strong>, alongside India SSSG and the path to consolidated PAT breakeven.
+  </div>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Cost Structure, Cash &amp; Working Capital</h2></div>
+  <div class="cards">
+    <div class="card l"><div class="k">FY26 op. cash flow</div><div class="v">₹302 Cr</div><div class="d up">positive</div></div>
+    <div class="card c"><div class="k">FY26 investing outflow</div><div class="v">₹485 Cr</div><div class="d down">store capex</div></div>
+    <div class="card c"><div class="k">FY26 closing cash</div><div class="v">₹30 Cr</div><div class="d down">from ₹534 Cr</div></div>
+    <div class="card e"><div class="k">New capital</div><div class="v">₹1,050 Cr</div><div class="d up">refills the tank</div></div>
+  </div>
+  <p>The QSR model's economics are the crux of the loss: <strong>positive operating cash flow (₹302 Cr in FY26)</strong> shows the stores generate cash operationally, but <strong>heavy depreciation and interest</strong> (owned/leased store assets, debt) push the <em>accounting</em> result into loss, and <strong>aggressive expansion capex (₹485 Cr) outran operating cash</strong>, so closing cash fell dramatically to ₹30 Cr from ₹534 Cr.</p>
+  <div class="call bn">
+    <div class="lab">The recapitalisation is the point — it converts a cash-squeeze into a growth runway</div>
+    This is <strong>exactly why the ₹1,050 Cr infusion matters so much.</strong> Entering FY27, RBA was in a <strong>cash-tightening squeeze</strong> — operating cash was positive but insufficient to fund both aggressive expansion and its loss-making Indonesia arm, and the cash balance had collapsed to ₹30 Cr, raising real questions about future funding. The new promoter's <strong>fresh capital resolves that at a stroke</strong>, giving RBA the balance sheet to keep expanding India (80 stores/year), invest in digital and brand, and absorb the Indonesia turnaround without a liquidity scare. The deeper point for valuation: because the business is <strong>operationally cash-generative</strong> (positive OCF) and the losses are largely <strong>non-cash depreciation + interest + growth investment</strong>, the path to <em>reported</em> profitability runs through <strong>operating leverage (rising SSSG on a maturing store base) eventually outgrowing the D&amp;A/interest load</strong> — which is precisely the dynamic Q1 FY27 began to show. Watch the OCF-to-capex balance, the cash position post-infusion, and the point at which EBITDA growth covers the fixed financing/depreciation load.
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Ownership &amp; Governance</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Inspira/Lenexis</div><div class="v">~42%→48%</div><div class="d">new promoter</div></div>
+    <div class="card c"><div class="k">Promoter pledge</div><div class="v">~16.7%</div><div class="d down">to fund acquisition</div></div>
+    <div class="card b"><div class="k">Old promoters</div><div class="v">exited</div><div class="d">Everstone / QSR Asia</div></div>
+    <div class="card l"><div class="k">Public / institutions</div><div class="v">~52%+</div><div class="d">incl. reclassified</div></div>
+  </div>
+  <p>Ownership just underwent a <strong>complete change of control</strong>: <strong>Inspira Global (via Lenexis Foodworks) is the new ~42%→48% promoter</strong>; the old PE owners (Everstone/QSR Asia/F&amp;B Asia Ventures) exited and were reclassified to public. <strong>Note the data quirk:</strong> some screeners still show "promoter 9.22%" — a mid-transition reclassification artifact, not the real control position.</p>
+  <div class="call cr">
+    <div class="lab">A strategic long-term owner — but with an acquisition-leverage flag</div>
+    The governance picture has <strong>genuine positives and one clear flag.</strong> Positive: control has passed to a <strong>strategic food-service operator with a long-term orientation and fresh capital</strong>, replacing a finite-horizon PE owner — generally a better alignment for a turnaround that needs patient investment. The flag: <strong>Lenexis funded part of the acquisition with leverage, pledging ~16.7% of the company's shares (~₹844 Cr)</strong> against the purchase. Promoter share pledges are a well-known governance risk — if the stock falls sharply, pledge top-ups or forced selling can amplify downside, and it signals the new owner is stretched rather than buying with pure equity. It is disclosed and stated to be for a bona-fide acquisition purpose, but investors should <strong>monitor the pledge level as the situation stabilises.</strong> Net: a promising ownership upgrade in <em>character</em> (strategic vs financial), with a <strong>leverage caveat</strong> that tempers it — and, given the recency, a governance situation still settling into its new shape.
+  </div>
+</section>
+
+<!-- 11 -->
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Fresh infusion</div><div class="v">₹1,050 Cr</div><div class="d up">+₹450 Cr warrants</div></div>
+    <div class="card c"><div class="k">Book value multiple</div><div class="v">~5.7–7x</div><div class="d down">loss-eroded book</div></div>
+    <div class="card c"><div class="k">3-yr ROE</div><div class="v">~−27%</div><div class="d down">losses</div></div>
+    <div class="card b"><div class="k">Interest coverage</div><div class="v">low</div><div class="d">flagged by screeners</div></div>
+  </div>
+  <p>The balance sheet is <strong>transformed by the recapitalisation</strong> — ₹1,050 Cr in (₹450 Cr more to come) refills a depleted cash position and funds growth. But the starting point is weak: <strong>years of losses have eroded book value</strong> (hence the optically high ~5.7–7x P/B), 3-year ROE is deeply negative (~−27%), and <strong>interest coverage is low</strong> (screener-flagged) given the debt and lease load.</p>
+  <div class="call red">
+    <div class="lab">The metric that decides the thesis: the path to consolidated PAT breakeven</div>
+    For a loss-making QSR turnaround, <strong>conventional balance-sheet ratios (P/B, ROE) are distorted and not the right anchor</strong> — book is eroded by cumulative losses (making P/B look high) and ROE is negative by definition while the company loses money. The metric that actually decides the investment is <strong>the credible path to consolidated PAT breakeven and beyond:</strong> when does rising India EBITDA (from SSSG + operating leverage + new stores), plus an Indonesia fix/exit, finally <strong>outgrow the depreciation + interest load</strong> to produce sustained net profit? The building blocks are visibly improving — pre-Ind AS 116 EBITDA inflecting (+266% in Q1), positive operating cash flow, fresh capital reducing funding risk, and India momentum strong. But <strong>the market is paying ~6x book and an EV that implies profitability is coming</strong> — so the whole thesis rests on that path being real and near. <strong>Track: pre-Ind AS 116 EBITDA margin trajectory, India SSSG durability, Indonesia's drag, the D&amp;A/interest load vs EBITDA, and each step toward the first profitable quarters.</strong> Breakeven timing is the number that matters.
+  </div>
+</section>
+
+<!-- 12 -->
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth &amp; Turnaround Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>India SSSG momentum</strong></td><td>Value menus, dine-in + delivery, demand recovery</td><td class="mono">Core engine ★★★★★</td></tr>
+    <tr><td><strong>Store expansion</strong></td><td>~80 India stores/yr, funded by new capital</td><td class="mono">Growth ★★★★</td></tr>
+    <tr><td><strong>Operating leverage</strong></td><td>SSSG on fixed store base → EBITDA inflection</td><td class="mono">Proving out ★★★★</td></tr>
+    <tr><td><strong>New-promoter execution</strong></td><td>Inspira QSR expertise + ₹1,050 Cr capital</td><td class="mono">Re-rating call ★★★★</td></tr>
+    <tr><td><strong>Indonesia fix/exit</strong></td><td>Turn or rationalise the loss-making arm</td><td class="mono">Swing factor ★★★</td></tr>
+    <tr><td><strong>Digital / loyalty / brand</strong></td><td>App, delivery mix, brand investment</td><td class="mono">Supportive ★★★</td></tr>
+  </table>
+</section>
+
+<!-- 13 -->
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <div class="two">
+    <div>
+      <div class="call lf">
+        <div class="lab">The bull-supporting facts</div>
+        India SSSG 12.6% (15-quarter high), revenue +18%, pre-Ind AS 116 EBITDA +266%, positive operating cash flow, a new capital-rich strategic promoter (₹1,050 Cr), 80-store expansion runway, and a losses-narrowing trajectory. A QSR turnaround visibly inflecting.
+      </div>
+    </div>
+    <div>
+      <div class="call red">
+        <div class="lab">The bear-supporting facts</div>
+        Still <strong>loss-making</strong> (FY26 −₹204 Cr incl. ₹120 Cr impairment; Q1 −₹28 Cr); Indonesia (esp. Popeyes) drags; brutal competition/discounting; ~5.7–7x book on a loss-maker; promoter acquisition-pledge; low interest coverage; execution unproven at scale. Trailing earnings meaningless.
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The picture is a <strong>genuine, capital-backed QSR turnaround at an early inflection</strong> — strong and accelerating India operations, fresh ownership and money, but not yet profitable and carrying real Indonesia, competition and valuation risks. Judge it on the trajectory to profit (EBITDA margin, SSSG, breakeven timing), not the loss-distorted trailing metrics.</p>
+</section>
+
+<!-- 14 -->
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Valuation</h2></div>
+  <p>RBA is <strong>loss-making, so trailing P/E is meaningless and P/B (~5.7–7x) is distorted by an eroded book</strong>. The only coherent frame for a scaling, loss-making QSR turnaround is <strong>EV/Sales and EV/EBITDA (pre-Ind AS 116)</strong>, cross-checked against unit economics (SSSG, ADS, store count) and a credible <strong>path-to-profitability</strong>, with the new-promoter capital/execution as the re-rating trigger.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Restaurant Brands Asia</h3>
+    <div class="bm-sub">Loss-making, scaling QSR turnaround with a new capital-rich promoter → EV/Sales &amp; EV/EBITDA (pre-Ind AS 116) + SSSG/ADS/store economics + path-to-PAT-breakeven; new-promoter execution &amp; capital is the re-rating factor; Indonesia is the swing; trailing P/E &amp; P/B are not anchors</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>EV/Sales</td><td><span class="verdict v-prim">PRIMARY</span></td><td>The standard lens for a fast-growing, not-yet-profitable QSR. Judge the multiple against SSSG, growth and the path to margins — India momentum supports a premium; losses cap it.</td></tr>
+      <tr><td>EV/EBITDA (pre-Ind AS 116)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>The cleanest read of true operating profit (strips the lease-accounting flatter). Use pre-116, not post-116, and value on the inflecting/forward EBITDA, not the depressed trailing base.</td></tr>
+      <tr><td>SSSG · ADS · store economics</td><td><span class="verdict v-ind">OPERATING INDICATOR</span></td><td>The truest gauge of health — 12.6% SSSG, average daily sales, new-store payback. Cuts through accounting noise to show whether the engine is really compounding.</td></tr>
+      <tr><td>New-promoter execution &amp; capital</td><td><span class="verdict v-rerate">RE-RATING FACTOR</span></td><td>Inspira's QSR expertise + ₹1,050 Cr is the catalyst; delivery on growth/profitability drives (or breaks) the re-rating. Watch the pledge too.</td></tr>
+      <tr><td>Path to consolidated PAT breakeven</td><td><span class="verdict v-crit">CRITICAL INDICATOR</span></td><td>The whole debate: when does EBITDA outgrow D&amp;A + interest (and Indonesia stop dragging) to yield sustained net profit? Timing drives the price.</td></tr>
+      <tr><td>Trailing P/E; P/B alone</td><td><span class="verdict v-avoid">AVOID</span></td><td>P/E meaningless (losses); P/B (~6x) distorted by loss-eroded book + fresh capital. Neither captures a scaling turnaround.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At ~₹4,800–5,000 Cr market cap on ~₹2,950 Cr consolidated revenue (~1.6–1.7x EV/Sales) with a <b>loss-making but sharply-inflecting P&amp;L</b> — India SSSG at a 15-quarter high of 12.6%, pre-Ind AS 116 EBITDA up 266%, and a new promoter injecting ₹1,050 Cr — RBA is priced as a <b>credible QSR turnaround on the cusp of profitability, not as a value stock.</b> The multiple is reasonable-to-full for a scaling QSR <em>if</em> India momentum sustains, operating leverage keeps compounding EBITDA, Indonesia is fixed or exited, and the group crosses into sustained profit over the next 1–2 years; it is expensive <em>if</em> losses persist, Indonesia keeps draining, discounting caps margins, or the new owner's plan disappoints. <b>Verdict: a genuine, capital-backed QSR growth-and-turnaround at an early but real inflection — a strong, accelerating India Burger King engine (record SSSG, EBITDA inflecting, operating leverage proving out) newly recapitalised (₹1,050 Cr) and handed to a strategic food-service operator (Inspira/Chinese Wok) — but still loss-making at the net line, dragged by a loss-making Indonesia arm, exposed to brutal QSR competition and discounting, carrying a promoter acquisition-pledge, and valued at a level that already prices in the profitable future. Value it on EV/Sales, pre-Ind AS 116 EV/EBITDA and the path to breakeven — never trailing P/E or P/B — make new-promoter execution the re-rating gate and Indonesia the swing factor, and treat it as the high-beta turnaround bet it is: attractive to those who back the India momentum and the new owner's plan, risky for anyone needing profits and a margin of safety today.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st">Bear</div><div class="sp">₹52–62</div><div class="sd">SSSG fades, discounting caps margins, Indonesia keeps bleeding, losses persist longer than hoped, promoter-pledge/execution worries surface; de-rates toward the 52-wk-low zone.</div></div>
+    <div class="s base"><div class="st">Base</div><div class="sp">₹72–88</div><div class="sd">India momentum holds, EBITDA keeps inflecting, capital funds steady expansion, Indonesia gradually improves; the stock holds around current post-rally levels as it grinds toward breakeven.</div></div>
+    <div class="s bull"><div class="st">Bull</div><div class="sp">₹100–130</div><div class="sd">Strong sustained SSSG + operating leverage drive consolidated profitability, Indonesia fixed/exited, new owner executes and re-rates the platform; a QSR-turnaround re-rating well above the 52-wk high.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">QSR peers (Westlife, Devyani, Sapphire, Jubilant) trade on EV/Sales and forward EV/EBITDA given thin/negative near-term earnings. Scenarios hinge on SSSG durability, breakeven timing, Indonesia and new-owner execution. As a high-beta small-cap that just hit a 20% upper circuit, expect volatility. Verify CMP vs NSE/BSE.</p>
+</section>
+
+<!-- 15 -->
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Still loss-making / breakeven timing</strong>Despite inflecting EBITDA, heavy depreciation and interest keep the group in net loss; if the path to sustained profit stretches out, the ~6x-book valuation on a loss-maker is exposed. The central risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Indonesia drag</strong>The Indonesia arm (esp. Popeyes) loses money, shrank in FY26, and forced a ₹120 Cr impairment. Continued bleed keeps consolidated profitability out of reach; resolution is uncertain.</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>Intense competition &amp; discounting</strong>Brutal QSR rivalry (McDonald's, KFC, Domino's, local chains, cloud kitchens) forces deep value offers (₹79/₹99 deals); SSSG bought with discounts can pressure per-unit margins.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>New-promoter execution risk</strong>Inspira's turnaround/expansion plan is unproven at this scale (a ~750-store, two-country, multi-brand platform vs Chinese Wok); minorities underwrite a new owner's strategy.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Promoter acquisition pledge</strong>Lenexis pledged ~16.7% of shares (~₹844 Cr) to fund the buyout — acquisition leverage that can amplify downside if the stock/business weakens.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Master-franchisee model limits</strong>RBA doesn't own the Burger King brand — it pays royalties and operates under franchisor terms; brand decisions and economics are partly outside its control.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Valuation / high-beta volatility</strong>A loss-maker at ~6x book that just hit a 20% upper circuit is priced for the turnaround; sentiment-driven, event-sensitive, and volatile. Vendor data (incl. promoter holding) is mid-transition.</div></div>
+</section>
+
+<!-- 16 -->
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">India SSSG / momentum</div><div class="scv">12.6%, 15-qtr high <span class="stars">★★★★★</span></div></div>
+    <div class="sci"><div class="scl">Operating leverage</div><div class="scv">EBITDA +266% <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">New promoter + capital</div><div class="scv">₹1,050 Cr, strategic <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Brand / scale</div><div class="scv">Burger King, ~752 <span class="stars">★★★★☆</span></div></div>
+    <div class="sci"><div class="scl">Net profitability</div><div class="scv">Loss-making <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Indonesia</div><div class="scv">Drag / impairment <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Competitive intensity</div><div class="scv">Brutal <span class="stars">★★☆☆☆</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet (pre-infusion)</div><div class="scv">Was tightening <span class="stars">★★★☆☆</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~6x book, loss <span class="stars">★★☆☆☆</span></div></div>
+  </div>
+  <div class="call">
+    <div class="lab">Bottom line</div>
+    Restaurant Brands Asia is a <strong>loss-making QSR growth-and-turnaround at a genuine, early inflection.</strong> Its core <strong>India Burger King business is firing</strong> — Q1 FY27 delivered <strong>12.6% same-store growth (a 15-quarter high) and a 266% jump in pre-Ind AS 116 EBITDA</strong>, as demand recovery, value menus and operating leverage finally converted scale into rising operating profit — and it has just been <strong>recapitalised (₹1,050 Cr) and handed to a strategic, food-service-experienced new promoter, Inspira Global (Chinese Wok)</strong>, replacing exiting private-equity owners. That combination — strong, accelerating India momentum + fresh capital + an operator-owner — is a genuinely attractive turnaround setup. <strong>But the honest caveats are real: RBA is still loss-making at the net line</strong> (FY26 −₹204 Cr including a ₹120 Cr Indonesia impairment; Q1 −₹28 Cr), <strong>the Indonesia arm (especially Popeyes) keeps draining cash</strong>, competition and discounting are brutal, the new promoter funded part of its buyout with a <strong>~₹844 Cr share pledge</strong>, execution at this scale is unproven, and the stock trades at <strong>~5.7–7x an eroded book</strong> — pricing in the profitable future rather than the loss-making present. <strong>The framing: a credible, capital-backed QSR turnaround whose India engine is inflecting impressively and whose new owner brings money and expertise — but which must still cross into sustained profitability, fix or exit Indonesia, and prove the plan, all while valued for success. Judge it on EV/Sales, pre-Ind AS 116 EV/EBITDA, SSSG and the path to breakeven — never trailing P/E or P/B — make new-promoter execution the re-rating gate and Indonesia the swing factor, and own it only as the high-beta turnaround bet it is. The momentum and the recapitalisation are real; the profits, and the proof, are still ahead.</strong>
+  </div>
+</section>
+
+<!-- 17 -->
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Recent Announcements</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">3–4 Aug 2026</td><td><strong>Q1 FY27 results:</strong> consol revenue ₹822.6 Cr (+17.9%), India ₹682.8 Cr (+23.6%), <strong>India SSSG 12.6% (15-quarter high)</strong>; pre-Ind AS 116 Co EBITDA +265.7% to ₹43.5 Cr; net loss narrowed to ₹28.4 Cr; 752 restaurants (9 added). Stock hit <strong>20% upper circuit / +16–17%</strong> to ₹78–82.80.</td></tr>
+    <tr><td class="mono">Jul 2026</td><td><strong>Change of control completed:</strong> Inspira Global / Lenexis Foodworks acquired ~41.78% (→~47.8% diluted), infused ₹1,050 Cr; Everstone/QSR Asia exited. Lenexis <strong>pledged ~11.88 Cr shares (~16.7%, ₹844 Cr)</strong> to fund the acquisition (disclosed 16 Jul).</td></tr>
+    <tr><td class="mono">14 May 2026</td><td><strong>FY26 audited results:</strong> India revenue ₹2,271.7 Cr (+15.4%), 581 India stores, 4.0% SSSG, Co EBITDA (pre-116) +33.2% to ₹132.4 Cr; consol net loss ₹204.1 Cr (from ₹232.8 Cr) incl. <strong>₹120 Cr Indonesia impairment</strong>; unmodified audit opinion (BSR &amp; Co).</td></tr>
+    <tr><td class="mono">Jan 2026</td><td>Inspira Global agreed the change of control at <strong>₹70/share</strong> (~10% premium); EGM 13 Feb; open offer to public shareholders (Jun 8).</td></tr>
+    <tr><td class="mono">FY26</td><td>Indonesia: BK Indonesia reached positive store EBITDA in Q4; Popeyes Indonesia still loss-making; 162 Indonesia stores (137 BK + 25 Popeyes).</td></tr>
+  </table>
+</section>
+
+<!-- 18 -->
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Balance Sheet Strength</h2></div>
+  <div class="cards">
+    <div class="card e"><div class="k">Fresh capital</div><div class="v">₹1,050 Cr</div><div class="d up">+₹450 Cr warrants</div></div>
+    <div class="card l"><div class="k">Operating cash flow</div><div class="v">₹302 Cr</div><div class="d up">FY26, positive</div></div>
+    <div class="card c"><div class="k">Pre-infusion cash</div><div class="v">₹30 Cr</div><div class="d down">from ₹534 Cr</div></div>
+    <div class="card c"><div class="k">Interest coverage</div><div class="v">low</div><div class="d down">debt + leases</div></div>
+  </div>
+  <p>Pre-infusion, the balance sheet was <strong>stretched</strong> — cash had fallen to ₹30 Cr as expansion capex outran operating cash, and interest coverage is low. <strong>The ₹1,050 Cr infusion transforms this</strong>, giving RBA a funded runway. The underlying comfort is that operations are <strong>cash-generative (₹302 Cr OCF)</strong> even while accounting losses persist.</p>
+  <div class="call bn">
+    <div class="lab">The metric that decides the thesis: EBITDA outgrowing the D&amp;A + interest load</div>
+    RBA's losses are fundamentally about <strong>a store-and-lease-heavy cost structure</strong>: the business makes operating cash, but <strong>depreciation on store assets and interest on debt/leases sit above the net line and turn it red.</strong> The decisive question is therefore <strong>when rising EBITDA — powered by SSSG, operating leverage and new-store maturation — durably outgrows that fixed D&amp;A + interest load</strong> (and Indonesia stops subtracting), producing sustained net profit. Q1 FY27's 266% pre-Ind AS 116 EBITDA jump is the first strong evidence the gap is closing; the fresh capital buys the time and funds the expansion to keep closing it. <strong>Watch: pre-Ind AS 116 EBITDA margin trend, the absolute EBITDA-vs-(D&amp;A+interest) gap each quarter, the post-infusion cash position and pledge level, and Indonesia's drag.</strong> The quarter the group crosses into sustained profitability is the re-rating trigger — and the balance-sheet strength (now restored) is what ensures it can get there without a funding scare.
+  </div>
+</section>
+
+<!-- 19 -->
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Technical Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Trend</div><div class="tkv">Rallying <span class="badge b-bull">↑</span></div><div class="tkd">20% UC on Q1</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~₹78–82</div><div class="tkd">Aug 4, 2026</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">₹57.15 – 87.65</div><div class="tkd">near the high</div></div>
+    <div class="tk"><div class="tkl">YTD</div><div class="tkv">+~28%</div><div class="tkd">2026</div></div>
+    <div class="tk"><div class="tkl">5-yr return</div><div class="tkv">−55%</div><div class="tkd">long underperformer</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">High-beta</div><div class="tkd">event-driven</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">RBA is a <strong>high-beta, event-driven turnaround stock.</strong> It hit a <strong>20% upper circuit (to ₹78–82.80) on the strong Q1 FY27 print</strong>, is up ~28% YTD, and now trades close to its ₹87.65 52-week high — a sharp reversal from a long, painful downtrend (−55% over five years, −28% over three). The recent action reflects <strong>renewed optimism on the India turnaround + the new-promoter recapitalisation</strong>, but the stock remains volatile and sentiment-driven, and vendor data (including promoter holding) is mid-transition. From here, direction will track <strong>quarterly SSSG/EBITDA, breakeven progress, Indonesia news and the new owner's moves</strong> far more than chart levels — treat technicals as secondary to the turnaround-execution debate. Verify the live NSE quote.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. RBA is loss-making (trailing P/E meaningless; P/B distorted by eroded book), mid-ownership-transition (screener promoter data unreliable), and high-beta. Vendor figures diverge (CMP ₹70.76–82.80; m-cap ₹4,833–5,036 Cr). Verify against NSE/BSE and filed results, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Restaurant Brands Asia Ltd</b> (formerly Burger King India Ltd) — NSE: RBA · BSE: 543248 · Consumer Discretionary / Quick-Service Restaurants (QSR) · Burger King (India + Indonesia) + Popeyes (Indonesia) · Mumbai<br>
+  Report generated 05 August 2026 · Data through Q1 FY27 results (reported 3–4 Aug 2026) + FY26 audited results (14 May 2026) + Jul 2026 change of control.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors — company Q1 FY27 &amp; FY26 results, investor presentations &amp; BSE-NSE filings, Screener.in, MarketsMojo, Business Standard, Storyboard18, BW Marketing World, Upstox, ScanX, Whalesbook, Zerodha Markets, Stockopedia. Key figures: <b>Q1 FY27 (June 2026, reported 3–4 Aug 2026, limited review by BSR &amp; Co LLP)</b> — consol revenue from ops ₹822.61 Cr (+17.9% YoY vs ₹697.7 Cr); India revenue ₹682.8–682.9 Cr (+23.6% YoY), Indonesia ₹139.71 Cr (−4% YoY vs ₹145.43 Cr); revenue mix ~83% BK India / 15% BK Indonesia / 2% Popeyes Indonesia; <b>India SSSG 12.6% (highest in 15 quarters; company also cited 13%)</b>; consol net loss ₹28.35 Cr (narrowed from ₹41.94 Cr loss attributable to parent / ₹45.4–48 Cr prior-year by some reports, +32.4% improvement); Company EBITDA pre-Ind AS 116 ₹43.5 Cr (+265.7% YoY, margin 1.7%→5.3%), post-Ind AS 116 ₹108.4 Cr (margin 10.8%→13.2%); 752 restaurants (9 added in India in Q1; +69 YoY); 80 India stores planned FY27. <b>FY26 (reported 14 May 2026, unmodified opinion BSR &amp; Co LLP)</b> — India segment revenue ₹2,271.7 Cr / ₹22,717 Mn (+15.4% vs ₹19,677.59 Mn), 581 India stores, 4.0% SSSG, Company EBITDA pre-Ind AS 116 +33.2% to ₹132.4 Cr / INR 1,324 Mn; Indonesia segment revenue ₹550.9 Cr / ₹5,509.17 Mn (from ₹5,829.61 Mn), 162 stores (137 BK + 25 Popeyes); consol net loss ₹204.1 Cr / ₹2,041.28 Mn (improved from ₹232.8 Cr / ₹2,327.94 Mn); standalone net loss ₹159.14 Cr / ₹1,591.40 Mn widened by ₹1,222.52 Mn exceptional charges incl. <b>₹120 Cr / ₹1,200 Mn impairment of Indonesia subsidiary</b>; BK Indonesia store EBITDA positive in Q4 (ADS IDR 18.6 Mn, store EBITDA IDR 8.2 Bn), Popeyes store EBITDA IDR (24.9) Bn; consol Indonesia Co EBITDA pre-116 improved to IDR (100) Bn from IDR (122) Bn. FY26 operating cash flow ₹302 Cr (positive), investing outflow ₹485 Cr (store capex), closing cash ₹30 Cr (from ₹534 Cr). <b>Change of control:</b> Inspira Global (owner of Chinese Wok, 250+ outlets 45+ cities; via Lenexis Foodworks Pvt Ltd / Aayush Madhusudan Agrawal, PAC Inspira Agro Trading LLC) acquired controlling stake at ₹70/share (~10% premium; total ~₹1,960 Cr incl. ₹460 Cr for QSR Asia's stake, ₹900 Cr equity, ₹600 Cr warrants / reported as ₹1,050 Cr infused + ₹450 Cr on warrant exercise → ~48%); acquired 6,56,23,091 shares (9.22%) on 7 Jul 2026; total ~41.78% (→~47.8% fully diluted, Lenexis 21,42,85,413 shares / 26.74% on full warrant conversion per one filing); <b>Everstone Capital fully exited</b>; QSR Asia Pte / F&B Asia Ventures reclassified to public; agreed Jan 2026 (EGM 13 Feb), open offer Jun 8; <b>Lenexis pledged 11.88 Cr shares (~16.7% of capital, ~₹844 Cr at 14 Jul VWAP) to fund the acquisition</b> (disclosed 16 Jul). Group CEO Rajeev Varman; incorporated as Burger King India 2013; IPO Dec 2020; renamed Restaurant Brands Asia 2022 after Indonesia acquisition. <b>DATA CAVEAT: ownership data mid-transition — Screener shows "promoter 9.22%" (−2.04% QoQ), a reclassification artifact; real controlling block is Inspira/Lenexis ~41.78%→~47.8%. CMP ₹70.76–70.87 (pre-Q1) → ₹78–82.80 (post-Q1, +16–20% / 20% upper circuit, 4 Aug); market cap ₹4,833 Cr (MarketsMojo) / ₹5,036 Cr (Screener); consol revenue ₹2,948 Cr (Screener TTM); consol profit −₹192 Cr (Screener) / −₹204 Cr (FY26); P/B ~5.72x (Screener) / ~6.99x (MarketsMojo); 3-yr ROE ~−26.8%; low interest coverage; 52-wk ₹57.15–87.65; face value ₹10; 5-yr return −55%, 3-yr −28.6%, 1-yr +3.5%, YTD +28%. This report anchors CMP ~₹78–82. All figures approximate — verify vs NSE/BSE and filed results.</b> Peers: Westlife Foodworld (McDonald's West/South), Devyani International & Sapphire Foods (KFC/Pizza Hut), Jubilant FoodWorks (Domino's). Normalised/forward estimates and scenarios in Section 14 are the author's illustrative framework, not forecasts or company guidance. <b>Educational document, not investment advice — a loss-making, high-beta turnaround.</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Restaurant Brands Asia Limited (formerly Burger King India Limited)
+Ticker: NSE: RBA / BSE: 543248
+Sector: Quick-Service Restaurants (QSR) / Consumer Discretionary
+Report Date: August 5, 2026 (Q1 FY27 results Aug 3-4; FY26 audited May 14; change of control completed Jul 2026)
+File: restaurant_brands_asia_equity_research.html
+CMP at Report: ~₹78-82 (Aug 4 2026, post-Q1 20% upper circuit from ₹70.76; VERIFY vs NSE/BSE)
+Market Cap: ~₹4,800-5,000 Cr (₹4,833 MarketsMojo / ₹5,036 Screener); face value ₹10; small-cap
+*** LOSS-MAKING QSR TURNAROUND at inflection - NOT an earnings stock ***
+BUSINESS: national master franchisee of Burger King in India + operator of Burger King & Popeyes in Indonesia. Two segments India & Indonesia. Revenue mix 83% BK India / 15% BK Indonesia / 2% Popeyes Indonesia. ~752 restaurants. CEO Rajeev Varman.
+DEFINING EVENT - CHANGE OF CONTROL (completed Jul 2026): Inspira Global (owner of Chinese Wok, 250+ outlets 45+ cities), via Lenexis Foodworks (Aayush Madhusudan Agrawal), acquired controlling ~41.78% stake (→~47.8% on warrants) for ~₹1,960 Cr incl ₹1,050 Cr fresh infusion (+₹450 Cr on warrants) at ₹70/share (~10% premium). EVERSTONE fully EXITED; old promoters QSR Asia/F&B Asia Ventures reclassified to public. NEW STRATEGIC CAPITAL-RICH PROMOTER = turnaround catalyst.
+LBO FEATURE/FLAG: Lenexis PLEDGED ~11.88 Cr shares (~16.7% of capital, ~₹844 Cr) to FUND THE ACQUISITION itself (disclosed Jul 16) - acquisition leverage risk
+Q1 FY27 INFLECTION (Jun 2026): consol rev ₹822.6 Cr (+17.9%), India ₹682.8 Cr (+23.6%), Indonesia ₹139.7 Cr (-4%); INDIA SSSG 12.6% (HIGHEST IN 15 QUARTERS); Co EBITDA pre-IndAS116 ₹43.5 Cr (+265.7%, margin 1.7%→5.3%), post-IndAS116 ₹108.4 Cr (13.2%); net loss NARROWED to ₹28.35 Cr (from ₹42-48 Cr). Stock hit 20% UPPER CIRCUIT.
+FY26: India rev ₹2,271.7 Cr (+15.4%), 581 India stores, 4.0% SSSG, Co EBITDA pre-116 +33.2% to ₹132.4 Cr; consol net loss ₹204 Cr (from ₹232.8) incl ₹120 Cr INDONESIA IMPAIRMENT; OCF +₹302 Cr but closing cash fell to ₹30 Cr from ₹534 Cr (capex ₹485 Cr outran OCF - pre-infusion cash squeeze, now fixed by ₹1,050 Cr)
+INDONESIA PROBLEM: 162 stores (137 BK + 25 Popeyes); BK Indonesia turned store-EBITDA-positive Q4 but POPEYES still loss-making (store EBITDA IDR -24.9 Bn); segment shrank + ₹120 Cr impairment. SWING FACTOR - fix or exit.
+IMPORTANT - EBITDA definitions: use PRE-Ind AS 116 (harder/cleaner, ₹43.5 Cr Q1) not post-116 (₹108.4 Cr, flattered by lease accounting)
+Valuation: LOSS-MAKING (P/E meaningless), P/B ~5.7-7x (eroded book), 3yr ROE ~-27%, EV/Sales ~1.6-1.7x, low interest coverage
+KEY RISKS: still loss-making/breakeven timing (central), Indonesia drag (esp Popeyes), brutal QSR competition+discounting (₹79/₹99 deals), new-promoter execution unproven at scale, promoter acquisition-pledge (16.7%), master-franchisee model (doesn't own brand, pays royalties), high-beta valuation/volatility
+Bull Case: ₹100-130
+Base Case: ₹72-88
+Bear Case: ₹52-62
+Primary Valuation Metric: EV/Sales (PRIMARY) + EV/EBITDA pre-Ind AS 116 (CO-PRIMARY); SSSG/ADS/store economics OPERATING INDICATOR; new-promoter execution & capital RE-RATING FACTOR; path to consolidated PAT breakeven CRITICAL INDICATOR; trailing P/E & P/B alone AVOID (losses/eroded book)
+Investment Type: high-beta loss-making QSR growth-and-turnaround at early real inflection; strong accelerating India Burger King engine (record SSSG, EBITDA inflecting, operating leverage) + fresh ₹1,050 Cr capital + strategic new promoter (Inspira/Chinese Wok), BUT still loss-making + Indonesia drag + brutal competition + promoter pledge + unproven execution + ~6x eroded book pricing in the profitable future; value on EV/Sales & pre-116 EV/EBITDA & path to breakeven not P/E/P/B; own India momentum, watch Indonesia, gate on new-owner execution
+NOTE: Q1 FY27 came out Aug 3-4 (very recent); stock hit 20% upper circuit. Flame-grill charcoal/ember-orange/bun-amber/char-red QSR palette.
+-->
