@@ -102,5 +102,13 @@
     "file": "kabra_extrusiontechnik_equity_research.html",
     "desc": "Kolsite Group dual-engine small-cap in transition: India's leading plastic-extrusion-machinery maker (cyclical, currently soft) pivoting to Geon (ex-Battrixx) Li-ion batteries for EV + energy storage. FY26 weak transition year (standalone loss, CRISIL downgrade, no dividend); Q1 FY27 turnaround (rev +44.8%, Geon +133%, EBITDA positive). Includes new Forensic Analysis section flagging 3 CFOs in 2 months, plant flood, strained balance sheet. Near-breakeven; value on SOTP, not P/E.",
     "date": "2026"
+  },
+  {
+    "name": "Palantir Technologies",
+    "ticker": "PLTR",
+    "sector": "AI / Data Software",
+    "file": "palantir_technologies_equity_research.html",
+    "desc": "US mega-cap AI-software franchise (Ontology + AIP; Gotham/Foundry) serving Western governments & enterprises. Q2 2026 'otherworldly': revenue +93%, US-commercial +149%, Rule of 40 = 155%, $1.2B quarterly FCF, guidance raised to +82%. But valuation is extreme (~40-70x sales, ~100x+ earnings) with no margin of safety. Includes Forensic Analysis (§14): clean books, real cash, but the price is the risk. A pure growth-durability-vs-valuation bet — Burry $46 to Wedbush $230.",
+    "date": "2026"
   }
 ]

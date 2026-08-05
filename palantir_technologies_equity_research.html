@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palantir Technologies — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obs:#0A0D12; --obs-2:#111721; --obs-3:#1A2332;
+    --cyan:#22D3EE; --cyan-dk:#0E8FA6; --cyan-lt:#7DE9F7; --cyan-gl:rgba(34,211,238,.11);
+    --gold:#E8B23A; --gold-dk:#B8850F; --gold-lt:#F4CE72; --gold-gl:rgba(232,178,58,.12);
+    --iris:#7C6FF0; --iris-dk:#5346C4; --iris-gl:rgba(124,111,240,.11);
+    --rose:#F0617A; --rose-gl:rgba(240,97,122,.10);
+    --green:#2FB176; --green-dk:#1C8354; --red:#E24A52;
+    --ink-1:#0E1319; --ink-2:#3A434F; --ink-3:#6A7480;
+    --line:#E4E8ED; --line-2:#EFF2F5; --paper:#FCFDFE; --paper-2:#F3F6F9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(10,13,18,.16)}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.13}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .hero{position:relative;background:linear-gradient(155deg,#0A0D12 0%,#111721 54%,#1A2332 130%);color:#E9EEF4;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-6%;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(34,211,238,.20),rgba(232,178,58,.12) 55%,transparent 72%);filter:blur(6px)}
+  .onto{position:absolute;right:52px;top:40px;width:172px;height:172px;z-index:2;opacity:.62}
+  .onto svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+  .tag.cy{background:rgba(34,211,238,.20);border-color:rgba(125,233,247,.45);color:#9EEEF9}
+  .tag.gd{background:rgba(232,178,58,.20);border-color:rgba(244,206,114,.45);color:#F4CE72}
+  .hero h1{font-size:41px;font-weight:800;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .flip{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#AEB9C6;margin-bottom:24px;font-weight:300;max-width:780px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.09)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#78828F;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#6FE3A6}.down{color:#F4A0AC}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--obs);color:#78828F;padding:11px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px}
+  .metabar b{color:#E4EAF0;font-weight:400}
+  .metabar .dot{color:var(--cyan-lt)}
+  .alert{background:var(--gold-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--gold-dk);font-family:'IBM Plex Mono',monospace}
+  .alert b{color:var(--obs)}
+  .alert.boom{background:var(--cyan-gl);color:var(--cyan-dk)}
+  .alert.warn{background:var(--rose-gl);color:#C23C4C}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--cyan-dk);border:1.5px solid var(--cyan);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:24px;font-weight:700;color:var(--obs)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--cyan);background:var(--cyan-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.gd{border-color:var(--gold);background:var(--gold-gl)}
+  .call.ir{border-color:var(--iris);background:var(--iris-gl)}
+  .call.ro{border-color:var(--rose);background:var(--rose-gl)}
+  .call.red{border-color:var(--red);background:rgba(226,74,82,.08)}
+  .call .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--cyan-dk);margin-bottom:5px}
+  .call.gd .lab{color:var(--gold-dk)}.call.ir .lab{color:var(--iris-dk)}.call.ro .lab{color:#C23C4C}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--obs-2);color:#E4EAF0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'IBM Plex Mono',monospace}
+  .tr-hi td{background:var(--cyan-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--obs);letter-spacing:-.01em;font-family:'Space Grotesk',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.c{border-top:3px solid var(--cyan)}.card.g{border-top:3px solid var(--gold)}
+  .card.i{border-top:3px solid var(--iris)}.card.r{border-top:3px solid var(--rose)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"\25B8";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--obs);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.on{background:var(--cyan-gl);border-color:var(--cyan)}
+  .vnode.on .vt{color:var(--cyan-dk)}
+  .vnode.gg{background:var(--gold-gl);border-color:var(--gold)}
+  .vnode.gg .vt{color:var(--gold-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:196px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'IBM Plex Mono',monospace;font-weight:400}
+  .bar-val{width:112px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.onto{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(226,74,82,.06);border-color:rgba(226,74,82,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(47,177,118,.07);border-color:rgba(47,177,118,.3)}
+  .scen .st2{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Space Grotesk',sans-serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--obs);color:#E9EEF4;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.28),transparent 65%)}
+  .bm h3{color:#fff;font-size:18px;margin-bottom:4px;position:relative;font-family:'Space Grotesk',sans-serif}
+  .bm .bm-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C4CEDA}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#BEC8D4}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--cyan-dk);color:#fff}.v-co{background:var(--gold-dk);color:#fff}
+  .v-ind{background:#1C8354;color:#AEEACB}.v-sec{background:#3A434F;color:#DAE0E6}
+  .v-avoid{background:#7A2A2E;color:#F6C4C9}.v-cross{background:#1A2332;color:#C4D4DC}
+  .v-crit{background:var(--gold-dk);color:#FBE8B8}.v-gate{background:var(--iris-dk);color:#DCD6FA}
+  .bm .onenum{background:rgba(232,178,58,.14);border:1px solid rgba(244,206,114,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F3D9A6;position:relative}
+  .bm .onenum b{color:#F4CE72}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--obs)}
+  .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--gold-dk)}.rl{background:var(--cyan-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--cyan),var(--gold))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--cyan);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--cyan)}
+  .tli .ty{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;color:var(--cyan-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--obs);font-family:'Space Grotesk',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(47,177,118,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(226,74,82,.14);color:var(--red)}
+  .b-neut{background:rgba(232,178,58,.2);color:var(--gold-dk)}
+  .foot{background:var(--obs);color:#78828F;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C4CEDA}
+  .disc{font-size:10.5px;color:#6A7480;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="onto">
+    <svg viewBox="0 0 172 172" fill="none">
+      <circle cx="86" cy="86" r="10" fill="none" stroke="#22D3EE" stroke-width="1.8" opacity="0.85"/>
+      <circle cx="34" cy="42" r="7" fill="none" stroke="#F4CE72" stroke-width="1.4" opacity="0.7"/>
+      <circle cx="140" cy="52" r="7" fill="none" stroke="#7DE9F7" stroke-width="1.4" opacity="0.7"/>
+      <circle cx="30" cy="128" r="7" fill="none" stroke="#7DE9F7" stroke-width="1.4" opacity="0.65"/>
+      <circle cx="138" cy="134" r="7" fill="none" stroke="#F4CE72" stroke-width="1.4" opacity="0.65"/>
+      <circle cx="86" cy="24" r="6" fill="none" stroke="#22D3EE" stroke-width="1.3" opacity="0.6"/>
+      <circle cx="86" cy="150" r="6" fill="none" stroke="#22D3EE" stroke-width="1.3" opacity="0.6"/>
+      <g stroke="#22D3EE" stroke-width="1" opacity="0.4">
+        <line x1="80" y1="80" x2="40" y2="47"/><line x1="92" y1="80" x2="134" y2="57"/>
+        <line x1="80" y1="92" x2="36" y2="123"/><line x1="92" y1="92" x2="132" y2="129"/>
+        <line x1="86" y1="76" x2="86" y2="30"/><line x1="86" y1="96" x2="86" y2="144"/>
+      </g>
+      <g stroke="#F4CE72" stroke-width="0.7" opacity="0.28">
+        <line x1="34" y1="42" x2="140" y2="52"/><line x1="30" y1="128" x2="138" y2="134"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NASDAQ: PLTR</span>
+      <span class="tag">S&amp;P 500 &middot; Nasdaq-100</span>
+      <span class="tag cy">AI / Data Software Platform</span>
+      <span class="tag gd">Ontology + AIP</span>
+    </div>
+    <h1>Palantir Technologies</h1>
+    <div class="flip">&#9673; The Western AI-operating-system &mdash; exceptional business, extraordinary valuation</div>
+    <div class="sub">Arguably the <b>defining AI-software franchise of the West</b>: Gotham (defense/intel), Foundry (commercial) and AIP, all built on a distinctive <b>Ontology</b>. Q2 2026 was, in Karp's word, <b>"otherworldly"</b> &mdash; revenue +93%, US-commercial +149%, Rule&nbsp;of&nbsp;40 at 155%. The catch: at <b>~40&ndash;70x sales and ~100x+ earnings</b>, the stock prices in years of continued hyper-growth to perfection. This is a valuation-versus-durability battleground.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">Price (Aug 4)</div><div class="v">~$160</div><div class="d up">+26% post-Q2</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~$398B</div><div class="d">mega-cap</div></div>
+      <div class="qs"><div class="k">Q2'26 Rev</div><div class="v">$1.94B</div><div class="d up">+93% YoY</div></div>
+      <div class="qs"><div class="k">US Commercial</div><div class="v">+149%</div><div class="d up">the star</div></div>
+      <div class="qs"><div class="k">Rule of 40</div><div class="v">155%</div><div class="d up">extraordinary</div></div>
+      <div class="qs"><div class="k">Fwd P/S</div><div class="v">~42x</div><div class="d down">priced to perfection</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>CEO:</b> Alex Karp</span><span class="dot">&#9673;</span>
+  <span><b>Co-founders:</b> Thiel, Cohen, Lonsdale</span><span class="dot">&#9673;</span>
+  <span><b>Est:</b> 2003</span><span class="dot">&#9673;</span>
+  <span><b>HQ:</b> Denver, CO</span><span class="dot">&#9673;</span>
+  <span><b>Segments:</b> Government + Commercial</span><span class="dot">&#9673;</span>
+  <span><b>Report:</b> 05 Aug 2026</span>
+</div>
+
+<div class="alert boom">
+  &#9889; <b>Q2 2026 WAS "OTHERWORLDLY" (reported Aug 3):</b> Revenue <b>$1.94B, +93% YoY</b> (highest-ever growth rate, accelerating from +85% in Q1); <b>US Commercial +149% to $764M</b>; US Gov +90% to $809M; adj EPS $0.41 (vs $0.35 est); <b>Rule of 40 = 155%</b>; adj operating margin 62%; adj FCF $1.22B. FY26 guidance raised to <b>$8.15&ndash;8.16B (+82% YoY)</b> from ~$7.65B; US-commercial guide raised to &gt;$3.42B (+134%). Stock jumped ~26&ndash;30%.
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT THE VALUATION IS EXTREME &amp; THE BEAR CASE IS SERIOUS:</b> At ~$398B m-cap the stock trades at <b>~42x forward sales and ~100x+ earnings</b> (trailing P/E ~107&ndash;140x; some sources 200x+). Michael Burry has called it a <b>"sandcastle"</b> with a <b>$46 fair value</b> (put options), citing dilution, receivables, and a moat he calls "obstruction of data transfer." Simply Wall St fair value ~$90. This report treats <b>valuation, not business quality, as the central question</b> (see &sect;14 Forensic &amp; &sect;15 Valuation).
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT:</b> Figures move fast around earnings &mdash; price ~$159.88 (Robinhood, Aug 4) vs ~$122&ndash;128 pre-Q2; m-cap ~$398B (post-pop) vs ~$301&ndash;313B (pre-pop); trailing P/E ~107x (Robinhood) / ~138x (stockanalysis) / 200x+ (earlier); fwd P/E ~77&ndash;123x; P/S ~42x (post-guidance) to ~69x (earlier); 52-wk $106.37&ndash;207.52; ~2.40B shares (+3.24% YoY dilution); beta ~1.5&ndash;2.0. All USD. Verify vs live NASDAQ quote.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Palantir Technologies (NASDAQ: PLTR)</strong> builds and deploys the <strong>software platforms that act as the central operating system for its customers' data and decisions.</strong> Founded in 2003 by Peter Thiel, Alex Karp (CEO) and others, it began deep in the US defense/intelligence world and has, over two decades, become <strong>arguably the defining AI-software franchise of the West.</strong> Its products &mdash; <strong>Gotham</strong> (defense/intelligence), <strong>Foundry</strong> (commercial operations), <strong>Apollo</strong> (deployment infrastructure) and <strong>AIP</strong> (the Artificial Intelligence Platform, launched April 2023) &mdash; are all built around a distinctive <strong>Ontology</strong>: a live "digital twin" that maps an organisation's messy data to real-world objects, actions and decisions.</p>
+  <p>Two segments drive the business: <strong>Government</strong> (deeply entrenched defense/intelligence/civil-agency work) and <strong>Commercial</strong> (Fortune-500 enterprises adopting AIP). The investment story today is defined by a <strong>rare and stark tension.</strong> On one side, the <strong>business is exceptional and accelerating</strong>: Q2 2026 delivered <strong>93% revenue growth (its fastest ever), 149% US-commercial growth, a Rule-of-40 score of 155%, 62% adjusted operating margins, and $1.2B of quarterly free cash flow</strong> &mdash; a combination of hyper-growth and deep profitability almost unheard-of at this scale. On the other side, the <strong>valuation is one of the most extreme in the entire market</strong>: ~40&ndash;70x sales and ~100x+ earnings, a level that discounts many years of continued hyper-growth to perfection and leaves little margin of safety. <strong>This report's central question is therefore not "is Palantir a great business?" (it clearly is) but "is any price too high, and how durable is the hyper-growth that price requires?"</strong></p>
+  <div class="cards">
+    <div class="card c"><div class="k">Q2'26 revenue</div><div class="v">$1.94B</div><div class="d up">+93% YoY</div></div>
+    <div class="card g"><div class="k">FY26 guide</div><div class="v">$8.15B</div><div class="d up">+82% YoY</div></div>
+    <div class="card i"><div class="k">Rule of 40</div><div class="v">155%</div><div class="d up">growth+margin</div></div>
+    <div class="card r"><div class="k">Fwd P/S</div><div class="v">~42x</div><div class="d down">extreme</div></div>
+  </div>
+  <div class="call ir">
+    <div class="lab">The investment character in one line</div>
+    Palantir is the market's <strong>ultimate "exceptional company, extraordinary valuation" battleground stock.</strong> The bull case (Wedbush's Dan Ives, price targets up to $230; Karp) is that it is <strong>the "epicentre of the AI revolution"</strong> &mdash; a category-defining AI-operating-system with a unique Ontology/AIP moat, a boot-camp go-to-market that converts enterprises at speed, accelerating hyper-growth <em>at scale</em>, real profitability, a fortress balance sheet, and a "sovereign AI" tailwind, with a TAM barely tapped (~1,049 customers out of hundreds of thousands of large organisations). The bear case (Michael Burry, "sandcastle," $46 fair value, put options) is that <strong>the valuation is simply detached from any reasonable outcome</strong> &mdash; ~40&ndash;70x sales prices in flawless execution for years, the "moat" is partly data-lock-in that "breeds resentment," dilution is heavy, and any deceleration in AI demand could halve the stock. <strong>Crucially, both sides largely agree the business is excellent</strong> &mdash; the debate is almost entirely about <strong>price and the durability of hyper-growth.</strong> That makes Palantir a <strong>growth-durability-versus-valuation bet</strong>, not a quality question, and it demands a valuation framework built around growth-adjusted multiples and Rule-of-40 durability rather than trailing earnings (see &sect;15).
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2003 &middot; Founding</div><div class="td">Founded by Peter Thiel, Alex Karp, Stephen Cohen, Joe Lonsdale and Nathan Gettings &mdash; applying PayPal-style fraud-detection thinking to counterterrorism data.</div></div>
+    <div class="tli"><div class="ty">2000s&ndash;2010s &middot; Gotham &amp; the government moat</div><div class="td">Builds <strong>Gotham</strong> for the US defense/intelligence community, becoming deeply embedded in national-security workflows &mdash; a sticky, hard-to-replicate government franchise.</div></div>
+    <div class="tli"><div class="ty">2016+ &middot; Foundry &amp; the commercial push</div><div class="td">Launches <strong>Foundry</strong> to bring the same data-integration/Ontology approach to Fortune-500 enterprises &mdash; the beginning of the commercial growth engine.</div></div>
+    <div class="tli"><div class="ty">Sep 2020 &middot; Direct listing</div><div class="td">Goes public on the NYSE (later NASDAQ) via direct listing &mdash; ending years as a secretive private company.</div></div>
+    <div class="tli"><div class="ty">Apr 2023 &middot; AIP &mdash; the inflection</div><div class="td">Launches the <strong>Artificial Intelligence Platform (AIP)</strong>, stitching LLMs onto the Ontology across Gotham/Foundry/Apollo. The "boot camp" GTM ignites commercial demand; the stock rises ~1,380% from AIP launch through 2026.</div></div>
+    <div class="tli"><div class="ty">2025 &middot; Breakout year</div><div class="td">Revenue $4.48B (+56%); joins the S&amp;P 500; becomes a retail and institutional favourite; stock surges ~135% on the year.</div></div>
+    <div class="tli"><div class="ty">2026 &middot; Battleground &amp; blowout</div><div class="td">Stock falls ~30% from its $207 peak on valuation/AI-fatigue fears and the Burry "sandcastle" critique &mdash; then <strong>Q2 (+93%, US-commercial +149%) triggers a ~26&ndash;30% surge</strong> and a huge guidance raise. "Sovereign AI" becomes the watchword.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>The Platform Stack &amp; Ontology</h2></div>
+  <div class="vchain">
+    <div class="vnode">Raw enterprise data</div>
+    <div class="vnode on"><div class="vt">Ontology</div><div class="vd">Maps data to real-world objects, actions, decisions</div></div>
+    <div class="vnode gg"><div class="vt">Gotham / Foundry</div><div class="vd">Defense &amp; commercial operating systems</div></div>
+    <div class="vnode on"><div class="vt">AIP</div><div class="vd">LLM orchestration on top of the Ontology</div></div>
+    <div class="vnode gg"><div class="vt">Decisions / actions</div><div class="vd">Real economic value</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">The Ontology is the heart of the moat &mdash; and the heart of the bear debate</div>
+    Palantir's differentiator is the <strong>Ontology</strong>: rather than being a chatbot or a dashboard, it builds a <strong>living "digital twin" of an organisation</strong> that maps disparate, messy data to real-world objects (a specific aircraft, patient, shipment) and the actions that can be taken on them. <strong>AIP</strong> then layers large language models on top, so AI operates against a <strong>single, governed source of truth linked to reality</strong> &mdash; which is why Palantir claims its AI is more reliable and "action-ready" than generic tools. Real deployments cited include <strong>GE Aerospace (+26% production lift) and the US Navy's ShipOS (approval times cut from 200 hours to 15 seconds).</strong> <strong>The bull view:</strong> this integration is so deep and handles messy data so uniquely that it is a genuine, widening moat &mdash; "now everyone's copying" the ontology approach (Karp), validating the category. <strong>The bear view (Burry):</strong> the moat is really <strong>"obstruction of data transfer"</strong> &mdash; customers can't leave without losing years of analytical work, which is lock-in born of difficulty, not value, and "breeds resentment" in an era of data-portability and open architectures. <strong>Both can be partly true</strong>: the Ontology is a real, sticky advantage today, but whether it is a <em>durable</em> moat or an <em>extraction-cost</em> moat is exactly the uncertainty the valuation cannot afford to get wrong.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Segment Mix &mdash; Government vs Commercial</h2></div>
+  <div class="bar-row"><div class="bar-lab">Total Government (Q2'26)</div><div class="bar-track"><div class="bar-fill" style="width:51%;background:var(--gold)">$990M &middot; 51%</div></div><div class="bar-val up">+79% YoY</div></div>
+  <div class="bar-row"><div class="bar-lab">Total Commercial (Q2'26)</div><div class="bar-track"><div class="bar-fill" style="width:49%;background:var(--cyan)">$945M &middot; 49%</div></div><div class="bar-val up">accelerating</div></div>
+  <div class="bar-row"><div class="bar-lab">&nbsp;&nbsp;of which US Commercial</div><div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--cyan-dk)">$764M</div></div><div class="bar-val up">+149% YoY</div></div>
+  <div class="bar-row"><div class="bar-lab">&nbsp;&nbsp;of which US Government</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--gold-dk)">$809M</div></div><div class="bar-val up">+90% YoY</div></div>
+  <div class="call gd">
+    <div class="lab">A rare two-engine growth story &mdash; both engines firing at once</div>
+    Palantir is now a <strong>balanced, two-engine business, with both engines accelerating simultaneously</strong> &mdash; unusual and powerful. <strong>Government</strong> (~51% of revenue, $990M, +79% YoY) is the deeply-entrenched foundation: sticky, high-barrier defense/intelligence/civil-agency work where Palantir's decades of embedding create real durability, now re-accelerating on defense-AI demand and "sovereign AI." <strong>Commercial</strong> (~49%, $945M) is the hyper-growth engine, led by <strong>US Commercial's staggering +149%</strong> &mdash; evidence that AIP's boot-camp go-to-market is <strong>scaling well beyond early adopters into large, expanding contracts</strong> (US-commercial TCV +153% to $2.13B; remaining US-commercial deal value $6.24B). The bull significance: Palantir isn't reliant on one lever &mdash; it has a <strong>defensive, entrenched government base <em>and</em> a rocket-ship commercial franchise</strong>, with the commercial side still barely penetrated (US commercial customers only 653). The cautionary notes: <strong>government revenue carries political/contract-replacement and reputational risk</strong> (DHS, Pentagon, IRS, ICE, ex-DOGE work draws controversy and even some internal objection), and the eye-watering commercial growth rates are <strong>lapping easier comparisons and cannot mathematically persist forever.</strong> Still, a genuinely balanced, dual-accelerating revenue base is a structural strength few software companies can claim.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Q2 2026 Blowout, Dissected</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Q2 FY25</th><th class="mono">Q1 FY26</th><th class="mono">Q2 FY26</th></tr>
+    <tr><td>Revenue</td><td class="mono">~$1.00B</td><td class="mono">$1.63B</td><td class="mono">$1.94B</td></tr>
+    <tr><td>Revenue growth YoY</td><td class="mono">~48%</td><td class="mono">+85%</td><td class="mono up">+93%</td></tr>
+    <tr class="tr-hi"><td>US Commercial rev</td><td class="mono">~$307M</td><td class="mono">~$600M</td><td class="mono">$764M</td></tr>
+    <tr><td>US Commercial growth</td><td class="mono">~93%</td><td class="mono">~120%+</td><td class="mono up">+149%</td></tr>
+    <tr><td>Adj operating margin</td><td class="mono">~37%</td><td class="mono">~44%</td><td class="mono up">62%</td></tr>
+    <tr><td>Rule of 40</td><td class="mono">~83%</td><td class="mono">145%</td><td class="mono up">155%</td></tr>
+    <tr><td>Adj FCF</td><td class="mono">~$0.4B</td><td class="mono">~$0.9B</td><td class="mono">$1.22B</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">Not just a beat &mdash; an acceleration that reset the growth narrative</div>
+    Q2 2026 was <strong>exceptional on almost every axis, and &mdash; critically &mdash; growth <em>accelerated</em>.</strong> Revenue of $1.94B (+93%) was the company's <strong>fastest-ever growth rate</strong>, up from +85% in Q1, and beat consensus (~$1.81B) by ~$123M. The star was <strong>US Commercial +149%</strong> (from ~120%+ in Q1) &mdash; a re-acceleration that told the market Palantir's AI-driven surge <strong>could last longer than feared.</strong> Profitability was equally striking: <strong>62% adjusted operating margin, a 155% Rule-of-40, $1.22B adjusted FCF</strong>, and milestones crossed on GAAP net income, adjusted operating income and adjusted FCF (each &gt;$1B). Deal momentum was record: <strong>220 deals &ge;$1M (98 &ge;$5M, 70 &ge;$10M)</strong>, including an AIP "bake-off" win over a frontier lab converting to a $10M ACV contract. And management <strong>raised FY26 guidance dramatically to $8.15&ndash;8.16B (+82%)</strong> from ~$7.65B &mdash; a ~$498M raise, of which ~73% reflects <em>higher expectations for H2</em>, not just the Q2 beat (i.e., management raised the bar for the future, a confident signal). <strong>The one sober caveat for a stock priced to perfection:</strong> a raise this large also <strong>raises the stakes</strong> &mdash; expectations are now extraordinarily high, and any future quarter that merely meets (rather than crushes) could disappoint a market that has learned to expect the "otherworldly."
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Arena</th><th>Competes with</th><th>Palantir position</th></tr>
+    <tr><td><strong>Enterprise AI / data ops</strong></td><td>Snowflake, Databricks, Microsoft Fabric, hyperscalers</td><td>Differentiated via Ontology + action layer</td></tr>
+    <tr class="tr-hi"><td><strong>Applied AI agents</strong></td><td>Frontier labs (OpenAI, Anthropic), C3.ai</td><td>Wins "bake-offs" on real-workflow value</td></tr>
+    <tr><td><strong>Government / defense software</strong></td><td>Booz Allen, legacy primes, in-house builds</td><td>Deeply entrenched incumbent (Gotham)</td></tr>
+    <tr><td><strong>System integrators / consulting</strong></td><td>Accenture, Deloitte, Big-4</td><td>Product-led, not bodies-led (bull view)</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A real edge today &mdash; but the competitive question is the crux of the bear case</div>
+    Palantir's competitive position is <strong>genuinely strong in the near term but hotly contested in the long term.</strong> Its edge is the <strong>Ontology-plus-action layer</strong>: where generic AI tools answer questions, Palantir claims to <strong>turn AI into governed, real-world action against a single source of truth</strong> &mdash; and it points to head-to-head "bake-off" wins over frontier labs (e.g., a lab failing a ticketing-automation problem that Palantir solved with "agent swarms," converting to a $10M contract) as proof. Forrester has ranked it a leader in AI/decisioning platforms. <strong>But three competitive threats define the bear case.</strong> (1) <strong>Frontier labs &amp; plug-and-play AI</strong> (Anthropic, OpenAI): Burry and others argue that as models get more capable and "plug-and-play," the need to build an expensive ontology first may diminish &mdash; simpler tools could automate enterprise work <em>without</em> Palantir's data-infrastructure overhead. (2) <strong>Hyperscalers &amp; data-platform giants</strong> (Microsoft, Snowflake, Databricks) bundling AI into existing enterprise footprints. (3) <strong>The "consulting vs software" critique</strong>: bears argue Palantir's forward-deployed-engineer model resembles <strong>high-touch consulting more than scalable software</strong>, which would cap long-run margins and multiples. <strong>The bull rebuttal</strong> is that broad adoption of ontology approaches <em>validates</em> the category Palantir pioneered, the TAM is vast enough for multiple winners, and the deepening integration is widening the moat. This unresolved competitive debate &mdash; more than anything operational &mdash; is what a 40&ndash;70x sales multiple is really betting on.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Note</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High &amp; rising</td><td>Frontier labs, hyperscalers, data platforms all circling AI</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate</td><td>Deep integration lowers it; but big gov/enterprise buyers negotiate hard</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Reliance on third-party LLMs &amp; compute (a bear flag); mitigated by model-agnosticism</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>High capability barrier, but well-funded AI entrants exist</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate-High</td><td>In-house builds, generic AI tools, open-weight models</td></tr>
+  </table>
+  <p>Net: Palantir enjoys <strong>strong switching costs and deep entrenchment</strong> (especially in government), but sits in a <strong>fast-moving, intensely-contested AI arena</strong> where the pace of model improvement is a genuine double-edged sword &mdash; it powers AIP, but also empowers simpler substitutes. The <strong>"sovereign AI" positioning</strong> (deploying AI on proprietary data without exposing it to third-party model providers) is Palantir's strategic answer to both supplier power and substitution &mdash; and a key part of why Karp champions open-weight models.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>AIP &amp; the "Sovereign AI" Thesis</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">US-comm TCV</div><div class="v">$2.13B</div><div class="d up">+153% YoY</div></div>
+    <div class="card g"><div class="k">Remaining US-comm deal value</div><div class="v">$6.24B</div><div class="d up">&gt;2x YoY</div></div>
+    <div class="card i"><div class="k">Deals &ge;$1M</div><div class="v">220</div><div class="d">98 &ge;$5M, 70 &ge;$10M</div></div>
+    <div class="card r"><div class="k">Total customers</div><div class="v">1,049</div><div class="d up">+23.6% YoY</div></div>
+  </div>
+  <p>AIP is the growth engine, and its momentum has a clear strategic narrative: <strong>"AI sovereignty."</strong> Karp attributes much of the demand surge to enterprises and governments wanting to <strong>deploy AI on their own proprietary data without handing prompts, operational knowledge and IP to third-party model providers.</strong> AIP positions Palantir as the <strong>secure, controlled, model-agnostic operating layer</strong> for that &mdash; and Karp has become a vocal proponent of <strong>open-weight models</strong> to keep frontier labs "honest."</p>
+  <div class="call gd">
+    <div class="lab">A powerful, coherent thesis &mdash; and the engine that must keep running to justify the price</div>
+    The sovereign-AI thesis is <strong>strategically compelling and commercially validated.</strong> It reframes Palantir from "an analytics vendor" to <strong>"the trusted control layer for enterprise and government AI"</strong> &mdash; a positioning that turns two threats (dependence on third-party LLMs, and data-security fears) into a selling point: <em>bring any model, keep your data governed and sovereign.</em> The commercial proof is striking &mdash; US-commercial TCV +153%, remaining US-commercial deal value doubling to $6.24B, a record 220 seven-figure deals, and bake-off wins against frontier labs. The boot-camp GTM (intensive hands-on engagements that convert prospects to paying customers fast) is clearly working at scale. <strong>The essential caveat is one of arithmetic and durability, not doubt about today:</strong> these are <strong>the fastest growth rates Palantir has ever posted, and the entire ~40&ndash;70x-sales valuation rests on this engine sustaining extraordinary growth for many years.</strong> Karp says the demand "looks like this is going to go on for at least another 18 months" &mdash; encouraging, but also a reminder that even management frames visibility in quarters, not decades. The sovereign-AI engine is real and roaring; whether it can run long and hard enough to justify the price is the whole ballgame.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Cost Structure, Margins &amp; Stock-Based Comp</h2></div>
+  <p>Palantir's economics are now <strong>genuinely software-like</strong>: ~85% adjusted gross margins, 62% adjusted operating margin, and a 155% Rule of 40. But two cost items matter for a forensic read (see &sect;14): <strong>stock-based compensation (SBC)</strong>, which drives ongoing <strong>share dilution (~3.24% more shares YoY)</strong> and widens the gap between adjusted and GAAP profitability; and <strong>reliance on third-party LLMs and compute</strong>, a variable cost and strategic dependency (Q2 gross margin absorbed some hosting costs for one government customer).</p>
+  <div class="call ro">
+    <div class="lab">Real profitability &mdash; but "adjusted" vs GAAP and dilution deserve scrutiny</div>
+    The margin story is <strong>genuinely impressive and no longer in question</strong>: Palantir generates real GAAP operating income ($912M, 47% GAAP operating margin in Q2), &gt;$1B GAAP net income run-rate, and $1.2B quarterly adjusted FCF &mdash; it has clearly crossed from "cash-burning growth story" to "profitable compounder." <strong>Two honest caveats for the careful analyst.</strong> (1) <strong>The adjusted-vs-GAAP gap is large</strong> &mdash; adjusted operating margin (62%) is well above GAAP (47%), and the difference is substantially <strong>stock-based compensation.</strong> SBC is a real economic cost to shareholders (it dilutes them), so headline "62% margins" and adjusted EPS flatter the picture versus GAAP. (2) <strong>Dilution is ongoing</strong> &mdash; shares outstanding rose ~3.24% over the year, a persistent headwind to per-share value that bears (Burry) highlight. Neither undermines the thesis that Palantir is now truly profitable &mdash; but both mean investors should <strong>anchor on GAAP earnings, free cash flow <em>per share</em>, and dilution-adjusted growth</strong> rather than the flattering adjusted headline numbers. The good news: FCF is large and growing fast enough that, if sustained, it increasingly covers SBC and supports buybacks over time.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">CEO</div><div class="v">Alex Karp</div><div class="d">co-founder, 2003</div></div>
+    <div class="card g"><div class="k">Chairman</div><div class="v">Peter Thiel</div><div class="d">co-founder</div></div>
+    <div class="card i"><div class="k">CTO</div><div class="v">Shyam Sankar</div><div class="d">long-tenured</div></div>
+    <div class="card r"><div class="k">Insider selling (12m)</div><div class="v">~$562M net</div><div class="d down">see &sect;14</div></div>
+  </div>
+  <p>Palantir is led by its <strong>founder-CEO Alex Karp</strong> (a distinctive, outspoken figure whose net worth rose ~$3B in a day on the Q2 pop), with co-founder <strong>Peter Thiel</strong> as chairman and long-tenured <strong>Shyam Sankar as CTO.</strong> The founding team's continuity and conviction are a genuine strength. Governance features that draw scrutiny: a <strong>multi-class share structure</strong> concentrating founder control, heavy SBC, and <strong>net insider selling of ~$562M over the trailing year</strong> (largely pre-planned 10b5-1 sales, per supporters).</p>
+  <div class="call ro">
+    <div class="lab">Visionary, entrenched founders &mdash; with founder-control and insider-selling caveats</div>
+    The management signal is <strong>mixed-positive.</strong> On the plus side: a <strong>mission-driven, technically deep, long-tenured founding team</strong> with obvious conviction and a track record of beating estimates for 11+ consecutive quarters &mdash; founder-led companies with this continuity often compound advantages. Karp's outspoken championing of "sovereign AI" and open-weight models is also strategically coherent. <strong>The governance caveats a careful investor weighs:</strong> (1) a <strong>multi-class structure</strong> that concentrates control in the founders (limiting external accountability); (2) <strong>heavy stock-based comp</strong> that dilutes shareholders (see &sect;9, &sect;14); and (3) <strong>substantial net insider selling</strong> (~$562M more sold than bought over 12 months). Insider selling is <strong>not inherently a red flag</strong> &mdash; much is pre-scheduled 10b5-1, and founders diversifying after a huge run is normal &mdash; but at a stock priced for perfection, persistent net selling by those with the best information is a data point bears legitimately cite. Finally, Palantir's <strong>government client base (DHS, Pentagon, IRS, ICE, ex-DOGE)</strong> carries genuine <strong>reputational/ESG considerations</strong> that some investors weigh and that have drawn even internal objection. Net: strong, visionary leadership; normal-but-notable governance frictions to monitor.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Capital</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Debt / equity</div><div class="v">0.02</div><div class="d up">near debt-free</div></div>
+    <div class="card g"><div class="k">Current ratio</div><div class="v">6.9x</div><div class="d up">very liquid</div></div>
+    <div class="card i"><div class="k">Adj FCF (Q2)</div><div class="v">$1.22B</div><div class="d up">strong</div></div>
+    <div class="card r"><div class="k">FY26 FCF guide</div><div class="v">$4.5&ndash;4.7B</div><div class="d up">raised</div></div>
+  </div>
+  <p>Palantir's balance sheet is a <strong>genuine fortress</strong>: essentially <strong>no debt</strong> (D/E 0.02), a very high current ratio (~6.9x), a large cash/investments pile, and <strong>self-funding, rapidly-growing free cash flow</strong> (FY26 adj FCF guided $4.5&ndash;4.7B). ROIC is exceptionally high (reported ~300%+, reflecting an asset-light model). This is the antithesis of the balance-sheet strain seen in most growth stories.</p>
+  <div class="call">
+    <div class="lab">A fortress balance sheet &mdash; which removes financial risk but not valuation risk</div>
+    On balance-sheet quality, Palantir is <strong>about as strong as a company can be.</strong> It is <strong>effectively debt-free, extremely liquid, and generates prodigious and growing free cash flow</strong> that fully self-funds its growth &mdash; there is <strong>no solvency, funding, or dilution-from-necessity risk</strong> (dilution here comes from SBC, not capital-raising need). The asset-light software model produces <strong>extraordinary returns on capital.</strong> This matters because it <strong>removes an entire category of risk</strong> that afflicts most hyper-growth names: Palantir will never be forced to raise equity or debt on bad terms, can weather downturns comfortably, and can increasingly fund buybacks to offset SBC. <strong>The crucial point, though:</strong> a fortress balance sheet <strong>de-risks the <em>business</em> but does nothing to de-risk the <em>valuation.</em></strong> The risk in Palantir isn't financial distress &mdash; it's that the price already embeds years of flawless hyper-growth. So investors should take real comfort in the balance sheet (it makes the business durable and the profitability high-quality) while recognising it is <strong>not a valuation cushion</strong>: a debt-free company can still fall 50% if growth decelerates from a 40&ndash;70x-sales starting point.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>US Commercial AIP</strong></td><td>Boot-camp GTM, land-and-expand, agentic AI</td><td class="mono">Core engine &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Sovereign AI</strong></td><td>Secure on-prem AI for gov &amp; regulated sectors</td><td class="mono">Big tailwind &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Defense / gov AI</strong></td><td>Rising defense-AI budgets, ShipOS, alliances</td><td class="mono">Entrenched &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>International expansion</strong></td><td>Under-penetrated ex-US commercial &amp; allied gov</td><td class="mono">Optionality &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Customer land-and-expand</strong></td><td>NRR, seat &amp; use-case expansion, TCV growth</td><td class="mono">Proven &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>TAM penetration</strong></td><td>~1,049 customers vs hundreds of thousands of orgs</td><td class="mono">Vast runway &#9733;&#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>($)</th><th class="mono">FY24</th><th class="mono">FY25</th><th class="mono">FY26E (guide)</th><th class="mono">Q2'26</th></tr>
+    <tr><td>Revenue</td><td class="mono">$2.87B</td><td class="mono">$4.48B</td><td class="mono">$8.15B</td><td class="mono">$1.94B</td></tr>
+    <tr><td>Revenue growth</td><td class="mono">+29%</td><td class="mono">+56%</td><td class="mono up">+82%</td><td class="mono up">+93%</td></tr>
+    <tr><td>Adj op margin</td><td class="mono">~34%</td><td class="mono">~44%</td><td class="mono">~60%+</td><td class="mono">62%</td></tr>
+    <tr><td>Rule of 40</td><td class="mono">~63%</td><td class="mono">~100%</td><td class="mono up">~140%+</td><td class="mono up">155%</td></tr>
+    <tr><td>Adj FCF</td><td class="mono">~$1.0B</td><td class="mono">~$1.6B</td><td class="mono">$4.5&ndash;4.7B</td><td class="mono">$1.22B</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call">
+      <div class="lab">The bull-supporting facts</div>
+      <strong>Accelerating</strong> hyper-growth at scale (rev growth 29%&rarr;56%&rarr;82%+), US-commercial +149%, Rule of 40 = 155%, 62% adj op margin, $1.2B quarterly FCF, fortress debt-free balance sheet, huge guidance raise (73% of it for H2), vast untapped TAM, unique Ontology/AIP moat, "sovereign AI" tailwind, 11+ straight beats. A category-defining franchise.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      <strong>~40&ndash;70x sales, ~100&ndash;200x earnings</strong> &mdash; priced to perfection; heavy SBC &amp; ~3.24% dilution; adjusted-vs-GAAP gap; net insider selling ~$562M; moat as "data-transfer obstruction" (Burry, $46 FV); frontier-lab/hyperscaler competition; "consulting-like" model critique; growth <em>must</em> stay extraordinary for years; gov concentration &amp; reputational risk. Little margin of safety.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials describe a <strong>rare, category-defining growth-and-profitability machine</strong> &mdash; the quality is not seriously in dispute. The entire investment debate collapses into <strong>valuation and the durability of hyper-growth</strong>, which is why the forensic (&sect;14) and valuation (&sect;15) sections carry the weight here, not the growth story itself.</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: Palantir is a profitable, fortress-balance-sheet company &mdash; so this is <em>not</em> a distress or fraud-risk screen. It is instead the exact set of questions the bears (Michael Burry above all) have raised about <strong>earnings quality, dilution, receivables, revenue durability, and whether the reported profitability is as clean as the adjusted headlines suggest.</strong> The honest forensic conclusion up front: <strong>Palantir's accounting and cash generation are fundamentally sound &mdash; the real "forensic" issues are quality-of-earnings nuances (SBC/dilution, adjusted-vs-GAAP) and, above all, the fact that the <em>valuation</em> leaves no room for the normal imperfections these flags represent. Grade: "clean-and-cash-generative, but scrutinise the adjustments &mdash; and remember the price is the risk."</strong></p>
+
+  <div class="call ro">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings quality</td><td class="mono">&#128993; Amber</td><td>Real GAAP profit &amp; big FCF &mdash; but large adjusted-vs-GAAP gap driven by SBC.</td></tr>
+      <tr><td>Dilution / share count</td><td class="mono">&#128993; Amber</td><td>~3.24% more shares YoY; SBC is a real per-share cost bears rightly flag.</td></tr>
+      <tr><td>Revenue quality / receivables</td><td class="mono">&#128993; Amber</td><td>Burry flags rising receivables/TCV-vs-cash; verify billings &amp; DSO track revenue.</td></tr>
+      <tr><td>Cash-flow corroboration</td><td class="mono">&#128994; Green</td><td>$1.2B quarterly adj FCF strongly corroborates earnings &mdash; the key positive.</td></tr>
+      <tr><td>Business-model (software vs consulting)</td><td class="mono">&#128993; Amber</td><td>Bears say FDE model = consulting; margins/scaling say increasingly software.</td></tr>
+      <tr><td>Governance / insider selling</td><td class="mono">&#128993; Amber</td><td>Multi-class control, heavy SBC, ~$562M net insider selling (largely 10b5-1).</td></tr>
+      <tr><td>Valuation risk (the real flag)</td><td class="mono">&#128308; Red</td><td>~40&ndash;70x sales / ~100x+ earnings &mdash; no margin of safety; the dominant risk.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.1 &middot; Earnings quality &mdash; adjusted vs GAAP</h3>
+  <div class="cards">
+    <div class="card c"><div class="k">Adj op margin</div><div class="v">62%</div><div class="d">headline</div></div>
+    <div class="card g"><div class="k">GAAP op margin</div><div class="v">47%</div><div class="d">still strong</div></div>
+    <div class="card r"><div class="k">The gap</div><div class="v">~15pts</div><div class="d down">mostly SBC</div></div>
+    <div class="card i"><div class="k">GAAP net income</div><div class="v">&gt;$1B</div><div class="d up">real profit</div></div>
+  </div>
+  <div class="call gd">
+    <div class="lab">Genuinely profitable &mdash; but don't take the "62%" at face value</div>
+    The reassuring headline: Palantir is <strong>unambiguously, GAAP-profitably profitable now</strong> &mdash; $912M GAAP operating income (47% GAAP margin) and &gt;$1B GAAP net income in the quarter. That is a real earnings inflection, not an adjusted mirage, and it decisively answers the old "Palantir doesn't make money" critique. <strong>The forensic nuance:</strong> the <strong>~15-point gap between adjusted (62%) and GAAP (47%) operating margin is largely stock-based compensation</strong>, which Palantir (like most software firms) excludes from "adjusted" figures. SBC is a <strong>real cost to shareholders</strong> &mdash; it transfers value to employees and dilutes owners &mdash; so the adjusted numbers and adjusted EPS <strong>systematically flatter</strong> the economic reality. This isn't deceptive (it's standard, disclosed practice), but a careful analyst should <strong>value Palantir on GAAP earnings and free cash flow, treat SBC as the real expense it is, and discount the glossiest adjusted headlines.</strong> Grade: <strong>amber &mdash; real profitability, but insist on the GAAP lens.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.2 &middot; Dilution &amp; stock-based compensation</h3>
+  <div class="call gd">
+    <div class="lab">The most legitimate of the bear flags &mdash; a persistent per-share headwind</div>
+    Dilution is <strong>the bear critique with the most straightforward validity.</strong> Palantir's share count rose <strong>~3.24% over the past year</strong>, driven by heavy SBC. For a company this profitable it is <strong>manageable and shrinking as a percentage</strong> &mdash; and growing FCF increasingly funds buybacks that can offset it &mdash; but it is a <strong>real, recurring drag on per-share value</strong> that means <strong>per-share growth lags total growth</strong>, and it is a legitimate reason to prefer GAAP and per-share metrics. The mitigant: at $4.5&ndash;4.7B of FY26 FCF, Palantir has ample capacity to buy back stock and neutralise dilution over time if it chooses. Grade: <strong>amber &mdash; a genuine, quantifiable headwind, not a red flag, but one to track (watch share count and buyback pace each quarter).</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.3 &middot; Revenue quality &amp; receivables (Burry's specific charge)</h3>
+  <div class="call gd">
+    <div class="lab">Verify billings and DSO track revenue &mdash; the check bears demand</div>
+    Burry's written critique specifically flags <strong>"ballooning accounts receivable"</strong> &mdash; the concern that revenue is being recognised faster than cash is collected, which can signal aggressive recognition or channel/deal-timing strain. This is the <strong>right forensic question to ask of any hyper-growth company signing large multi-year TCV deals</strong> (Q2 billings grew +88%, slightly <em>below</em> the +93% revenue growth &mdash; a small item worth noting). <strong>The strong counter-evidence:</strong> Palantir generated <strong>$1.22B of adjusted FCF in the quarter</strong> and guides to $4.5&ndash;4.7B for the year &mdash; <strong>enormous cash conversion that is very hard to fake and that directly rebuts a "revenue isn't turning into cash" thesis.</strong> A company converting profits to billions in real cash is not, on the whole, playing receivables games. <strong>The prudent forensic posture:</strong> monitor <strong>DSO, billings-vs-revenue, and deferred revenue/RPO trends</strong> quarter to quarter &mdash; if receivables consistently outgrow revenue <em>and</em> FCF weakens, that would be a genuine warning; today, robust FCF makes this an <strong>amber-to-watch, not a red flag.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.4 &middot; Cash-flow corroboration &mdash; the key positive</h3>
+  <div class="call">
+    <div class="lab">The strongest pillar of the forensic case</div>
+    Cash-flow corroboration &mdash; usually the toughest forensic test &mdash; is <strong>Palantir's single strongest forensic positive.</strong> The company produced <strong>$1.22B of adjusted free cash flow in Q2 alone</strong>, crossed $1B milestones on GAAP net income, adjusted operating income <em>and</em> adjusted FCF simultaneously, and guides to <strong>$4.5&ndash;4.7B FCF for FY26.</strong> This is decisive because <strong>large, growing free cash flow is the hardest metric to manipulate</strong> &mdash; it validates that the reported profits are real, that revenue is converting to cash, and that the business model genuinely scales. It also underpins the fortress balance sheet and the capacity to offset dilution. Unlike a company whose "profits" never become cash (a classic red flag), Palantir's earnings are <strong>strongly cash-corroborated.</strong> Grade: <strong>green &mdash; this is what separates Palantir from a true "sandcastle"; the cash is unmistakably real.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.5 &middot; Business model &mdash; software or consulting?</h3>
+  <div class="call gd">
+    <div class="lab">The structural bear thesis &mdash; margins increasingly say "software"</div>
+    A core Burry-style charge is that Palantir's <strong>forward-deployed-engineer (FDE) / boot-camp model resembles high-touch consulting more than scalable software</strong> &mdash; and if true, that would cap long-run margins and justify a far lower multiple (consulting firms trade at a fraction of software multiples). <strong>The forensic evidence increasingly cuts against the bear here:</strong> ~85% gross margins, 62% adjusted / 47% GAAP operating margins, a 155% Rule of 40, and revenue <em>accelerating</em> while margins <em>expand</em> are <strong>the signature of scaling software, not linear consulting</strong> &mdash; consulting cannot grow 93% while expanding margins, because it scales with headcount. The FDE model looks more like a <strong>high-touch land motion that then expands into high-margin platform consumption</strong> (land-and-expand). <strong>The residual caveat:</strong> the model <em>is</em> more services-intensive than pure SaaS, so investors should watch whether <strong>margin expansion and revenue-per-employee keep improving</strong> (they should, if it's truly software-like) rather than plateauing (which would validate the consulting critique). Grade: <strong>amber, trending favourable &mdash; the numbers look like software; keep verifying the operating leverage.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.6 &middot; Governance, insider selling &amp; client-base risk</h3>
+  <div class="call gd">
+    <div class="lab">Normal-but-notable frictions &mdash; weigh them, don't overweight them</div>
+    Three governance/conduct items belong in a forensic read. (1) <strong>Multi-class share structure</strong> concentrates control with the founders &mdash; standard for founder-led tech, but it limits external accountability. (2) <strong>Net insider selling of ~$562M</strong> over the trailing year: <strong>largely pre-planned 10b5-1 sales</strong> and founder diversification after an enormous run &mdash; <em>not</em> inherently a red flag, and common at richly-valued names &mdash; but persistent net selling by the best-informed insiders is a data point bears fairly cite at a perfection valuation. (3) <strong>Client-base/reputational risk:</strong> deep government work (DHS, Pentagon, IRS, ICE, ex-DOGE) carries <strong>genuine ESG/reputational considerations</strong> that have drawn public and even internal objection, and creates political/contract-replacement exposure. None of these is a smoking gun; collectively they are <strong>frictions to weigh</strong> in position-sizing rather than reasons to allege wrongdoing. Grade: <strong>amber &mdash; normal founder-tech governance frictions, monitored, not alarming.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--obs)">14.7 &middot; The real "forensic" flag &mdash; valuation risk</h3>
+  <div class="call red">
+    <div class="lab">Where the genuine red flag actually sits</div>
+    The honest forensic conclusion is that <strong>Palantir's biggest risk is not in its accounts &mdash; it's in its price.</strong> The financial statements are sound, the cash is real, the balance sheet is a fortress. But at <strong>~40&ndash;70x sales and ~100&ndash;200x earnings</strong>, the stock <strong>embeds years of continued extraordinary hyper-growth with essentially no margin of safety.</strong> That is the true "red flag" a forensic-minded investor must foreground: not that the company will fail, but that <strong>the <em>investment</em> can lose heavily even if the <em>business</em> does very well</strong> &mdash; because merely "great" (rather than "otherworldly") results could trigger a severe de-rating from these multiples. Michael Burry's $46 fair value (a ~65&ndash;70% drawdown from current levels) and put options crystallise this; Simply Wall St's ~$90 fair value and GuruFocus's ~$144 GF Value sit far below the ~$160 price too. Bulls (Wedbush $230, Northland/DB $200) counter that <strong>growth this durable and category-defining deserves a premium multiple</strong> and that the guidance raise proves the runway. <strong>Both can be intellectually honest &mdash; which is precisely why this is a "valuation-versus-durability" bet.</strong> Grade: <strong>red on valuation risk &mdash; the dominant, defining risk of owning PLTR at these levels.</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Palantir earns a "clean books, real cash, but the price is the risk" forensic grade.</strong> On the traditional forensic dimensions it is <strong>reassuring</strong>: genuinely GAAP-profitable, <strong>strongly cash-corroborated</strong> ($1.2B quarterly FCF is the opposite of a sandcastle), debt-free, and with accounting that is standard and disclosed rather than aggressive. The legitimate amber flags &mdash; <strong>SBC-driven dilution (~3.24%/yr), the adjusted-vs-GAAP gap, receivables/billings to monitor, the software-vs-consulting question, and founder-control/insider-selling</strong> &mdash; are real quality-of-earnings nuances worth tracking, but none suggests manipulation, and robust FCF rebuts the harshest ("sandcastle") charge. <strong>The one genuine red flag is not in the financials at all &mdash; it is the valuation</strong>: ~40&ndash;70x sales leaves no room for the ordinary imperfections these ambers represent, so the stock can fall hard on any deceleration even though the business is excellent. The forensic bottom line: <strong>believe the cash, respect the quality, insist on the GAAP lens &mdash; and treat the price, not the accounts, as the thing most likely to hurt you. Size accordingly.</strong>
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation &mdash; The Whole Ballgame</h2></div>
+  <p>Valuation is not <em>a</em> section for Palantir &mdash; it is <em>the</em> section. The business quality is settled; the entire question is <strong>what price is justified for hyper-growth of uncertain duration.</strong> Trailing P/E (~107&ndash;200x) is high but backward-looking and distorted by the recent profit inflection; the more useful lenses are <strong>forward EV/Sales, forward EV/FCF, growth-adjusted (PEG-style) multiples, and Rule-of-40 durability.</strong> Even on forward numbers the stock is <strong>extraordinarily expensive</strong> (~42x forward sales), so the framework must center on <strong>how many years of ~40&ndash;80% growth are being discounted, and how durable that growth is.</strong></p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Palantir</h3>
+    <div class="bm-sub">Profitable hyper-growth software at an extreme multiple &rarr; growth-durability (Rule of 40) as the quality gate + forward EV/Sales &amp; EV/FCF as primary anchors + growth-adjusted (PEG) reality-check; trailing P/E is backward and misleading; the real "number" is how many years of hyper-growth are priced in</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Durability of hyper-growth (Rule of 40)</td><td><span class="verdict v-gate">THE GATE</span></td><td>At 155%, quality is off-the-charts &mdash; but the whole thesis is whether ~40&ndash;80% growth persists for years. Growth <em>duration</em>, not level, decides everything.</td></tr>
+      <tr><td>Forward EV/Sales</td><td><span class="verdict v-prim">PRIMARY</span></td><td>~42x fwd sales is the cleanest gauge of how extreme the price is for a still-unprofitable-on-P/E-terms grower. Compare vs the richest software comps in history.</td></tr>
+      <tr><td>Forward EV/FCF</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>FCF is the real, cash-corroborated earnings; ~$4.5&ndash;4.7B FY26 FCF vs ~$400B EV frames the true cash yield (very low) honestly.</td></tr>
+      <tr><td>Growth-adjusted (PEG-style)</td><td><span class="verdict v-crit">REALITY CHECK</span></td><td>Only lens on which PLTR looks defensible &mdash; extreme multiple partly justified by extreme growth. But it collapses the instant growth decelerates.</td></tr>
+      <tr><td>NRR / TCV / RPO / customer-adds</td><td><span class="verdict v-ind">LEADING INDICATORS</span></td><td>The forward-looking tells for growth durability &mdash; watch these to judge whether the priced-in growth is materialising.</td></tr>
+      <tr><td>Trailing P/E alone</td><td><span class="verdict v-avoid">AVOID</span></td><td>~107&ndash;200x, backward-looking, distorted by the recent profit inflection &mdash; misleads in both directions. Never anchor here.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At ~$398B market cap on ~$8.15B FY26 revenue, Palantir trades at <b>~42x forward sales and ~85&ndash;120x forward earnings</b> &mdash; among the richest large-cap software valuations ever recorded. On a growth-adjusted basis (PEG ~1.5 on some estimates) it is <b>defensible <em>only if</em> hyper-growth persists for many years</b>; on almost every absolute measure it is <b>priced for perfection with essentially no margin of safety.</b> The math is stark: the ~$4.5&ndash;4.7B of FY26 free cash flow is a <b>&lt;1.2% cash yield</b> on the market cap &mdash; you are paying today for cash flows many years out. <b>Verdict: an exceptional, category-defining, accelerating, genuinely-profitable AI-software franchise &mdash; the closest thing to a "must-own AI-operating-system" the public market offers &mdash; wrapped in one of the most extreme valuations in the market. The business is not the risk; the price is. This is a pure growth-durability-versus-valuation bet: own it if you have high conviction that ~40&ndash;80% growth and a 100%+ Rule of 40 can persist for years (in which case the multiple compresses into the growth and the stock can still work), and avoid or trim it if you doubt that durability or need a margin of safety, because a de-rating from 42x sales can halve the stock even amid "great" (just not "otherworldly") results. Value it on growth-durability + forward EV/Sales &amp; EV/FCF, never trailing P/E; treat Rule-of-40 persistence as the gate and any growth deceleration as the trigger; and size it as the high-conviction, high-volatility, no-margin-of-safety position it is. A remarkable company; a treacherous valuation.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">$46&ndash;95</div><div class="sd">Growth decelerates toward "merely great," AI-spend enthusiasm cools, competition (frontier labs/hyperscalers) bites, multiple de-rates hard. Burry ($46) / Simply Wall St (~$90) zone &mdash; a 40&ndash;70% drawdown even with a fine business.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">$130&ndash;190</div><div class="sd">Hyper-growth continues but gradually normalises; the stock grows into a still-premium multiple; volatile, range-bound around current levels as fundamentals catch up to price. Analyst avg ~$187.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">$210&ndash;300</div><div class="sd">Growth stays "otherworldly" for years, sovereign-AI and agentic-AI compound, Palantir becomes the entrenched Western AI-OS; multiple holds/expands. Wedbush $230, others $200+, upside beyond.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">The unusually wide scenario band ($46 to $300) captures the essence of PLTR: <strong>the outcome is dominated by the growth-durability/multiple debate, not by business execution</strong> (which is likely to be strong across scenarios). Comps span the richest software/AI names (CrowdStrike, Snowflake, CoreWeave, Cloudflare) &mdash; but none combine PLTR's growth rate, margins and multiple. Analyst targets range from Burry's $46 to Wedbush's $230. Extreme volatility (beta ~1.5&ndash;2.0) is intrinsic. Verify price vs live NASDAQ.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation / de-rating risk (dominant)</strong>At ~40&ndash;70x sales and ~100x+ earnings, the stock prices in years of flawless hyper-growth. Any deceleration &mdash; even to "merely excellent" &mdash; could trigger a severe (40&ndash;70%) de-rating. The single defining risk.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Growth deceleration</strong>The current +93% / +149% rates lap easier comps and cannot mathematically persist forever; the entire valuation depends on hyper-growth <em>duration</em>. Management frames visibility in quarters ("~18 months"), not years.</div></div>
+  <div class="risk"><div class="rn rm">3</div><div class="rb"><strong>Competition &amp; disruption</strong>Frontier labs (Anthropic, OpenAI) with plug-and-play AI, hyperscalers and data-platform giants could erode the "must build an ontology first" advantage &mdash; the core Burry thesis.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>SBC dilution &amp; earnings quality</strong>~3.24% annual dilution and a large adjusted-vs-GAAP gap mean per-share value grows slower than headline metrics; adjusted numbers flatter reality (&sect;14).</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Government concentration &amp; reputational risk</strong>~51% government revenue carries political, budget, contract-replacement and ESG/reputational exposure (DHS, Pentagon, IRS, ICE, ex-DOGE) that some investors weigh heavily.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Key-person &amp; governance</strong>Heavy reliance on Karp's vision; multi-class founder control; persistent net insider selling (~$562M/yr) at a perfection valuation.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Volatility &amp; sentiment</strong>Beta ~1.5&ndash;2.0, a battleground/retail-heavy stock swinging 25&ndash;30% on single prints; AI-sentiment shifts move it violently regardless of fundamentals.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Revenue growth</div><div class="scv">+93%, accel <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Profitability / Rule of 40</div><div class="scv">155% <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Fortress, debt-free <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Moat (Ontology/AIP)</div><div class="scv">Real, contested <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Cash generation</div><div class="scv">$1.2B/qtr FCF <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Management / vision</div><div class="scv">Founder-led <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Earnings quality (SBC)</div><div class="scv">Adj-vs-GAAP <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~42x sales <span class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Margin of safety</div><div class="scv">Essentially none <span class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call ir">
+    <div class="lab">Bottom line</div>
+    Palantir is a <strong>rare, category-defining AI-software franchise</strong> &mdash; the Ontology-plus-AIP "operating system" for Western governments and enterprises &mdash; and Q2 2026 was, by any standard, <strong>an extraordinary quarter</strong>: revenue +93% (accelerating), US-commercial +149%, a 155% Rule of 40, 62% adjusted / 47% GAAP operating margins, $1.2B of quarterly free cash flow, a fortress debt-free balance sheet, and a huge, confident guidance raise. The business quality, growth and cash generation are <strong>close to best-in-class, and the "sandcastle" charge is decisively rebutted by the cash.</strong> <strong>The entire investment question is valuation.</strong> At ~$398B &mdash; roughly <strong>40&ndash;70x sales and 100x+ earnings</strong> &mdash; the stock discounts many years of continued hyper-growth to perfection, with <strong>essentially no margin of safety</strong>; fair-value estimates span an astonishing $46 (Burry) to $230 (Wedbush), which <em>is</em> the story. <strong>The honest framing: an exceptional company at a treacherous price &mdash; a pure bet on the <em>durability</em> of hyper-growth, not on business quality. Own it, and size it, only if you have genuine conviction that ~40&ndash;80% growth and a 100%+ Rule of 40 can persist for years, and can stomach a stock that could halve on any deceleration despite excellent fundamentals. Value it on growth-durability plus forward EV/Sales and EV/FCF &mdash; never trailing P/E &mdash; treat Rule-of-40 persistence as the gate and any deceleration as the trigger, anchor on GAAP and per-share metrics given SBC dilution, and hold it as the high-conviction, high-volatility, no-margin-of-safety position it unavoidably is. The greatness is real; so is the risk that the price already reflects it.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Developments</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">3 Aug 2026</td><td><strong>Q2 2026 results ("otherworldly"):</strong> revenue $1.94B (+93% YoY, +19% QoQ), US-commercial +149% to $764M, US-gov +90% to $809M; adj EPS $0.41; Rule of 40 = 155%; adj op margin 62%; adj FCF $1.22B; 220 deals &ge;$1M. <strong>FY26 guide raised to $8.15&ndash;8.16B (+82%)</strong>; US-commercial guide &gt;$3.42B (+134%); Q3 guide ~$2.16B (+83%); FY26 FCF guide $4.5&ndash;4.7B. Stock +26&ndash;30%.</td></tr>
+    <tr><td class="mono">Aug 2026</td><td>Analyst reactions split: Deutsche Bank upgrades to Buy ($200); Wedbush (Dan Ives) reiterates bull view ($230); Northland to $200. Karp: strong growth "going on for at least another 18 months"; net worth +$3B in a day.</td></tr>
+    <tr><td class="mono">Aug 2026</td><td>Mercury Systems collaboration announced to automate material planning/factory operations for US defense &mdash; example of the defense-AI/manufacturing land motion.</td></tr>
+    <tr><td class="mono">2026 YTD (pre-Q2)</td><td>Stock had fallen ~28&ndash;30% from its $207.52 peak on valuation/AI-fatigue fears and the Burry "sandcastle"/$46-fair-value critique + insider-selling headlines &mdash; before the Q2 blowout reversed sentiment.</td></tr>
+    <tr><td class="mono">Q1 2026</td><td>Record Q1: revenue $1.63B (+85%), US revenue +104%, record deal value ~$12B; deployments cited (GE Aerospace +26% production, Navy ShipOS 200hrs&rarr;15sec).</td></tr>
+    <tr><td class="mono">Next</td><td><strong>Q3 2026 earnings ~9 Nov 2026</strong> &mdash; the key test of whether hyper-growth durability (and the raised H2 bar) holds.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Quality &amp; Cash Strength</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">ROIC</div><div class="v">~300%+</div><div class="d up">asset-light</div></div>
+    <div class="card g"><div class="k">Debt / equity</div><div class="v">0.02</div><div class="d up">debt-free</div></div>
+    <div class="card i"><div class="k">FY26 FCF guide</div><div class="v">$4.5&ndash;4.7B</div><div class="d up">self-funding</div></div>
+    <div class="card r"><div class="k">FCF yield (on m-cap)</div><div class="v">&lt;1.2%</div><div class="d down">priced rich</div></div>
+  </div>
+  <p>On <strong>business and cash quality</strong>, Palantir is elite: an <strong>asset-light, debt-free, extremely cash-generative</strong> model with exceptional returns on capital, self-funding all its growth. This is the foundation that makes the profitability high-quality and the balance sheet a fortress (see &sect;11, &sect;14).</p>
+  <div class="call ro">
+    <div class="lab">Elite business quality &mdash; but the FCF yield reframes the valuation honestly</div>
+    The quality metrics are <strong>about as good as public software gets</strong>: near-infinite returns on tangible capital, zero net debt, ~85% gross margins, and rapidly-compounding free cash flow that requires no external funding. This is a <strong>genuinely elite compounder engine.</strong> The sobering reframe for valuation: even $4.5&ndash;4.7B of FY26 free cash flow is a <strong>free-cash-flow yield of well under 1.2%</strong> on the ~$398B market cap. That single number captures the whole tension &mdash; <strong>a superb cash machine, priced so richly that today's investor is paid a minuscule current yield and is really buying a claim on cash flows many years out.</strong> If growth compounds for a decade, that yield explodes higher and the price is vindicated; if it decelerates, the low starting yield offers no protection. <strong>Elite quality, priced to require it.</strong> Watch FCF growth, FCF-per-share (post-dilution), and any buyback that starts converting the cash machine into per-share value.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical &amp; Market Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">Post-Q2 move</div><div class="tkv">+26&ndash;30% <span class="badge b-bull">&uarr;</span></div><div class="tkd">on Aug 3 print</div></div>
+    <div class="tk"><div class="tkl">Price</div><div class="tkv">~$160</div><div class="tkd">Aug 4 (diverges)</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">$106&ndash;208</div><div class="tkd">very wide</div></div>
+    <div class="tk"><div class="tkl">YTD (pre-pop)</div><div class="tkv">~&minus;28% <span class="badge b-bear">&darr;</span></div><div class="tkd">then reversed</div></div>
+    <div class="tk"><div class="tkl">Beta</div><div class="tkv">~1.5&ndash;2.0</div><div class="tkd">high volatility</div></div>
+    <div class="tk"><div class="tkl">Analyst avg PT</div><div class="tkv">~$187</div><div class="tkd">$46 to $230 range</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">PLTR is a <strong>battleground, retail-and-institution-heavy, high-beta stock</strong> that swings violently on sentiment and prints &mdash; down ~28% YTD into Q2 on AI-fatigue/valuation fears, then <strong>up ~26&ndash;30% in a session</strong> on the blowout. The 52-week range ($106&ndash;208) and the analyst-target spread ($46 Burry to $230 Wedbush) both scream <strong>unusually high dispersion of opinion.</strong> Technicals are secondary here: direction is dominated by <strong>the growth-durability-vs-valuation debate and AI-sentiment cycles</strong>, and the next major catalyst is <strong>Q3 earnings (~9 Nov 2026)</strong>, where the raised H2 bar gets tested. Expect large moves in both directions; this is not a low-volatility holding. Verify live quote on NASDAQ.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Report follows the same 20-section framework (incl. Forensic Analysis, &sect;14) used for other names, adapted for a US-listed mega-cap. Figures move fast around earnings and diverge by source/date; all USD. Palantir carries an <strong>extreme valuation with essentially no margin of safety</strong> &mdash; the dominant risk. Verify against SEC filings and live NASDAQ data, and consult a licensed financial adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Palantir Technologies Inc.</b> &mdash; NASDAQ: PLTR &middot; S&amp;P 500 / Nasdaq-100 &middot; AI &amp; Data Software Platforms (Gotham, Foundry, Apollo, AIP; Ontology) &middot; Government + Commercial segments &middot; Founded 2003 &middot; Denver, CO &middot; CEO Alex Karp<br>
+  Report generated 05 August 2026 &middot; Data through Q2 2026 results (reported 3 Aug 2026) + market data to 4 Aug 2026. Includes Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; Palantir Q2 2026 press release &amp; earnings call (BusinessWire, 2 Aug 2026), CNBC, Yahoo Finance, TheStreet, MLQ.ai, indmoney, GuruFocus, 24/7 Wall St, stockanalysis.com, Robinhood, TradingView, Simply Wall St, Motley Fool, Barchart/FinancialContent, BigGo Finance, Substack (Sergey). <b>Key figures &mdash; Q2 2026 (reported 3 Aug 2026):</b> revenue $1.94B (+93% YoY, +19% QoQ; some sources $1.935B), beat ~$1.81B consensus; <b>US Commercial revenue $764M (+149% YoY)</b>; US Government $809M (+90%); total Government ~$990M (~51.2% of revenue); total Commercial ~$945M; US revenue $1.573B (+115%); adjusted EPS $0.41 (vs $0.35 est); <b>Rule of 40 = 155%</b>; adjusted operating margin 62% (~$1.19B adj op income); GAAP operating income $912M (47% GAAP margin); adjusted gross margin ~85%; <b>GAAP net income &gt;$1B; adjusted FCF $1.22B</b>; 220 deals &ge;$1M (98 &ge;$5M, 70 &ge;$10M); total customers 1,049 (+23.6%), commercial customers 870 (+25.7%), US commercial customers 653 (+34.6%); US-commercial TCV $2.13B (+153%); remaining US-commercial deal value $6.24B; total TCV $3.37B (+49%); billings +88% to $2.072B. <b>Guidance raised: FY26 revenue $8.15&ndash;8.16B (+82% YoY, from ~$7.65&ndash;7.66B); US-commercial revenue &gt;$3.42B (+134%); Q3 2026 revenue ~$2.16B (+83% YoY) with adj op income ~$1.29&ndash;1.30B; FY26 adjusted FCF $4.5&ndash;4.7B.</b> Karp: quarter "otherworldly," "sovereign AI revolution," growth "going on for at least another 18 months." <b>FY25 revenue $4.48B (+56%); FY24 $2.87B (+29%). Q1 2026 revenue $1.63B (+85%), US revenue +104%.</b> Deployments cited: GE Aerospace +26% production, Navy ShipOS 200hrs&rarr;15sec, $10M ACV AIP bake-off win vs a frontier lab; Mercury Systems collaboration (Aug 2026). <b>Valuation/market data (fast-moving, diverges by source/date): price ~$159.88 (Robinhood, 4 Aug 2026; intraday $143.20&ndash;164.51) vs ~$122&ndash;128 pre-Q2; jumped ~26&ndash;30% post-earnings; market cap ~$398B (Robinhood, post-pop) vs ~$301&ndash;313B (pre-pop; ~2.40B shares, +3.24% YoY dilution); trailing P/E ~107x (Robinhood) / ~138x (stockanalysis) / 200&ndash;219x (earlier sources); forward P/E ~77&ndash;123x (~85.5x GuruFocus 3 Aug); P/S ~42x (Nasdaq/Motley Fool post-guidance) to ~69x (earlier); EV/EBITDA ~110x; ROE ~32.6%, ROIC ~300%+; debt/equity 0.02; current ratio 6.9x; beta ~1.5&ndash;2.0; 52-wk $106.37&ndash;207.52; ~&minus;18% to &minus;29% YTD pre-pop.</b> Founders: Peter Thiel (chairman), Alex Karp (CEO), Stephen Cohen, Joe Lonsdale, Nathan Gettings; CTO Shyam Sankar. Products: Gotham (defense/intel), Foundry (commercial), Apollo (deployment), AIP (launched Apr 2023), all on the Ontology. Direct listing Sep 2020. <b>Bear case (Michael Burry, "Palantir's New Clothes"/"sandcastle"): fair value ~$46 (put options); cites ~40&ndash;70x sales, heavy SBC/dilution, ballooning receivables, third-party-LLM reliance, moat as "obstruction of data transfer," "consulting more than software." Other fair values: Simply Wall St ~$90; GuruFocus GF Value ~$144.5. Bull case (Wedbush/Dan Ives PT $230, "epicenter of the AI revolution"; Deutsche Bank Buy $200; Northland $200; analyst avg ~$187).</b> Net insider selling ~$562M over trailing 12 months (largely pre-planned 10b5-1, per supporters). Government clients incl. DHS, Pentagon, IRS, SSA, ex-DOGE &mdash; reputational/ESG and contract-replacement considerations. <b>DATA CAVEAT: all figures approximate and fast-moving around earnings; this report anchors price ~$160 / m-cap ~$398B (post-Q2). Verify against SEC filings (10-Q/8-K) and live NASDAQ.</b> Scenario ranges ($46&ndash;300) and Best-Metric framework in Section 15 are the author's illustrative analysis, not forecasts, price targets, or company guidance. <b>Educational document, not investment advice &mdash; an exceptional business at an extreme valuation with essentially no margin of safety; the price, not the business, is the dominant risk.</b> Verify all figures against primary filings and consult a licensed financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Palantir Technologies Inc.
+Ticker: NASDAQ: PLTR
+Sector: AI / Data Software Platforms (Enterprise + Government AI) / US Mega-Cap Tech
+Report Date: August 5, 2026 (Q2 2026 results reported Aug 3, 2026; market data to Aug 4)
+File: palantir_technologies_equity_research.html
+*** US-LISTED MEGA-CAP - framework adapted from Indian-equity template; includes SECTION 14 FORENSIC ANALYSIS (20-section report) ***
+*** THE ENTIRE THESIS IS VALUATION-vs-GROWTH-DURABILITY, NOT BUSINESS QUALITY (which is elite) ***
+Price at Report: ~$160 (Robinhood $159.88, Aug 4; FAST-MOVING/DIVERGENT: ~$122-128 pre-Q2, jumped +26-30% post-earnings; VERIFY vs live NASDAQ)
+Market Cap: ~$398B post-pop (Robinhood) vs ~$301-313B pre-pop; ~2.40B shares (+3.24% YoY SBC dilution); USD
+*** EXTREME VALUATION: ~42x fwd sales (Nasdaq/MotleyFool) to ~69x (earlier); trailing P/E ~107-219x; fwd P/E ~77-123x (~85.5x GuruFocus); EV/EBITDA ~110x; FCF yield <1.2% on m-cap ***
+BUSINESS: Founded 2003 (Thiel/Karp/Cohen/Lonsdale/Gettings), Denver CO, CEO Alex Karp, CTO Shyam Sankar. Products: Gotham (defense/intel), Foundry (commercial), Apollo (deployment), AIP (Apr 2023) - all on distinctive ONTOLOGY ("digital twin" mapping data to real-world objects/actions). Two segments: Government (~51%) + Commercial (~49%). Direct listing Sep 2020; S&P 500 2025.
+Q2 2026 "OTHERWORLDLY" (reported Aug 3): revenue $1.94B (+93% YoY, FASTEST EVER, accel from +85% Q1); US COMMERCIAL +149% to $764M (the star); US Gov +90% to $809M; total Gov $990M (51.2%), total Comm $945M; adj EPS $0.41 (vs $0.35 est); RULE OF 40 = 155%; adj op margin 62% / GAAP op margin 47% ($912M); adj gross margin ~85%; GAAP net income >$1B; ADJ FCF $1.22B; 220 deals >=$1M; customers 1,049 (+23.6%); US-comm TCV $2.13B (+153%); remaining US-comm deal value $6.24B
+GUIDANCE RAISED HUGE: FY26 rev $8.15-8.16B (+82%, from ~$7.65B; ~73% of raise is H2); US-comm guide >$3.42B (+134%); Q3 ~$2.16B (+83%); FY26 adj FCF $4.5-4.7B. Stock +26-30% on print
+FY25 rev $4.48B (+56%); FY24 $2.87B (+29%). Q1'26 $1.63B (+85%). Balance sheet FORTRESS: debt/equity 0.02, current ratio 6.9x, ROIC ~300%+
+*** SECTION 14 FORENSIC ANALYSIS (7 subsections) - "clean books, real cash, but PRICE IS THE RISK" grade ***
+- 14.1 earnings quality: AMBER - real GAAP profit (47% GAAP op margin, >$1B GAAP NI) but ~15pt adjusted(62%)-vs-GAAP(47%) gap = mostly SBC; use GAAP lens
+- 14.2 dilution/SBC: AMBER - ~3.24% more shares YoY (most legitimate bear flag); FCF can fund buybacks to offset
+- 14.3 revenue quality/receivables: AMBER-to-WATCH - Burry flags "ballooning AR"; billings +88% slightly below rev +93%; BUT $1.22B FCF strongly rebuts; monitor DSO/billings/RPO
+- 14.4 cashflow corroboration: GREEN (key positive) - $1.22B qtr adj FCF, $4.5-4.7B FY26 guide; hardest metric to fake; rebuts "sandcastle"
+- 14.5 business model software-vs-consulting: AMBER trending favorable - Burry says FDE model = consulting; but 85% GM, margin expansion + 93% growth = software signature (consulting can't scale that way)
+- 14.6 governance/insider selling: AMBER - multi-class founder control, heavy SBC, ~$562M net insider selling 12m (largely pre-planned 10b5-1); gov client base (DHS/Pentagon/IRS/ICE/ex-DOGE) reputational/ESG risk
+- 14.7 THE REAL RED FLAG = VALUATION: RED - ~40-70x sales/~100x+ earnings, NO margin of safety; investment can lose even if business thrives; Burry $46 FV/puts, SWS ~$90, GF ~$144 all below ~$160
+- FORENSIC VERDICT: clean/cash-corroborated/debt-free; ambers are QoE nuances (SBC/dilution/adj-vs-GAAP) not manipulation; cash rebuts sandcastle; ONLY red flag is the PRICE not the accounts; believe the cash, insist on GAAP lens, treat price as the risk
+BULL CASE (Wedbush Dan Ives $230 "epicenter of AI revolution"; DB Buy $200; Northland $200; avg ~$187): unique Ontology/AIP moat, boot-camp GTM, accel hypergrowth at scale, real profit, fortress BS, sovereign-AI tailwind, vast TAM (only 1,049 customers), gov entrenchment, GE Aerospace +26%/Navy ShipOS deployments
+BEAR CASE (Michael Burry "sandcastle"/$46 FV/puts): valuation absurd (40-70x sales), moat = "obstruction of data transfer" (lock-in not value, "breeds resentment"), heavy dilution, rising receivables, third-party-LLM reliance, "consulting not software," small AI slowdown could halve stock, Anthropic/frontier-lab + hyperscaler competition, gov reputational risk
+KEY RISKS: valuation/de-rating (DOMINANT), growth deceleration, competition/disruption (frontier labs/hyperscalers), SBC dilution/earnings quality, gov concentration/reputational, key-person/governance, volatility (beta 1.5-2.0)
+Bull Case: $210-300 (Wedbush $230+)
+Base Case: $130-190 (analyst avg ~$187)
+Bear Case: $46-95 (Burry $46, SWS ~$90)
+Primary Valuation Metric: growth-durability/Rule-of-40 = THE GATE; forward EV/Sales PRIMARY + forward EV/FCF CO-PRIMARY; growth-adjusted/PEG REALITY CHECK; NRR/TCV/RPO/customer-adds LEADING INDICATORS; trailing P/E alone AVOID (backward/distorted). Real "number" = how many years of hypergrowth are priced in
+Investment Type: exceptional category-defining AI-software franchise (Ontology+AIP OS for Western gov+enterprise) at one of market's most EXTREME valuations; business quality/growth/cash elite and NOT the debate; PURE valuation-vs-growth-durability bet; NO margin of safety; own+size only with high conviction hypergrowth (40-80% + 100%+ Rule of 40) persists for years and tolerance for 50% drawdown on any deceleration; value on growth-durability + fwd EV/Sales & EV/FCF NEVER trailing P/E; anchor GAAP/per-share given SBC; high-vol high-conviction position
+Palette: obsidian/black + electric cyan (data/AI) + signal gold/amber (sovereign) + iris; Space Grotesk/Inter/IBM Plex Mono; Ontology-node-graph hero motif
+NOTE: US mega-cap adaptation of the standard framework. Sections: 01-13 standard (reframed for profitable hypergrowth SaaS/AI: segments=Gov/Commercial; Ontology/AIP deep-dive; SBC/cost structure), 14 Forensic Analysis, 15 Valuation (THE HEART), 16 Risks, 17 Scorecard, 18 Recent Developments, 19 Quality & Cash Strength, 20 Technical & Market. Next catalyst: Q3 2026 earnings ~Nov 9 2026.
+-->
