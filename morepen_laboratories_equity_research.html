@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morepen Laboratories — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clin:#0F3B37; --clin-2:#17544E; --clin-3:#226B63;
+    --teal:#1AA39A; --teal-dk:#12766F; --teal-lt:#5CCabf; --teal-gl:rgba(26,163,154,.11);
+    --coral:#E4694E; --coral-dk:#B84528; --coral-lt:#F0967F; --coral-gl:rgba(228,105,78,.12);
+    --dblue:#2E7BC4; --dblue-dk:#1E5A96; --dblue-lt:#6BA8DF; --dblue-gl:rgba(46,123,196,.11);
+    --gold:#C99A2E; --gold-dk:#9C7414; --gold-gl:rgba(201,154,46,.13);
+    --slate:#5D7370; --slate-gl:rgba(93,115,112,.10);
+    --green:#2E9E68; --green-dk:#1C7A4C; --red:#CE4A44; --amber:#D6902E; --amber-dk:#A66A11;
+    --ink-1:#10201E; --ink-2:#374744; --ink-3:#647471;
+    --line:#E2E9E8; --line-2:#EEF3F2; --paper:#FCFDFD; --paper-2:#F3F7F6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(15,59,55,.15)}
+  h1,h2,h3,h4{font-family:'Newsreader',serif;font-weight:600;letter-spacing:-.01em;line-height:1.14}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .hero{position:relative;background:linear-gradient(150deg,#0F3B37 0%,#17544E 56%,#226B63 132%);color:#E6F0EE;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-6%;width:470px;height:470px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(26,163,154,.22),rgba(240,150,127,.13) 55%,transparent 72%);filter:blur(6px)}
+  .pulse{position:absolute;right:52px;top:44px;width:176px;height:150px;z-index:2;opacity:.62}
+  .pulse svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+  .tag.co{background:rgba(228,105,78,.22);border-color:rgba(240,150,127,.45);color:#F2AE9A}
+  .tag.db{background:rgba(46,123,196,.22);border-color:rgba(107,168,223,.5);color:#9CC4EA}
+  .hero h1{font-size:41px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .flip{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#AEC0BD;margin-bottom:24px;font-weight:300;max-width:790px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.09)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#728583;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Newsreader',serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#6FE0A0}.down{color:#F0A6A0}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--clin);color:#728583;padding:11px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px}
+  .metabar b{color:#E2ECEA;font-weight:400}
+  .metabar .dot{color:var(--teal-lt)}
+  .alert{background:var(--coral-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--coral-dk);font-family:'IBM Plex Mono',monospace}
+  .alert b{color:var(--clin)}
+  .alert.boom{background:var(--teal-gl);color:var(--teal-dk)}
+  .alert.warn{background:rgba(206,74,68,.09);color:#AE3A34}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--teal-dk);border:1.5px solid var(--teal);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:25px;font-weight:600;color:var(--clin)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--teal);background:var(--teal-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.co{border-color:var(--coral);background:var(--coral-gl)}
+  .call.db{border-color:var(--dblue);background:var(--dblue-gl)}
+  .call.gd{border-color:var(--gold);background:var(--gold-gl)}
+  .call.red{border-color:var(--red);background:rgba(206,74,68,.08)}
+  .call .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;color:var(--teal-dk);margin-bottom:5px}
+  .call.co .lab{color:var(--coral-dk)}.call.db .lab{color:var(--dblue-dk)}.call.gd .lab{color:var(--gold-dk)}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--clin-2);color:#E2ECEA;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'IBM Plex Mono',monospace}
+  .tr-hi td{background:var(--teal-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--clin);letter-spacing:-.01em;font-family:'Newsreader',serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.t{border-top:3px solid var(--teal)}.card.c{border-top:3px solid var(--coral)}
+  .card.b{border-top:3px solid var(--dblue)}.card.g{border-top:3px solid var(--gold)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"\25B8";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--teal);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--clin);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.on{background:var(--teal-gl);border-color:var(--teal)}
+  .vnode.on .vt{color:var(--teal-dk)}
+  .vnode.cc{background:var(--coral-gl);border-color:var(--coral)}
+  .vnode.cc .vt{color:var(--coral-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:210px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'IBM Plex Mono',monospace;font-weight:400}
+  .bar-val{width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.pulse{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(206,74,68,.06);border-color:rgba(206,74,68,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(46,158,104,.07);border-color:rgba(46,158,104,.3)}
+  .scen .st2{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:500;margin-bottom:6px}
+  .scen .sp{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Newsreader',serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--clin);color:#E6F0EE;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(26,163,154,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:19px;margin-bottom:4px;position:relative;font-family:'Newsreader',serif}
+  .bm .bm-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C2D2D0}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#BCCCCA}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--teal-dk);color:#fff}.v-co{background:var(--coral-dk);color:#fff}
+  .v-ind{background:#1C7A4C;color:#AEE8C8}.v-sec{background:#374744;color:#DAE4E2}
+  .v-avoid{background:#7A2A26;color:#F6C6C2}.v-cross{background:#17544E;color:#C2D8D6}
+  .v-crit{background:var(--gold-dk);color:#FBE6B8}.v-gate{background:var(--dblue-dk);color:#C8E0F4}
+  .bm .onenum{background:rgba(228,105,78,.16);border:1px solid rgba(240,150,127,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F2C6B6;position:relative}
+  .bm .onenum b{color:#F0967F}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--clin)}
+  .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amber-dk)}.rl{background:var(--teal-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--teal),var(--coral))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--teal);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--teal)}
+  .tli .ty{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12.5px;color:var(--teal-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--clin);font-family:'Newsreader',serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(46,158,104,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(206,74,68,.14);color:var(--red)}
+  .b-neut{background:rgba(214,144,46,.2);color:var(--amber-dk)}
+  .foot{background:var(--clin);color:#728583;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C2D2D0}
+  .disc{font-size:10.5px;color:#647471;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="pulse">
+    <svg viewBox="0 0 176 150" fill="none">
+      <polyline points="6,80 40,80 54,44 70,110 86,66 100,80 132,80 146,54 160,80 170,80" fill="none" stroke="#5CCabf" stroke-width="2.4" opacity="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="70" cy="110" r="3.5" fill="#F0967F" opacity="0.85"/>
+      <g stroke="#6BA8DF" stroke-width="1" opacity="0.3">
+        <line x1="6" y1="40" x2="170" y2="40" stroke-dasharray="2 6"/>
+        <line x1="6" y1="120" x2="170" y2="120" stroke-dasharray="2 6"/>
+      </g>
+      <circle cx="88" cy="80" r="60" fill="none" stroke="#5CCabf" stroke-width="0.8" opacity="0.18" stroke-dasharray="3 5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: MOREPENLAB</span>
+      <span class="tag">BSE: 500288</span>
+      <span class="tag co">API + CDMO Pharma</span>
+      <span class="tag db">Dr. Morepen Devices</span>
+    </div>
+    <h1>Morepen Laboratories</h1>
+    <div class="flip">&#9877; A 40-year API house pivoting to CDMO + a consumer-diagnostics platform &mdash; an earnings inflection in motion</div>
+    <div class="sub">A <b>vertically-integrated, USFDA-approved pharma &amp; healthcare company (since 1984)</b> running three engines: a legacy <b>API business</b>, a fast-growing <b>"Dr. Morepen" medical-devices/diagnostics platform</b> (glucometers &rarr; CGM, ~20M installed base), and a new <b>long-duration CDMO platform</b> anchored by an <b>&#8377;825 Cr / $91M global mandate.</b> After an FY26 margin-investment trough, <b>Q1 FY27 posted a blockbuster inflection (EBITDA +207%, PAT +394%).</b> A multi-engine turnaround &mdash; with a low-promoter-holding, volatile-stock, execution caveat.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (early Aug)</div><div class="v">~&#8377;60&ndash;77</div><div class="d down">vendor-divergent</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~&#8377;3,000&ndash;4,200 Cr</div><div class="d">small-cap</div></div>
+      <div class="qs"><div class="k">FY26 revenue</div><div class="v">~&#8377;1,700&ndash;1,951 Cr</div><div class="d up">+8% (std)</div></div>
+      <div class="qs"><div class="k">Q1 FY27 PAT</div><div class="v">+394%</div><div class="d up">inflection</div></div>
+      <div class="qs"><div class="k">CDMO mandate</div><div class="v">&#8377;825 Cr</div><div class="d up">commercializing</div></div>
+      <div class="qs"><div class="k">Promoter</div><div class="v">~35.7%</div><div class="d down">low</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>CMD:</b> Sushil Suri</span><span class="dot">&#9877;</span>
+  <span><b>Est:</b> 1984</span><span class="dot">&#9877;</span>
+  <span><b>HQ:</b> Baddi, Himachal Pradesh</span><span class="dot">&#9877;</span>
+  <span><b>Exports:</b> 90+ countries</span><span class="dot">&#9877;</span>
+  <span><b>FV:</b> &#8377;2</span><span class="dot">&#9877;</span>
+  <span><b>Report:</b> 05 Aug 2026</span>
+</div>
+
+<div class="alert boom">
+  &#9889; <b>THE INFLECTION SIGNAL &mdash; Q1 FY27 is a blockbuster:</b> Morepen just posted its <b>highest-ever quarterly revenue and earnings</b> with <b>EBITDA up ~207% and PAT up ~394% YoY</b>, as the <b>&#8377;825 Cr / $91M CDMO mandate (won Feb 2026) enters full-scale commercialization.</b> Medical Devices grew ~19% (installed base ~20M glucometers, 500M strips/yr). This follows an FY26 that was deliberately investment-heavy (margins compressed). If sustained, the multi-engine model &mdash; API + CDMO + Dr. Morepen devices &mdash; is inflecting toward higher, more durable earnings. 4th consecutive USFDA inspection with NIL 483 observations.
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT IT'S A TURNAROUND WITH REAL CAVEATS (see &sect;14):</b> Morepen is a <b>historically slow-growing (~8.7% 5-yr sales CAGR), thin-margin</b> company with a <b>long, checkered track record</b> (all-time high &#8377;234 in 2000, then decades of decline) and <b>low promoter holding (~35.7%)</b>. FY26 saw <b>margin compression</b> from heavy investment; the <b>medical-devices hive-off has been repeatedly delayed</b> (timeline extended again); there's a <b>&#8377;117.94 Cr GST show-cause notice</b> (under High Court stay) and a QIP capex delay. The stock has already <b>re-rated ~84% in 6 months</b> and is volatile.
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT:</b> Vendor prices/figures diverge widely &mdash; CMP &#8377;41 (Jan/May) &rarr; &#8377;60.96 (9 Jul) &rarr; &#8377;69.18&ndash;69.21 (4 Aug) &rarr; &#8377;76.97 (finology); 52-wk &#8377;33.05&ndash;78.21. Market cap &#8377;2,266 Cr (Jan) / &#8377;3,159 Cr (4 Aug) / &#8377;3,340 Cr (9 Jul) / &#8377;4,216 Cr (Screener). P/E ~22.8x&ndash;47.67x; P/B ~1.85x&ndash;3.38x. FY26 revenue quoted as standalone ~&#8377;1,700 Cr (+8%) vs consolidated ~&#8377;1,951 Cr; consol PAT ~&#8377;141 Cr. Q4 FY26 PAT reported +69% to &#8377;20 Cr (company/standalone) vs &minus;22.6% to &#8377;15.7 Cr (one consol vendor) &mdash; reconcile standalone vs consolidated. This report anchors CMP loosely ~&#8377;60&ndash;77. Verify vs NSE/BSE live.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Morepen Laboratories Ltd (NSE: MOREPENLAB)</strong>, established in 1984 and headquartered at Baddi, Himachal Pradesh, is a <strong>vertically-integrated pharmaceutical and healthcare company</strong> with over four decades of API-manufacturing experience, USFDA-approved facilities and exports to <strong>90+ countries.</strong> It runs <strong>three business engines</strong>: (1) a legacy <strong>Active Pharmaceutical Ingredients (API)</strong> business (Loratadine, Montelukast, Atorvastatin, Sultamicillin and other molecules); (2) a fast-growing <strong>"Dr. Morepen" medical-devices &amp; consumer-diagnostics platform</strong> (glucometers, test strips, BP monitors, thermometers &mdash; ~20 million installed base); and (3) a new <strong>long-duration CDMO / regulated-formulations platform</strong> anchored by an <strong>₹825 Cr / $91M global mandate.</strong> Chairman &amp; MD Sushil Suri leads the Suri-family promoter group (holding ~35.7%).</p>
+  <p>The investment story is a <strong>multi-engine turnaround / earnings inflection.</strong> For years Morepen was a <strong>slow-growing, thin-margin, commodity-API company</strong> with a checkered long-term record (its stock hit ₹234 in 2000, then declined for two decades). More recently it has been <strong>deliberately reinventing itself</strong>: spending FY26 heavily (compressing margins) to build three higher-value engines &mdash; a <strong>CDMO platform</strong> (long-duration, recurring, higher-margin manufacturing partnerships, now commercializing an ₹825 Cr mandate), a <strong>scalable consumer-healthcare/devices platform</strong> (Dr. Morepen, targeting chronic care, CGM, connected health, slated for a value-unlocking hive-off), and a <strong>specialty/regulated formulations pipeline</strong> (e.g., a completed bioequivalence study for Resmetirom, a MASH drug). The <strong>Q1 FY27 result &mdash; highest-ever revenue, EBITDA +207%, PAT +394% &mdash; suggests the inflection has arrived.</strong> The counterweight: a <strong>low-promoter-holding (~35.7%), historically volatile small-cap</strong> with a spotty track record, execution risk on the CDMO ramp and the perennially-delayed hive-off, a GST notice, and a stock that has already re-rated ~84% in six months.</p>
+  <div class="cards">
+    <div class="card t"><div class="k">Q1 FY27 PAT</div><div class="v">+394%</div><div class="d up">inflection</div></div>
+    <div class="card c"><div class="k">CDMO mandate</div><div class="v">&#8377;825 Cr</div><div class="d up">commercializing</div></div>
+    <div class="card b"><div class="k">Devices FY26</div><div class="v">&#8377;598 Cr</div><div class="d up">+21%</div></div>
+    <div class="card g"><div class="k">Promoter</div><div class="v">~35.7%</div><div class="d down">low</div></div>
+  </div>
+  <div class="call co">
+    <div class="lab">The investment character in one line</div>
+    Morepen is a <strong>multi-engine pharma-and-healthcare turnaround at an earnings-inflection point, best valued sum-of-the-parts.</strong> The bull case is a genuine re-rating story: a <strong>40-year, USFDA-clean API base</strong> now bolted to <strong>two higher-value growth platforms</strong> &mdash; a <strong>long-duration CDMO business</strong> (the ₹825 Cr mandate, recurring and higher-margin, just entering commercial scale with a spectacular Q1 FY27 print) and a <strong>fast-growing "Dr. Morepen" consumer-diagnostics platform</strong> (glucometers/strips with ~20M users and recurring consumables, being groomed for a value-unlocking hive-off). If the FY26 margin investment converts into durable multi-engine earnings, and the devices business is separately valued, there is real upside. The bear case is about <strong>track record, structure and price</strong>: Morepen has been a <strong>slow-growing, thin-margin, promoter-light (35.7%) small-cap</strong> with a long history of underdelivery; the <strong>hive-off has been promised and delayed for years</strong>; there's a <strong>GST notice and QIP capex slippage</strong>; and the stock has <strong>already jumped ~84% in six months</strong>, pricing in a lot of the turnaround. It is best framed as a <strong>"show-me" SOTP inflection</strong> &mdash; own it if you believe the CDMO ramp and margin recovery are durable and the devices value gets unlocked; be cautious if you need a longer proof-of-execution or a cleaner ownership/track record (see &sect;14).
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1984 &middot; Founding</div><div class="td">Incorporated as a pharmaceutical company; builds API-manufacturing capability in Himachal Pradesh over the following decades.</div></div>
+    <div class="tli"><div class="ty">1990s&ndash;2000 &middot; The boom &amp; the peak</div><div class="td">Rides the pharma/tech optimism; stock hits an <strong>all-time high of ₹234 (Mar 2000)</strong> &mdash; then enters a prolonged multi-year decline (all-time low ₹4.27 in 2009), a formative chapter in its checkered long-term record.</div></div>
+    <div class="tli"><div class="ty">2000s&ndash;2010s &middot; API + consumer rebuild</div><div class="td">Rebuilds around a <strong>USFDA-approved API franchise</strong> (anti-histaminics, statins, anti-diabetics) and launches the <strong>"Dr. Morepen" consumer-healthcare brand</strong> &mdash; glucometers, BP monitors, diagnostics.</div></div>
+    <div class="tli"><div class="ty">Aug 2024 &middot; QIP</div><div class="td">Raises <strong>₹200 Cr via QIP at ₹54.37</strong> (subscribed 1.68x) from marquee investors (BofA, Samsung, Citi, SocGen, Nomura, BNP, Morgan Stanley) &mdash; for API &amp; devices capacity and backward integration.</div></div>
+    <div class="tli"><div class="ty">2024&ndash;25 &middot; Devices scale &amp; hive-off plan</div><div class="td">Medical Devices scales strongly (glucometers ~80% of the segment); board approves transferring the point-of-care devices business into a <strong>wholly-owned subsidiary</strong> ahead of a planned hive-off (12&ndash;24 months).</div></div>
+    <div class="tli"><div class="ty">Feb 2026 &middot; The CDMO mandate</div><div class="td">Wins a transformational <strong>₹825 Cr / $91M multi-year global CDMO mandate</strong> from a global pharma major &mdash; the anchor of a new long-duration manufacturing-partnership strategy. Stock jumps ~15%.</div></div>
+    <div class="tli"><div class="ty">FY26&ndash;Q1 FY27 &middot; Investment trough &rarr; inflection</div><div class="td">FY26 margins compressed by heavy investment; then <strong>Q1 FY27 delivers highest-ever revenue, EBITDA +207%, PAT +394%</strong> as CDMO commercializes &mdash; the inflection the strategy was built for.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; the Three Engines</h2></div>
+  <div class="vchain">
+    <div class="vnode on"><div class="vt">API (legacy)</div><div class="vd">USFDA molecules; the manufacturing base</div></div>
+    <div class="vnode cc"><div class="vt">CDMO platform</div><div class="vd">&#8377;825 Cr mandate; long-duration, recurring</div></div>
+    <div class="vnode on"><div class="vt">Dr. Morepen devices</div><div class="vd">Glucometers &rarr; CGM; ~20M users</div></div>
+    <div class="vnode cc"><div class="vt">Specialty formulations</div><div class="vd">Resmetirom &amp; regulated pipeline</div></div>
+    <div class="vnode on"><div class="vt">Value unlock</div><div class="vd">Devices hive-off; SOTP</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">A transition from commodity API toward higher-value, recurring, multi-engine revenue</div>
+    Morepen's model is <strong>deliberately transitioning</strong> from a traditional, commodity-like, thin-margin API business toward a <strong>portfolio of higher-value, more-durable revenue engines.</strong> <strong>(1) API</strong> remains the vertically-integrated manufacturing bedrock &mdash; USFDA-approved (4th consecutive inspection with NIL 483 observations, a genuine compliance credential), exporting to 90+ countries &mdash; but it is <strong>low-margin and cyclically pressured</strong> (API price competition compressed FY26 margins). <strong>(2) The CDMO platform</strong> is the strategic pivot: <strong>long-duration manufacturing partnerships</strong> (the ₹825 Cr anchor mandate) that bring <strong>recurring revenue, higher margins, better visibility and process/scale advantages</strong> &mdash; leveraging the same regulatory credibility and manufacturing base. <strong>(3) The Dr. Morepen devices platform</strong> is a <strong>consumer-healthcare/diagnostics business</strong> with recurring-consumables economics (glucometers plus a razor-and-blades strip stream, ~20M installed base) and a growth runway into CGM and connected health &mdash; structurally different (branded, consumer, higher-multiple) from the pharma businesses, which is precisely why management wants to <strong>hive it off to unlock its value separately.</strong> The strategic logic is sound: <strong>use the API base and regulatory credibility to build recurring CDMO and consumer-health franchises, then value each on its own merits.</strong> The whole thesis rests on <strong>executing this transition profitably</strong> &mdash; which the Q1 FY27 inflection suggests is finally happening.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Segment Mix &amp; End-Markets</h2></div>
+  <div class="bar-row"><div class="bar-lab">API &amp; formulations (pharma)</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--teal)">core base</div></div><div class="bar-val">low-margin, cyclical</div></div>
+  <div class="bar-row"><div class="bar-lab">Medical Devices (Dr. Morepen)</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--dblue)">&#8377;598 Cr, +21%</div></div><div class="bar-val up">high-growth</div></div>
+  <div class="bar-row"><div class="bar-lab">CDMO (long-duration)</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--coral)">ramping fast</div></div><div class="bar-val up">the new engine</div></div>
+  <div class="bar-row"><div class="bar-lab">Specialty / regulated pipeline</div><div class="bar-track"><div class="bar-fill" style="width:6%;background:var(--gold)">optionality</div></div><div class="bar-val">Resmetirom etc.</div></div>
+  <div class="call db">
+    <div class="lab">A diversified healthcare portfolio with divergent economics &mdash; the mix shift is the story</div>
+    Morepen's revenue spans <strong>four buckets with very different economics</strong>, and the <strong>shift in mix is the whole investment story.</strong> The <strong>API &amp; formulations</strong> base is the largest but <strong>lowest-margin and most cyclical</strong> (subject to global API price competition &mdash; the drag on FY26 margins). <strong>Medical Devices (Dr. Morepen)</strong> is the <strong>high-growth, higher-quality consumer engine</strong> &mdash; FY26 revenue ₹598 Cr (+21%), ~20M installed base, recurring strip/consumables revenue, and a runway into CGM and connected health; ~80% of the segment is glucometers/strips. <strong>CDMO</strong> is the <strong>new, fast-ramping, recurring, higher-margin engine</strong> (the ₹825 Cr mandate now commercializing). <strong>Specialty/regulated pipeline</strong> (e.g., the Resmetirom/MASH bioequivalence) is <strong>optionality.</strong> The bull thesis is that <strong>the growth and margin mix tilts decisively toward devices + CDMO + specialty</strong>, lifting group margins and multiple from the API-anchored past &mdash; exactly what the Q1 FY27 inflection points to. The risk is that <strong>API weakness keeps dragging</strong>, or that devices/CDMO scale more slowly or less profitably than hoped. Watch the <strong>segment-level revenue and margin trajectory each quarter</strong> &mdash; the mix shift, not the aggregate, is what re-rates this stock.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The CDMO Pivot &mdash; the ₹825 Cr Anchor</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Mandate size</div><div class="v">&#8377;825 Cr</div><div class="d">$91M, multi-year</div></div>
+    <div class="card t"><div class="k">Won</div><div class="v">Feb 2026</div><div class="d">global pharma major</div></div>
+    <div class="card b"><div class="k">Status</div><div class="v">Commercializing</div><div class="d up">Q1 FY27 ramp</div></div>
+    <div class="card g"><div class="k">Q1 FY27 EBITDA</div><div class="v">+207%</div><div class="d up">operating leverage</div></div>
+  </div>
+  <p>The <strong>strategic centrepiece is the CDMO (contract development &amp; manufacturing) pivot.</strong> In February 2026 Morepen won a <strong>multi-year ₹825 Cr / $91M global mandate</strong> from a leading multinational &mdash; validationatitsmdash; validating its manufacturing/regulatory credibility. It completed validation batches, and in <strong>Q1 FY27 the programme entered full-scale commercial execution</strong>, driving the <strong>highest-ever quarterly revenue and a spectacular earnings inflection (EBITDA +207%, PAT +394%).</strong> Management frames CDMO as the core of "long-duration manufacturing partnerships, recurring revenues, process scale-up and regulated-market programs," with a technology roadmap extending to complex chemistry, HPAPIs, specialty APIs and, over time, peptides and oligos.</p>
+  <div class="call co">
+    <div class="lab">A genuine, validated re-rating catalyst &mdash; but one mandate is not yet a franchise</div>
+    The CDMO pivot is <strong>the most important and most promising element of the thesis</strong>, and the Q1 FY27 inflection makes it real rather than theoretical. The <strong>bull logic is strong:</strong> a <strong>₹825 Cr multi-year mandate from a global major</strong> is a serious, validating win that brings <strong>recurring, higher-margin, better-visibility revenue</strong> and demonstrates operating leverage (EBITDA +207% as volumes commercialize); the CDMO sector is <strong>structurally attractive</strong> (China+1, global outsourcing, India's manufacturing/regulatory competitiveness); and success here could <strong>re-rate Morepen from a commodity-API name toward a CDMO play</strong> on a much higher multiple. <strong>The honest cautions:</strong> (1) <strong>one large mandate is a proof-point, not yet a diversified franchise</strong> &mdash; the durability and profitability of CDMO depends on winning and executing <em>more</em> such programs over time; (2) <strong>execution/ramp risk</strong> &mdash; long-duration programs must be delivered on-spec, on-time, at the promised margins, over years; (3) <strong>concentration</strong> &mdash; near-term CDMO revenue leans heavily on this single anchor customer; and (4) the <strong>very high Q1 FY27 growth rates flatter off a low, investment-trough base</strong>, so annualize with care rather than extrapolating +394% PAT growth. Net: a <strong>credible, validated, potentially transformative catalyst</strong> &mdash; the best reason to be constructive &mdash; but one to track for <em>repeatability and durable margins</em>, not to treat as a finished re-rating. Watch: new mandate wins, CDMO revenue/margin trajectory, and customer diversification.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Dr. Morepen Devices &amp; the Hive-Off</h2></div>
+  <div class="cards">
+    <div class="card b"><div class="k">FY26 devices rev</div><div class="v">&#8377;598 Cr</div><div class="d up">+21%</div></div>
+    <div class="card t"><div class="k">Installed base</div><div class="v">~20M</div><div class="d">glucometers</div></div>
+    <div class="card c"><div class="k">Strips</div><div class="v">500M/yr</div><div class="d">recurring consumables</div></div>
+    <div class="card g"><div class="k">Hive-off</div><div class="v">Planned</div><div class="d down">repeatedly delayed</div></div>
+  </div>
+  <p>The <strong>"Dr. Morepen" medical-devices business</strong> is the group's <strong>high-growth consumer engine</strong> &mdash; FY26 revenue <strong>₹598 Cr (+21%)</strong>, an installed base of <strong>~20 million glucometers</strong> and <strong>~500 million test strips/year</strong> (a recurring, razor-and-blades consumables stream). ~80% of the segment is glucose monitoring; it is being developed as a <strong>standalone chronic-care platform</strong> spanning blood-glucose and BP monitoring, consumables, <strong>future CGM (continuous glucose monitoring)</strong> and connected health. Management has for some time planned to <strong>hive it off</strong> (into a wholly-owned subsidiary, then a separate entity) to unlock its value &mdash; but the <strong>timeline has been repeatedly extended.</strong></p>
+  <div class="call db">
+    <div class="lab">A high-quality, higher-multiple asset &mdash; whose value-unlock keeps slipping</div>
+    The devices platform is <strong>arguably the highest-quality asset in the group and central to the SOTP case.</strong> It has <strong>attractive consumer-healthcare economics</strong>: a large, sticky installed base; <strong>recurring consumables revenue</strong> (strips are bought repeatedly for each device sold); a trusted brand (Dr. Morepen); and a genuine <strong>growth runway into CGM and connected health</strong> as chronic-disease (diabetes) management scales in India. As a <strong>branded consumer-diagnostics business, it merits a materially higher multiple</strong> than the API/pharma operations &mdash; which is exactly why management wants to <strong>hive it off and value it separately</strong> (a potential re-rating/value-unlock catalyst). <strong>The caution is execution and credibility:</strong> the hive-off has been <strong>talked about and postponed repeatedly</strong> (the timeline was extended yet again recently), so <strong>investors should treat the value-unlock as a possibility, not a scheduled event</strong>, and not pay upfront for a separation that may keep slipping. There is also <strong>investment intensity</strong> &mdash; the devices business's aggressive customer-acquisition/marketing spend was part of what compressed FY26 margins, so its <em>standalone</em> profitability (not just revenue growth) needs to be demonstrated. Net: a <strong>genuinely valuable, higher-multiple consumer-health asset that underpins the SOTP upside</strong> &mdash; but one whose value-unlock has a credibility overhang from repeated delays. Watch: hive-off progress (real filings, not intentions), devices standalone margins, and CGM launch.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">API</th><th class="mono">CDMO</th><th class="mono">Devices</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High</td><td class="mono">Moderate</td><td class="mono">Moderate</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td class="mono">Mod (sticky programs)</td><td class="mono">Low (consumers)</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td class="mono">Moderate</td><td class="mono">Moderate</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td class="mono">Low (regulatory)</td><td class="mono">Moderate</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">High</td><td class="mono">Low</td><td class="mono">Low-Mod</td></tr>
+  </table>
+  <p>Net: the <strong>legacy API business sits in a tough, competitive, low-margin structure</strong> (commodity-like, high rivalry and buyer power, price-driven) &mdash; the structural reason for its thin margins. The <strong>CDMO and devices businesses sit in far more favourable structures</strong>: CDMO benefits from <strong>regulatory barriers, sticky long-duration programs and recurring revenue</strong>; devices from <strong>brand, a large installed base and razor-and-blades consumables lock-in.</strong> Morepen's strategy is precisely to <strong>shift its weight from the unattractive API structure toward the attractive CDMO and consumer-health structures</strong> &mdash; the essence of the re-rating thesis.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Capacity, Capex &amp; QIP</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">API capacity</div><div class="v">~500&rarr;800 KL</div><div class="d">expanding</div></div>
+    <div class="card b"><div class="k">Glucometers</div><div class="v">2.5&rarr;5M/yr</div><div class="d">strips 500&rarr;700M</div></div>
+    <div class="card c"><div class="k">QIP (Aug 2024)</div><div class="v">&#8377;200 Cr</div><div class="d">at &#8377;54.37</div></div>
+    <div class="card g"><div class="k">Financial health</div><div class="v">Strong</div><div class="d up">low debt</div></div>
+  </div>
+  <p>Morepen is in a <strong>capacity-expansion phase to feed the CDMO ramp and devices growth</strong>: API/manufacturing capacity is being scaled <strong>from ~500 KL toward ~800 KL</strong>, and devices capacity from <strong>2.5M to 5M glucometers/year</strong> and <strong>500M to 700M strips/year.</strong> The <strong>₹200 Cr QIP (Aug 2024, at ₹54.37, subscribed 1.68x</strong>, marquee investors) funds API (₹75 Cr) and devices (₹45 Cr) capacity plus backward integration. The balance sheet is <strong>strong and low-levered</strong> (Simply Wall St scores financial health 6/6), though CARE's QIP monitoring flagged a <strong>capex delay</strong> (₹13.56 Cr devices-facility spend extended to Mar 2027) alongside nil deviation.</p>
+  <div class="call co">
+    <div class="lab">Well-funded growth build-out &mdash; but watch execution timing and returns</div>
+    The expansion is <strong>strategically necessary and adequately funded</strong>: scaling API/CDMO capacity is essential to deliver the ₹825 Cr mandate and win more, and the devices capacity build supports the consumer-platform growth. A <strong>strong, low-debt balance sheet</strong> (aided by the QIP and, now, improving cash generation) means Morepen can fund this <strong>without financial strain</strong> &mdash; a real positive versus more leveraged turnarounds. <strong>The watch-items are timing and returns:</strong> (1) <strong>capex/execution delays</strong> &mdash; CARE already flagged a devices-facility spend slippage (extended to Mar 2027), and the perennially-delayed hive-off is a reminder that Morepen's execution timelines can slip; (2) <strong>return on the new capital</strong> &mdash; the whole thesis needs this capacity to earn <em>higher</em> margins (CDMO, devices) than the legacy API base, so track incremental margins as it fills; and (3) <strong>the Q1 FY27 operating-leverage inflection must prove durable</strong> as capacity and volumes scale. Net: a <strong>funded, coherent build-out</strong> that de-risks the growth ambition financially &mdash; but one whose value depends on <strong>on-time execution and genuinely higher returns on the new capital.</strong> Track capex delivery, capacity utilisation, and segment margins.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins &amp; the FY26 Investment Trough</h2></div>
+  <p>Morepen's FY26 was a <strong>deliberate margin-investment trough</strong>: heavy spending on manufacturing scale-up, devices customer-acquisition/marketing, regulated-market programs and healthcare platforms <strong>compressed near-term profitability</strong> (Q4 FY26 EBITDA ₹32 Cr vs ₹33 Cr; API margin compression from global price competition). Management explicitly framed these as <strong>investments to build operating leverage and future margin expansion.</strong> The <strong>Q1 FY27 result &mdash; EBITDA +207%, PAT +394% &mdash; is the first evidence that leverage is now flowing through.</strong></p>
+  <div class="call db">
+    <div class="lab">The trough-to-inflection question is the crux &mdash; and Q1 FY27 is the first proof</div>
+    Margins are <strong>the central debate</strong> in the Morepen thesis, and FY26 vs Q1 FY27 frames it perfectly. <strong>FY26 was a trough by design:</strong> Morepen sacrificed near-term margin to invest in the three engines &mdash; scaling manufacturing for CDMO, acquiring customers for devices, building regulated-market capability &mdash; while simultaneously absorbing <strong>API price competition.</strong> That is a <em>defensible</em> use of an investment year <em>if</em> it produces durable, higher-margin growth. <strong>Q1 FY27 is the first, powerful evidence that it does:</strong> as the CDMO mandate commercialized, <strong>operating leverage exploded (EBITDA +207%)</strong> &mdash; volumes flowed over a built-out cost base, lifting margins sharply. The bull reads this as <strong>the inflection the strategy was built for</strong>: the trough is over, and higher-margin CDMO + devices + specialty now drive expanding profitability. <strong>The prudent caution:</strong> (1) one quarter off a <strong>depressed base</strong> can flatter growth rates &mdash; the durability of the margin recovery across several quarters is what matters; (2) <strong>API remains a low-margin drag</strong> that could cap group margins; and (3) the <strong>mix and one-offs</strong> in any single quarter need scrutiny. Net: <strong>FY26 was a justified investment trough, and Q1 FY27 is a genuinely encouraging first sign of the payoff</strong> &mdash; but the thesis needs <strong>several quarters of sustained margin recovery</strong> to confirm the inflection is structural, not a one-quarter spike. This is the single most important thing to watch.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Promoter holding</div><div class="v">~35.7%</div><div class="d down">relatively low</div></div>
+    <div class="card c"><div class="k">Chairman &amp; MD</div><div class="v">Sushil Suri</div><div class="d">Suri family</div></div>
+    <div class="card b"><div class="k">QIP investors</div><div class="v">Marquee FIIs</div><div class="d">BofA, Samsung, Citi</div></div>
+    <div class="card g"><div class="k">Dividend FY26</div><div class="v">10%</div><div class="d">&#8377;0.20/sh</div></div>
+  </div>
+  <p>Morepen is led by <strong>Chairman &amp; MD Sushil Suri</strong> (with WTD Sanjay Suri), the founding <strong>Suri family.</strong> A notable feature is the <strong>relatively low promoter holding of ~35.7%</strong> &mdash; below the level common in family-run Indian pharma. Institutional validation improved with the 2024 QIP (marquee global investors). The board recommended a <strong>10% dividend (₹0.20/share on ₹2 FV)</strong> for FY26, and the CMD was recently reappointed.</p>
+  <div class="call co">
+    <div class="lab">Institutionally validated, but low promoter holding &amp; track record warrant scrutiny</div>
+    Ownership and governance present a <strong>mixed but improving picture</strong> that deserves the scrutiny applied in &sect;14. <strong>Positives:</strong> the <strong>marquee QIP investor base</strong> (BofA, Samsung, Citi, SocGen, Nomura, BNP, Morgan Stanley, Eminence) represents serious institutional due-diligence and validation of the turnaround; a <strong>dividend</strong> signals confidence and cash generation; and the transparent, monitored QIP-utilisation reporting is a governance positive. <strong>The caveats are real and specific:</strong> (1) <strong>promoter holding is relatively low (~35.7%)</strong> &mdash; less promoter "skin in the game" than typical, which can matter for alignment and leaves the register more float-driven; (2) Morepen carries a <strong>long, checkered track record</strong> (the 2000 peak-and-decline, decades of underperformance, historically slow growth) that argues for <strong>"show-me" scepticism on promises</strong>; (3) the <strong>repeatedly-delayed devices hive-off</strong> is a direct example of guidance/timeline slippage; and (4) related-party dealings, the GST notice, and capex governance should be <strong>verified from filings.</strong> None of this is a disqualifying red flag &mdash; institutions have vetted the story and the operational turn is real &mdash; but Morepen's history means investors should <strong>weight delivered results over stated intentions</strong> and monitor governance closely. Net: <strong>improving, institutionally-validated management with a genuine strategy &mdash; tempered by low promoter holding and a track record that demands proof.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Financial Health</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Financial health</div><div class="v">6/6</div><div class="d up">Simply Wall St</div></div>
+    <div class="card c"><div class="k">Debt</div><div class="v">Low</div><div class="d up">QIP-aided</div></div>
+    <div class="card b"><div class="k">P/B</div><div class="v">~1.85&ndash;3.4x</div><div class="d">modest for pharma</div></div>
+    <div class="card g"><div class="k">GST notice</div><div class="v">&#8377;117.94 Cr</div><div class="d down">under HC stay</div></div>
+  </div>
+  <p>Morepen's balance sheet is a <strong>genuine strength</strong> &mdash; <strong>low debt</strong> (aided by the ₹200 Cr QIP and improving cash generation), a top financial-health score, and a modest P/B (~1.85&ndash;3.4x across vendors). This gives it the <strong>capacity to self-fund the CDMO and devices build-out</strong> without financial strain. The overhangs to note: a <strong>₹117.94 Cr GST show-cause notice</strong> (currently under a High Court stay) and the QIP capex-timing slippage.</p>
+  <div class="call db">
+    <div class="lab">A solid, low-debt platform &mdash; with a GST overhang to monitor</div>
+    Financially, Morepen is <strong>well-positioned for its turnaround</strong>: a <strong>strong, low-leverage balance sheet</strong> is a major asset for a company investing across three engines, because it means the growth build-out is <strong>self-fundable</strong> and the business isn't hostage to refinancing or dilution &mdash; a favourable contrast with more stretched small-cap turnarounds. The improving cash generation (as Q1 FY27 leverage flows through) further strengthens this. <strong>The specific items to monitor:</strong> (1) the <strong>₹117.94 Cr GST show-cause notice</strong> &mdash; currently stayed by the High Court, but a <strong>contingent liability that could crystallise</strong> and is material relative to annual profit, so track its resolution; (2) <strong>working capital</strong> as CDMO scales (long-duration programs and API exports can be working-capital-heavy) &mdash; watch whether the profit inflection converts to cash; and (3) <strong>capex discipline and timing</strong> given the flagged slippage. Net: a <strong>strong, low-debt balance sheet that de-risks the turnaround financially</strong> &mdash; a real positive &mdash; with the GST notice and cash-conversion as the items to keep an eye on. The financial foundation supports the thesis; verify the GST outcome and cash conversion.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>CDMO ramp &amp; new wins</strong></td><td>Commercialize &#8377;825 Cr mandate; win more programs</td><td class="mono">Core catalyst &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Margin recovery / operating leverage</strong></td><td>FY26 trough &rarr; inflection (Q1 FY27)</td><td class="mono">The crux &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Devices growth + hive-off</strong></td><td>Glucometers&rarr;CGM; value unlock (SOTP)</td><td class="mono">Big optionality &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Specialty pipeline</strong></td><td>Resmetirom/MASH &amp; regulated markets</td><td class="mono">Optionality &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>CGM / connected health</strong></td><td>Chronic-care platform expansion</td><td class="mono">Structural &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>API capacity + China+1</strong></td><td>500&rarr;800 KL; sourcing shifts</td><td class="mono">Enabler &#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>(&#8377; Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">Q4 FY26</th><th class="mono">Q1 FY27</th></tr>
+    <tr><td>Gross/total revenue</td><td class="mono">~1,575</td><td class="mono">~1,700&ndash;1,951</td><td class="mono">~472&ndash;484</td><td class="mono up">highest-ever</td></tr>
+    <tr><td>Revenue growth</td><td class="mono">&mdash;</td><td class="mono">+8% (std)</td><td class="mono up">+22% (gross)</td><td class="mono up">strong</td></tr>
+    <tr><td>PAT</td><td class="mono">~130</td><td class="mono">~141 (consol)</td><td class="mono">~15.7&ndash;20</td><td class="mono up">+394% YoY</td></tr>
+    <tr><td>EBITDA</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td><td class="mono">~32</td><td class="mono up">+207% YoY</td></tr>
+    <tr><td>Dividend</td><td class="mono">&mdash;</td><td class="mono up">10%</td><td class="mono">&mdash;</td><td class="mono">&mdash;</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call">
+      <div class="lab">The bull-supporting facts</div>
+      Q1 FY27 inflection (highest-ever revenue, EBITDA +207%, PAT +394%); ₹825 Cr CDMO mandate commercializing; devices ₹598 Cr (+21%), ~20M users, recurring strips; USFDA-clean (NIL 483 x4); strong low-debt balance sheet; devices hive-off SOTP optionality; specialty pipeline (Resmetirom); dividend; marquee QIP investors.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      Historically slow grower (~8.7% 5-yr CAGR), thin margins, checkered long-term record; <strong>low promoter holding (~35.7%)</strong>; FY26 margin compression; hive-off repeatedly delayed; ₹117.94 Cr GST notice; QIP capex slippage; high growth rates flatter off a trough base; stock already +84% in 6 months; API price competition; single-mandate CDMO concentration.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials describe a <strong>genuine multi-engine turnaround at an inflection point</strong> &mdash; the operational turn (Q1 FY27) is real and the strategy is coherent. But given the checkered history, the debate concentrates on <strong>durability (is the inflection structural?), margin recovery, execution (CDMO ramp, hive-off), valuation and governance</strong> &mdash; which is why the Forensic (&sect;14) and Valuation (&sect;15) sections carry the weight.</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: Morepen is a turnaround with a genuinely encouraging operational inflection <em>and</em> a checkered long-term history &mdash; exactly the profile that rewards scrutiny of <strong>whether the inflection is structural, the quality of earnings off a trough base, low promoter holding, the perennially-delayed hive-off, the GST overhang, and disclosure consistency.</strong> The recent operational turn looks real, but the history and structure mean <strong>"trust but verify, and weight results over promises."</strong> <strong>Bottom line up front: a "genuine-turnaround-but-prove-it, mind-the-history" forensic profile &mdash; encouraging inflection and a strong balance sheet, offset by track-record, promoter-holding, hive-off-credibility and contingent-liability flags rather than any sign of current manipulation.</strong></p>
+
+  <div class="call gd">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings inflection quality</td><td class="mono">&#128993; Amber</td><td>Q1 FY27 (EBITDA +207%, PAT +394%) is real but flatters off a trough base; verify durability.</td></tr>
+      <tr><td>Reported-figure consistency</td><td class="mono">&#128993; Amber</td><td>Q4 FY26 PAT quoted +69% (₹20 Cr) vs &minus;22.6% (₹15.7 Cr) &mdash; standalone vs consolidated; reconcile.</td></tr>
+      <tr><td>Track record / history</td><td class="mono">&#128993; Amber</td><td>~8.7% 5-yr sales CAGR, 2000 peak-and-decline; "show-me" scepticism warranted.</td></tr>
+      <tr><td>Promoter holding &amp; alignment</td><td class="mono">&#128993; Amber</td><td>Low ~35.7% promoter stake; less skin-in-the-game than typical.</td></tr>
+      <tr><td>Hive-off credibility</td><td class="mono">&#128993; Amber</td><td>Devices separation promised for years, timeline repeatedly extended.</td></tr>
+      <tr><td>Contingent liabilities</td><td class="mono">&#128308; Red</td><td>₹117.94 Cr GST show-cause notice (under HC stay); material vs profit.</td></tr>
+      <tr><td>Balance sheet &amp; disclosure</td><td class="mono">&#128994; Green</td><td>Low debt, strong health, monitored QIP use, marquee institutional vetting.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.1 &middot; Earnings-inflection quality &mdash; real, but off a trough base</h3>
+  <div class="cards">
+    <div class="card t"><div class="k">Q1 FY27 EBITDA</div><div class="v">+207%</div><div class="d up">operating leverage</div></div>
+    <div class="card c"><div class="k">Q1 FY27 PAT</div><div class="v">+394%</div><div class="d up">highest-ever</div></div>
+    <div class="card b"><div class="k">Base effect</div><div class="v">Low FY26</div><div class="d down">flatters %</div></div>
+    <div class="card g"><div class="k">Driver</div><div class="v">CDMO ramp</div><div class="d">single mandate</div></div>
+  </div>
+  <div class="call db">
+    <div class="lab">Genuinely encouraging &mdash; but annualize with care and verify durability</div>
+    The Q1 FY27 inflection is <strong>the strongest evidence for the bull case and looks genuinely real</strong>: as the ₹825 Cr CDMO mandate commercialized, <strong>operating leverage flowed through powerfully</strong> (EBITDA +207%), producing the highest-ever quarterly revenue and earnings. This is a <strong>credible operational turn</strong>, consistent with the strategy and validated by the underlying CDMO win. <strong>The forensic cautions on <em>quality</em> are three:</strong> (1) <strong>base effect</strong> &mdash; the eye-popping percentages (+207%, +394%) are calculated off a <strong>deliberately-depressed FY26 investment-trough base</strong>, so they overstate the run-rate improvement; <strong>annualize the absolute rupee numbers and look at sequential/QoQ trends</strong> rather than extrapolating the YoY growth rates; (2) <strong>durability</strong> &mdash; one quarter driven by a single mandate's commercialization needs <strong>several quarters of confirmation</strong> to prove the margin step-up is structural, not a ramp-timing spike; and (3) <strong>composition</strong> &mdash; scrutinise how much is sustainable operating profit vs any one-off/timing benefit, and how CDMO/devices/API each contributed. Net: <strong>a real, encouraging inflection &mdash; but read it through the absolute numbers and demand a few quarters of durable margin recovery before treating the trough-to-inflection as fully proven.</strong> Grade: <strong>amber &mdash; real and positive, but base-flattered; verify durability.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.2 &middot; Reported-figure consistency (standalone vs consolidated)</h3>
+  <div class="call gd">
+    <div class="lab">The Q4 FY26 profit divergence needs reconciling &mdash; standalone vs consolidated</div>
+    A careful forensic reader will have noticed a <strong>striking divergence in how Q4 FY26 profit was reported.</strong> The company's own release (and several outlets) headlined <strong>net profit up 69% YoY to ~₹20 Cr on gross revenue +22% to ₹472 Cr</strong> &mdash; while at least one data vendor reported <strong>consolidated Q4 net profit <em>down</em> 22.6% YoY to ₹15.7 Cr on revenue of ₹484 Cr.</strong> This is almost certainly a <strong>standalone-vs-consolidated and gross-vs-net-revenue difference</strong> (Morepen's consolidated results fold in devices/subsidiary economics and the heavy investment spend, which compressed consolidated profit even as standalone/gross metrics rose) rather than any impropriety &mdash; but it is a <strong>textbook reminder to specify the basis</strong> and not to cherry-pick the flattering figure. It also underscores why <strong>consolidated numbers (revenue ~₹1,951 Cr, PAT ~₹141 Cr per Screener) are the right lens</strong> for the whole group, and why FY26 profitability was genuinely under investment pressure. The forensic posture: <strong>always work from audited consolidated statements, reconcile standalone vs consolidated, and treat management's headline framing (which emphasised the positive standalone/gross view) with appropriate care.</strong> Grade: <strong>amber &mdash; not manipulation, but a real consistency/framing issue; anchor on consolidated audited figures.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.3 &middot; Track record &amp; the "show-me" discount</h3>
+  <div class="call gd">
+    <div class="lab">A checkered history that argues for weighting results over promises</div>
+    Forensically, Morepen's <strong>long-term track record demands a "show-me" discount.</strong> This is a company whose stock <strong>peaked at ₹234 in 2000 and then declined for the better part of two decades</strong> (to a low of ₹4.27 in 2009), and which has delivered <strong>poor long-run growth (~8.7% five-year sales CAGR)</strong> and historically thin margins. That history is <em>not</em> disqualifying &mdash; turnarounds happen, and the current strategy (CDMO + devices + specialty) is the most coherent Morepen has had &mdash; but it means investors should <strong>weight <em>delivered</em> results far more heavily than <em>stated</em> intentions</strong>, and be alert to the pattern of ambitious plans that historically underdelivered. The good news is that the <strong>recent operational evidence is tangibly better</strong> (real CDMO win, real Q1 FY27 inflection, real devices scale, USFDA-clean record), which is why the turnaround deserves to be taken seriously rather than dismissed. But the <strong>burden of proof sits with the company</strong>: the forensic stance is to <strong>require sustained delivery (several quarters, actual hive-off, durable margins) before extrapolating the bull case</strong>, and to size the position for the possibility that, as often before, execution disappoints. Grade: <strong>amber &mdash; genuine improvement, but a history that mandates scepticism and proof.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.4 &middot; Promoter holding &amp; alignment</h3>
+  <div class="call gd">
+    <div class="lab">Low promoter stake &mdash; a structural alignment nuance</div>
+    A specific structural flag is Morepen's <strong>relatively low promoter holding of ~35.7%.</strong> Most family-run Indian pharma companies carry considerably higher promoter stakes, so Morepen's level means <strong>less promoter "skin in the game"</strong> than typical and a <strong>more float/institution-driven register.</strong> The forensic implications cut two ways: on one hand, <strong>lower promoter concentration means less key-person dominance and a larger public float</strong> (and the marquee QIP investors add external oversight); on the other, <strong>lower promoter ownership can mean weaker alignment between the controlling family and minority shareholders</strong>, and less of the "owner-operator" incentive that often drives Indian small-cap outperformance. It also makes the stock <strong>more sentiment- and flow-sensitive.</strong> This isn't a red flag by itself &mdash; plenty of well-run companies have moderate promoter stakes &mdash; but combined with the checkered history it <strong>reinforces the "verify alignment and weight results" posture</strong>, and makes it worth watching whether promoters are <strong>increasing or decreasing</strong> their stake (a signal of their own conviction). Verify pledge levels and any promoter buying/selling from filings. Grade: <strong>amber &mdash; a genuine alignment nuance to monitor, not a disqualifier.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.5 &middot; Hive-off credibility &amp; execution timelines</h3>
+  <div class="call gd">
+    <div class="lab">The devices separation is central to the SOTP &mdash; and has a delay overhang</div>
+    The <strong>medical-devices hive-off is central to the sum-of-the-parts value-unlock case</strong> &mdash; and its <strong>execution credibility is a specific forensic concern.</strong> Management has discussed separating/hiving-off the devices business for <strong>years</strong> (board approval to transfer it into a wholly-owned subsidiary, a stated 12&ndash;24-month hive-off plan), yet the <strong>timeline has been repeatedly extended</strong> (most recently pushed out again). This pattern matters because: (1) a large part of the <strong>SOTP upside depends on the devices business being separated and re-rated</strong> as a standalone consumer-health asset &mdash; if separation keeps slipping, that value stays trapped and unrecognised; and (2) <strong>repeated timeline extensions are themselves a (mild) governance/execution signal</strong> &mdash; a reminder that Morepen's stated plans can slip, reinforcing the "show-me" discount (14.3). The prudent forensic stance: <strong>treat the hive-off as optionality that pays off <em>if and when</em> it actually happens (real filings/NCLT steps), not as a scheduled catalyst to pay for upfront</strong>, and watch for concrete progress vs further deferral. Also verify the devices business's <strong>standalone profitability</strong> (its marketing spend compressed FY26 margins), since a hive-off is only value-accretive if the separated entity is genuinely attractive on its own. Grade: <strong>amber &mdash; genuine value-unlock potential with a credibility overhang from repeated delays.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--clin)">14.6 &middot; Contingent liabilities, balance sheet &amp; disclosure</h3>
+  <div class="call red">
+    <div class="lab">Strong balance sheet &amp; disclosure &mdash; but a material GST overhang to track</div>
+    On the balance sheet and disclosure, the picture is <strong>mostly reassuring with one specific red-flag item to monitor.</strong> The <strong>positives are real:</strong> a <strong>strong, low-debt balance sheet</strong> (financial-health 6/6), <strong>transparent QIP-utilisation monitoring</strong> by CARE (nil deviation confirmed), <strong>marquee institutional vetting</strong> at the QIP, a <strong>dividend</strong>, and a <strong>USFDA-clean compliance record</strong> (4th consecutive inspection with NIL 483 observations &mdash; a strong quality signal). <strong>The specific flag is the ₹117.94 Cr GST show-cause notice</strong>, currently <strong>under a High Court stay.</strong> This is a <strong>material contingent liability relative to annual profit</strong> (~₹141 Cr consolidated PAT), so &mdash; while stayed and not yet crystallised &mdash; it represents a <strong>real tail risk that must be tracked to resolution.</strong> Secondary items to verify: the <strong>QIP capex-timing slippage</strong> (devices facility extended to Mar 2027 &mdash; benign but another timeline slip), <strong>working-capital/cash-conversion</strong> as CDMO scales, and any <strong>related-party transactions</strong> across the API/devices/CDMO structure. Net: a <strong>solid, well-disclosed, low-debt financial foundation</strong> (a genuine strength for a turnaround) with a <strong>material GST contingency as the key balance-sheet risk.</strong> Grade: <strong>red on the GST contingency specifically; green on the underlying balance sheet and disclosure quality.</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Morepen earns a "genuine-turnaround-but-prove-it, mind-the-history" forensic grade.</strong> The <strong>encouraging, credible facts are real:</strong> a validated ₹825 Cr CDMO win now commercializing, a spectacular (if base-flattered) Q1 FY27 operating-leverage inflection, a scaling ~₹598 Cr devices platform with recurring consumables and CGM optionality, a USFDA-clean record, a strong low-debt balance sheet, and marquee institutional backing. The <strong>flags are about durability, structure and history rather than current manipulation:</strong> the inflection <strong>flatters off a trough base</strong> and needs several quarters of confirmation; <strong>reported figures diverge standalone-vs-consolidated</strong> (anchor on consolidated); the company carries a <strong>checkered long-term record and slow historical growth</strong> that mandate a show-me discount; <strong>promoter holding is low (~35.7%)</strong>; the <strong>devices hive-off has been promised and delayed for years</strong>; and there is a <strong>material ₹117.94 Cr GST contingency.</strong> The honest conclusion: <strong>this is a genuine, coherent, institutionally-validated turnaround at a real inflection point &mdash; the most promising Morepen has looked in years &mdash; but its history, structure and the base-effect in the headline numbers mean the burden of proof sits with the company. Believe the operational turn and the strong balance sheet; verify the durability of the margin recovery on consolidated numbers over several quarters; treat the hive-off and further CDMO wins as optionality to be delivered, not assumed; track the GST notice; and, given the checkered record and low promoter stake, weight delivered results over stated intentions and size accordingly. A credible turnaround worth watching closely &mdash; earning conviction quarter by quarter, not on the strength of one blockbuster print.</strong>
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation</h2></div>
+  <p>Morepen is <strong>a multi-segment turnaround with divergent-economics engines and a hidden-value devices business</strong> &mdash; so the right frame is <strong>sum-of-the-parts (SOTP)</strong>, not a single blended multiple. Trailing P/E (~22.8&ndash;47.67x across vendors) is <strong>distorted by the FY26 investment trough</strong> and thus misleading; the businesses should be valued separately (API/CDMO on EV/EBITDA or forward P/E; devices on P/S or EV/Sales given its consumer/hive-off character), with <strong>forward earnings post-inflection</strong> as the key anchor and CDMO durability as the gate.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Morepen Laboratories</h3>
+    <div class="bm-sub">Multi-engine turnaround + hidden-value devices &rarr; SOTP is PRIMARY (API/CDMO on EV/EBITDA or fwd P/E + devices on P/S / EV-Sales); forward P/E on post-inflection earnings CO-PRIMARY; CDMO durability &amp; margin recovery = the GATE; trailing P/E MISLEADING (trough-distorted); P/B a modest cross-check</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Sum-of-the-parts (SOTP)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Divergent economics (low-margin API vs recurring CDMO vs consumer devices) + a hive-off plan make SOTP the only honest frame. Value each engine separately.</td></tr>
+      <tr><td>Forward P/E (post-inflection)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Trailing is trough-distorted; use forward earnings once the Q1 FY27 margin recovery is confirmed over several quarters.</td></tr>
+      <tr><td>CDMO durability &amp; margin recovery</td><td><span class="verdict v-gate">THE GATE</span></td><td>The whole re-rating hinges on the CDMO ramp being durable (more wins, sustained margins) &amp; the FY26 trough being over. If it holds, re-rate; if not, it's an API name.</td></tr>
+      <tr><td>Devices: P/S or EV/Sales</td><td><span class="verdict v-ind">SEGMENT</span></td><td>Value the consumer-diagnostics platform (recurring, brand, CGM) on a consumer multiple &mdash; the SOTP value-unlock lever (hive-off).</td></tr>
+      <tr><td>EV/EBITDA (group &amp; API/CDMO)</td><td><span class="verdict v-crit">ANCHOR</span></td><td>Cleaner than P/E through the margin transition; watch the trajectory as leverage flows through.</td></tr>
+      <tr><td>Trailing P/E; P/B alone</td><td><span class="verdict v-avoid">MISLEADING</span></td><td>Trailing P/E (~23&ndash;48x) distorted by the trough &amp; vendor-divergent; P/B (~1.85&ndash;3.4x) a modest cross-check only. Neither anchors alone.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At a market cap of roughly ₹3,000&ndash;4,200 Cr on ~₹1,700&ndash;1,951 Cr FY26 revenue and ~₹141 Cr consolidated PAT, Morepen trades at a <b>trailing ~23&ndash;48x P/E and ~1.85&ndash;3.4x book</b> &mdash; but that trailing multiple is <b>distorted by the FY26 investment trough</b>, and the stock has <b>already re-rated ~84% in six months</b> in anticipation of the turnaround. The right question isn't the trailing multiple; it's <b>the SOTP value of three engines &mdash; a low-margin-but-USFDA-clean API base, a fast-ramping recurring CDMO platform (₹825 Cr anchor), and a fast-growing consumer-diagnostics devices business (₹598 Cr, hive-off candidate) &mdash; plus specialty optionality</b>, against <b>forward (post-inflection) earnings.</b> <b>Verdict: a genuine, coherent, institutionally-validated multi-engine turnaround at a real earnings-inflection point (Q1 FY27: EBITDA +207%, PAT +394% as CDMO commercializes), with a strong low-debt balance sheet and a hidden-value devices business that could unlock via hive-off &mdash; but carrying real, specific caveats: a checkered long-term track record and slow historical growth, low promoter holding (~35.7%), a base-flattered headline inflection that needs several quarters of confirmation, a repeatedly-delayed hive-off, a material ₹117.94 Cr GST contingency, and a stock that has already run hard. It is best owned as a "show-me" SOTP re-rating: constructive if you have conviction that the CDMO ramp and margin recovery are durable (more wins, sustained leverage) and that the devices value gets unlocked &mdash; and you can tolerate a volatile small-cap turnaround with a spotty history; cautious or wait-for-proof / a better entry if you need sustained execution evidence, a cleaner track record, or a margin of safety after the 84% run. Value it sum-of-the-parts on forward earnings, gate it on CDMO durability and margin recovery, value the devices arm on a consumer multiple, and never anchor on the trough-distorted trailing P/E. A promising turnaround that must now prove &mdash; on delivered results, not one print &mdash; that the inflection is structural.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">&#8377;38&ndash;50</div><div class="sd">The inflection proves base-flattered / one-off, API margin pressure persists, CDMO stays a single-mandate story, the hive-off slips again, the GST notice bites, and the ~84%-in-6-months re-rating unwinds toward the 52-week-low zone.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">&#8377;60&ndash;77</div><div class="sd">CDMO ramps steadily, margins recover durably but gradually, devices keeps growing, the hive-off progresses slowly; the stock consolidates its re-rating around current levels as forward earnings build into the multiple.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">&#8377;95&ndash;130+</div><div class="sd">CDMO scales &amp; wins more mandates, the margin inflection proves structural (operating leverage sustains), the devices business is hived off &amp; re-rated on a consumer multiple, and SOTP value is unlocked &mdash; a full turnaround re-rating.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Given the trough-distorted earnings, vendor-price divergence (₹41&ndash;77) and turnaround uncertainty, these ranges are unusually wide and illustrative. Scenarios hinge on CDMO durability &amp; new wins, the margin-recovery trajectory (is Q1 FY27 structural?), the devices hive-off, the GST outcome, and SOTP re-rating. A volatile small-cap turnaround &mdash; expect large swings. Uniresearch's published 12M target was ~₹70 (bull ~₹80). Verify CMP on NSE/BSE; Q1 FY27 results were just reported (~4 Aug 2026).</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Turnaround-durability / base-effect risk</strong>The Q1 FY27 inflection (EBITDA +207%, PAT +394%) flatters off a trough base; if the margin recovery proves one-off rather than structural, the re-rating (stock +84% in 6M) could unwind sharply.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>CDMO concentration &amp; execution</strong>Near-term CDMO revenue leans on a single ₹825 Cr anchor mandate; delivery over years, at promised margins, plus the need to win <em>more</em> programs, is unproven &mdash; a franchise isn't built on one deal.</div></div>
+  <div class="risk"><div class="rn rm">3</div><div class="rb"><strong>Track record / execution history</strong>Checkered long-term record (2000 peak-and-decline, ~8.7% 5-yr CAGR) and the repeatedly-delayed devices hive-off warrant a "show-me" discount; stated plans have historically slipped.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>GST contingent liability</strong>A ₹117.94 Cr GST show-cause notice (under High Court stay) is material vs ~₹141 Cr annual PAT; adverse resolution would be a real hit.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Low promoter holding (~35.7%)</strong>Less promoter skin-in-the-game than typical; weaker owner-operator alignment and a more flow/sentiment-driven register.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>API margin pressure</strong>The legacy API base is low-margin and exposed to global price competition, which could keep dragging group margins even as CDMO/devices grow.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Valuation &amp; volatility</strong>Trough-distorted trailing multiple, wide vendor-price divergence (₹41&ndash;77), and a volatile small-cap after a big run &mdash; sensitive to sentiment and any execution disappointment.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Earnings inflection</div><div class="scv">Q1 FY27 blockbuster <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">CDMO strategy</div><div class="scv">&#8377;825 Cr, validated <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Devices platform</div><div class="scv">&#8377;598 Cr, ~20M users <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Low debt, 6/6 <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">USFDA compliance</div><div class="scv">NIL 483 x4 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Track record</div><div class="scv">Checkered <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Promoter holding</div><div class="scv">~35.7% (low) <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Hive-off credibility</div><div class="scv">Delayed <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Valuation (post-run)</div><div class="scv">+84% in 6M <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call co">
+    <div class="lab">Bottom line</div>
+    Morepen Laboratories is a <strong>genuine, coherent, multi-engine pharma-and-healthcare turnaround at a real earnings-inflection point.</strong> The bull case is tangible: a <strong>40-year, USFDA-clean (NIL 483 x4) API base</strong> now bolted to <strong>two higher-value engines</strong> &mdash; a <strong>long-duration CDMO platform anchored by a validated ₹825 Cr mandate (now commercializing, driving a Q1 FY27 blockbuster: EBITDA +207%, PAT +394%)</strong> and a <strong>fast-growing "Dr. Morepen" consumer-diagnostics platform (₹598 Cr, +21%, ~20M users, recurring strips, CGM runway, hive-off candidate)</strong> &mdash; all on a <strong>strong, low-debt balance sheet</strong> with marquee institutional backing and specialty optionality. If the inflection is structural and the devices value unlocks, the SOTP re-rating has real legs. <strong>But this is a "show-me" turnaround with specific caveats (&sect;14):</strong> a <strong>checkered long-term track record and slow historical growth</strong>; the <strong>headline inflection flatters off a trough base</strong> and needs several quarters of confirmation; <strong>low promoter holding (~35.7%)</strong>; a <strong>repeatedly-delayed hive-off</strong>; a <strong>material ₹117.94 Cr GST contingency</strong>; API margin pressure; and a stock that has <strong>already re-rated ~84% in six months.</strong> <strong>The honest framing: the most promising Morepen has looked in years, with a validated strategy and a real operational turn &mdash; but its history, structure and the base-effect mean conviction must be earned quarter by quarter, not on one print. Own it as a sum-of-the-parts re-rating if you believe the CDMO ramp and margin recovery are durable and the devices value unlocks, and can tolerate a volatile small-cap turnaround with a spotty record; wait for more execution proof or a better entry if you need sustained delivery evidence or a margin of safety after the run. Value it SOTP on forward earnings, gate it on CDMO durability and margin recovery, value the devices arm on a consumer multiple, track the GST notice, and never anchor on the trough-distorted trailing P/E. A credible turnaround &mdash; now it must prove the inflection is structural.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Developments</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">~4 Aug 2026</td><td><strong>Q1 FY27 results &mdash; blockbuster:</strong> highest-ever quarterly revenue &amp; earnings, <strong>EBITDA +207%, PAT +394% YoY</strong>; CDMO enters full-scale commercialization; devices +19% (installed base ~20M, 500M strips). Board approved results; AGM 26 Sep 2026, dividend record date 19 Sep, CMD reappointed, <strong>devices hive-off timeline extended again.</strong></td></tr>
+    <tr><td class="mono">May 2026</td><td><strong>Q4/FY26 results:</strong> Q4 gross revenue +22% to ₹472 Cr, standalone net profit +69% to ₹20 Cr (consolidated Q4 PAT reported ~₹15.7 Cr, &minus;22.6%, by one vendor); FY26 standalone gross revenue crossed ₹1,700 Cr (+8%); consolidated revenue ~₹1,951 Cr, PAT ~₹141 Cr; <strong>10% dividend</strong>; 4th consecutive USFDA inspection with NIL 483 observations. CARE QIP monitoring: nil deviation, capex extended to Mar 2027, <strong>₹117.94 Cr GST notice (HC stay) flagged.</strong></td></tr>
+    <tr><td class="mono">Feb 2026</td><td><strong>Wins ₹825 Cr / $91M multi-year global CDMO mandate</strong> from a global pharma major &mdash; the strategic anchor. Stock jumps ~15%. Completed pivotal bioequivalence study for <strong>Resmetirom 100 mg (MASH/liver fibrosis).</strong></td></tr>
+    <tr><td class="mono">2024&ndash;25</td><td>Board approves transfer of point-of-care devices business into a wholly-owned subsidiary (hive-off prep). Capacity expansion: API ~500&rarr;800 KL, glucometers 2.5&rarr;5M/yr, strips 500&rarr;700M/yr.</td></tr>
+    <tr><td class="mono">Aug 2024</td><td><strong>₹200 Cr QIP at ₹54.37</strong> (subscribed 1.68x) from marquee investors (BofA, Samsung, Citi, SocGen, Nomura, BNP, Morgan Stanley, Eminence) &mdash; for API/devices capacity &amp; backward integration.</td></tr>
+    <tr><td class="mono">Next</td><td>Watch: durability of the margin recovery (several quarters, consolidated), new CDMO wins &amp; ramp, devices hive-off progress, CGM launch, GST-notice resolution, and promoter-holding trend.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Balance Sheet &amp; Quality Strength</h2></div>
+  <div class="cards">
+    <div class="card t"><div class="k">Financial health</div><div class="v">6/6</div><div class="d up">strong</div></div>
+    <div class="card c"><div class="k">Debt</div><div class="v">Low</div><div class="d up">QIP-aided</div></div>
+    <div class="card b"><div class="k">USFDA record</div><div class="v">NIL 483 x4</div><div class="d up">clean</div></div>
+    <div class="card g"><div class="k">GST contingency</div><div class="v">&#8377;117.94 Cr</div><div class="d down">HC stay</div></div>
+  </div>
+  <p>Morepen pairs a <strong>strong, low-debt balance sheet (financial health 6/6) and a clean USFDA compliance record</strong> with an <strong>improving cash-generation profile</strong> as the Q1 FY27 operating leverage flows through &mdash; a solid foundation for a self-funded turnaround. The two quality items to watch are <strong>cash conversion</strong> (as CDMO scales) and the <strong>material GST contingency.</strong></p>
+  <div class="call db">
+    <div class="lab">The metric that validates the turnaround: does the inflection convert to durable cash?</div>
+    Morepen's balance-sheet <em>strength</em> is a genuine asset &mdash; <strong>low debt and strong financial health</strong> mean the three-engine build-out is self-fundable without dilution or refinancing risk, a real advantage for a turnaround. The <strong>decisive quality question now is whether the Q1 FY27 profit inflection converts into durable operating cash flow</strong> as CDMO and devices scale &mdash; long-duration CDMO programs and API exports can be working-capital-heavy, so <strong>track OCF vs PAT, working-capital days, and free cash flow</strong> to confirm the margin recovery is cash-backed, not just accounting profit. Alongside, <strong>monitor the ₹117.94 Cr GST contingency</strong> (material vs ~₹141 Cr PAT; stayed but unresolved) and capex delivery. If cash conversion holds as profits inflect and the GST risk resolves benignly, the turnaround is validated on the strongest possible terms &mdash; a low-debt company converting a real operational inflection into cash. Net: <strong>a strong balance sheet that de-risks the turnaround, with cash conversion of the new earnings and the GST outcome as the quality items to confirm.</strong> Balance-sheet strength is a genuine positive here &mdash; verify the cash and the contingency.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical &amp; Market Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">6-month move</div><div class="tkv">~+84% <span class="badge b-bull">&uarr;</span></div><div class="tkd">strong re-rating</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~&#8377;60&ndash;77</div><div class="tkd">vendor-divergent</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">&#8377;33&ndash;78</div><div class="tkd">wide</div></div>
+    <div class="tk"><div class="tkl">1-year move</div><div class="tkv">~&minus;3.5%</div><div class="tkd">flat/volatile YoY</div></div>
+    <div class="tk"><div class="tkl">All-time high</div><div class="tkv">&#8377;234 (2000)</div><div class="tkd">a long way below</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">Volatile turnaround</div><div class="tkd">small-cap</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Morepen has <strong>re-rated hard on the turnaround &mdash; up ~84% in six months</strong> (from the low-₹40s toward ₹60&ndash;77) as the CDMO win and Q1 FY27 inflection landed &mdash; though it remains <strong>roughly flat over one year and a very long way below its 2000 all-time high of ₹234.</strong> The <strong>wide 52-week range (₹33&ndash;78) and wide vendor-price divergence</strong> underline how <strong>volatile and sentiment-driven</strong> this small-cap turnaround is. Technicals are secondary to the <strong>turnaround-durability, CDMO-ramp, margin-recovery and hive-off debate</strong>; direction will track <strong>quarterly delivery (durable margins, new CDMO wins), the hive-off, and the GST outcome</strong> far more than chart levels. After an 84% run, the stock has already priced in a lot &mdash; expect volatility and demand execution. Verify the live quote on NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Report follows the standard 20-section framework (incl. Forensic Analysis, &sect;14). Morepen is a volatile small-cap turnaround; trailing earnings are trough-distorted, vendor data diverges widely (CMP ₹41&ndash;77; m-cap ₹2,266&ndash;4,216 Cr; P/E ~23&ndash;48x), and headline growth rates flatter off a low base. Verify against NSE/BSE and filed consolidated results, attend to the &sect;14 track-record/GST/hive-off flags, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Morepen Laboratories Ltd</b> &mdash; NSE: MOREPENLAB &middot; BSE: 500288 &middot; ISIN INE083A01026 &middot; Vertically-integrated Pharma &amp; Healthcare (API + CDMO + Dr. Morepen Medical Devices/Diagnostics) &middot; USFDA-approved, exports 90+ countries &middot; Baddi, Himachal Pradesh &middot; CMD Sushil Suri (Suri family)<br>
+  Report generated 05 August 2026 &middot; Data through FY26 audited results (May 2026) + Q1 FY27 (~4 Aug 2026). Includes Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; company FY26 &amp; Q1 FY27 results, press releases &amp; NSE/BSE filings, Screener.in, ICICI Direct, Kotak, Business Standard, Business Upturn, Medical Buyer, Indian Pharma Post, EquityBulls, Value Research, Univest, finology, Simply Wall St, ScanX, morepen.com. <b>Key figures &mdash; FY26 (ended 31 Mar 2026):</b> standalone gross revenue crossed ₹1,700 Cr (+8% YoY); consolidated revenue ~₹1,951 Cr, consolidated PAT ~₹141 Cr (Screener). <b>Q4 FY26:</b> gross revenue +22% YoY to ₹472 Cr, standalone net profit +69% YoY to ₹20 Cr (per company/several outlets) &mdash; note one vendor reported <em>consolidated</em> Q4 PAT ₹15.7 Cr, &minus;22.6% YoY, on revenue ₹484 Cr (standalone-vs-consolidated / gross-vs-net difference &mdash; reconcile); Q4 EBITDA ₹32 Cr (vs ₹33 Cr Q4 FY25); API +17%, Medical Devices +31% in Q4. <b>Q1 FY27 (~4 Aug 2026):</b> highest-ever quarterly revenue &amp; earnings; <b>EBITDA +207% YoY, PAT +394% YoY</b>; Medical Devices +19%; installed base ~20M blood-glucose meters, ~500M strips/yr; CDMO full-scale commercialization. <b>Segments:</b> API/formulations (USFDA molecules &mdash; Loratadine, Montelukast, Atorvastatin, Sultamicillin; anti-histaminic/asthmatic/lipemic/hypertensive/diabetic/coagulant/gout/depressant/malarial); Medical Devices "Dr. Morepen" (FY26 revenue ₹598 Cr, +21%; ~80% glucometers/strips; BP monitors, thermometers, nebulizers, pulse oximeters; ~17&ndash;20M installed base; chronic-care/CGM/connected-health platform, planned hive-off into WOS); CDMO (₹825 Cr/$91M multi-year mandate won Feb 2026, commercializing); specialty pipeline (Resmetirom 100mg MASH bioequivalence completed for regulated markets ex-US). <b>Capacity:</b> API ~500&rarr;800 KL; glucometers 2.5&rarr;5M/yr; strips 500&rarr;700M/yr; 3 plants Himachal Pradesh; ISO-13485 (devices, Baddi); 4th consecutive USFDA inspection NIL 483 observations. <b>QIP:</b> ₹200 Cr, Aug 2024, at ₹54.37 (subscribed 1.68x; BofA, Samsung, Citi, SocGen, Nomura, BNP, Morgan Stanley, Eminence); use ₹75 Cr API + ₹45 Cr devices + backward integration; CARE Q4FY26 monitoring &mdash; nil deviation, ₹13.56 Cr devices-facility spend extended to Mar 2027, <b>₹117.94 Cr GST show-cause notice under High Court stay flagged.</b> Chairman &amp; MD Sushil Suri; WTD Sanjay Suri; <b>promoter holding ~35.7%</b> (relatively low); FY26 dividend 10% (₹0.20/share on ₹2 FV). Corporate actions: Q1 FY27 approved, AGM 26 Sep 2026, dividend record date 19 Sep 2026, CMD reappointed, devices hive-off timeline extended. History: est. 1984; all-time high ₹234 (Mar 2000), all-time low ₹4.27 (Mar 2009); poor ~8.7% 5-yr sales CAGR. <b>DATA CAVEAT: vendor prices/figures diverge widely &mdash; CMP ₹41.30 (18 May) / ₹41.36 (7 Jan) / ₹60.96 (9 Jul) / ₹69.18&ndash;69.21 (4 Aug) / ₹76.97 (finology); 52-wk ₹33.05&ndash;78.21; market cap ₹2,266 Cr (Jan) / ₹2,267 Cr (18 May) / ₹2,993 Cr / ₹3,158.95 Cr (4 Aug) / ₹3,340.33 Cr (9 Jul) / ₹4,216 Cr (Screener, +36% 1yr); trailing P/E ~22.80x (18 May) / 28.29x (TTM) / 31.21x / 34.84x (9 Jul) / 47.67x (4 Aug); P/B ~1.85x (18 May) / 2.54x (4 Aug) / 3.38x (Screener); EPS (TTM) ~₹0.196&ndash;0.5 (per quarter varies); dividend yield ~0.43%. Simply Wall St fair value (₹3.35) appears broken/erroneous &mdash; disregarded. Revenue quoted variously as standalone gross (~₹1,700 Cr) vs consolidated (~₹1,951 Cr); reconcile basis. This report loosely anchors CMP ~₹60&ndash;77 given the spread; all figures approximate &mdash; verify vs NSE/BSE live and filed consolidated results.</b> Normalised estimates, SOTP framing and scenario ranges (₹38&ndash;130+) in Section 15 are the author's illustrative analysis, not forecasts, price targets or company guidance. <b>Educational document, not investment advice &mdash; a volatile small-cap pharma turnaround with trough-distorted trailing earnings, base-flattered headline growth, a checkered track record, low promoter holding (~35.7%), a repeatedly-delayed hive-off, and a material GST contingency (see &sect;14).</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Morepen Laboratories Limited
+Ticker: NSE: MOREPENLAB / BSE: 500288 (ISIN INE083A01026; FV Rs 2)
+Sector: Pharmaceuticals / Healthcare (API + CDMO + Medical Devices/Diagnostics)
+Report Date: August 5, 2026 (FY26 audited results May 2026; Q1 FY27 blockbuster ~Aug 4 2026)
+File: morepen_laboratories_equity_research.html
+*** MULTI-ENGINE TURNAROUND / earnings-inflection story; includes SECTION 14 FORENSIC ANALYSIS (20-section report) ***
+*** THESIS = "show-me" SOTP re-rating: 40-yr USFDA-clean API base + long-duration CDMO platform (Rs 825 Cr anchor mandate commercializing) + fast-growing Dr. Morepen consumer-diagnostics devices (Rs 598 Cr, hive-off candidate) + specialty optionality; Q1 FY27 inflection real but base-flattered, history checkered ***
+CMP at Report: ~Rs 60-77 (VENDOR-DIVERGENT: Rs 41.30 18-May / Rs 60.96 9-Jul / Rs 69.18-69.21 4-Aug / Rs 76.97 finology; up ~84% in 6 months, ~-3.5% 1yr; VERIFY vs NSE/BSE)
+Market Cap: ~Rs 3,000-4,200 Cr (Rs 2,266 Cr Jan / Rs 3,158.95 Cr 4-Aug / Rs 3,340.33 Cr 9-Jul / Rs 4,216 Cr Screener); face value Rs 2; small-cap
+*** VALUATION TROUGH-DISTORTED: trailing P/E ~22.8x (May) to ~47.67x (4-Aug); P/B ~1.85-3.38x; SOTP is the right frame not blended P/E ***
+BUSINESS: est. 1984, Baddi Himachal Pradesh; vertically-integrated pharma+healthcare, USFDA-approved, exports 90+ countries. THREE ENGINES: (1) API legacy (Loratadine/Montelukast/Atorvastatin/Sultamicillin etc; low-margin, cyclical, price-competition); (2) DR. MOREPEN MEDICAL DEVICES (FY26 rev Rs 598 Cr +21%; ~80% glucometers/strips; ~17-20M installed base, 500M strips/yr; chronic-care/CGM/connected-health platform; PLANNED HIVE-OFF into WOS - repeatedly delayed); (3) CDMO (Rs 825 Cr/$91M multi-year mandate won Feb 2026, now commercializing). Plus specialty pipeline (Resmetirom 100mg MASH bioequivalence). 4th consecutive USFDA inspection NIL 483.
+FINANCIALS: FY26 standalone gross rev crossed Rs 1,700 Cr (+8%); consolidated rev ~Rs 1,951 Cr, PAT ~Rs 141 Cr (Screener). Q4 FY26 gross rev +22% to Rs 472 Cr, standalone PAT +69% to Rs 20 Cr (BUT consol Q4 PAT reported Rs 15.7 Cr -22.6% by one vendor - RECONCILE standalone vs consol), EBITDA Rs 32 Cr. *** Q1 FY27 (~4 Aug 2026) BLOCKBUSTER: highest-ever rev & earnings, EBITDA +207%, PAT +394% YoY, CDMO full-scale commercialization, devices +19% (installed base ~20M, 500M strips) *** FY26 was a deliberate MARGIN-INVESTMENT TROUGH. 10% dividend FY26.
+*** SECTION 14 FORENSIC ANALYSIS (6 subsections) - "genuine-turnaround-but-prove-it, mind-the-history" grade ***
+- 14.1 earnings-inflection quality: AMBER - Q1 FY27 real but FLATTERS OFF TROUGH BASE; annualize absolute numbers, verify durability over several quarters, single-mandate driven
+- 14.2 reported-figure consistency: AMBER - Q4 PAT +69%/Rs 20 Cr (standalone/gross) vs -22.6%/Rs 15.7 Cr (consol vendor); anchor on CONSOLIDATED audited
+- 14.3 track record: AMBER - 2000 peak Rs 234 then 2-decade decline, ~8.7% 5-yr CAGR; "show-me" discount, weight results over promises
+- 14.4 promoter holding: AMBER - LOW ~35.7% promoter stake; less skin-in-game, more flow-driven; watch promoter buying/selling
+- 14.5 hive-off credibility: AMBER - devices separation promised for years, timeline REPEATEDLY EXTENDED; treat as optionality not scheduled catalyst; verify devices standalone margins
+- 14.6 contingent liabilities/balance sheet/disclosure: RED (GST) + GREEN (balance sheet) - Rs 117.94 Cr GST show-cause notice under HC stay (material vs Rs 141 Cr PAT); BUT low debt, health 6/6, monitored QIP (nil deviation), marquee institutional vetting, USFDA-clean
+- FORENSIC VERDICT: genuine-turnaround-but-prove-it/mind-the-history; validated CDMO win + real Q1 FY27 inflection + strong low-debt balance sheet + USFDA-clean + institutional backing; flags = base-effect/durability, standalone-vs-consol consistency, checkered history, low promoter holding, delayed hive-off, GST contingency - NOT current manipulation; burden of proof on company; believe operational turn+balance sheet, VERIFY margin-recovery durability on consolidated over several quarters, treat hive-off & more CDMO wins as optionality-to-deliver, track GST, weight delivered results over intentions
+Ownership: promoter (Suri family) ~35.7% (LOW); marquee QIP investors (BofA/Samsung/Citi/SocGen/Nomura/BNP/Morgan Stanley/Eminence)
+Valuation: trough-distorted; trailing P/E ~23-48x, P/B ~1.85-3.4x; use SOTP + forward P/E
+KEY RISKS: turnaround-durability/base-effect, CDMO concentration/execution (single Rs 825 Cr mandate), track-record/execution history, GST contingency (Rs 117.94 Cr), low promoter holding (~35.7%), API margin pressure, valuation/volatility (post +84% run, vendor-divergent Rs 41-77)
+Bull Case: Rs 95-130+
+Base Case: Rs 60-77
+Bear Case: Rs 38-50
+Primary Valuation Metric: SUM-OF-THE-PARTS PRIMARY (API/CDMO on EV/EBITDA or fwd P/E + devices on P/S/EV-Sales, consumer multiple, hive-off unlock); forward P/E post-inflection CO-PRIMARY; CDMO durability & margin recovery = THE GATE; EV/EBITDA ANCHOR; trailing P/E & P/B alone MISLEADING (trough-distorted, vendor-divergent)
+Investment Type: multi-engine pharma-healthcare TURNAROUND at earnings inflection - 40-yr USFDA-clean API base + long-duration CDMO platform (Rs 825 Cr anchor, recurring/higher-margin, commercializing, Q1 FY27 EBITDA +207%/PAT +394%) + fast-growing Dr. Morepen consumer-diagnostics devices (Rs 598 Cr +21%, ~20M users, recurring strips, CGM runway, hive-off candidate) + specialty optionality; strong low-debt balance sheet, marquee QIP backing - BUT checkered track record + slow historical growth + low promoter holding (35.7%) + base-flattered headline + delayed hive-off + Rs 117.94 Cr GST contingency + stock already +84% in 6M; "show-me" SOTP re-rating; value SOTP on forward earnings, gate on CDMO durability & margin recovery, devices on consumer multiple, NOT trough-distorted trailing P/E; earn conviction quarter by quarter
+Palette: clinical teal-green + warm coral/vermillion + diagnostic-blue + gold; Newsreader/Inter/IBM Plex Mono; ECG/heartbeat-pulse hero motif (Dr Morepen consumer-health/diagnostics)
+NOTE: Indian pharma/healthcare turnaround + SOTP + CDMO-pivot flavour (distinct from specialty-chem compounders Yasho/Paushak/Sudeep in library). Sections: 01-13 standard (three engines, CDMO pivot sec 05, devices/hive-off sec 06, margin trough sec 09), 14 Forensic Analysis, 15 Valuation (Best Metric = SOTP + battery... no, devices-as-consumer-multiple), 16 Risks, 17 Scorecard, 18 Recent Developments, 19 Balance Sheet & Quality, 20 Technical & Market.
+-->

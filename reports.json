@@ -104,11 +104,43 @@
     "date": "2026"
   },
   {
+    "name": "Navin Fluorine International",
+    "ticker": "NAVINFLUOR",
+    "sector": "Specialty Chemicals",
+    "file": "navin_fluorine_equity_research.html",
+    "desc": "A best-in-class, premium large-cap specialty-fluorochemicals leader — India's largest integrated fluorochemicals complex and Padmanabh Mafatlal group flagship (fluorine chemistry since 1967), across three verticals: High Performance Products (refrigerants/HFCs), Specialty Chemicals (agrochem/pharma organofluorines), and a fast-growing high-quality CDMO engine (a prime China+1 beneficiary). FY26 was spectacular: revenue +41% to ₹3,314 Cr, EBITDA +103% (margin to 32.6%), PAT +130% to ₹664 Cr. Deep fluorine moat, marquee contracts (Chemours commissioning), rich funded capex runway (HFC, Advanced Materials, DRDO), fortress balance sheet. BUT very demanding valuation (~68-80x P/E, ~8-10x book) — a peak multiple on partly-peak earnings, since FY26's margin leap is partly cyclical (HFC pricing) and base-driven — see Forensic (§14). Best valued on normalized through-cycle earnings. Educational, not advice.",
+    "date": "2026"
+  },
+  {
+    "name": "Omnitech Engineering",
+    "ticker": "OMNI",
+    "sector": "Capital Goods / Precision Engineering",
+    "file": "omnitech_engineering_equity_research.html",
+    "desc": "Recently-listed (Mar 2026) Rajkot precision-engineering exporter of safety-critical machined components for global energy, motion-control & industrial customers. China+1 beneficiary with a sticky certified-vendor moat (~97% repeat revenue, AS9100/API/IATF), ~₹3,000 Cr order book (~5-6x revenue) anchored by a >₹900 Cr Weatherford deal, and hyper-growth (rev 3x/PAT 4x in 2yr). But richly valued (~50-90x P/E), with a stretching working-capital cycle, US/energy/customer concentration, and a months-old listed history. A book-to-bill execution bet — see Forensic Analysis (§14): watch the cash. Educational, not advice.",
+    "date": "2026"
+  },
+  {
+    "name": "Sudeep Pharma",
+    "ticker": "SUDEEPPHRM",
+    "sector": "Specialty Chemicals / Pharma Ingredients",
+    "file": "sudeep_pharma_equity_research.html",
+    "desc": "Recently-listed (Nov 2025) high-quality specialty-ingredients compounder — one of the world's leading makers of mineral-based pharmaceutical excipients & salts (Ca/Fe/Mg/Zn) for pharma, nutrition & food, US-FDA certified, 1,100+ customers, 100+ countries, with elite economics (~37% EBITDA, ROCE ~28-35%). FY26 rev ₹642 Cr (+28%), PAT ₹174 Cr (+26%). Two growth vectors: NSS Europe acquisition + a chemistry-adjacent pivot into battery-grade iron phosphate (LFP/LMFP) for EVs via Sudeep Advanced Materials (~₹300 Cr Dahej plant). But premium-valued (~45-60x P/E), with a ~213-day working-capital cycle (cash lags profit), customer concentration & an unproven, years-out battery bet — see Forensic (§14). A quality compounder + call option at a full price. Educational, not advice.",
+    "date": "2026"
+  },
+  {
+    "name": "Morepen Laboratories",
+    "ticker": "MOREPENLAB",
+    "sector": "Pharmaceuticals / Healthcare",
+    "file": "morepen_laboratories_equity_research.html",
+    "desc": "A multi-engine pharma & healthcare turnaround at an earnings-inflection point. A 40-year, USFDA-clean (NIL 483 x4) API base now bolted to two higher-value engines: a long-duration CDMO platform anchored by a validated ₹825 Cr/$91M mandate (now commercializing — Q1 FY27 blockbuster: EBITDA +207%, PAT +394%), and a fast-growing 'Dr. Morepen' consumer-diagnostics devices platform (₹598 Cr, +21%, ~20M glucometer users, recurring strips, CGM runway, hive-off candidate), plus specialty optionality (Resmetirom/MASH). Strong low-debt balance sheet. But a 'show-me' turnaround: checkered long-term record, slow historical growth, low promoter holding (~35.7%), a base-flattered headline inflection, a repeatedly-delayed hive-off, and a material ₹117.94 Cr GST contingency — see Forensic (§14). Best valued sum-of-the-parts on forward earnings. Educational, not advice.",
+    "date": "2026"
+  },
+  {
     "name": "Palantir Technologies",
     "ticker": "PLTR",
-    "sector": "AI / Data Software",
+    "sector": "AI Software / Data Analytics",
     "file": "palantir_technologies_equity_research.html",
-    "desc": "US mega-cap AI-software franchise (Ontology + AIP; Gotham/Foundry) serving Western governments & enterprises. Q2 2026 'otherworldly': revenue +93%, US-commercial +149%, Rule of 40 = 155%, $1.2B quarterly FCF, guidance raised to +82%. But valuation is extreme (~40-70x sales, ~100x+ earnings) with no margin of safety. Includes Forensic Analysis (§14): clean books, real cash, but the price is the risk. A pure growth-durability-vs-valuation bet — Burry $46 to Wedbush $230.",
+    "desc": "US mega-cap AI-software leader (Ontology + AIP; Gotham/Foundry/Apollo) posting an 'otherworldly' Q2 2026: revenue $1.94B (+93%, fastest ever), US-commercial +149%, Rule of 40 = 155%, GAAP net income >$1B, adj FCF $1.22B; FY26 guide raised to ~$8.15B (+82%). Fortress balance sheet (D/E 0.02), clean books, real cash. But the risk is PRICE, not the business: extreme valuation (~$398B mcap, ~42x fwd sales, trailing P/E ~107-219x) prices in years of flawless execution — see Forensic (§14): cash flow corroborates the story, valuation is the only red flag. Bull (Wedbush) $230 vs Burry bear $46. Educational, not advice.",
     "date": "2026"
   }
 ]

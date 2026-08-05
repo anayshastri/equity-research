@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navin Fluorine International — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo:#1E1B48; --indigo-2:#2C2866; --indigo-3:#3D3789;
+    --cyan:#22B8CF; --cyan-dk:#127E90; --cyan-lt:#66D8E5; --cyan-gl:rgba(34,184,207,.11);
+    --amber:#E0912E; --amber-dk:#A9641A; --amber-lt:#EFB668; --amber-gl:rgba(224,145,46,.12);
+    --violet:#7C5CE0; --violet-dk:#5A3EB0; --violet-lt:#A88EF0; --violet-gl:rgba(124,92,224,.11);
+    --gold:#C9A83C; --gold-dk:#9A7E18; --gold-gl:rgba(201,168,60,.13);
+    --slate:#5E5F7A; --slate-gl:rgba(94,95,122,.10);
+    --green:#2E9E68; --green-dk:#1C7A4C; --red:#D24A50; --amberr:#D6902E; --amberr-dk:#A66A11;
+    --ink-1:#16142E; --ink-2:#3B3A53; --ink-3:#68677E;
+    --line:#E5E3EE; --line-2:#F0EEF6; --paper:#FCFCFE; --paper-2:#F5F4FA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Manrope',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(30,27,72,.15)}
+  h1,h2,h3,h4{font-family:'Spectral',serif;font-weight:600;letter-spacing:-.01em;line-height:1.14}
+  .mono{font-family:'Azeret Mono',monospace}
+  .hero{position:relative;background:linear-gradient(150deg,#16142E 0%,#2C2866 56%,#3D3789 132%);color:#ECE9F6;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-6%;width:470px;height:470px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(34,184,207,.22),rgba(239,182,104,.13) 55%,transparent 72%);filter:blur(6px)}
+  .hex{position:absolute;right:54px;top:42px;width:170px;height:170px;z-index:2;opacity:.6}
+  .hex svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+  .tag.cy{background:rgba(34,184,207,.22);border-color:rgba(102,216,229,.45);color:#8FE2EC}
+  .tag.am{background:rgba(224,145,46,.22);border-color:rgba(239,182,104,.5);color:#F0C489}
+  .hero h1{font-size:39px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .flip{font-family:'Azeret Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.03em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#B0ACC6;margin-bottom:24px;font-weight:300;max-width:790px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.09)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Azeret Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#7C7B94;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Spectral',serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#6FE0A0}.down{color:#F2A2A6}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--indigo);color:#7C7B94;padding:11px 48px;font-family:'Azeret Mono',monospace;font-size:11px}
+  .metabar b{color:#E6E3F2;font-weight:400}
+  .metabar .dot{color:var(--cyan-lt)}
+  .alert{background:var(--amber-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--amber-dk);font-family:'Azeret Mono',monospace}
+  .alert b{color:var(--indigo)}
+  .alert.boom{background:var(--cyan-gl);color:var(--cyan-dk)}
+  .alert.warn{background:rgba(210,74,80,.09);color:#B23A40}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Azeret Mono',monospace;font-size:12px;font-weight:500;color:var(--cyan-dk);border:1.5px solid var(--cyan);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:25px;font-weight:600;color:var(--indigo)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--cyan);background:var(--cyan-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.vi{border-color:var(--violet);background:var(--violet-gl)}
+  .call.gd{border-color:var(--gold);background:var(--gold-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,74,80,.08)}
+  .call .lab{font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;color:var(--cyan-dk);margin-bottom:5px}
+  .call.am .lab{color:var(--amber-dk)}.call.vi .lab{color:var(--violet-dk)}.call.gd .lab{color:var(--gold-dk)}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--indigo-2);color:#E6E3F2;font-family:'Azeret Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Azeret Mono',monospace}
+  .tr-hi td{background:var(--cyan-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Azeret Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--indigo);letter-spacing:-.01em;font-family:'Spectral',serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.c{border-top:3px solid var(--cyan)}.card.a{border-top:3px solid var(--amber)}
+  .card.v{border-top:3px solid var(--violet)}.card.g{border-top:3px solid var(--gold)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"\25B8";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--indigo);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.on{background:var(--cyan-gl);border-color:var(--cyan)}
+  .vnode.on .vt{color:var(--cyan-dk)}
+  .vnode.cc{background:var(--amber-gl);border-color:var(--amber)}
+  .vnode.cc .vt{color:var(--amber-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:210px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Azeret Mono',monospace;font-weight:400}
+  .bar-val{width:126px;text-align:right;font-family:'Azeret Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.hex{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,74,80,.06);border-color:rgba(210,74,80,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(46,158,104,.07);border-color:rgba(46,158,104,.3)}
+  .scen .st2{font-family:'Azeret Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:500;margin-bottom:6px}
+  .scen .sp{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Spectral',serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--indigo);color:#ECE9F6;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(34,184,207,.30),transparent 65%)}
+  .bm h3{color:#fff;font-size:19px;margin-bottom:4px;position:relative;font-family:'Spectral',serif}
+  .bm .bm-sub{font-family:'Azeret Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C6C3DA}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0BDD4}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Azeret Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--cyan-dk);color:#fff}.v-co{background:var(--amber-dk);color:#fff}
+  .v-ind{background:#1C7A4C;color:#AEE8C8}.v-sec{background:#3B3A53;color:#DAD8E6}
+  .v-avoid{background:#7A2A2E;color:#F6C6C8}.v-cross{background:#2C2866;color:#C6D8DC}
+  .v-crit{background:var(--gold-dk);color:#FBEBB8}.v-gate{background:var(--violet-dk);color:#DCC8F4}
+  .bm .onenum{background:rgba(224,145,46,.16);border:1px solid rgba(239,182,104,.34);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#F0D3A6;position:relative}
+  .bm .onenum b{color:#EFB668}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Azeret Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--indigo)}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Azeret Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amberr-dk)}.rl{background:var(--cyan-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--cyan),var(--amber))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--cyan);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--cyan)}
+  .tli .ty{font-family:'Azeret Mono',monospace;font-weight:500;font-size:12.5px;color:var(--cyan-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Azeret Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--indigo);font-family:'Spectral',serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Azeret Mono',monospace;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(46,158,104,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,74,80,.14);color:var(--red)}
+  .b-neut{background:rgba(214,144,46,.2);color:var(--amberr-dk)}
+  .foot{background:var(--indigo);color:#7C7B94;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C6C3DA}
+  .disc{font-size:10.5px;color:#68677E;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+  <div class="hex">
+    <svg viewBox="0 0 170 170" fill="none">
+      <polygon points="85,26 128,50 128,98 85,122 42,98 42,50" fill="none" stroke="#66D8E5" stroke-width="2" opacity="0.55"/>
+      <circle cx="85" cy="74" r="15" fill="none" stroke="#EFB668" stroke-width="1.6" opacity="0.7"/>
+      <text x="85" y="79" text-anchor="middle" fill="#66D8E5" font-size="15" font-family="monospace" opacity="0.85">F</text>
+      <g stroke="#66D8E5" stroke-width="1.3" opacity="0.4">
+        <line x1="85" y1="26" x2="85" y2="59"/>
+        <line x1="128" y1="50" x2="99" y2="67"/>
+        <line x1="128" y1="98" x2="99" y2="81"/>
+        <line x1="85" y1="122" x2="85" y2="89"/>
+        <line x1="42" y1="98" x2="71" y2="81"/>
+        <line x1="42" y1="50" x2="71" y2="67"/>
+      </g>
+      <g fill="#A88EF0" opacity="0.5">
+        <circle cx="85" cy="26" r="3"/><circle cx="128" cy="50" r="3"/><circle cx="128" cy="98" r="3"/>
+        <circle cx="85" cy="122" r="3"/><circle cx="42" cy="98" r="3"/><circle cx="42" cy="50" r="3"/>
+      </g>
+      <circle cx="85" cy="74" r="52" fill="none" stroke="#C9A83C" stroke-width="0.8" opacity="0.22" stroke-dasharray="3 5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: NAVINFLUOR</span>
+      <span class="tag">BSE: 532504</span>
+      <span class="tag cy">Specialty Fluorochemicals</span>
+      <span class="tag am">CDMO + HFC + Advanced Materials</span>
+    </div>
+    <h1>Navin Fluorine International</h1>
+    <div class="flip">&#9880; India's largest integrated fluorochemicals complex &mdash; a Mafatlal-group flagship in a spectacular FY26 inflection</div>
+    <div class="sub">A <b>high-quality, premium large-cap specialty-fluorochemicals leader</b> (fluorine chemistry since 1967) &mdash; three verticals: <b>High Performance Products</b> (refrigerants/HFCs, inorganic fluorides), <b>Specialty Chemicals</b> (agrochem/pharma organofluorines), and a fast-growing <b>CDMO</b>. FY26 was a stunner: <b>revenue +41%, EBITDA +103% (margin to 32.6%), PAT +130% to &#8377;664 Cr.</b> A structural China+1 fluorochemicals + pharma-CDMO compounder &mdash; at a <b>very demanding valuation (~70&ndash;80x P/E)</b> with a heavy capex program to execute.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (early Aug)</div><div class="v">~&#8377;7,555</div><div class="d up">near 52-wk high</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~&#8377;38,800&ndash;39,300 Cr</div><div class="d">large-cap</div></div>
+      <div class="qs"><div class="k">FY26 revenue</div><div class="v">&#8377;3,314 Cr</div><div class="d up">+41% YoY</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">&#8377;664 Cr</div><div class="d up">+130% YoY</div></div>
+      <div class="qs"><div class="k">EBITDA margin</div><div class="v">32.6%</div><div class="d up">from 22.7%</div></div>
+      <div class="qs"><div class="k">Promoter</div><div class="v">~26&ndash;27%</div><div class="d down">low</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>Chairman:</b> Vishad Mafatlal</span><span class="dot">&#9880;</span>
+  <span><b>MD:</b> Nitin Kulkarni</span><span class="dot">&#9880;</span>
+  <span><b>Group:</b> Padmanabh Mafatlal</span><span class="dot">&#9880;</span>
+  <span><b>Since:</b> 1967 (fluorochem)</span><span class="dot">&#9880;</span>
+  <span><b>Plants:</b> Surat, Dahej, Dewas, Manchester</span><span class="dot">&#9880;</span>
+  <span><b>Report:</b> 05 Aug 2026</span>
+</div>
+
+<div class="alert boom">
+  &#9889; <b>THE INFLECTION SIGNAL &mdash; a spectacular FY26:</b> revenue <b>&#8377;3,313.9 Cr (+41%)</b>, Operating EBITDA <b>&#8377;1,081.7 Cr (+103%, margin 32.6% from 22.7%)</b>, PAT <b>&#8377;663.6 Cr (+130%, margin 20.0% from 12.3%)</b> &mdash; <b>six consecutive quarters of revenue &amp; profit growth.</b> All three verticals fired: HPP +34%, Specialty +44%, and <b>CDMO +59% (the fastest-growing, highest-value engine)</b>. Constructive HFC pricing, capacity ramps, and CDMO scale drove it. Final dividend &#8377;8.60 (430% of FV). A genuine quality franchise inflecting hard.
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT THE VALUATION IS VERY DEMANDING &amp; THERE ARE CAVEATS (see &sect;14):</b> the stock trades at <b>~68&ndash;80x trailing P/E and ~8&ndash;10x book</b> &mdash; a premium that prices in <b>years of continued high growth.</b> FY26's +130% PAT is partly a <b>recovery off a soft FY25 base</b> (PAT was only &#8377;289 Cr), and <b>HFC/refrigerant pricing is cyclical</b>; CDMO revenue can be <b>lumpy</b>. Promoter holding is <b>relatively low (~26&ndash;27%)</b>, there's a <b>heavy capex program</b> (Chemours, HFC, Advanced Materials) to execute, and the stock has <b>already run ~54% in a year.</b>
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT:</b> Vendor figures diverge &mdash; CMP &#8377;5,872 (Dec) &rarr; &#8377;7,046 (May) &rarr; &#8377;7,579 (17 Jul) &rarr; &#8377;7,555 (3 Aug); Simply Wall St shows a stale ~&#8377;5,735. 52-wk &#8377;4,498.5&ndash;7,936. Market cap &#8377;30,095 Cr (Dec) / &#8377;36,143 Cr (May) / &#8377;38,762&ndash;39,251 Cr (Aug). P/E ~67.8x (Dec TTM) / 73.6x (May) / ~79.6x (Jul/Aug); P/B ~8.4&ndash;10.6x (one vendor's 714x P/B is a data error). EPS (TTM) ~&#8377;86.7 (Dec). FY26 revenue quoted &#8377;3,313.9 Cr (net) vs &#8377;3,379 Cr (incl. other op income). This report anchors CMP loosely ~&#8377;7,500. Verify vs NSE/BSE live.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Navin Fluorine International Ltd (NFIL, NSE: NAVINFLUOR)</strong> is the <strong>flagship company of the Padmanabh Mafatlal Group</strong> and operates <strong>India's largest integrated fluorochemicals complex.</strong> Present in fluorine chemistry since <strong>1967</strong> (and a pioneer of refrigerant-gas manufacturing in India), it is a <strong>high-quality, premium large-cap specialty-chemicals leader</strong> built entirely around one deep, hard-to-master science: <strong>fluorine.</strong> Its 60+ fluorinated compounds serve agrochemicals, pharmaceuticals, aluminium smelting, refrigeration, metal processing, abrasives, glass and ceramics. It runs three verticals &mdash; <strong>High Performance Products (HPP), Specialty Chemicals, and Contract Development &amp; Manufacturing (CDMO)</strong> &mdash; from plants at <strong>Surat, Dahej and Dewas (India) and Manchester (UK).</strong> Led by chairman <strong>Vishad Mafatlal</strong> (2nd-gen) and MD Nitin Kulkarni; promoter holding is a relatively low ~26&ndash;27%.</p>
+  <p>The investment story is a <strong>high-quality franchise in a spectacular earnings inflection, riding a structural China+1 tailwind.</strong> FY26 was a stunner: <strong>revenue +41% to ₹3,314 Cr, Operating EBITDA +103% to ₹1,082 Cr (margin leaping to 32.6% from 22.7%), and PAT +130% to ₹664 Cr</strong> &mdash; the culmination of <strong>six consecutive quarters of growth</strong>, as prior-years' heavy capacity investments began paying off, HFC/refrigerant pricing turned constructive, and the <strong>CDMO vertical (+59%) scaled as the fastest-growing, highest-value engine.</strong> The bull case is a <strong>fortress fluorochemicals + pharma-CDMO compounder</strong> with marquee multi-year contracts (a $410M HPP deal historically; the large <strong>Chemours project commissioning now</strong>), a long capex runway (additional HFC, MPP de-bottlenecking, <strong>Advanced Materials, and a new DRDO sodium-borohydride agreement</strong>), and India's deepest fluorine-chemistry moat. The counterweight is a <strong>very demanding valuation (~68&ndash;80x P/E, ~8&ndash;10x book)</strong>, a <strong>partly-recovery-driven FY26</strong> (soft FY25 base), <strong>HFC cyclicality and CDMO lumpiness</strong>, relatively low promoter holding, heavy execution/capex risk, and a stock that has already run hard.</p>
+  <div class="cards">
+    <div class="card c"><div class="k">FY26 revenue</div><div class="v">&#8377;3,314 Cr</div><div class="d up">+41% YoY</div></div>
+    <div class="card a"><div class="k">EBITDA margin</div><div class="v">32.6%</div><div class="d up">+~10pp</div></div>
+    <div class="card v"><div class="k">CDMO growth</div><div class="v">+59%</div><div class="d up">fastest engine</div></div>
+    <div class="card g"><div class="k">Fluorine since</div><div class="v">1967</div><div class="d">deep moat</div></div>
+  </div>
+  <div class="call am">
+    <div class="lab">The investment character in one line</div>
+    Navin Fluorine is a <strong>best-in-class, premium-valued specialty-fluorochemicals compounder at a cyclical-and-structural earnings inflection.</strong> The bull case is genuinely strong: a <strong>deep, hard-to-replicate fluorine-chemistry moat</strong> (India's largest integrated complex, 55+ years of know-how, complex/hazardous chemistry with high entry barriers), a <strong>powerful China+1 tailwind</strong> across both fluorochemicals and pharma/agrochem CDMO, a <strong>fast-growing high-margin CDMO vertical</strong> that improves earnings quality and visibility, <strong>marquee multi-year contracts</strong> (Chemours commissioning now) and a <strong>long capex-fuelled growth runway</strong> (HFC, Advanced Materials, DRDO). FY26's margin/return explosion (EBITDA +103%, margin to 32.6%) shows the operating leverage when capacity and pricing align. The bear case is about <strong>price and the durability of the inflection</strong>: at ~68&ndash;80x earnings the market <strong>prices in years of flawless compounding</strong>, while FY26's +130% PAT is <strong>partly a recovery off a weak FY25</strong>, HFC pricing is <strong>cyclical</strong>, CDMO revenue can be <strong>lumpy</strong>, the capex program is <strong>large and must earn its return</strong>, and promoter holding is <strong>relatively low.</strong> Net: a <strong>wonderful franchise at a demanding price</strong> &mdash; own it for the moat, the CDMO/China+1 structural story and the capex runway if you can pay a premium and tolerate cyclicality; the debate is whether the FY26 inflection is a <strong>sustainable new base or a cyclical peak</strong> (see &sect;14&ndash;&sect;15).
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">1967 &middot; Fluorochemicals pioneer</div><div class="td">Enters fluorine chemistry and refrigerant-gas manufacturing &mdash; establishing itself as a respected refrigerant brand and building India's integrated fluorochemicals base.</div></div>
+    <div class="tli"><div class="ty">1998 &middot; Incorporation (current form)</div><div class="td">Navin Fluorine International Ltd incorporated (25 Jun 1998) as the <strong>flagship of the Padmanabh Mafatlal Group.</strong></div></div>
+    <div class="tli"><div class="ty">2006&ndash;07 &middot; Carbon-credits era</div><div class="td">Runs a landmark <strong>CDM project to reduce HFC-23 greenhouse gas</strong> (with Ineos Fluor; UNFCCC approval 2007) &mdash; a major early cash generator.</div></div>
+    <div class="tli"><div class="ty">2010s &middot; Moving up the value chain</div><div class="td">Diversifies from commodity refrigerants/inorganic fluorides into <strong>higher-value Specialty Chemicals and CDMO</strong>, adding a UK (Manchester) research/CDMO presence.</div></div>
+    <div class="tli"><div class="ty">Feb 2020 &middot; The $410M contract</div><div class="td">Signs a landmark <strong>$410M (~₹2,900 Cr) multi-year HPP contract</strong> with a global company; stock jumps ~20% &mdash; a defining validation of its scale-manufacturing credibility.</div></div>
+    <div class="tli"><div class="ty">2021&ndash;25 &middot; The capex build-out</div><div class="td">Invests heavily via Navin Fluorine Advanced Sciences (Dahej) in <strong>HFCs, specialty and CDMO capacity</strong>; raises <strong>₹750 Cr QIP (Jul 2025)</strong> to fund the next leg.</div></div>
+    <div class="tli"><div class="ty">FY26&ndash;Q1 FY27 &middot; The inflection</div><div class="td"><strong>FY26: revenue +41%, EBITDA +103% (margin 32.6%), PAT +130% to ₹664 Cr</strong> &mdash; the capex and pricing pay off. <strong>Chemours project commissioning (mid-2026); DRDO sodium-borohydride agreement (Jul 2026).</strong></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; the Fluorine Moat</h2></div>
+  <div class="vchain">
+    <div class="vnode">Fluorspar / HF</div>
+    <div class="vnode on"><div class="vt">Integrated fluorine chemistry</div><div class="vd">India's largest complex; 55+ yrs</div></div>
+    <div class="vnode cc"><div class="vt">HPP + Specialty + CDMO</div><div class="vd">Refrigerants &rarr; complex molecules</div></div>
+    <div class="vnode on"><div class="vt">Global customers</div><div class="vd">Agrochem, pharma, industrial</div></div>
+    <div class="vnode cc"><div class="vt">High margins / returns</div><div class="vd">32.6% EBITDA; premium franchise</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">A deep, hard-to-replicate moat &mdash; the foundation of the premium</div>
+    Navin Fluorine's moat is <strong>one of the deepest in Indian chemicals</strong>, and it is what justifies the franchise's premium standing. Fluorine chemistry is <strong>complex, hazardous and technically demanding</strong> &mdash; handling hydrofluoric acid and fluorinated intermediates safely and at scale requires <strong>decades of process know-how, specialised equipment, safety systems and regulatory credibility</strong> that are extremely hard for new entrants to build. NFIL has been at it <strong>since 1967</strong> and runs <strong>India's largest integrated fluorochemicals complex</strong>, giving it <strong>backward integration, scale, and a 60+ compound portfolio</strong> spanning the value chain from commodity refrigerants and inorganic fluorides to <strong>highly complex specialty molecules and CDMO intermediates.</strong> This creates real advantages: <strong>high entry barriers, sticky customer qualifications</strong> (especially in pharma/agrochem CDMO, where molecules are designed-in over multi-year programs), <strong>pricing power in specialty/CDMO</strong>, and a <strong>trusted partner status</strong> for global innovators diversifying away from China. The FY26 margin profile (~32.6% EBITDA) is the financial signature of that moat. The nuance: the <strong>HPP/refrigerant portion is more commodity-like and cyclical</strong> (pricing-driven), so the moat is <strong>strongest in specialty and CDMO</strong> &mdash; which is precisely why the mix shift toward those higher-value verticals matters so much to the quality and durability of returns.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>The Three Verticals</h2></div>
+  <div class="bar-row"><div class="bar-lab">High Performance Products (HPP)</div><div class="bar-track"><div class="bar-fill" style="width:49%;background:var(--cyan)">&#8377;1,615 Cr, +34%</div></div><div class="bar-val">refrigerants/HFC</div></div>
+  <div class="bar-row"><div class="bar-lab">Specialty Chemicals</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--violet)">&#8377;1,152 Cr, +44%</div></div><div class="bar-val up">agrochem/pharma</div></div>
+  <div class="bar-row"><div class="bar-lab">CDMO</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--amber)">&#8377;546 Cr, +59%</div></div><div class="bar-val up">fastest, highest-value</div></div>
+  <div class="call vi">
+    <div class="lab">Three engines &mdash; and the mix is shifting toward the highest-quality one</div>
+    NFIL's three verticals have <strong>distinct economics, and the mix shift is a key part of the quality story.</strong> <strong>High Performance Products (HPP)</strong> &mdash; FY26 revenue ₹1,615 Cr (+34%) &mdash; is refrigerant gases (HFCs like R32), inorganic fluorides and aluminium-smelting chemicals: the <strong>largest, most established, but most commodity-like and cyclical</strong> vertical, where FY26 benefited from a <strong>constructive HFC-pricing environment</strong> (a cyclical tailwind to watch). <strong>Specialty Chemicals</strong> &mdash; ₹1,152 Cr (+44%) &mdash; supplies <strong>complex organofluorine molecules to agrochem and pharma innovators</strong>: higher-margin, stickier, and moat-rich. <strong>CDMO</strong> &mdash; ₹546 Cr (+59%), the <strong>fastest-growing and highest-value vertical</strong> &mdash; is contract development/manufacturing of <strong>early-stage, late-stage and commercial molecules</strong> across therapeutic/agrochem areas, offering <strong>longer-term contracts, stronger margins and better earnings visibility.</strong> The strategic thrust is clear and attractive: <strong>grow specialty and CDMO faster than HPP</strong>, tilting the mix toward <strong>higher-quality, more-durable, less-cyclical revenue.</strong> The bull reads FY26 as proof this is working (CDMO +59%); the caution is that <strong>HPP still dominates and carries cyclical HFC-pricing risk</strong>, and CDMO, while high-quality, can be <strong>lumpy (project timing).</strong> Watching CDMO and specialty become a larger share of the mix &mdash; and HPP pricing hold &mdash; is central to the thesis.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The CDMO Engine &amp; China+1</h2></div>
+  <div class="cards">
+    <div class="card a"><div class="k">CDMO FY26</div><div class="v">&#8377;546 Cr</div><div class="d up">+59% YoY</div></div>
+    <div class="card c"><div class="k">CDMO Q4</div><div class="v">+61%</div><div class="d up">accelerating</div></div>
+    <div class="card v"><div class="k">Mix</div><div class="v">Early&rarr;commercial</div><div class="d">balanced molecules</div></div>
+    <div class="card g"><div class="k">UK site</div><div class="v">Manchester</div><div class="d">research/CDMO</div></div>
+  </div>
+  <p>The <strong>CDMO vertical is the strategic jewel and the fastest-growing engine</strong> &mdash; FY26 revenue ₹546 Cr (+59%; Q4 +61%), built on a <strong>balanced mix of early-stage, late-stage and commercial molecules</strong> across therapeutic areas, with research/CDMO capability at Manchester (UK) and manufacturing scale in India. Pharmaceutical (and agrochem) outsourcing contracts <strong>generally provide longer-term revenue streams and stronger margins</strong>, materially improving NFIL's earnings visibility and quality.</p>
+  <div class="call am">
+    <div class="lab">A high-quality, structurally-favoured engine &mdash; with project lumpiness to respect</div>
+    The CDMO business is <strong>the most important driver of the bull thesis's <em>quality</em></strong> (as opposed to the HPP cyclical tailwind). Its appeal is threefold: (1) <strong>structural demand</strong> &mdash; global pharma and agrochem innovators are <strong>actively diversifying supply chains away from China</strong> and toward reliable, cost-efficient, regulatory-compliant partners with advanced chemistry, and NFIL &mdash; with its fluorine moat, US/global-standard compliance and UK+India footprint &mdash; is a <strong>prime China+1 beneficiary</strong>; (2) <strong>earnings quality</strong> &mdash; CDMO's <strong>longer-term contracts, higher margins and better visibility</strong> improve the durability and predictability of NFIL's earnings versus the cyclical HPP base; and (3) <strong>a full pipeline</strong> &mdash; the balanced early/late/commercial molecule mix means a <strong>funnel of molecules maturing toward commercial (higher-value) manufacturing</strong> over time. The honest cautions: (1) <strong>CDMO revenue is inherently lumpy</strong> &mdash; project timing, milestone recognition, and the transition of molecules from development to commercial can make quarters uneven; (2) <strong>it depends on winning and retaining innovator programs</strong>, which is competitive (global CDMO peers) and requires continued qualification; and (3) <strong>the very high growth rates are off a smaller base</strong>, so annualize with care. Net: a <strong>genuinely high-quality, structurally-tailwinded engine that is the best reason to be constructive on NFIL's long-term earnings quality</strong> &mdash; watch the CDMO revenue trajectory, commercial-molecule conversion, and new program wins, while respecting quarter-to-quarter lumpiness.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Peer</th><th>Focus</th><th class="mono">Note</th></tr>
+    <tr><td><strong>SRF Ltd</strong></td><td>Fluorochem, specialty, packaging films</td><td class="mono">Larger, diversified</td></tr>
+    <tr><td><strong>Gujarat Fluorochemicals (GFL)</strong></td><td>Fluoropolymers, refrigerants, chemicals</td><td class="mono">Fluorine scale peer</td></tr>
+    <tr><td><strong>Aarti Industries</strong></td><td>Specialty chemicals (benzene chain)</td><td class="mono">Broad specialty</td></tr>
+    <tr><td><strong>Clean Science &amp; Tech</strong></td><td>Performance chemicals</td><td class="mono">High-margin niche</td></tr>
+    <tr><td><strong>Global CDMO peers</strong></td><td>Pharma/agrochem contract mfg</td><td class="mono">CDMO competition</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A premium-rated specialty-chem cohort &mdash; NFIL is a best-in-class fluorine pure-play</div>
+    NFIL competes in the <strong>premium Indian specialty-chemicals cohort</strong> &mdash; SRF, Gujarat Fluorochemicals (GFL), Aarti Industries, Clean Science &mdash; a group the market rewards with high multiples for the same reasons NFIL screens well: <strong>complex chemistry moats, China+1 tailwinds, export orientation and structural growth.</strong> Within it, NFIL's distinction is being <strong>the purest, deepest fluorine-chemistry specialist</strong> with India's largest integrated fluorochemicals complex and a <strong>fast-growing, high-quality CDMO franchise.</strong> Versus <strong>SRF and GFL</strong> (larger, more diversified fluorine players), NFIL is <strong>more focused and arguably higher-quality/higher-multiple</strong> on its specialty+CDMO tilt; versus broad specialty names (Aarti, Clean Science) it offers <strong>fluorine-specific depth</strong> and pharma-CDMO exposure. The <strong>bull framing:</strong> NFIL is a best-in-class way to play the fluorochemicals + pharma-CDMO China+1 theme, and its FY26 margin/return profile (32.6% EBITDA) is among the strongest in the group. The <strong>cautionary framing:</strong> the <strong>whole cohort is richly valued</strong>, so NFIL's ~70&ndash;80x multiple is <strong>premium even relative to premium peers</strong>, and it competes for CDMO programs against <strong>global contract manufacturers</strong>, not just Indian peers. Competition is less about commodity price wars (the moat limits that in specialty/CDMO) and more about <strong>chemistry capability, capacity, compliance and winning innovator relationships</strong> in a growing China+1 pie.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">HPP</th><th class="mono">Specialty/CDMO</th></tr>
+    <tr><td><strong>Rivalry</strong></td><td class="mono">High (commodity)</td><td class="mono">Moderate</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate-High</td><td class="mono">Mod (sticky, designed-in)</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate (fluorspar)</td><td class="mono">Moderate</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low-Mod</td><td class="mono">Low (chemistry/regulatory)</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Moderate (refrigerant gens)</td><td class="mono">Low</td></tr>
+  </table>
+  <p>Net: the <strong>specialty and CDMO businesses sit in highly favourable structures</strong> &mdash; high chemistry/regulatory entry barriers, sticky designed-in customer relationships, low substitution &mdash; underpinning NFIL's premium margins. The <strong>HPP/refrigerant business is more contested</strong> (commodity-like, cyclical pricing, and refrigerant-generation transitions, e.g., HFC phase-downs over time, are a substitution risk to monitor). NFIL's strategy &mdash; <strong>tilting toward specialty/CDMO while extracting cyclical upside from HPP</strong> &mdash; is precisely designed to weight its business toward the more attractive structures. Overall a genuinely strong industry position, especially in the higher-value verticals.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Capex, Contracts &amp; Growth Projects</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Chemours project</div><div class="v">Mid-2026</div><div class="d up">commissioning</div></div>
+    <div class="card a"><div class="k">New HFC (R32)</div><div class="v">15,000 MTPA</div><div class="d">&#8377;236.5 Cr, Q3 FY27</div></div>
+    <div class="card v"><div class="k">Advanced Materials</div><div class="v">&#8377;90 Cr+</div><div class="d">Surat, Q1 FY27&rarr;Q2 FY28</div></div>
+    <div class="card g"><div class="k">DRDO deal</div><div class="v">NaBH&#8324;</div><div class="d up">Jul 2026</div></div>
+  </div>
+  <p>NFIL has a <strong>rich, multi-pronged capex and contract pipeline</strong> driving its next growth leg (total capex ~₹431.5 Cr across HFC/Specialty/Advanced Materials, funded partly by the ₹750 Cr Jul-2025 QIP): (1) the large <strong>Chemours project, on track for commissioning by June/July 2026</strong>; (2) <strong>additional HFC capacity (15,000 MTPA R32-equivalent, ₹236.5 Cr, by Q3 FY27)</strong> plus MPP de-bottlenecking at Dahej; (3) <strong>Advanced Materials</strong> (battery/electronic-materials adjacency) &mdash; initial capacity from Q1 FY27, plus a fresh ₹90 Cr Surat capex for Q2 FY28; and (4) a new <strong>DRDO agreement (Jul 30, 2026) for indigenous bulk sodium borohydride</strong> &mdash; a strategic/defense-materials optionality.</p>
+  <div class="call am">
+    <div class="lab">A well-funded growth runway &mdash; execution &amp; return-on-capital are the watch-items</div>
+    The project pipeline is <strong>the engine of NFIL's forward growth and a core part of the bull case.</strong> It is <strong>strategically coherent and well-funded</strong>: the <strong>Chemours commissioning</strong> is a near-term revenue catalyst (a large contract moving from investment to revenue), the <strong>HFC expansion</strong> extends the constructive-pricing tailwind, <strong>Advanced Materials</strong> opens a genuinely new adjacency (battery/electronic materials &mdash; an EV/electronics optionality), and the <strong>DRDO sodium-borohydride agreement</strong> adds a strategic, indigenous-manufacturing/defense angle. The ₹750 Cr QIP and strong cash generation fund it without over-leveraging. <strong>The watch-items are execution and returns:</strong> (1) <strong>commissioning timing</strong> &mdash; large chemical projects (Chemours, HFC) must come online on schedule; delays would defer growth; (2) <strong>return on the heavy capital</strong> &mdash; the whole premium depends on this capex earning <strong>strong, sustained ROCE</strong>, not just adding revenue, so track incremental margins and asset turns as projects ramp; (3) <strong>the Advanced Materials/DRDO ventures are early-stage optionality</strong>, not yet proven earnings; and (4) heavy capex plus working capital can <strong>pressure free cash flow</strong> through the build-out. Net: a <strong>genuinely attractive, funded growth runway</strong> that supports the structural story &mdash; but at a ~70&ndash;80x multiple the market is <strong>capitalising successful execution in advance</strong>, so on-time commissioning and strong returns on the new capital are what must be delivered. Track Chemours/HFC commissioning, segment ROCE, and free cash flow.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Returns &amp; the FY26 Leap</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">EBITDA margin</div><div class="v">32.6%</div><div class="d up">from 22.7%</div></div>
+    <div class="card a"><div class="k">PAT margin</div><div class="v">20.0%</div><div class="d up">from 12.3%</div></div>
+    <div class="card v"><div class="k">Op. EBITDA</div><div class="v">&#8377;1,082 Cr</div><div class="d up">+103% YoY</div></div>
+    <div class="card g"><div class="k">Interest cover</div><div class="v">~10.9x</div><div class="d up">strong</div></div>
+  </div>
+  <p>FY26 saw a <strong>dramatic margin and return leap</strong>: Operating EBITDA <strong>more than doubled (+103%) to ₹1,082 Cr</strong>, with EBITDA margin <strong>expanding ~10 points to 32.6% (from 22.7%)</strong> and PAT margin to <strong>20.0% (from 12.3%)</strong> &mdash; a textbook display of <strong>operating leverage</strong> as prior-year capacity investments filled, CDMO/specialty scaled, and HFC pricing turned constructive. Interest cover strengthened to ~10.9x; management also cited <strong>improved net working-capital cycles.</strong></p>
+  <div class="call vi">
+    <div class="lab">A spectacular leap &mdash; but the key question is how much is structural vs cyclical</div>
+    The FY26 margin/return leap is <strong>genuinely impressive and the heart of the bull case &mdash; but it is also the crux of the forensic debate (&sect;14).</strong> The <strong>positive interpretation is strong:</strong> the margin expansion reflects <strong>real operating leverage</strong> (fixed capacity investments filling out), a favourable <strong>mix shift toward high-margin specialty/CDMO</strong>, and disciplined costs &mdash; a <strong>structurally higher earning power</strong> as the business scales into its capacity. If that holds, ~32% EBITDA margins are a sustainable new base and the premium is more defensible. <strong>The prudent caution</strong> is that <strong>a meaningful part of the FY26 leap is cyclical and base-driven:</strong> (1) FY26 benefited from a <strong>constructive HFC-pricing environment</strong> &mdash; refrigerant pricing is <strong>cyclical</strong>, and a downcycle would compress HPP margins; and (2) the +103% EBITDA / +130% PAT growth is <strong>amplified by a soft FY25 base</strong> (FY25 PAT was only ₹289 Cr, a weak year), so the growth <em>rates</em> overstate the underlying step-up. The honest read: <strong>FY26 is a real inflection in earning power <em>and</em> a cyclical peak in part</strong> &mdash; the durable, through-cycle margin is likely <strong>somewhere between the old ~22% and the new ~32%.</strong> The single most important analytical task is to <strong>judge the sustainable, through-cycle margin and ROCE</strong> (see &sect;15), not to capitalise the FY26 peak. Watch HFC pricing, mix, and margin trajectory across the next several quarters.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Promoter holding</div><div class="v">~26&ndash;27%</div><div class="d down">relatively low</div></div>
+    <div class="card a"><div class="k">Chairman</div><div class="v">Vishad Mafatlal</div><div class="d">2nd-gen</div></div>
+    <div class="card v"><div class="k">MF holding</div><div class="v">~18.4%</div><div class="d up">strong institutional</div></div>
+    <div class="card g"><div class="k">Dividend</div><div class="v">&#8377;8.60</div><div class="d up">430% of FV</div></div>
+  </div>
+  <p>NFIL is the <strong>flagship of the Padmanabh Mafatlal Group</strong>, chaired by 2nd-generation entrepreneur <strong>Vishad Mafatlal</strong> (25+ years in textiles/chemicals) with MD Nitin Kulkarni. A notable feature is the <strong>relatively low promoter holding of ~26&ndash;27%</strong> (Mafatlal Impex ~25.4&ndash;26.3%), balanced by <strong>strong institutional ownership (mutual funds ~18.4%)</strong> &mdash; a sign of deep institutional conviction in the franchise. The board declared a healthy <strong>final dividend of ₹8.60 (430% of ₹2 FV).</strong></p>
+  <div class="call am">
+    <div class="lab">A reputed group &amp; strong institutional backing &mdash; but low promoter holding to note</div>
+    Ownership presents a <strong>largely reassuring but nuanced picture.</strong> The <strong>positives are substantial:</strong> NFIL is the flagship of a <strong>reputed, long-established industrial house (Padmanabh Mafatlal Group)</strong> with deep chemicals heritage; <strong>institutional conviction is high</strong> (mutual funds ~18.4%, plus broad FII/DII participation) &mdash; serious, sophisticated investors have done the diligence and back the franchise; the company has a <strong>long record of dividends and professional management</strong> (a professional MD alongside the promoter chairman); and disclosure/governance is generally of large-cap quality. <strong>The nuance to note</strong> (and verify in &sect;14) is the <strong>relatively low promoter holding (~26&ndash;27%)</strong> &mdash; below the level common in Indian family-promoted chemicals &mdash; which means <strong>less concentrated promoter "skin in the game"</strong> and a <strong>more institution/float-driven register</strong>; this cuts both ways (broader oversight, but arguably less owner-operator alignment). Given the low stake, it is worth <strong>monitoring whether promoters increase or decrease their holding</strong> (a signal of conviction) and verifying pledge levels and related-party dealings from filings. Net: <strong>a reputed-group, professionally-managed, institutionally-validated franchise</strong> &mdash; a genuine governance positive overall &mdash; with the <strong>low promoter stake as the one structural feature to keep in view.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; QIP</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Financial health</div><div class="v">5/6</div><div class="d up">strong</div></div>
+    <div class="card a"><div class="k">QIP (Jul 2025)</div><div class="v">&#8377;750 Cr</div><div class="d">funds capex</div></div>
+    <div class="card v"><div class="k">Interest cover</div><div class="v">~10.9x</div><div class="d up">comfortable</div></div>
+    <div class="card g"><div class="k">Book value/sh</div><div class="v">~&#8377;700</div><div class="d">P/B ~8&ndash;10x</div></div>
+  </div>
+  <p>NFIL's balance sheet is <strong>a genuine strength</strong> &mdash; strong financial health, <strong>comfortable leverage</strong> (interest cover ~10.9x), and further reinforced by the <strong>₹750 Cr QIP (Jul 2025)</strong> that funds the capex program. This gives it <strong>ample capacity to self-fund the Chemours/HFC/Advanced Materials build-out</strong> while sustaining dividends. The tension is purely valuation: at ~8&ndash;10x book (on ~₹700 book value/share), the market pays a <strong>steep premium</strong> for the franchise.</p>
+  <div class="call vi">
+    <div class="lab">A fortress balance sheet funding growth &mdash; the return on that capital is what matters</div>
+    NFIL's balance-sheet strength is a <strong>clear positive and de-risks its ambitious growth program.</strong> A <strong>well-capitalised, low-leverage balance sheet</strong> (strong interest cover, QIP-funded) means the company can execute its <strong>heavy capex (Chemours, HFC, Advanced Materials) from a position of strength</strong> &mdash; self-funding expansion, sustaining dividends, and weathering any cyclical HFC-pricing softness without financial stress. Management's note on <strong>improved net working-capital cycles</strong> is a further quality positive (specialty-chem can be working-capital-heavy). <strong>The forward tension is return on capital, not solvency:</strong> the whole premium valuation rests on the assumption that this <strong>large capital base earns strong, sustained ROCE</strong> as the projects ramp &mdash; so the key metrics to track are <strong>ROCE/ROE trajectory, incremental margins on new capacity, and free cash flow</strong> as capex converts to earnings. FY26's return leap is encouraging, but (per &sect;9) partly cyclical, so the question is whether returns stay elevated <strong>through the cycle.</strong> Net: a <strong>fortress balance sheet is a real asset that supports the growth story and dividends</strong> &mdash; the debate is whether the capital earns returns that justify an ~8&ndash;10x book multiple over time. Track ROCE, cash conversion, and capex-to-earnings conversion.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>CDMO scale-up</strong></td><td>China+1 pharma/agrochem outsourcing; commercial-molecule conversion</td><td class="mono">Core quality engine &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Chemours &amp; HFC capacity</strong></td><td>Commissioning mid-2026; +15,000 MTPA R32</td><td class="mono">Near-term catalyst &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Specialty chemicals</strong></td><td>Agrochem/pharma organofluorines</td><td class="mono">High-margin growth &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Advanced Materials</strong></td><td>Battery/electronic materials adjacency</td><td class="mono">New optionality &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>DRDO / defense (NaBH&#8324;)</strong></td><td>Indigenous sodium borohydride</td><td class="mono">Strategic optionality &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>China+1 fluorochemicals</strong></td><td>Global supply-chain diversification</td><td class="mono">Structural tailwind &#9733;&#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>(&#8377; Cr, consol)</th><th class="mono">FY25</th><th class="mono">9M FY26</th><th class="mono">FY26</th><th class="mono">Q4 FY26</th></tr>
+    <tr><td>Revenue</td><td class="mono">2,349</td><td class="mono">2,376</td><td class="mono">3,314</td><td class="mono">938</td></tr>
+    <tr><td>Revenue growth</td><td class="mono">&mdash;</td><td class="mono up">+44%</td><td class="mono up">+41%</td><td class="mono up">+34%</td></tr>
+    <tr class="tr-hi"><td>Operating EBITDA</td><td class="mono">~533</td><td class="mono">&mdash;</td><td class="mono">1,082</td><td class="mono">321</td></tr>
+    <tr><td>EBITDA margin</td><td class="mono">22.7%</td><td class="mono">&mdash;</td><td class="mono up">32.6%</td><td class="mono up">~34%</td></tr>
+    <tr><td>PAT</td><td class="mono">288.6</td><td class="mono">450.9</td><td class="mono">663.6</td><td class="mono">212.6</td></tr>
+    <tr><td>PAT growth</td><td class="mono">&mdash;</td><td class="mono up">+134%</td><td class="mono up">+130%</td><td class="mono up">+124%</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call">
+      <div class="lab">The bull-supporting facts</div>
+      Spectacular FY26 (rev +41%, EBITDA +103%, PAT +130%, margin 32.6%); six straight quarters of growth; deep fluorine moat (India's largest complex, since 1967); CDMO +59% (high-quality China+1 engine); marquee contracts (Chemours commissioning); rich capex pipeline (HFC, Advanced Materials, DRDO); fortress balance sheet; strong institutional backing; ₹8.60 dividend.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      Very demanding valuation (~68&ndash;80x P/E, ~8&ndash;10x book); FY26 growth <strong>amplified by soft FY25 base</strong> (PAT ₹289 Cr); <strong>HFC pricing cyclical</strong>; CDMO lumpy; heavy capex must earn its return; low promoter holding (~26&ndash;27%); refrigerant-generation/regulatory transitions; stock already +54% in 1yr; sustainable through-cycle margin likely below the 32.6% peak.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials describe a <strong>genuinely high-quality franchise in a powerful inflection</strong> &mdash; the moat, CDMO engine and capex runway are real. The debate concentrates on <strong>the durability of the FY26 margin/return leap (structural vs cyclical), the demanding valuation, execution on capex, and cyclicality</strong> &mdash; which is why the Forensic (&sect;14) and Valuation (&sect;15) sections carry the weight.</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: Navin Fluorine is a high-quality, well-governed, institutionally-vetted large-cap &mdash; so this is <em>not</em> a distress or fraud screen. It is instead scrutiny of the specific quality questions that matter for a <strong>premium-valued franchise coming off a spectacular inflection</strong>: <strong>how much of FY26 is structural vs cyclical/base-driven, the durability of the margin leap, cash conversion vs the capex, CDMO lumpiness, low promoter holding, and disclosure quality.</strong> The franchise quality is genuinely high, but the <strong>amber flags are about durability and price, not integrity.</strong> <strong>Bottom line up front: a "high-quality-but-mind-the-cycle-and-the-price" forensic profile &mdash; a clean, well-run compounder whose main risks are the sustainability of peak margins and a demanding valuation, not accounting concerns.</strong></p>
+
+  <div class="call gd">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings quality</td><td class="mono">&#128994; Green</td><td>Operating-led, margin-rich, low other-income reliance; genuinely high-quality P&amp;L.</td></tr>
+      <tr><td>Structural vs cyclical inflection</td><td class="mono">&#128993; Amber</td><td>FY26 leap partly cyclical (HFC pricing) &amp; base-driven (soft FY25); judge through-cycle margin.</td></tr>
+      <tr><td>Cash conversion vs capex</td><td class="mono">&#128993; Amber</td><td>Heavy capex + WC can lag earnings; management cites improved WC cycles &mdash; verify FCF.</td></tr>
+      <tr><td>CDMO revenue lumpiness</td><td class="mono">&#128993; Amber</td><td>Project-timing/milestone lumpiness; high growth off a smaller base.</td></tr>
+      <tr><td>Promoter holding &amp; alignment</td><td class="mono">&#128993; Amber</td><td>Low ~26&ndash;27% promoter stake; offset by strong institutional (MF ~18%) ownership.</td></tr>
+      <tr><td>Governance &amp; disclosure</td><td class="mono">&#128994; Green</td><td>Reputed group, professional management, large-cap disclosure, dividends.</td></tr>
+      <tr><td>Valuation risk</td><td class="mono">&#128308; Red</td><td>~68&ndash;80x P/E, ~8&ndash;10x book &mdash; prices in years of flawless compounding.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.1 &middot; Earnings quality</h3>
+  <div class="cards">
+    <div class="card c"><div class="k">EBITDA margin</div><div class="v">32.6%</div><div class="d up">operating-led</div></div>
+    <div class="card a"><div class="k">Op. PBT growth</div><div class="v">+142%</div><div class="d up">core-driven</div></div>
+    <div class="card v"><div class="k">PBT</div><div class="v">&#8377;873 Cr</div><div class="d up">+130%</div></div>
+    <div class="card g"><div class="k">Interest cover</div><div class="v">~10.9x</div><div class="d up">strong</div></div>
+  </div>
+  <div class="call vi">
+    <div class="lab">Genuinely high-quality, operating-led earnings &mdash; the strong pillar</div>
+    On earnings quality, NFIL scores <strong>genuinely well.</strong> The FY26 profit surge is <strong>overwhelmingly operating-led</strong>: <strong>operating PBT grew +142%</strong> (even faster than reported PBT +130%), EBITDA margin expansion is driven by <strong>real operating leverage and mix</strong>, and there is <strong>no sign of reliance on other income or one-offs</strong> to manufacture the result &mdash; this is a business genuinely earning more from its core operations as it scales. Interest cover (~10.9x) is strong, leverage is comfortable, and the consolidated results are clean and large-cap-quality. The margin profile (~32.6% EBITDA, ~20% PAT margin) is <strong>among the best in Indian specialty chemicals</strong>, consistent with the depth of the fluorine moat. The <strong>only nuance</strong> (carried into 14.2) is that <em>high current earnings quality</em> is distinct from <em>durability</em> &mdash; the earnings are real and operating, but part of their FY26 <em>level</em> reflects cyclical/base factors. On the narrow question of "are these clean, operating earnings?", the answer is a clear yes. Grade: <strong>green &mdash; a genuinely high-quality, operating-led profit engine.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.2 &middot; Structural vs cyclical &mdash; the key question</h3>
+  <div class="call red">
+    <div class="lab">The single most important forensic issue: is 32.6% EBITDA the new base or a cyclical peak?</div>
+    This is <strong>the flag that most warrants attention</strong> &mdash; not because anything is wrong, but because <strong>the entire valuation hinges on it.</strong> FY26's spectacular numbers (EBITDA +103%, PAT +130%, margin 22.7%&rarr;32.6%) blend <strong>two very different kinds of improvement</strong>, and a careful analyst must separate them. <strong>The structural part</strong> is real and durable: <strong>operating leverage</strong> as capacity fills, and a <strong>mix shift toward high-margin specialty/CDMO</strong> &mdash; these justify a <em>permanently</em> higher margin than the past. <strong>The cyclical/base part</strong> is not durable: (1) FY26 rode a <strong>constructive HFC/refrigerant-pricing environment</strong>, and <strong>refrigerant pricing is cyclical</strong> &mdash; a downcycle would compress HPP margins materially; and (2) the eye-popping <strong>growth rates are amplified by a soft FY25 base</strong> (FY25 PAT was only ₹289 Cr, a depressed year), so the +130% overstates the underlying step-up. The forensic conclusion: <strong>the sustainable, through-cycle margin is very likely <em>below</em> the FY26 peak of 32.6%</strong> &mdash; probably somewhere between the old ~22% and the new ~32%, depending on how much is durable mix/leverage vs cyclical HFC pricing. <strong>Capitalising the FY26 peak at a ~70&ndash;80x multiple is the central risk in the stock.</strong> The right analytical task is to <strong>estimate normalized, through-cycle earnings and value those</strong> (see &sect;15), and to <strong>watch HFC pricing and margin trajectory over the next several quarters</strong> to gauge how much of the leap sticks. Grade: <strong>amber &mdash; the pivotal judgment; do not assume the peak is the new base.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.3 &middot; Cash conversion vs the capex program</h3>
+  <div class="call vi">
+    <div class="lab">Watch whether the strong earnings convert to cash through a heavy capex phase</div>
+    With a <strong>large capex program</strong> (Chemours, ₹236.5 Cr HFC, Advanced Materials, ~₹431.5 Cr total) running alongside strong profit growth, <strong>cash conversion is a natural forensic check.</strong> The <strong>reassuring signs:</strong> management explicitly cited <strong>improved net working-capital cycles</strong> in FY26 (a genuine quality positive, since specialty-chem can be working-capital-heavy), the balance sheet is <strong>strong and QIP-funded</strong>, and interest cover is comfortable &mdash; so the capex is <strong>fundable without stress.</strong> The <strong>items to verify:</strong> (1) <strong>operating cash flow vs PAT</strong> &mdash; confirm the strong earnings are converting to operating cash, not just accruing; (2) <strong>free cash flow through the build-out</strong> &mdash; heavy capex means FCF may be <strong>modest or negative during the investment phase</strong> even as profits grow (this is normal and acceptable <em>if</em> the capex earns good returns, but should be understood); and (3) <strong>return on the new capital</strong> &mdash; the ultimate test of whether the capex creates value. This isn't a red flag &mdash; the balance sheet and working-capital commentary are positive &mdash; but at a premium valuation, <strong>investors should verify that the earnings inflection is cash-backed and that capex converts to high-return assets</strong> rather than assume it. Grade: <strong>amber &mdash; positive signals (improved WC), but verify FCF and returns through the capex phase.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.4 &middot; CDMO lumpiness &amp; concentration</h3>
+  <div class="call vi">
+    <div class="lab">High-quality but inherently lumpy &mdash; respect the quarter-to-quarter variability</div>
+    The CDMO vertical is a <strong>quality asset (14 &sect;5) but carries inherent lumpiness</strong> that a forensic read should flag. CDMO revenue depends on <strong>project timing, milestone recognition, and the transition of molecules from development to commercial manufacturing</strong> &mdash; so <strong>quarters can be uneven</strong>, and a strong quarter (or year) may partly reflect <strong>timing of specific programs</strong> rather than a smooth run-rate. The <strong>+59% FY26 / +61% Q4 growth is also off a smaller base</strong>, so it shouldn't be linearly extrapolated. There is also some <strong>customer/program concentration</strong> inherent in CDMO (a few large innovator programs can drive a disproportionate share), and reliance on <strong>continued new-program wins</strong> to sustain growth. None of this diminishes CDMO's structural attractiveness &mdash; it is the highest-quality engine &mdash; but the forensic posture is to <strong>expect and tolerate quarter-to-quarter variability, look at CDMO on a trailing/annual basis rather than annualizing a single strong quarter, and monitor the pipeline (early&rarr;late&rarr;commercial conversion) and new wins</strong> as the true health indicators. Grade: <strong>amber &mdash; high-quality but lumpy; read it on a multi-quarter basis.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.5 &middot; Promoter holding &amp; governance</h3>
+  <div class="call vi">
+    <div class="lab">Low promoter stake &mdash; but strongly offset by reputed-group &amp; institutional ownership</div>
+    A specific structural flag is the <strong>relatively low promoter holding of ~26&ndash;27%</strong> &mdash; below the level common in Indian family-promoted chemicals. On its own, lower promoter ownership can mean <strong>less concentrated owner-operator alignment</strong> and a <strong>more float/institution-driven register.</strong> However, this is <strong>strongly mitigated</strong> in NFIL's case: (1) it is the flagship of a <strong>reputed, long-established industrial house (Padmanabh Mafatlal Group)</strong> with deep chemicals heritage and a professional management team (a full-time MD alongside the promoter chairman); (2) <strong>institutional ownership is high and sophisticated</strong> (mutual funds ~18.4% plus broad FII/DII), providing <strong>strong external oversight and validation</strong> &mdash; arguably a governance <em>positive</em> that partly compensates for the lower promoter stake; and (3) the company has <strong>large-cap disclosure standards and a consistent dividend record.</strong> The forensic posture: the low promoter holding is <strong>a feature to note and monitor</strong> (watch promoter buying/selling as a conviction signal; verify pledge and related-party transactions from filings), but it is <strong>well-offset by the group's reputation and heavy institutional participation</strong> and is not a governance red flag. Grade: <strong>amber on the holding level specifically, green on overall governance quality.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--indigo)">14.6 &middot; Valuation risk</h3>
+  <div class="call red">
+    <div class="lab">The clearest red flag isn't the business &mdash; it's the price</div>
+    In a forensic review of NFIL, <strong>the sharpest flag is valuation, not the franchise.</strong> The stock trades at <strong>~68&ndash;80x trailing earnings and ~8&ndash;10x book</strong> &mdash; an <strong>extremely demanding multiple</strong> even for a best-in-class specialty-chemicals compounder, and one made more acute by the fact that (per 14.2) <strong>the trailing earnings themselves are at a partly-cyclical peak.</strong> This combination &mdash; <strong>a peak multiple on peak-ish earnings</strong> &mdash; is the central risk: it <strong>prices in years of continued high-margin compounding and flawless capex execution</strong>, and leaves <strong>little to no margin of safety.</strong> If the through-cycle margin proves lower than 32.6% (likely), if HFC pricing softens, if CDMO is lumpy, if capex returns disappoint, or simply if growth decelerates, the stock is vulnerable to <strong>a painful de-rating from a very high base</strong> &mdash; the more so after a ~54% one-year run. This is not a comment on the business (which is excellent) but on <strong>the price paid for it:</strong> at these levels, <strong>the burden is on continued exceptional delivery just to justify the current price, let alone generate returns.</strong> The forensic implication: <strong>value NFIL on normalized/through-cycle earnings, insist on a sensible entry, and recognise that even a wonderful business can be a poor investment at the wrong price.</strong> Grade: <strong>red &mdash; the valuation is the dominant risk; a premium multiple on partly-peak earnings.</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Navin Fluorine earns a "high-quality-but-mind-the-cycle-and-the-price" forensic grade.</strong> On the fundamentals it is <strong>genuinely excellent and clean:</strong> operating-led, margin-rich earnings (32.6% EBITDA, operating PBT +142%); a deep, hard-to-replicate fluorine-chemistry moat (India's largest integrated complex); a high-quality, China+1-tailwinded CDMO engine; a reputed-group, professionally-managed, heavily-institutionally-owned governance profile; a fortress balance sheet with improved working capital; and a rich, funded capex runway. There are <strong>no accounting or integrity red flags.</strong> The flags are about <strong>durability and price:</strong> the FY26 leap is <strong>partly cyclical (HFC pricing) and base-amplified (soft FY25)</strong>, so the <strong>sustainable through-cycle margin is likely below the 32.6% peak</strong>; cash conversion through a heavy capex phase and CDMO lumpiness warrant monitoring; promoter holding is low (though well-offset); and, above all, the <strong>valuation (~68&ndash;80x P/E, ~8&ndash;10x book) is a premium multiple applied to partly-peak earnings, leaving little margin of safety.</strong> The honest conclusion: <strong>this is a best-in-class specialty-fluorochemicals franchise with a real structural growth story and a spectacular but partly-cyclical FY26 &mdash; a wonderful business whose principal risks are the sustainability of peak margins and, most of all, the demanding price. Believe the moat, the CDMO/China+1 story and the capex runway; normalize the FY26 peak to a through-cycle earning power rather than capitalising it; verify cash conversion and capex returns; respect HFC cyclicality and CDMO lumpiness; and, given the ~70&ndash;80x multiple, be especially disciplined on valuation and entry. An excellent company where the debate is price and cycle, not quality.</strong>
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation</h2></div>
+  <p>Navin Fluorine is <strong>highly profitable, so earnings multiples apply</strong> &mdash; but the multiple is <strong>extreme</strong> (~68&ndash;80x trailing P/E, ~8&ndash;10x P/B, ~11x sales), and the trailing earnings are at a <strong>partly-cyclical peak.</strong> For a high-quality but cyclical, capex-heavy specialty-chem compounder, the right frame is <strong>forward P/E and EV/EBITDA on <em>normalized, through-cycle</em> earnings</strong> (not the FY26 peak), with <strong>ROCE-durability and capex-return as the gate</strong>, and HFC cyclicality as the key caveat. P/B is a weak cross-check on a premium asset-heavy franchise.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Navin Fluorine</h3>
+    <div class="bm-sub">High-quality but cyclical, capex-heavy fluorochemicals compounder &rarr; forward P/E &amp; EV/EBITDA on NORMALIZED through-cycle earnings PRIMARY; ROCE-durability &amp; capex-return = the GATE; CDMO/specialty mix-quality a QUALITY CHECK; trailing P/E on FY26 peak MISLEADING (peak multiple on peak-ish earnings); P/B a weak cross-check</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Normalized / through-cycle earnings power</td><td><span class="verdict v-gate">THE GATE</span></td><td>FY26's 32.6% EBITDA is partly cyclical (HFC) &amp; base-driven. Value the <em>sustainable</em> margin/earnings, not the peak &mdash; this judgment decides everything.</td></tr>
+      <tr><td>Forward P/E (normalized)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Profitable &amp; growing, so earnings-based &mdash; but on forward, normalized earnings, not the ~70&ndash;80x trailing on peak profits.</td></tr>
+      <tr><td>EV/EBITDA (through-cycle)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Cleaner for a capex-heavy manufacturer; use a through-cycle margin &amp; compare vs premium peers (SRF, GFL, Aarti, Clean Science).</td></tr>
+      <tr><td>ROCE durability &amp; capex-return</td><td><span class="verdict v-crit">QUALITY CHECK</span></td><td>The premium is only justified if the heavy capital earns strong, sustained ROCE through the cycle. Watch incremental returns.</td></tr>
+      <tr><td>CDMO/specialty mix quality</td><td><span class="verdict v-ind">MIX SIGNAL</span></td><td>A rising high-margin CDMO/specialty share raises durable earning power &amp; justifies a higher multiple than the HPP-heavy past.</td></tr>
+      <tr><td>Trailing P/E on FY26 peak; P/B alone</td><td><span class="verdict v-avoid">MISLEADING</span></td><td>Trailing ~68&ndash;80x on partly-peak earnings &amp; ~8&ndash;10x book flatter/mislead. Neither anchors alone.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At a market cap of roughly ₹38,800&ndash;39,300 Cr on ₹3,314 Cr FY26 revenue and ₹664 Cr PAT, Navin Fluorine trades at <b>~68&ndash;80x trailing earnings and ~8&ndash;10x book</b> &mdash; a <b>peak-ish multiple on partly-peak earnings</b>, which is the crux of the valuation debate. The right question isn't the trailing multiple; it's the <b>value of normalized, through-cycle earning power</b> (with a sustainable EBITDA margin likely between the old ~22% and the FY26 peak of ~32.6%), grown by the CDMO/specialty mix shift and the capex runway. <b>Verdict: a best-in-class, premium-valued specialty-fluorochemicals franchise &mdash; India's deepest fluorine-chemistry moat, a high-quality China+1-tailwinded CDMO engine, marquee contracts (Chemours commissioning now), a rich funded capex pipeline (HFC, Advanced Materials, DRDO), a fortress balance sheet, and a spectacular FY26 inflection (EBITDA +103%, PAT +130%, margin to 32.6%) &mdash; but priced at a very demanding ~68&ndash;80x on earnings that are partly at a cyclical/base-driven peak, leaving little margin of safety. It is best owned as a long-term quality compounder bought at a sensible price on normalized earnings: attractive to accumulate for the moat, the structural CDMO/China+1 story and the capex runway if you can pay a premium for quality, take a multi-year view, and (ideally) enter on cyclical/valuation pullbacks; cautious at the current ~70&ndash;80x peak-on-peak level if you need a margin of safety, since even a wonderful business can disappoint from too high a base. Value it on normalized through-cycle forward P/E &amp; EV/EBITDA, gate it on ROCE-durability and capex-returns, credit the rising CDMO/specialty mix, respect HFC cyclicality, and never capitalise the FY26 peak margin or anchor on trailing P/E alone. A wonderful franchise; a price that demands it keep compounding flawlessly.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">&#8377;4,500&ndash;5,800</div><div class="sd">HFC pricing softens, the through-cycle margin normalizes well below 32.6%, CDMO proves lumpy, capex returns disappoint, and the ~70&ndash;80x multiple de-rates as the market re-bases earnings &mdash; toward the 52-week-low / pre-run zone.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">&#8377;7,000&ndash;8,200</div><div class="sd">The mix shift to specialty/CDMO holds margins durably in the high-20s%, Chemours &amp; HFC commission on schedule, growth continues but decelerates from the FY26 peak; the stock consolidates near current levels as earnings build into the multiple.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">&#8377;9,500&ndash;12,000+</div><div class="sd">The margin leap proves largely structural, CDMO scales fast &amp; wins new programs, Advanced Materials/DRDO add new legs, capex earns high ROCE, and NFIL keeps compounding at a premium &mdash; a best-in-class fluorochemicals + CDMO compounder.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Given the peak-earnings/valuation uncertainty and vendor-price divergence, these ranges are illustrative. Scenarios hinge on the through-cycle margin (structural vs cyclical), HFC pricing, CDMO scaling &amp; lumpiness, capex commissioning &amp; returns, mix shift, and multiple de-/re-rating vs the premium peer set (SRF, GFL, Aarti, Clean Science). A high-quality but cyclical premium large-cap. Analyst targets have ranged widely (e.g., JM Financial Buy ~₹6,685 Nov'25; some houses Reduce earlier). Verify CMP on NSE/BSE; Q1 FY27 results were just reported (~early Aug 2026).</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation / de-rating risk</strong>At ~68&ndash;80x P/E and ~8&ndash;10x book &mdash; a peak multiple on partly-peak earnings &mdash; the stock offers little margin of safety; any disappointment or margin normalization could trigger a painful de-rating from a very high base (after a ~54% 1-yr run).</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Margin sustainability / cyclicality (see &sect;14)</strong>FY26's 32.6% EBITDA margin is partly cyclical (constructive HFC pricing) and base-amplified; the through-cycle margin is likely lower, and a refrigerant downcycle would compress HPP profitability.</div></div>
+  <div class="risk"><div class="rn rm">3</div><div class="rb"><strong>Capex execution &amp; returns</strong>A heavy capex program (Chemours, HFC, Advanced Materials) must commission on time and earn strong ROCE; delays or sub-par returns would undercut the premium and pressure free cash flow.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>CDMO lumpiness &amp; concentration</strong>CDMO revenue is project-timing-driven and can be uneven quarter to quarter; depends on winning/retaining innovator programs against global competition.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Refrigerant regulation / HFC phase-down</strong>Longer-term refrigerant-generation transitions and HFC phase-down regulations are a structural risk to the HPP portfolio's product mix over time.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Low promoter holding (~26&ndash;27%)</strong>Less concentrated promoter alignment (offset by strong institutional ownership); worth monitoring promoter buying/selling and pledge from filings.</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Cyclicality, currency &amp; raw materials</strong>Export-oriented (fluorspar/HF inputs, USD/EUR exposure); global agrochem/pharma demand cycles and geopolitical supply-chain factors affect volumes and pricing.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Moat (fluorine chemistry)</div><div class="scv">Deep, since 1967 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">FY26 growth/margins</div><div class="scv">Spectacular <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">CDMO / China+1</div><div class="scv">High-quality engine <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Fortress, QIP-funded <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Capex runway</div><div class="scv">Rich, funded <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Governance / institutions</div><div class="scv">Reputed group, MF ~18% <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Margin durability</div><div class="scv">Partly cyclical <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Promoter holding</div><div class="scv">~26&ndash;27% (low) <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">~68&ndash;80x P/E <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call am">
+    <div class="lab">Bottom line</div>
+    Navin Fluorine International is a <strong>best-in-class, premium specialty-fluorochemicals franchise</strong> &mdash; India's largest integrated fluorochemicals complex, a Mafatlal-group flagship with <strong>55+ years of deep, hard-to-replicate fluorine chemistry</strong> &mdash; that has just delivered a <strong>spectacular FY26 inflection</strong> (revenue +41%, EBITDA +103% to a 32.6% margin, PAT +130% to ₹664 Cr, six straight quarters of growth), powered by operating leverage, a <strong>fast-growing high-quality CDMO engine (+59%, a prime China+1 beneficiary)</strong>, constructive HFC pricing, marquee contracts (<strong>Chemours commissioning now</strong>), and a <strong>rich, funded capex runway</strong> (HFC, Advanced Materials, DRDO) on a <strong>fortress balance sheet</strong> with strong institutional backing. The franchise quality is <strong>genuinely top-tier.</strong> <strong>But this is a demanding investment, and the forensic review (&sect;14) is clear on why:</strong> the stock trades at a <strong>very steep ~68&ndash;80x P/E and ~8&ndash;10x book &mdash; a peak multiple on partly-peak earnings</strong>, since FY26's margin leap is <strong>partly cyclical (HFC pricing) and base-amplified (soft FY25)</strong>, so the <strong>sustainable through-cycle margin is likely below 32.6%</strong>; add capex-execution risk, CDMO lumpiness, low promoter holding, and a stock already up ~54% in a year. <strong>The honest framing: a wonderful, moat-rich, structurally-growing compounder whose principal risks are margin-cyclicality and, above all, a demanding price &mdash; not business quality. Own it as a long-term quality compounder bought on normalized earnings at a sensible price: attractive to accumulate for the fluorine moat, the CDMO/China+1 structural story and the capex runway if you can pay up for quality, take a multi-year view, and enter on pullbacks; cautious at the current peak-on-peak ~70&ndash;80x level if you need a margin of safety. Value it on normalized through-cycle forward P/E and EV/EBITDA, gate it on ROCE-durability and capex-returns, credit the rising CDMO/specialty mix, respect HFC cyclicality, and never capitalise the FY26 peak margin or anchor on trailing P/E alone. An excellent company; the debate is price and cycle, not quality.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Developments</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">~early Aug 2026</td><td><strong>Q1 FY27 results</strong> approved by board; also approved <strong>₹90 Cr capex for Advanced Materials capacities at Surat</strong> (targeted Q2 FY28) &mdash; continuing the growth build-out.</td></tr>
+    <tr><td class="mono">30 Jul 2026</td><td><strong>Signed an agreement with DRDO (Ministry of Defence)</strong> for indigenous bulk manufacturing of <strong>sodium borohydride (NaBH&#8324;)</strong> &mdash; a strategic/defense-materials optionality.</td></tr>
+    <tr><td class="mono">Jun/Jul 2026</td><td><strong>Chemours project</strong> targeted for commissioning &mdash; a large contract transitioning from investment to revenue generation.</td></tr>
+    <tr><td class="mono">May 2026</td><td><strong>FY26 audited results:</strong> revenue ₹3,313.9 Cr (+41%), Operating EBITDA ₹1,081.7 Cr (+103%, margin 32.6%), PAT ₹663.6 Cr (+130%); Q4 revenue ₹937.7 Cr (+34%), PAT ₹212.6 Cr (+124%); HPP +34%, Specialty +44%, CDMO +59%; final dividend ₹8.60. Investor meets (Singapore/Hong Kong, Jun; 360 One conference, May 29).</td></tr>
+    <tr><td class="mono">Feb 2026</td><td><strong>Q3 FY26:</strong> highest-ever quarterly revenue/PAT; consolidated PAT ₹185.4 Cr (+122% YoY); stock near 52-wk high (~₹6,621).</td></tr>
+    <tr><td class="mono">Jul 2025</td><td><strong>₹750 Cr QIP</strong> completed &mdash; funding the HFC/Specialty/Advanced Materials capex program (~₹431.5 Cr).</td></tr>
+    <tr><td class="mono">Next</td><td>Watch: through-cycle margin trajectory (structural vs cyclical), HFC pricing, Chemours/HFC commissioning &amp; ramp, CDMO scaling &amp; new wins, Advanced Materials/DRDO progress, ROCE &amp; free cash flow.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Balance Sheet &amp; Quality Strength</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">EBITDA margin</div><div class="v">32.6%</div><div class="d up">FY26 (peak?)</div></div>
+    <div class="card a"><div class="k">Interest cover</div><div class="v">~10.9x</div><div class="d up">strong</div></div>
+    <div class="card v"><div class="k">Financial health</div><div class="v">5/6</div><div class="d up">robust</div></div>
+    <div class="card g"><div class="k">Working capital</div><div class="v">Improved</div><div class="d up">FY26</div></div>
+  </div>
+  <p>NFIL pairs <strong>strong margins and returns with a fortress, low-leverage balance sheet</strong> (interest cover ~10.9x, QIP-funded, improved net working-capital cycles) &mdash; a superb platform for its capex-fuelled growth. The quality questions are <strong>whether the peak margins are durable (through-cycle) and whether the heavy capex converts to cash and high ROCE.</strong></p>
+  <div class="call vi">
+    <div class="lab">The metric that decides the premium: durable through-cycle returns, cash-backed</div>
+    NFIL's balance-sheet and quality <em>strength</em> is not in question &mdash; <strong>comfortable leverage, strong interest cover, QIP-funded capex, and improved working capital</strong> make this a robust, self-funding franchise. The decisive question for the <strong>premium valuation</strong> is whether the <strong>FY26 return leap is durable and cash-backed through the cycle.</strong> Track: <strong>(1) through-cycle EBITDA margin</strong> (does it hold in the high-20s%+ as HFC pricing normalizes and mix shifts to specialty/CDMO, or fall back toward the low-20s?); <strong>(2) ROCE trajectory</strong> as the heavy capex fills (does incremental capital earn strong returns?); and <strong>(3) operating cash flow vs PAT and free cash flow</strong> through the build-out (is the profit inflection converting to cash?). If margins prove durable, capex earns high ROCE, and earnings convert to cash, NFIL is a genuine self-funding, high-return compounder that can grow into its premium; if margins normalize sharply lower or capex returns disappoint, the premium is hard to justify. Net: <strong>a fortress balance sheet and high current returns &mdash; with through-cycle margin durability, capex-return and cash conversion as the metrics that ultimately validate (or challenge) the premium.</strong> Verify these quarter by quarter.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical &amp; Market Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">1-year move</div><div class="tkv">~+54% <span class="badge b-bull">&uarr;</span></div><div class="tkd">strong re-rating</div></div>
+    <div class="tk"><div class="tkl">CMP</div><div class="tkv">~&#8377;7,555</div><div class="tkd">near 52-wk high</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">&#8377;4,499&ndash;7,936</div><div class="tkd">wide</div></div>
+    <div class="tk"><div class="tkl">6-month move</div><div class="tkv">~+23%</div><div class="tkd">continued strength</div></div>
+    <div class="tk"><div class="tkl">Market cap</div><div class="tkv">~&#8377;39,000 Cr</div><div class="tkd">large-cap</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">Premium quality</div><div class="tkd">momentum + fundamentals</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Navin Fluorine has <strong>re-rated powerfully &mdash; up ~54% over one year and ~23% in six months</strong> &mdash; on the strength of the FY26 inflection, CDMO scaling and capex catalysts, trading near its 52-week/all-time high (₹7,936) versus a low of ₹4,498.5. As a <strong>quality large-cap with strong institutional ownership</strong>, it is less erratic than small-cap turnarounds, but the <strong>strong run leaves it richly valued and vulnerable to any growth/margin disappointment.</strong> Technicals are secondary to the <strong>through-cycle-margin, capex-execution, CDMO-scaling and valuation debate</strong>; direction will track <strong>quarterly delivery (margin durability, CDMO, commissioning) and any HFC-pricing shifts</strong> more than chart levels. After the re-rating, entry discipline matters. Verify the live quote on NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Report follows the standard 20-section framework (incl. Forensic Analysis, &sect;14). Navin Fluorine is a premium-valued large-cap; trailing P/E (~68&ndash;80x) sits on partly-peak earnings, and vendor data diverges (CMP ₹5,872&ndash;7,579; m-cap ₹30,095&ndash;39,251 Cr). Verify against NSE/BSE and filed results, attend to the &sect;14 cyclicality/valuation flags, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Navin Fluorine International Ltd</b> &mdash; NSE: NAVINFLUOR &middot; BSE: 532504 &middot; ISIN INE048G01026 &middot; Specialty Fluorochemicals (High Performance Products, Specialty Chemicals, CDMO) &middot; Padmanabh Mafatlal Group flagship &middot; Plants: Surat, Dahej, Dewas, Manchester (UK) &middot; Chairman Vishad Mafatlal, MD Nitin Kulkarni<br>
+  Report generated 05 August 2026 &middot; Data through FY26 audited results (May 2026) + Q1 FY27 (~early Aug 2026) + DRDO agreement (Jul 2026). Includes Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; company FY26 &amp; Q1 FY27 results, earnings-call transcript &amp; NSE/BSE filings, Screener.in, Whalesbook, ScanX, Tradebrains, MarketsMojo, InvestyWise, Kotak, Bajaj, India Infoline, Business Standard, Simply Wall St. <b>Key figures &mdash; FY26 (ended 31 Mar 2026, consolidated):</b> net revenue from operations ₹3,313.90 Cr (+41% from ₹2,349.38 Cr FY25; ₹3,379.19 Cr incl. other operating income); Operating EBITDA ₹1,081.68 Cr (+103% YoY), EBITDA margin 32.64% (from 22.72%); PAT ₹663.55&ndash;663.56 Cr (+~130% from ₹288.58 Cr), net-profit margin 20.02% (from 12.28%); PBT ₹873.17 Cr (+130%); operating PBT ₹814.63 Cr (+142%); interest cover ~10.88x; final dividend ₹8.60/share (430% of ₹2 FV). <b>Q4 FY26:</b> revenue ₹937.71 Cr (+34%), EBITDA ₹321.15 Cr (+80%), PAT ₹212.62 Cr (+124%); CDMO Q4 +61% to ₹186 Cr. <b>9M FY26:</b> PAT ₹450.94 Cr (+134%), revenue ₹2,376.19 Cr (+43.96%). <b>Q3 FY26:</b> PAT ₹185.40 Cr (+121.77%), revenue ~₹892 Cr. <b>Segments (FY26):</b> High Performance Products ₹1,615.38 Cr (+33.93%), Specialty Chemicals ₹1,152.09 Cr (+43.94%), CDMO ₹546.43 Cr (+59.39%). <b>Business:</b> flagship of Padmanabh Mafatlal Group; fluorine chemistry since 1967 (incorporated 25 Jun 1998); India's largest integrated fluorochemicals complex; 60+ fluorinated compounds (agrochem, pharma, aluminium smelting, refrigeration, metal processing, abrasives, glass/ceramics); plants at Surat &amp; Dewas (India), Dahej (Navin Fluorine Advanced Sciences Ltd), Manchester (UK, CDMO). Chairman Vishad Mafatlal (2nd-gen); MD Nitin G. Kulkarni. <b>Capex/contracts:</b> Chemours project commissioning Jun/Jul 2026; additional HFC capacity 15,000 MTPA R32-equivalent (₹236.5 Cr, Q3 FY27); MPP de-bottlenecking (Dahej); Advanced Materials initial capacity Q1 FY27 + ₹90 Cr Surat capex (Q2 FY28); total capex ~₹431.5 Cr; historic $410M (~₹2,900 Cr) HPP contract (2020); DRDO agreement for indigenous bulk sodium borohydride (30 Jul 2026); ₹750 Cr QIP (Jul 2025). <b>Ownership:</b> promoter ~26.29&ndash;27.1% (Mafatlal Impex ~25.44&ndash;26.29%); mutual funds ~18.4%; strong FII/DII. <b>DATA CAVEAT: vendor prices/figures diverge &mdash; CMP ₹5,872.15 (24 Dec) / ₹6,621 (9 Feb) / ₹7,046.5 (20 May) / ₹7,579 (17 Jul) / ₹7,555 (3 Aug); Simply Wall St shows a stale ~₹5,735; 52-wk ₹4,498.50&ndash;7,936 (all-time high ~₹7,936); market cap ₹30,095 Cr (Dec) / ₹33,683 Cr (Feb) / ₹36,142.62 Cr (20 May) / ₹38,762.10 Cr (3 Aug) / ₹38,878.49 Cr (17 Jul) / ₹39,000&ndash;39,251 Cr (Screener/Aug); trailing P/E ~67.78x (24 Dec TTM) / 73.64x (20 May) / 79.6&ndash;79.66x (Jul/Aug); P/B ~8.36x (Dec) / 9.84x (Screener) / 9.90&ndash;10.59x (May/Jul) &mdash; note one vendor's P/B of 714.48 is a clear data error; EPS (TTM) ~₹86.66 (Dec); dividend yield ~0.11&ndash;0.4%; face value ₹2. This report loosely anchors CMP ~₹7,500 given the spread; all figures approximate &mdash; verify vs NSE/BSE live and filed results.</b> Normalised/through-cycle estimates and scenario ranges (₹4,500&ndash;12,000+) in Section 15 are the author's illustrative analysis, not forecasts, price targets or company guidance. <b>Educational document, not investment advice &mdash; a premium-valued large-cap specialty-fluorochemicals compounder with elevated valuation and margin-cyclicality risk: FY26's peak margins are partly cyclical/base-driven (see &sect;14).</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Navin Fluorine International Limited
+Ticker: NSE: NAVINFLUOR / BSE: 532504 (ISIN INE048G01026; FV Rs 2)
+Sector: Specialty Chemicals (Fluorochemicals - HPP/refrigerants, Specialty, CDMO)
+Report Date: August 5, 2026 (FY26 audited results May 2026; Q1 FY27 ~early Aug 2026; DRDO deal Jul 30 2026)
+File: navin_fluorine_equity_research.html
+*** PREMIUM LARGE-CAP high-quality specialty-fluorochemicals LEADER in a spectacular FY26 inflection; includes SECTION 14 FORENSIC ANALYSIS (20-section report) ***
+*** THESIS = best-in-class fluorine-chemistry compounder + China+1 CDMO engine at a VERY DEMANDING valuation; key debate = FY26 margin leap STRUCTURAL vs CYCLICAL/base-driven; own on NORMALIZED through-cycle earnings at sensible price ***
+CMP at Report: ~Rs 7,555 (VENDOR-DIVERGENT: Rs 5,872 24-Dec / Rs 7,046.5 20-May / Rs 7,579 17-Jul / Rs 7,555 3-Aug; stale ~Rs 5,735 SimplyWallSt; up ~54% 1yr, ~23% 6M, near 52-wk/all-time high Rs 7,936; VERIFY vs NSE/BSE)
+Market Cap: ~Rs 38,800-39,300 Cr (Rs 30,095 Dec / Rs 36,143 May / Rs 38,762-39,251 Aug); face value Rs 2; LARGE-CAP
+*** VERY DEMANDING VALUATION: trailing P/E ~67.8x (Dec TTM) to ~79.6x (Jul/Aug) - PEAK MULTIPLE ON PARTLY-PEAK EARNINGS; P/B ~8.4-10.6x (one vendor's 714x is a data error); EPS TTM ~Rs 86.66 ***
+BUSINESS: flagship of Padmanabh Mafatlal Group; fluorine chemistry since 1967 (incorp 1998); INDIA'S LARGEST INTEGRATED FLUOROCHEMICALS COMPLEX; 60+ fluorinated compounds. THREE VERTICALS: HPP/High Performance Products (refrigerants/HFCs like R32, inorganic fluorides, aluminium smelting - FY26 Rs 1,615 Cr +34%, commodity/CYCLICAL, constructive HFC pricing FY26); Specialty Chemicals (agrochem/pharma organofluorines - Rs 1,152 Cr +44%); CDMO (contract dev/mfg pharma/agrochem - Rs 546 Cr +59%, FASTEST-GROWING HIGHEST-VALUE ENGINE, China+1, Manchester UK site). Plants Surat/Dewas/Dahej(NFASL)/Manchester. Chairman Vishad Mafatlal (2nd-gen), MD Nitin Kulkarni.
+FINANCIALS (consol): FY25 rev Rs 2,349 Cr / PAT Rs 288.58 Cr (SOFT BASE) -> FY26 rev Rs 3,313.90 Cr (+41%), Op EBITDA Rs 1,081.68 Cr (+103%, margin 32.64% from 22.72%), PAT Rs 663.55 Cr (+130%, margin 20.02% from 12.28%), PBT Rs 873 Cr, op PBT +142%, interest cover ~10.9x. Q4 FY26 rev Rs 937.71 Cr (+34%), EBITDA Rs 321 Cr (+80%), PAT Rs 212.62 Cr (+124%). 9M FY26 PAT Rs 450.94 Cr (+134%). SIX consecutive quarters of growth. Final dividend Rs 8.60 (430% of FV).
+*** SECTION 14 FORENSIC ANALYSIS (6 subsections) - "high-quality-but-mind-the-cycle-and-the-price" grade ***
+- 14.1 earnings quality: GREEN - operating-led (op PBT +142%), margin-rich (32.6% EBITDA), low other-income reliance, clean; genuinely high-quality P&L
+- 14.2 structural vs cyclical: AMBER/KEY - FY26 leap PARTLY CYCLICAL (constructive HFC pricing) & BASE-AMPLIFIED (soft FY25 PAT Rs 289 Cr); sustainable through-cycle margin LIKELY BELOW 32.6% peak (between old ~22% and new ~32%); capitalising peak at 70-80x = central risk
+- 14.3 cash conversion vs capex: AMBER - heavy capex (~Rs 431.5 Cr) + WC; BUT mgmt cites IMPROVED net WC cycles, QIP-funded; verify OCF/PAT & FCF through build-out
+- 14.4 CDMO lumpiness: AMBER - project-timing/milestone lumpy, high growth off smaller base, some program concentration; read on multi-quarter basis
+- 14.5 promoter holding: AMBER (holding) / GREEN (governance) - LOW ~26-27% promoter stake BUT strongly offset by reputed Mafatlal group + strong institutional (MF ~18.4%) + professional mgmt + large-cap disclosure
+- 14.6 valuation risk: RED - ~68-80x P/E, ~8-10x book = PEAK MULTIPLE ON PEAK-ISH EARNINGS; little/no margin of safety; vulnerable to de-rating if margin normalizes; value on NORMALIZED earnings
+- FORENSIC VERDICT: high-quality-but-mind-the-cycle-and-the-price; excellent clean operating-led earnings, deep fluorine moat, high-quality CDMO, reputed-group/institutional governance, fortress balance sheet, funded capex runway; NO accounting/integrity red flags; flags = DURABILITY (peak margins partly cyclical/base-driven) + PRICE (demanding valuation); believe moat/CDMO/capex, NORMALIZE the FY26 peak to through-cycle earning power, verify cash conversion & capex returns, respect HFC cyclicality & CDMO lumpiness, be disciplined on valuation/entry
+Ownership: promoter (Mafatlal) ~26-27% (LOW, offset by institutions); mutual funds ~18.4%
+Valuation: VERY PREMIUM - P/E ~68-80x, P/B ~8-10x; use normalized through-cycle forward P/E & EV/EBITDA
+KEY RISKS: valuation/de-rating (peak-on-peak ~70-80x, +54% 1yr), margin-sustainability/cyclicality (HFC pricing, FY26 partly cyclical/base-driven - sec 14), capex execution & returns (Chemours/HFC/Advanced Materials), CDMO lumpiness/concentration, refrigerant regulation/HFC phase-down, low promoter holding (~26-27%), cyclicality/currency/raw materials
+Bull Case: Rs 9,500-12,000+
+Base Case: Rs 7,000-8,200
+Bear Case: Rs 4,500-5,800
+Primary Valuation Metric: NORMALIZED/through-cycle earnings power = THE GATE (don't capitalise FY26 32.6% peak); forward P/E on normalized earnings PRIMARY + EV/EBITDA through-cycle CO-PRIMARY; ROCE-durability & capex-return QUALITY CHECK; CDMO/specialty mix quality MIX SIGNAL; trailing P/E on FY26 peak & P/B alone MISLEADING (peak multiple on peak-ish earnings, vendor-divergent)
+Investment Type: best-in-class PREMIUM large-cap specialty-fluorochemicals compounder - India's deepest fluorine moat (largest integrated complex since 1967, Mafatlal flagship), high-quality China+1 CDMO engine (+59%), marquee contracts (Chemours commissioning mid-2026, historic $410M deal), rich funded capex runway (HFC +15,000 MTPA R32, Advanced Materials battery/electronic optionality, DRDO sodium borohydride), fortress balance sheet (QIP Rs 750 Cr, interest cover ~10.9x, improved WC), strong institutional backing - BUT VERY demanding valuation (~68-80x P/E, ~8-10x book, peak-on-peak) + FY26 margin leap PARTLY CYCLICAL (HFC)/base-driven (soft FY25) so through-cycle margin below 32.6% + capex-execution risk + CDMO lumpiness + low promoter holding (~26-27%) + refrigerant regulation + stock +54% 1yr; wonderful business, debate is PRICE & CYCLE not quality; own on normalized through-cycle earnings at sensible price / on pullbacks; value normalized fwd P/E & EV/EBITDA, gate on ROCE-durability & capex-returns, credit CDMO/specialty mix, respect HFC cyclicality, NEVER capitalise FY26 peak margin
+Palette: deep indigo/violet + fluorine-cyan + warm amber + gold; Spectral/Manrope/Azeret Mono; hexagonal fluorine-molecule (F node) hero motif
+NOTE: Indian specialty-chemicals cohort (premium large-cap LEADER flavour vs small/mid-caps Yasho/Paushak/Stallion/Sudeep/Raghav in library); peers SRF/Gujarat Fluorochemicals(GFL)/Aarti Industries/Clean Science + global CDMO. Sections: 01-13 standard (fluorine moat, 3 verticals, CDMO engine sec 05, capex/contracts sec 08, margins/FY26 leap sec 09), 14 Forensic Analysis (structural-vs-cyclical + valuation-risk focus), 15 Valuation (Best Metric = normalized through-cycle earnings), 16 Risks, 17 Scorecard, 18 Recent Developments, 19 Balance Sheet & Quality, 20 Technical & Market.
+-->
