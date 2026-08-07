@@ -142,5 +142,21 @@
     "file": "palantir_technologies_equity_research.html",
     "desc": "US mega-cap AI-software leader (Ontology + AIP; Gotham/Foundry/Apollo) posting an 'otherworldly' Q2 2026: revenue $1.94B (+93%, fastest ever), US-commercial +149%, Rule of 40 = 155%, GAAP net income >$1B, adj FCF $1.22B; FY26 guide raised to ~$8.15B (+82%). Fortress balance sheet (D/E 0.02), clean books, real cash. But the risk is PRICE, not the business: extreme valuation (~$398B mcap, ~42x fwd sales, trailing P/E ~107-219x) prices in years of flawless execution — see Forensic (§14): cash flow corroborates the story, valuation is the only red flag. Bull (Wedbush) $230 vs Burry bear $46. Educational, not advice.",
     "date": "2026"
+  },
+  {
+    "name": "ELANTAS Beck India",
+    "ticker": "ELANTAS",
+    "sector": "Specialty Chemicals",
+    "file": "elantas_beck_india_equity_research.html",
+    "desc": "A high-quality, debt-free, MNC-parented (ALTANA Group, Germany) niche specialty-chemicals leader (est. 1956) — India's dominant maker of wire enamels & insulating varnishes (~84% of sales, designed-in & safety-critical) plus engineering/construction resins (~16%). Elite economics (ROCE ~43.5%), a fortress net-cash balance sheet, global parent technology, and a structural electrification/EV/renewables/motor-transformer tailwind. After a soft FY26 (single-digit growth, margin contraction, an Ankleshwar regulatory scare, a ~30% de-rating), it posted a strong Q1 FY27 (rev ~+35%, PAT ~+80% YoY); Ankleshwar issue resolved, ₹56 Cr self-funded expansion underway. BUT a demanding valuation (~50x P/E vs ~13x industry, ~7.7x book) on a cyclical base whose rebound is base-flattered & unproven, with very low free float (~75% promoter, ~0% institutional → thin liquidity) — see Forensic (§14). Best valued on normalized through-cycle earnings gated on a proven growth re-acceleration. Educational, not advice.",
+    "date": "2026"
+  },
+  {
+    "name": "Standard Engineering Technology",
+    "ticker": "SETL",
+    "sector": "Capital Goods / Precision Engineering",
+    "file": "standard_engineering_technology_equity_research.html",
+    "desc": "A hyper-growth, recently-IPO'd (Jan 2025) precision-engineering leader (formerly Standard Glass Lining Technology, renamed Dec 2025) — one of India's top-3 makers of glass-lined, stainless-steel & nickel-alloy process equipment for pharma/chemical, with turnkey concept-to-commissioning solutions. A proven, cash-generative core (FY26 rev +26.7% to ₹793 Cr, PAT +21% to ₹83 Cr, net debt-free, ~₹1,000 Cr order book, 40-50% guided growth, record Q1 FY27 +41.5%) is now funding an aggressive, self-funded ~₹500 Cr pivot into the red-hot AI-datacenter engineering theme (GScale Energy, targeting ₹250 Cr FY27) plus Japan/tech (GL Hakko) — a compelling multi-engine re-rating story. BUT priced for success at ~67x P/E after a ~130% 6-month run, with real execution risk: a working-capital stretch (inventory ~doubled — growth consuming cash), margins (~17%) lagging revenue, modest ROE (~12.8%) on a large unproven capital deployment, equity dilution, an unproven AI-vertical, and only ~18 months of listed history — see Forensic (§14, two red flags). Best valued on forward P/E gated on order-book conversion + core-growth delivery + AI-vertical execution. Educational, not advice.",
+    "date": "2026"
   }
 ]
