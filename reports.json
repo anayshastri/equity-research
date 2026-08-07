@@ -4,7 +4,7 @@
     "ticker": "DEEPINDS",
     "sector": "Oil & Gas Services",
     "file": "deep_industries_equity_research.html",
-    "desc": "India's only integrated onshore+offshore oilfield-services platform; ~48% EBITDA margins, >₹3,000 Cr order book",
+    "desc": "Oilfield & gas-infrastructure services play with a strong order book and improving margins. Structural energy-capex tailwind, but execution and commodity-cycle sensitivity to watch.",
     "date": "2026"
   },
   {
@@ -12,7 +12,7 @@
     "ticker": "YASHO",
     "sector": "Chemicals",
     "file": "yasho_industries_equity_research_jul2026.html",
-    "desc": "Specialty & fine chemicals; Q1 FY27 margin breakout to 23.2% EBITDA, CRISIL upgrade, 15-yr MNC lubricant contract",
+    "desc": "Specialty-chemicals maker (aroma, rubber & performance chemicals) with a major Q1 FY27 earnings inflection and a CRISIL upgrade. Capex-led growth story; watch margin durability and leverage.",
     "date": "2026"
   },
   {
@@ -20,7 +20,7 @@
     "ticker": "SMLMAH",
     "sector": "Auto",
     "file": "sml_mahindra_equity_research.html",
-    "desc": "Ex-SML Isuzu, now Mahindra-controlled CV maker absorbing M&M's Truck & Bus Division; transformation at a rich valuation",
+    "desc": "Commercial-vehicle maker (formerly SML Isuzu) with a Mahindra-led turnaround thesis. Volume recovery and margin expansion potential, offset by competition and cyclicality.",
     "date": "2026"
   },
   {
@@ -28,7 +28,7 @@
     "ticker": "RKFORGE",
     "sector": "Auto Ancillary",
     "file": "ramkrishna_forgings_equity_research.html",
-    "desc": "Largest forging company in East India; cyclical CV-forging leader at inflection, diversifying into railways & castings",
+    "desc": "Leading forgings player levered to CV, railways and exports diversification. Strong capex and order pipeline; cyclical end-markets and working-capital intensity are the key risks.",
     "date": "2026"
   },
   {
@@ -36,7 +36,7 @@
     "ticker": "TFCI",
     "sector": "NBFC / Finance",
     "file": "tourism_finance_corporation_equity_research.html",
-    "desc": "India's only dedicated tourism lender diversifying; fortress balance sheet (CRAR ~57%), GNPA collapse to 0.37%",
+    "desc": "Niche NBFC financing tourism/hospitality infrastructure, in an ownership/strategy transition. High-yield lending with asset-quality and concentration risks; a special-situation play.",
     "date": "2026"
   },
   {
@@ -44,7 +44,7 @@
     "ticker": "VADILALIND",
     "sector": "FMCG",
     "file": "vadilal_industries_equity_research.html",
-    "desc": "Branded ice-cream FMCG (the manufacturer, not Vadilal Enterprises); family dispute resolved, seasonal high-ROCE compounder",
+    "desc": "Ice-cream & frozen-foods brand with a strong franchise and improving governance/margins. Consumption tailwind, but seasonality, competition and capital-allocation are watch-items.",
     "date": "2026"
   },
   {
@@ -52,7 +52,7 @@
     "ticker": "GHCLTEXTIL",
     "sector": "Textiles",
     "file": "ghcl_textiles_equity_research.html",
-    "desc": "Yarn spinner demerged from GHCL Ltd, integrating into knitting/fabric; green-energy edge, ₹2,000 Cr FY30 target",
+    "desc": "Demerged textiles (yarn & home textiles) play — a value/cyclical bet on cotton spinning with capacity expansion. Commodity-margin volatility and end-demand cyclicality dominate.",
     "date": "2026"
   },
   {
@@ -60,7 +60,7 @@
     "ticker": "SHADOWFAX",
     "sector": "Logistics-Tech",
     "file": "shadowfax_technologies_equity_research.html",
-    "desc": "Asset-light gig-based last-mile logistics platform; IPO'd Jan 2026, profitability inflection, extreme valuation & block overhang",
+    "desc": "Fast-scaling logistics/last-mile & quick-commerce delivery platform. High growth in a hot space, but profitability, competition and unit-economics remain the central questions.",
     "date": "2026"
   },
   {
@@ -68,7 +68,7 @@
     "ticker": "63MOONS",
     "sector": "Capital-Markets Tech",
     "file": "63_moons_technologies_equity_research.html",
-    "desc": "Ex-FTIL special situation; below-book, cash-rich, NSEL overhang lifting (₹1,950 Cr OTS), 63SATS cybersecurity call option",
+    "desc": "Deep-value tech/exchange-infrastructure play with large cash, litigation recoveries and hidden-asset optionality. A special-situation, catalyst-driven thesis rather than a compounder.",
     "date": "2026"
   },
   {
@@ -76,7 +76,7 @@
     "ticker": "PNGSREVA",
     "sector": "Gems & Jewellery",
     "file": "pngs_reva_diamond_jewellery_equity_research.html",
-    "desc": "Recently-IPO'd (Mar 2026) diamond-focused jeweller under P.N. Gadgil & Sons legacy; asset-light shop-in-shop model, funded store rollout, margins compressing on scale",
+    "desc": "Regional diamond/jewellery retailer riding formalization and a consumption tailwind. Growth and brand potential offset by working-capital intensity, gold-price and execution risks.",
     "date": "2026"
   },
   {
@@ -84,7 +84,7 @@
     "ticker": "PAUSHAKLTD",
     "sector": "Specialty Chemicals",
     "file": "paushak_equity_research.html",
-    "desc": "India's largest phosgene-based specialty chemicals maker (Alembic Group); real hazmat moat & pharma/agro intermediates, but flat growth, compressed margins & premium valuation",
+    "desc": "Dominant, high-ROCE specialty-chemicals niche leader (phosgene derivatives) with a fortress balance sheet. A quality compounder; cyclicality and a premium valuation are the caveats.",
     "date": "2026"
   },
   {
@@ -92,7 +92,7 @@
     "ticker": "RBA",
     "sector": "QSR / Restaurants",
     "file": "restaurant_brands_asia_equity_research.html",
-    "desc": "Burger King India (+Indonesia) master franchisee; loss-making QSR turnaround at inflection - record 12.6% India SSSG, EBITDA +266%, new promoter Inspira Global infused ₹1,050 Cr",
+    "desc": "Burger King master-franchisee (India + Indonesia) — a turnaround/scale story chasing store-led growth and profitability. Execution, unit economics and losses are the key debate.",
     "date": "2026"
   },
   {
@@ -100,7 +100,7 @@
     "ticker": "KABRAEXTRU",
     "sector": "Capital Goods / EV Batteries",
     "file": "kabra_extrusiontechnik_equity_research.html",
-    "desc": "Kolsite Group dual-engine small-cap in transition: India's leading plastic-extrusion-machinery maker (cyclical, currently soft) pivoting to Geon (ex-Battrixx) Li-ion batteries for EV + energy storage. FY26 weak transition year (standalone loss, CRISIL downgrade, no dividend); Q1 FY27 turnaround (rev +44.8%, Geon +133%, EBITDA positive). Includes new Forensic Analysis section flagging 3 CFOs in 2 months, plant flood, strained balance sheet. Near-breakeven; value on SOTP, not P/E.",
+    "desc": "Plastic-extrusion machinery leader with a high-optionality battery/energy-storage (Battrixx) pivot. Core cash-generation plus EV-supply-chain optionality; the new vertical is unproven.",
     "date": "2026"
   },
   {
@@ -108,7 +108,7 @@
     "ticker": "NAVINFLUOR",
     "sector": "Specialty Chemicals",
     "file": "navin_fluorine_equity_research.html",
-    "desc": "A best-in-class, premium large-cap specialty-fluorochemicals leader — India's largest integrated fluorochemicals complex and Padmanabh Mafatlal group flagship (fluorine chemistry since 1967), across three verticals: High Performance Products (refrigerants/HFCs), Specialty Chemicals (agrochem/pharma organofluorines), and a fast-growing high-quality CDMO engine (a prime China+1 beneficiary). FY26 was spectacular: revenue +41% to ₹3,314 Cr, EBITDA +103% (margin to 32.6%), PAT +130% to ₹664 Cr. Deep fluorine moat, marquee contracts (Chemours commissioning), rich funded capex runway (HFC, Advanced Materials, DRDO), fortress balance sheet. BUT very demanding valuation (~68-80x P/E, ~8-10x book) — a peak multiple on partly-peak earnings, since FY26's margin leap is partly cyclical (HFC pricing) and base-driven — see Forensic (§14). Best valued on normalized through-cycle earnings. Educational, not advice.",
+    "desc": "Premium fluorochemicals leader (HPP, specialty, CDMO) with a spectacular FY26 (rev +41%, PAT +130%). Elite franchise & China+1 tailwind, but partly cyclical and richly valued.",
     "date": "2026"
   },
   {
@@ -116,7 +116,7 @@
     "ticker": "OMNI",
     "sector": "Capital Goods / Precision Engineering",
     "file": "omnitech_engineering_equity_research.html",
-    "desc": "Recently-listed (Mar 2026) Rajkot precision-engineering exporter of safety-critical machined components for global energy, motion-control & industrial customers. China+1 beneficiary with a sticky certified-vendor moat (~97% repeat revenue, AS9100/API/IATF), ~₹3,000 Cr order book (~5-6x revenue) anchored by a >₹900 Cr Weatherford deal, and hyper-growth (rev 3x/PAT 4x in 2yr). But richly valued (~50-90x P/E), with a stretching working-capital cycle, US/energy/customer concentration, and a months-old listed history. A book-to-bill execution bet — see Forensic Analysis (§14): watch the cash. Educational, not advice.",
+    "desc": "Recently-listed Rajkot precision-engineering exporter with a ~₹3,000 Cr order book (~79% exports). Strong growth and margins, offset by a working-capital stretch and short listed history.",
     "date": "2026"
   },
   {
@@ -124,7 +124,7 @@
     "ticker": "SUDEEPPHRM",
     "sector": "Specialty Chemicals / Pharma Ingredients",
     "file": "sudeep_pharma_equity_research.html",
-    "desc": "Recently-listed (Nov 2025) high-quality specialty-ingredients compounder — one of the world's leading makers of mineral-based pharmaceutical excipients & salts (Ca/Fe/Mg/Zn) for pharma, nutrition & food, US-FDA certified, 1,100+ customers, 100+ countries, with elite economics (~37% EBITDA, ROCE ~28-35%). FY26 rev ₹642 Cr (+28%), PAT ₹174 Cr (+26%). Two growth vectors: NSS Europe acquisition + a chemistry-adjacent pivot into battery-grade iron phosphate (LFP/LMFP) for EVs via Sudeep Advanced Materials (~₹300 Cr Dahej plant). But premium-valued (~45-60x P/E), with a ~213-day working-capital cycle (cash lags profit), customer concentration & an unproven, years-out battery bet — see Forensic (§14). A quality compounder + call option at a full price. Educational, not advice.",
+    "desc": "Listed-2025 mineral-based pharma-excipient leader with a battery-grade iron-phosphate pivot. High-quality core plus optionality; a stretched working-capital cycle is the main flag.",
     "date": "2026"
   },
   {
@@ -132,7 +132,7 @@
     "ticker": "MOREPENLAB",
     "sector": "Pharmaceuticals / Healthcare",
     "file": "morepen_laboratories_equity_research.html",
-    "desc": "A multi-engine pharma & healthcare turnaround at an earnings-inflection point. A 40-year, USFDA-clean (NIL 483 x4) API base now bolted to two higher-value engines: a long-duration CDMO platform anchored by a validated ₹825 Cr/$91M mandate (now commercializing — Q1 FY27 blockbuster: EBITDA +207%, PAT +394%), and a fast-growing 'Dr. Morepen' consumer-diagnostics devices platform (₹598 Cr, +21%, ~20M glucometer users, recurring strips, CGM runway, hive-off candidate), plus specialty optionality (Resmetirom/MASH). Strong low-debt balance sheet. But a 'show-me' turnaround: checkered long-term record, slow historical growth, low promoter holding (~35.7%), a base-flattered headline inflection, a repeatedly-delayed hive-off, and a material ₹117.94 Cr GST contingency — see Forensic (§14). Best valued sum-of-the-parts on forward earnings. Educational, not advice.",
+    "desc": "Multi-engine pharma turnaround (API, formulations, devices) with a sharp Q1 FY27 inflection (EBITDA +207%). SOTP re-rating story; a large GST contingency is the key red flag.",
     "date": "2026"
   },
   {
@@ -140,7 +140,7 @@
     "ticker": "PLTR",
     "sector": "AI Software / Data Analytics",
     "file": "palantir_technologies_equity_research.html",
-    "desc": "US mega-cap AI-software leader (Ontology + AIP; Gotham/Foundry/Apollo) posting an 'otherworldly' Q2 2026: revenue $1.94B (+93%, fastest ever), US-commercial +149%, Rule of 40 = 155%, GAAP net income >$1B, adj FCF $1.22B; FY26 guide raised to ~$8.15B (+82%). Fortress balance sheet (D/E 0.02), clean books, real cash. But the risk is PRICE, not the business: extreme valuation (~$398B mcap, ~42x fwd sales, trailing P/E ~107-219x) prices in years of flawless execution — see Forensic (§14): cash flow corroborates the story, valuation is the only red flag. Bull (Wedbush) $230 vs Burry bear $46. Educational, not advice.",
+    "desc": "AI-software compounder (Q2 2026 rev +93%) with elite margins and Rule-of-40+ economics. Exceptional business and momentum; an extreme ~200x+ valuation is the sole but serious risk.",
     "date": "2026"
   },
   {
@@ -148,7 +148,7 @@
     "ticker": "ELANTAS",
     "sector": "Specialty Chemicals",
     "file": "elantas_beck_india_equity_research.html",
-    "desc": "A high-quality, debt-free, MNC-parented (ALTANA Group, Germany) niche specialty-chemicals leader (est. 1956) — India's dominant maker of wire enamels & insulating varnishes (~84% of sales, designed-in & safety-critical) plus engineering/construction resins (~16%). Elite economics (ROCE ~43.5%), a fortress net-cash balance sheet, global parent technology, and a structural electrification/EV/renewables/motor-transformer tailwind. After a soft FY26 (single-digit growth, margin contraction, an Ankleshwar regulatory scare, a ~30% de-rating), it posted a strong Q1 FY27 (rev ~+35%, PAT ~+80% YoY); Ankleshwar issue resolved, ₹56 Cr self-funded expansion underway. BUT a demanding valuation (~50x P/E vs ~13x industry, ~7.7x book) on a cyclical base whose rebound is base-flattered & unproven, with very low free float (~75% promoter, ~0% institutional → thin liquidity) — see Forensic (§14). Best valued on normalized through-cycle earnings gated on a proven growth re-acceleration. Educational, not advice.",
+    "desc": "Debt-free, ALTANA-parented niche leader in wire enamels & insulating varnishes (ROCE ~43%). Elite quality with an electrification tailwind, but demanding (~50x vs ~13x industry) and low-float.",
     "date": "2026"
   },
   {
@@ -156,7 +156,7 @@
     "ticker": "SETL",
     "sector": "Capital Goods / Precision Engineering",
     "file": "standard_engineering_technology_equity_research.html",
-    "desc": "A hyper-growth, recently-IPO'd (Jan 2025) precision-engineering leader (formerly Standard Glass Lining Technology, renamed Dec 2025) — one of India's top-3 makers of glass-lined, stainless-steel & nickel-alloy process equipment for pharma/chemical, with turnkey concept-to-commissioning solutions. A proven, cash-generative core (FY26 rev +26.7% to ₹793 Cr, PAT +21% to ₹83 Cr, net debt-free, ~₹1,000 Cr order book, 40-50% guided growth, record Q1 FY27 +41.5%) is now funding an aggressive, self-funded ~₹500 Cr pivot into the red-hot AI-datacenter engineering theme (GScale Energy, targeting ₹250 Cr FY27) plus Japan/tech (GL Hakko) — a compelling multi-engine re-rating story. BUT priced for success at ~67x P/E after a ~130% 6-month run, with real execution risk: a working-capital stretch (inventory ~doubled — growth consuming cash), margins (~17%) lagging revenue, modest ROE (~12.8%) on a large unproven capital deployment, equity dilution, an unproven AI-vertical, and only ~18 months of listed history — see Forensic (§14, two red flags). Best valued on forward P/E gated on order-book conversion + core-growth delivery + AI-vertical execution. Educational, not advice.",
+    "desc": "Hyper-growth top-3 glass-lined equipment maker (net debt-free, ₹1,000 Cr order book) pivoting into AI-datacenter engineering. Compelling multi-engine story, but priced for perfection (~67x) with a working-capital/cash-conversion flag.",
     "date": "2026"
   }
 ]
