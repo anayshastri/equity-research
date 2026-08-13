@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Markets Brief — August 13, 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f7fafc;
+    letter-spacing: -0.5px;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 4px;
+  }
+  .badge {
+    display: inline-block;
+    background: #22c55e22;
+    color: #22c55e;
+    border: 1px solid #22c55e44;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .section {
+    background: #1a1d2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: #12152a;
+    padding: 10px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #a0aec0;
+    border-bottom: 1px solid #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-icon { font-size: 14px; }
+  .section-body { padding: 14px 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+  @media(max-width: 600px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+  .metric-card {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .metric-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f7fafc;
+    line-height: 1.2;
+  }
+  .metric-change {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 3px;
+  }
+  .metric-sub {
+    font-size: 11px;
+    color: #718096;
+    margin-top: 2px;
+  }
+  .up { color: #22c55e; }
+  .down { color: #ef4444; }
+  .flat { color: #a0aec0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 8px;
+    border-bottom: 1px solid #2d3748;
+  }
+  td {
+    padding: 8px 8px;
+    border-bottom: 1px solid #1a1d2e;
+    color: #e2e8f0;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #0f1117; }
+  .ticker {
+    font-weight: 700;
+    color: #93c5fd;
+    font-size: 12px;
+  }
+  .reason-tag {
+    display: inline-block;
+    background: #22c55e15;
+    color: #22c55e;
+    border-radius: 4px;
+    font-size: 10px;
+    padding: 2px 6px;
+    font-weight: 600;
+  }
+  .reason-tag.ai { background: #6366f115; color: #818cf8; }
+  .reason-tag.earn { background: #f59e0b15; color: #f59e0b; }
+  .article-card {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .article-card:last-child { margin-bottom: 0; }
+  .article-source {
+    font-size: 10px;
+    font-weight: 700;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .article-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #93c5fd;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .article-title:hover { color: #bfdbfe; }
+  .article-summary {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  .narrative {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-left: 3px solid #6366f1;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #cbd5e0;
+  }
+  .narrative p { margin-bottom: 8px; }
+  .narrative p:last-child { margin-bottom: 0; }
+  .pill {
+    display: inline-block;
+    background: #6366f115;
+    color: #818cf8;
+    border-radius: 4px;
+    font-size: 10px;
+    padding: 1px 7px;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .watch-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #2d3748;
+    font-size: 12px;
+    color: #a0aec0;
+  }
+  .watch-item:last-child { border-bottom: none; }
+  .watch-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .divider {
+    height: 1px;
+    background: #2d3748;
+    margin: 10px 0;
+  }
+  .row-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .sector-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #2d3748;
+    font-size: 12px;
+  }
+  .sector-row:last-child { border-bottom: none; }
+  .sector-bar-wrap {
+    flex: 1;
+    margin: 0 12px;
+    height: 4px;
+    background: #2d3748;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .sector-bar { height: 100%; border-radius: 2px; }
+  .bar-up { background: #22c55e; }
+  .bar-down { background: #ef4444; }
+  .disclaimer {
+    font-size: 10px;
+    color: #4a5568;
+    text-align: center;
+    padding: 16px;
+    border-top: 1px solid #2d3748;
+    margin-top: 16px;
+  }
+  .yield-curve-note {
+    font-size: 11px;
+    color: #f59e0b;
+    background: #f59e0b15;
+    border: 1px solid #f59e0b33;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 8px;
+  }
+  .fed-watch {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 10px;
+  }
+  .progress-bar-wrap {
+    background: #2d3748;
+    border-radius: 10px;
+    height: 8px;
+    margin: 6px 0 2px;
+    overflow: hidden;
+  }
+  .progress-bar { height: 100%; border-radius: 10px; background: #6366f1; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">📊 Morning Markets Brief <span class="badge">LIVE DATA</span></div>
+  <div class="header-sub">Generated August 13, 2026 · 7:00 AM IST &nbsp;|&nbsp; Based on August 12, 2026 closing data</div>
+</div>
+
+<!-- SECTION 1: US MARKETS -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">🇺🇸</span> US Market Performance · Aug 12 Close</div>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">S&P 500</div>
+        <div class="metric-value">7,748</div>
+        <div class="metric-change up">▲ +0.30%</div>
+        <div class="metric-sub">Near all-time high</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Nasdaq</div>
+        <div class="metric-value">26,588</div>
+        <div class="metric-change up">▲ +0.50%</div>
+        <div class="metric-sub">Tech-led rally</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Dow Jones</div>
+        <div class="metric-value">53,770</div>
+        <div class="metric-change flat">▼ −0.04%</div>
+        <div class="metric-sub">Effectively flat</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Russell 2000</div>
+        <div class="metric-value">~3,042</div>
+        <div class="metric-change up">▲ +0.32%</div>
+        <div class="metric-sub">Small-caps followed</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row-label">S&P 500 Sector Performance</div>
+
+    <!-- Sectors -->
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Technology</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:85%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +1.20%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Comm. Services</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:70%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.85%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Energy</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:65%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.75%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Materials</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:55%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.55%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Consumer Disc.</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:45%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.40%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Industrials</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:35%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.28%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Financials</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:25%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.18%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Healthcare</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-up" style="width:15%"></div></div>
+      <span class="up" style="width:55px;text-align:right">▲ +0.10%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Utilities</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-down" style="width:20%"></div></div>
+      <span class="down" style="width:55px;text-align:right">▼ −0.15%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Real Estate</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-down" style="width:30%"></div></div>
+      <span class="down" style="width:55px;text-align:right">▼ −0.22%</span>
+    </div>
+    <div class="sector-row">
+      <span style="color:#e2e8f0;width:150px">Consumer Staples</span>
+      <div class="sector-bar-wrap"><div class="sector-bar bar-down" style="width:35%"></div></div>
+      <span class="down" style="width:55px;text-align:right">▼ −0.30%</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: TOP GAINERS -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">🚀</span> Top Gainers · US-Listed · Market Cap &gt; $1B</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Price</th>
+          <th>% Change</th>
+          <th>Mkt Cap</th>
+          <th>Catalyst</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:#718096">1</td>
+          <td class="ticker">NBIS</td>
+          <td>Nebius Group</td>
+          <td>—</td>
+          <td class="up">▲ +34.1%</td>
+          <td>~$5B</td>
+          <td><span class="reason-tag ai">AI Infra Earnings</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">2</td>
+          <td class="ticker">NIQ</td>
+          <td>NIQ Global Intelligence</td>
+          <td>$16.58</td>
+          <td class="up">▲ +41.95%</td>
+          <td>$4.89B</td>
+          <td><span class="reason-tag earn">Earnings Beat</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">3</td>
+          <td class="ticker">CRWV</td>
+          <td>CoreWeave Inc.</td>
+          <td>$107.58</td>
+          <td class="up">▲ +19.11%</td>
+          <td>~$45B</td>
+          <td><span class="reason-tag ai">Q2 AI Revenue Beat</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">4</td>
+          <td class="ticker">SMCI</td>
+          <td>Super Micro Computer</td>
+          <td>$36.82</td>
+          <td class="up">▲ +16.52%</td>
+          <td>~$21B</td>
+          <td><span class="reason-tag ai">AI Server Demand</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">5</td>
+          <td class="ticker">ALMR</td>
+          <td>Alamar Biosciences</td>
+          <td>$36.57</td>
+          <td class="up">▲ +30.65%</td>
+          <td>$2.53B</td>
+          <td><span class="reason-tag">Clinical Data</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">6</td>
+          <td class="ticker">APLD</td>
+          <td>Applied Digital</td>
+          <td>—</td>
+          <td class="up">▲ +6.0%</td>
+          <td>~$2B</td>
+          <td><span class="reason-tag ai">AI Infra Coattail</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">7</td>
+          <td class="ticker">MU</td>
+          <td>Micron Technology</td>
+          <td>—</td>
+          <td class="up">▲ +5.44%</td>
+          <td>~$115B</td>
+          <td><span class="reason-tag ai">AI Memory Demand</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">8</td>
+          <td class="ticker">INTC</td>
+          <td>Intel Corporation</td>
+          <td>—</td>
+          <td class="up">▲ +4.96%</td>
+          <td>~$105B</td>
+          <td><span class="reason-tag ai">Sector Momentum</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">9</td>
+          <td class="ticker">IREN</td>
+          <td>IREN Ltd</td>
+          <td>—</td>
+          <td class="up">▲ +5.0%</td>
+          <td>~$1.5B</td>
+          <td><span class="reason-tag ai">AI Compute Rally</span></td>
+        </tr>
+        <tr>
+          <td style="color:#718096">10</td>
+          <td class="ticker">STIM</td>
+          <td>Neuronetics Inc.</td>
+          <td>$3.19</td>
+          <td class="up">▲ +47.0%</td>
+          <td>$222M</td>
+          <td><span class="reason-tag earn">Results</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#4a5568;margin-top:8px;">* AI infrastructure stocks dominated on the back of strong CoreWeave & Nebius earnings signalling sustained hyperscaler capex. Some entries below $1B threshold included where notable.</div>
+  </div>
+</div>
+
+<!-- SECTION 3: COMMODITIES -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">⛏️</span> Commodity Prices · Aug 12, 2026</div>
+  <div class="section-body">
+    <div style="margin-bottom:8px;font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:1px;">Precious Metals</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Gold (XAU)</div>
+        <div class="metric-value">$4,439</div>
+        <div class="metric-change up">▲ +1.76%</div>
+        <div class="metric-sub">per oz · Hormuz risk bid</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Silver (XAG)</div>
+        <div class="metric-value">$65.00</div>
+        <div class="metric-change down">▼ −0.19%</div>
+        <div class="metric-sub">per oz</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Platinum</div>
+        <div class="metric-value">~$1,085</div>
+        <div class="metric-change flat">— n/a</div>
+        <div class="metric-sub">per oz</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Palladium</div>
+        <div class="metric-value">~$1,020</div>
+        <div class="metric-change flat">— n/a</div>
+        <div class="metric-sub">per oz</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div style="margin-bottom:8px;font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:1px;">Energy</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Brent Crude</div>
+        <div class="metric-value">$89.52</div>
+        <div class="metric-change up">▲ +2.05%</div>
+        <div class="metric-sub">per bbl · Hormuz fears</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">WTI Crude</div>
+        <div class="metric-value">$83.82</div>
+        <div class="metric-change up">▲ +2.06%</div>
+        <div class="metric-sub">per bbl</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Natural Gas</div>
+        <div class="metric-value">$2.79</div>
+        <div class="metric-change up">▲ +0.96%</div>
+        <div class="metric-sub">per MMBtu · US Henry Hub</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Iron Ore</div>
+        <div class="metric-value">$161.91</div>
+        <div class="metric-change flat">— flat</div>
+        <div class="metric-sub">per tonne</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div style="margin-bottom:8px;font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:1px;">Base Metals</div>
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">Copper (HG)</div>
+        <div class="metric-value">$6.64</div>
+        <div class="metric-change up">▲ +0.67%</div>
+        <div class="metric-sub">per lb · COMEX</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Aluminum</div>
+        <div class="metric-value">$3,306</div>
+        <div class="metric-change down">▼ −1.60%</div>
+        <div class="metric-sub">per tonne · LME</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Nickel</div>
+        <div class="metric-value">~$16,450</div>
+        <div class="metric-change flat">— n/a</div>
+        <div class="metric-sub">per tonne · LME</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Zinc</div>
+        <div class="metric-value">~$2,890</div>
+        <div class="metric-change flat">— n/a</div>
+        <div class="metric-sub">per tonne · LME</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: RATES -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">📈</span> Fixed Income &amp; Rates</div>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">US 10Y Yield</div>
+        <div class="metric-value">4.664%</div>
+        <div class="metric-change down">▼ −2.0 bps</div>
+        <div class="metric-sub">CPI relief rally</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">US 2Y Yield</div>
+        <div class="metric-value">~4.70%</div>
+        <div class="metric-change flat">— est.</div>
+        <div class="metric-sub">Short end elevated</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">US 30Y Yield</div>
+        <div class="metric-value">5.230%</div>
+        <div class="metric-change down">▼ −0.5 bps</div>
+        <div class="metric-sub">~25-yr high range</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">US 5Y Yield</div>
+        <div class="metric-value">4.352%</div>
+        <div class="metric-change down">▼ −3.3 bps</div>
+        <div class="metric-sub">Mid-curve easing</div>
+      </div>
+    </div>
+
+    <div class="yield-curve-note">
+      ⚠️ <strong>Yield Curve:</strong> 2Y vs 10Y spread is approximately <strong>flat to slightly inverted</strong> (~0 to −4 bps). Watch for steepening if Fed begins cutting.
+    </div>
+
+    <div class="fed-watch">
+      <div style="font-size:12px;font-weight:700;color:#a0aec0;margin-bottom:8px;">🏛️ CME FedWatch — September FOMC Meeting</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+        <span style="color:#e2e8f0;">Hold (No Change) <strong style="color:#22c55e">60%</strong></span>
+        <span style="color:#a0aec0;">Cut 25bps <strong style="color:#818cf8">32%</strong></span>
+        <span style="color:#a0aec0;">Hike 25bps <strong style="color:#ef4444">8%</strong></span>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar" style="width:60%;background:#22c55e"></div></div>
+      <div style="font-size:11px;color:#718096;margin-top:4px;">Hold probability rose from 52% → 60% following in-line CPI print</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: MACRO -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">🌐</span> Macro Indicators</div>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="metric-label">VIX (Fear Index)</div>
+        <div class="metric-value">15.19</div>
+        <div class="metric-change down">▼ −0.59%</div>
+        <div class="metric-sub">~7-month low · Calm</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">USD Index (DXY)</div>
+        <div class="metric-value">~104.2</div>
+        <div class="metric-change up">▲ Strong</div>
+        <div class="metric-sub">Gained vs all majors</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Bitcoin (BTC)</div>
+        <div class="metric-value">$63,362</div>
+        <div class="metric-change down">▼ −0.47%</div>
+        <div class="metric-sub">Risk-off softness</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Ethereum (ETH)</div>
+        <div class="metric-value">~$3,120</div>
+        <div class="metric-change flat">— est.</div>
+        <div class="metric-sub">Following BTC</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row-label">Key Data — July 2026 CPI Report</div>
+    <div class="grid-3">
+      <div class="metric-card">
+        <div class="metric-label">Headline CPI (MoM)</div>
+        <div class="metric-value">+0.1%</div>
+        <div class="metric-change up">✓ In-line</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Headline CPI (YoY)</div>
+        <div class="metric-value">3.4%</div>
+        <div class="metric-change up">✓ In-line · ↓ from 3.5%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Core CPI (YoY)</div>
+        <div class="metric-value">2.5%</div>
+        <div class="metric-change up">✓ Slowest since Mar 2021</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row-label">Today's Calendar (Aug 13)</div>
+    <div class="watch-item"><div class="watch-dot"></div><span><strong style="color:#e2e8f0">US PPI (July)</strong> — Producer prices; follow-through from yesterday's CPI</span></div>
+    <div class="watch-item"><div class="watch-dot"></div><span><strong style="color:#e2e8f0">Initial Jobless Claims</strong> — Weekly labor market pulse</span></div>
+    <div class="watch-item"><div class="watch-dot"></div><span><strong style="color:#e2e8f0">Multiple Fed Officials</strong> — Watch for post-CPI commentary on rate path</span></div>
+    <div class="watch-item"><div class="watch-dot"></div><span><strong style="color:#e2e8f0">Q2 Earnings Continues</strong> — S&P 500 blended EPS growth tracking +47.4% YoY</span></div>
+  </div>
+</div>
+
+<!-- SECTION 6: GLOBAL MARKETS -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">🌏</span> Global Markets · Overnight Context</div>
+  <div class="section-body">
+    <div style="margin-bottom:10px;font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:1px;">Asia (Aug 12 Close)</div>
+    <div class="grid-3">
+      <div class="metric-card">
+        <div class="metric-label">🇯🇵 Nikkei 225</div>
+        <div class="metric-value">67,524</div>
+        <div class="metric-change up">▲ +0.83%</div>
+        <div class="metric-sub">3rd consecutive gain</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇯🇵 TOPIX</div>
+        <div class="metric-value">4,139</div>
+        <div class="metric-change up">▲ +0.94%</div>
+        <div class="metric-sub">Broad Japan strength</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇨🇳 Shanghai Comp.</div>
+        <div class="metric-value">3,946</div>
+        <div class="metric-change up">▲ +0.32%</div>
+        <div class="metric-sub">Mild gains</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇭🇰 Hang Seng</div>
+        <div class="metric-value">25,440</div>
+        <div class="metric-change down">▼ −0.83%</div>
+        <div class="metric-sub">Sole Asian decliner</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇮🇳 Sensex</div>
+        <div class="metric-value">77,966</div>
+        <div class="metric-change down">▼ −0.24%</div>
+        <div class="metric-sub">2nd consecutive loss</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇮🇳 Nifty 50</div>
+        <div class="metric-value">24,436</div>
+        <div class="metric-change down">▼ −0.15%</div>
+        <div class="metric-sub">Oil price headwind</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div style="margin-bottom:10px;font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:1px;">Europe (Aug 12 Close)</div>
+    <div class="grid-3">
+      <div class="metric-card">
+        <div class="metric-label">🇬🇧 FTSE 100</div>
+        <div class="metric-value">10,821</div>
+        <div class="metric-change down">▼ −0.21%</div>
+        <div class="metric-sub">Best in red Europe</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇩🇪 DAX 40</div>
+        <div class="metric-value">—</div>
+        <div class="metric-change down">▼ −0.26%</div>
+        <div class="metric-sub">Mixed earnings</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">🇫🇷 CAC 40</div>
+        <div class="metric-value">—</div>
+        <div class="metric-change down">▼ −0.58%</div>
+        <div class="metric-sub">Worst performer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: ARTICLES -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">📰</span> Articles Worth Reading</div>
+  <div class="section-body">
+
+    <div class="article-card">
+      <div class="article-source">CNBC · Aug 12, 2026</div>
+      <a class="article-title" href="https://www.cnbc.com/2026/08/12/coreweave-q2-earnings-ai-demand.html" target="_blank">CoreWeave gains 19%, Nebius surges 34% in post-earnings neocloud rally</a>
+      <div class="article-summary">AI cloud infrastructure companies posted massive earnings beats — CoreWeave's revenue backlog hit $104.2B — signalling that hyperscaler AI capex remains at full throttle despite macro uncertainty.</div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-source">The Street · Aug 12, 2026</div>
+      <a class="article-title" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-12-2026" target="_blank">S&P 500 climbs following key inflation report as Houthi attacks roil oil</a>
+      <div class="article-summary">Markets navigated two conflicting forces: benign CPI data pushing equities to record territory, and fresh Houthi attacks in the Red Sea — first fatalities in over a year — sending Brent crude above $89.</div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-source">Bloomberg · Aug 12, 2026</div>
+      <a class="article-title" href="https://www.bloomberg.com/news/articles/2026-08-12/stock-market-today-dow-s-p-live-updates" target="_blank">Stock Market Today: Dow &amp; S&P Live Updates — Rates Fall, AI Wins</a>
+      <div class="article-summary">A comprehensive live recap of Wednesday's session — 10-year yields slipping 2bps, VIX near a 7-month low, and tech breadth improving as the AI trade showed it still has runway despite elevated valuations.</div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-source">Motley Fool · Aug 12, 2026</div>
+      <a class="article-title" href="https://www.fool.com/investing/2026/08/12/sp-500-stays-near-records-after-mild-july-inflatio/" target="_blank">S&P 500 Stays Near Records After Mild July Inflation Report</a>
+      <div class="article-summary">Analysis of why the market's muted reaction to a benign CPI print reflects a "priced for perfection" environment — and what a hotter-than-expected August reading could mean for equities.</div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-source">Hightower · August 2026</div>
+      <a class="article-title" href="https://hightowersignature.com/blogs/insights/update-on-the-economy-and-markets-august-2026" target="_blank">Economy &amp; Markets Update: Leverage Warnings, Trade Wars &amp; AI Euphoria</a>
+      <div class="article-summary">Institutional note flagging a hedge fund collapse (Situational Awareness), 1.2M South Korean margin calls on AI stocks, 50% US tariffs on Canada, and Q2 GDP disappointing at 1.5% — risks lurking beneath the rally.</div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-source">Kiplinger · Aug 12, 2026</div>
+      <a class="article-title" href="https://www.kiplinger.com/investing/stocks/s-and-p-500-rises-on-mild-inflation-data-red-hot-ai-rally-stock-market-today" target="_blank">S&P 500 Rises on Mild Inflation Data, Red-Hot AI Rally: Stock Market Today</a>
+      <div class="article-summary">A clear explainer of Wednesday's market action — the interplay between the Fed hold probability jump (52%→60%), AI earnings euphoria, and why Dow lagged while Nasdaq outperformed.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 8: OVERNIGHT NARRATIVE -->
+<div class="section">
+  <div class="section-header"><span class="section-icon">🌙</span> Overnight Brief</div>
+  <div class="section-body">
+    <div class="narrative">
+      <p><span class="pill">THEME</span> Wednesday was a <strong>risk-on day with a geopolitical edge</strong>. The dominant driver was July's CPI print landing exactly in-line — headline at 3.4% YoY and core at 2.5% (slowest since March 2021) — which gave the Fed breathing room to hold in September. The S&P 500 pushed near its all-time high of 7,757 and the Nasdaq led with a 0.5% gain, entirely on the back of AI infrastructure stocks: CoreWeave surged 19% after a massive Q2 earnings beat (backlog now $104B), Nebius jumped 34%, and Super Micro Computer added 17%.</p>
+      <p><span class="pill">WILDCARD</span> The counter-narrative was oil. Houthi forces attacked a vessel in the Red Sea — the first fatalities in over a year — pushing Brent crude above $89 and WTI to $83.82, both up ~2%. Gold spiked above $4,400 intraday on Hormuz risk before settling at $4,439. This geopolitical tension weighed on India (Sensex −0.24%, 2nd day of losses) and kept European markets slightly red. The 30-year US Treasury remains near a 25-year high at 5.23%, signalling bond market wariness about the long-term fiscal picture despite short-term rate relief.</p>
+      <p><span class="pill">WATCH TODAY</span> Key focus for August 13: US PPI data (follow-through from CPI), weekly jobless claims, and Fed speaker commentary post-CPI. If PPI surprises hot, expect yields to reverse yesterday's dip and AI momentum stocks to give back gains. On the geopolitical front, any escalation in the Strait of Hormuz could push Brent past $90 — a psychological line that would reignite inflation concerns and complicate the Fed's calculus significantly.</p>
+    </div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ This report is auto-generated for informational purposes only and does not constitute financial advice. Data sourced from public market feeds and news outlets — verify before acting. Some figures are estimates where live data was unavailable at time of generation.<br>
+  Sources: TheStreet · Yahoo Finance · Babypips · Kiplinger · Investing.com · Trading Economics · CNBC · Business Standard · Armenpress · 24/7 Wall St. · Rio Times Online · Hightower Signature
+</div>
+
+</body>
+</html>
