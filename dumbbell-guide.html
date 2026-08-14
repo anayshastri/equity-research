@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RACK LOG — Dumbbell Training Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C0E;
+    --panel:#12151A;
+    --panel-2:#171B21;
+    --line:#242A32;
+    --ink:#E7EAEE;
+    --ink-dim:#8A93A0;
+    --ink-faint:#565F6C;
+
+    --chest:#E8604F;
+    --back:#4E9FE0;
+    --shoulders:#EFB130;
+    --biceps:#B06CF0;
+    --triceps:#2FCBB0;
+    --legs:#4FC96A;
+    --core:#F0668D;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  ::selection{background:#EFB13044; color:#fff;}
+
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .display{font-family:'Oswald',sans-serif; text-transform:uppercase;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:56px 20px 40px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 15% 0%, #E8604F14, transparent 45%),
+      radial-gradient(circle at 85% 10%, #4E9FE014, transparent 45%);
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.18em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .hero-eyebrow span{color:var(--legs);}
+  .hero h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:clamp(34px,9vw,52px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+  }
+  .hero h1 .accent{color:var(--chest);}
+  .hero-sub{
+    margin-top:14px;
+    color:var(--ink-dim);
+    font-size:15px;
+    line-height:1.55;
+    max-width:56ch;
+  }
+
+  /* goal readout */
+  .goal-strip{
+    margin-top:28px;
+    display:flex;
+    align-items:stretch;
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .goal-cell{
+    flex:1;
+    padding:16px 14px;
+    border-right:1px solid var(--line);
+  }
+  .goal-cell:last-child{border-right:none;}
+  .goal-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+  }
+  .goal-value{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:22px;
+    margin-top:4px;
+  }
+  .goal-value small{font-size:12px; color:var(--ink-dim); font-family:'Inter',sans-serif; font-weight:400;}
+  .goal-cell.target .goal-value{color:var(--legs);}
+
+  /* ===== NAV ===== */
+  .navbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; gap:0; overflow-x:auto;
+    background:#0A0C0Ecc;
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:0 20px;
+    scrollbar-width:none;
+  }
+  .navbar::-webkit-scrollbar{display:none;}
+  .navlink{
+    flex:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    text-decoration:none;
+    padding:14px 12px;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+  }
+  .navlink:active, .navlink.active{color:var(--ink); border-bottom-color:var(--dot,#fff);}
+
+  /* ===== SECTION ===== */
+  .section{
+    padding:34px 20px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+  }
+  .muscle-icon{flex:none; width:46px; height:56px;}
+  .section-titles{flex:1;}
+  .section-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--dot);
+  }
+  .section-title{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:26px;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .section-desc{
+    color:var(--ink-dim);
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:20px;
+    max-width:60ch;
+  }
+
+  /* ===== EXERCISE CARD ===== */
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--dot);
+    border-radius:10px;
+    margin-bottom:16px;
+    overflow:hidden;
+  }
+  .card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    padding:16px 16px 12px;
+  }
+  .ex-name{
+    font-family:'Oswald',sans-serif;
+    font-weight:500;
+    font-size:18px;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .ex-target{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    color:var(--dot);
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+  .video-wrap{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+  }
+  .video-wrap iframe{
+    position:absolute; inset:0; width:100%; height:100%; border:0;
+  }
+  .card-stats{
+    display:flex;
+    border-top:1px solid var(--line);
+  }
+  .stat{
+    flex:1;
+    padding:11px 14px;
+    border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+  }
+  .stat-value{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:15px;
+    margin-top:2px;
+  }
+  .card-note{
+    padding:10px 16px 14px;
+    font-size:12.5px;
+    color:var(--ink-dim);
+    line-height:1.5;
+    border-top:1px solid var(--line);
+  }
+
+  /* ===== SPLIT TABLE ===== */
+  .split-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .split-day{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+  .split-day .d{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    min-width:56px;
+  }
+  .split-day .w{
+    flex:1;
+    font-family:'Oswald',sans-serif;
+    font-size:16px;
+    text-transform:uppercase;
+  }
+  .split-day .tags{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
+  .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.04em;
+    padding:3px 7px;
+    border-radius:20px;
+    text-transform:uppercase;
+    color:#0A0C0E;
+    font-weight:700;
+  }
+
+  /* ===== NUTRITION ===== */
+  .num-block{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px;
+    margin-bottom:14px;
+  }
+  .num-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:9px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:13px;
+  }
+  .num-row:last-child{border-bottom:none;}
+  .num-row .k{color:var(--ink-dim);}
+  .num-row .v{font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--legs);}
+
+  .principle{
+    display:flex; gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .principle:last-child{border-bottom:none;}
+  .principle .n{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--ink-faint);
+    font-size:12px;
+    flex:none; width:22px; padding-top:2px;
+  }
+  .principle .t{
+    font-family:'Oswald',sans-serif;
+    font-size:14.5px;
+    text-transform:uppercase;
+    margin-bottom:3px;
+  }
+  .principle .d{color:var(--ink-dim); font-size:13px; line-height:1.5;}
+
+  .callout{
+    background:#EFB13012;
+    border:1px solid #EFB13044;
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:12.5px;
+    color:#D9C090;
+    line-height:1.55;
+    margin-top:16px;
+  }
+  .callout b{color:var(--shoulders);}
+
+  footer{
+    padding:30px 20px 10px;
+    text-align:center;
+    color:var(--ink-faint);
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+  }
+
+  @media(min-width:640px){
+    .split-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-eyebrow">DUMBBELL-ONLY PROTOCOL <span>// 12-WEEK CUT</span></div>
+  <h1>Full body,<br>one rack<span class="accent">.</span></h1>
+  <p class="hero-sub">Seven muscle groups, dumbbells only. Every movement is colour-coded to the region it trains, with a video demo and target sets/reps — built around a steady fat-loss target rather than a single brutal number.</p>
+
+  <div class="goal-strip">
+    <div class="goal-cell">
+      <div class="goal-label">Start</div>
+      <div class="goal-value">79 <small>kg</small></div>
+    </div>
+    <div class="goal-cell target">
+      <div class="goal-label">Target</div>
+      <div class="goal-value">70 <small>kg</small></div>
+    </div>
+    <div class="goal-cell">
+      <div class="goal-label">Window</div>
+      <div class="goal-value">12 <small>wks</small></div>
+    </div>
+    <div class="goal-cell">
+      <div class="goal-label">Pace</div>
+      <div class="goal-value">~0.75 <small>kg/wk</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<div class="navbar" id="navbar">
+  <a class="navlink" style="--dot:#E8604F" href="#chest">Chest</a>
+  <a class="navlink" style="--dot:#4E9FE0" href="#back">Back</a>
+  <a class="navlink" style="--dot:#EFB130" href="#shoulders">Shoulders</a>
+  <a class="navlink" style="--dot:#B06CF0" href="#biceps">Biceps</a>
+  <a class="navlink" style="--dot:#2FCBB0" href="#triceps">Triceps</a>
+  <a class="navlink" style="--dot:#4FC96A" href="#legs">Legs</a>
+  <a class="navlink" style="--dot:#F0668D" href="#core">Core</a>
+  <a class="navlink" style="--dot:#8A93A0" href="#split">Split</a>
+  <a class="navlink" style="--dot:#8A93A0" href="#fatloss">Fat Loss</a>
+</div>
+
+<!-- =========================================================== -->
+<!-- reusable svg builder is manual per section below -->
+
+<!-- ============ CHEST ============ -->
+<div class="section" id="chest" style="--dot:var(--chest)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <path d="M14 19v10a9 9 0 0 0 18 0V19l-4.5-2H18.5L14 19z" fill="#E8604F"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 01</div>
+      <div class="section-title">Chest</div>
+    </div>
+  </div>
+  <p class="section-desc">Pectoralis major/minor — pressing and fly patterns for upper-body pushing strength and chest thickness.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Bench Press</div><div class="ex-target">Targets: Pectoralis Major, Triceps, Front Delts</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/DEuVNH1ZVOE" title="Dumbbell Bench Press" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">4</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">10–12</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Lie flat on a bench, press dumbbells up over the chest without locking elbows hard, lower to a light stretch. Keep shoulder blades pinned back.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Flyes</div><div class="ex-target">Targets: Pectoralis Major (stretch/isolation)</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/rNBSb6OZJfI" title="Dumbbell Flyes" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12–15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Slight bend in the elbows throughout, lower in a wide arc until you feel a chest stretch, squeeze back up — don't chase heavy weight here.</div>
+  </div>
+</div>
+
+<!-- ============ BACK ============ -->
+<div class="section" id="back" style="--dot:var(--back)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <path d="M23 15 L14 20v18a9 9 0 0 0 18 0V20l-9-5z" fill="#4E9FE0"/>
+      <path d="M23 15v28" stroke="#0A0C0E" stroke-width="1.2"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 02</div>
+      <div class="section-title">Back</div>
+    </div>
+  </div>
+  <p class="section-desc">Lats, traps, rhomboids and spinal erectors — pulling and hinge patterns that build posture and back thickness.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Bent-Over Dumbbell Row</div><div class="ex-target">Targets: Lats, Rhomboids, Rear Delts</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/dfkco3keMns" title="Bent-Over Dumbbell Row" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">4</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">10–12</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Hinge at the hips, flat back, pull the dumbbells to your ribs leading with the elbows. Avoid jerking the weight with momentum.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Deadlift</div><div class="ex-target">Targets: Erectors, Lats, Glutes, Hamstrings</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/HMcXQyEqJ7A" title="Dumbbell Deadlift" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">10–12</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">75s</div></div>
+    </div>
+    <div class="card-note">Dumbbells close to the shins, chest up, push the floor away as you stand. Keep them close to your legs the whole rep.</div>
+  </div>
+</div>
+
+<!-- ============ SHOULDERS ============ -->
+<div class="section" id="shoulders" style="--dot:var(--shoulders)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <circle cx="14.5" cy="19" r="4.6" fill="#EFB130"/>
+      <circle cx="31.5" cy="19" r="4.6" fill="#EFB130"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 03</div>
+      <div class="section-title">Shoulders</div>
+    </div>
+  </div>
+  <p class="section-desc">Anterior, lateral and rear deltoids — overhead pressing and raises for round, stable shoulders.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Shoulder Press</div><div class="ex-target">Targets: Front & Side Delts, Triceps</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/0JfYxMRsUCQ" title="Dumbbell Shoulder Press" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">4</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">10–12</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Seated or standing, press dumbbells overhead without flaring your ribs. Stop just short of locking the elbows.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Lateral Raise</div><div class="ex-target">Targets: Side/Medial Delts</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/Y29xKcze8Ik" title="Dumbbell Lateral Raise" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Light weight, slight elbow bend, raise to shoulder height leading with the elbows — not the hands. Control the lowering phase.</div>
+  </div>
+</div>
+
+<!-- ============ BICEPS ============ -->
+<div class="section" id="biceps" style="--dot:var(--biceps)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <rect x="11" y="19" width="6" height="14" rx="3" fill="#B06CF0"/>
+      <rect x="29" y="19" width="6" height="14" rx="3" fill="#B06CF0"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 04</div>
+      <div class="section-title">Biceps</div>
+    </div>
+  </div>
+  <p class="section-desc">Biceps brachii and brachialis — elbow-flexion isolation work for arm size and pulling assistance.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Bicep Curl</div><div class="ex-target">Targets: Biceps Brachii</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/XE_pHwbst04" title="Dumbbell Bicep Curl" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12–15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Elbows pinned to your sides, curl without swinging your torso, squeeze at the top and lower under control.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Hammer Curl</div><div class="ex-target">Targets: Brachialis, Brachioradialis, Biceps</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/FNvndC4Ov04" title="Hammer Curl" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12–15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Neutral (palms-in) grip throughout the curl — builds forearm and outer-arm thickness alongside the biceps.</div>
+  </div>
+</div>
+
+<!-- ============ TRICEPS ============ -->
+<div class="section" id="triceps" style="--dot:var(--triceps)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <rect x="9" y="19" width="5" height="14" rx="2.5" fill="#2FCBB0"/>
+      <rect x="32" y="19" width="5" height="14" rx="2.5" fill="#2FCBB0"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 05</div>
+      <div class="section-title">Triceps</div>
+    </div>
+  </div>
+  <p class="section-desc">Triceps brachii — elbow-extension work for pressing power and arm definition.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Overhead Tricep Extension</div><div class="ex-target">Targets: Long Head, Triceps Brachii</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/YM8iX9BJWjA" title="Overhead Tricep Extension" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12–15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Hold one dumbbell overhead with both hands, lower behind the head keeping elbows tucked, extend back to full length.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Tricep Kickback</div><div class="ex-target">Targets: Lateral & Long Head, Triceps</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/m9me06UBPKc" title="Tricep Kickback" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">45s</div></div>
+    </div>
+    <div class="card-note">Hinge forward, upper arm parallel to the floor and still, extend the forearm back and squeeze the triceps.</div>
+  </div>
+</div>
+
+<!-- ============ LEGS ============ -->
+<div class="section" id="legs" style="--dot:var(--legs)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <path d="M15 34c-1 6-2 12-2 17h5c1-6 2-11 3-16z" fill="#4FC96A"/>
+      <path d="M31 34c1 6 2 12 2 17h-5c-1-6-2-11-3-16z" fill="#4FC96A"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 06</div>
+      <div class="section-title">Legs</div>
+    </div>
+  </div>
+  <p class="section-desc">Quads, hamstrings and glutes — your biggest muscles, and the biggest calorie burn per set. Prioritise these for the cut.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Goblet Squat</div><div class="ex-target">Targets: Quads, Glutes, Core</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/Xjo_fY9Hl9w" title="Goblet Squat" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">4</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12–15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Hold one dumbbell vertically at your chest, squat between your knees keeping chest tall, drive through the heels.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Dumbbell Walking Lunge</div><div class="ex-target">Targets: Quads, Glutes, Hamstrings</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/I_rMQRrwseI" title="Dumbbell Walking Lunge" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">12/leg</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Dumbbells at your sides, step forward into a lunge until the back knee grazes the floor, drive up and forward into the next step.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Romanian Deadlift (RDL)</div><div class="ex-target">Targets: Hamstrings, Glutes</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/aa57T45iFSE" title="Dumbbell Romanian Deadlift" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">10–12</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">60s</div></div>
+    </div>
+    <div class="card-note">Soft knees, hinge the hips back keeping dumbbells close to your legs, feel a hamstring stretch, then drive hips forward to stand.</div>
+  </div>
+</div>
+
+<!-- ============ CORE ============ -->
+<div class="section" id="core" style="--dot:var(--core)">
+  <div class="section-head">
+    <svg class="muscle-icon" viewBox="0 0 46 56" fill="none">
+      <path d="M23 6a6 6 0 0 1 6 6v3l7 3v14a10 10 0 0 1-13 9.5A10 10 0 0 1 10 32V18l7-3V12a6 6 0 0 1 6-6z" stroke="#3A4048" stroke-width="1.4"/>
+      <rect x="17" y="23" width="12" height="15" rx="3" fill="#F0668D"/>
+    </svg>
+    <div class="section-titles">
+      <div class="section-eyebrow">Region 07</div>
+      <div class="section-title">Core</div>
+    </div>
+  </div>
+  <p class="section-desc">Rectus abdominis and obliques — rotational and flexion work to brace the trunk and finish the session.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Russian Twist</div><div class="ex-target">Targets: Obliques, Rectus Abdominis</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/TfTUk2AjV7g" title="Russian Twist" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">20 total</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">30s</div></div>
+    </div>
+    <div class="card-note">Lean back to about 45°, feet hovering or lightly grounded, rotate the dumbbell side to side under control.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="ex-name">Weighted Sit-Up</div><div class="ex-target">Targets: Rectus Abdominis, Hip Flexors</div></div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/4YOoMXPnOu4" title="Weighted Sit-Up" allowfullscreen></iframe></div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-label">Sets</div><div class="stat-value">3</div></div>
+      <div class="stat"><div class="stat-label">Reps</div><div class="stat-value">15</div></div>
+      <div class="stat"><div class="stat-label">Rest</div><div class="stat-value">30s</div></div>
+    </div>
+    <div class="card-note">Hold a light dumbbell at your chest, sit up fully with control, don't yank on your neck to get up.</div>
+  </div>
+</div>
+
+<!-- ============ SPLIT ============ -->
+<div class="section" id="split" style="--dot:#8A93A0">
+  <div class="section-titles" style="margin-bottom:18px;">
+    <div class="section-eyebrow">Weekly Layout</div>
+    <div class="section-title">The Split</div>
+  </div>
+  <p class="section-desc">Four dumbbell sessions a week, ~45–55 min each. Rest between sets stays short (30–75s) to keep the session's heart rate up — that's doing double duty for strength and calorie burn.</p>
+
+  <div class="split-grid">
+    <div class="split-day">
+      <div class="d">Mon</div><div class="w">Push</div>
+      <div class="tags"><span class="tag" style="background:var(--chest)">Chest</span><span class="tag" style="background:var(--shoulders)">Shoulders</span><span class="tag" style="background:var(--triceps)">Triceps</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Tue</div><div class="w">Legs + Core</div>
+      <div class="tags"><span class="tag" style="background:var(--legs)">Legs</span><span class="tag" style="background:var(--core)">Core</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Wed</div><div class="w">Cardio / Walk</div>
+      <div class="tags"><span class="tag" style="background:#565F6C">30–40 min</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Thu</div><div class="w">Pull</div>
+      <div class="tags"><span class="tag" style="background:var(--back)">Back</span><span class="tag" style="background:var(--biceps)">Biceps</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Fri</div><div class="w">Legs + Core</div>
+      <div class="tags"><span class="tag" style="background:var(--legs)">Legs</span><span class="tag" style="background:var(--core)">Core</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Sat</div><div class="w">Cardio / Walk</div>
+      <div class="tags"><span class="tag" style="background:#565F6C">30–40 min</span></div>
+    </div>
+    <div class="split-day">
+      <div class="d">Sun</div><div class="w">Rest</div>
+      <div class="tags"><span class="tag" style="background:#565F6C">Recover</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FAT LOSS ============ -->
+<div class="section" id="fatloss" style="--dot:#EFB130; border-bottom:none;">
+  <div class="section-titles" style="margin-bottom:18px;">
+    <div class="section-eyebrow">79 → 70 KG · 12 Weeks</div>
+    <div class="section-title">The Deficit Math</div>
+  </div>
+  <p class="section-desc">Training builds and preserves muscle; the scale mostly moves in the kitchen. Here's what a 9kg loss in 12 weeks actually requires.</p>
+
+  <div class="num-block">
+    <div class="num-row"><div class="k">Total to lose</div><div class="v">9 kg</div></div>
+    <div class="num-row"><div class="k">Weekly pace</div><div class="v">≈ 0.75 kg/week</div></div>
+    <div class="num-row"><div class="k">Approx. daily deficit needed</div><div class="v">≈ 750–850 kcal</div></div>
+    <div class="num-row"><div class="k">Daily protein target</div><div class="v">140–160 g</div></div>
+  </div>
+
+  <div class="principle">
+    <div class="n">01</div>
+    <div><div class="t">Protein first</div><div class="d">Roughly 1.8–2.0g per kg bodyweight daily. It's the single biggest lever for keeping the muscle you're training while the scale drops.</div></div>
+  </div>
+  <div class="principle">
+    <div class="n">02</div>
+    <div><div class="t">Deficit from food, not from skipping training</div><div class="d">A ~750–850 kcal/day gap gets you there in 12 weeks. Pull most of it from refined carbs and oil rather than protein or vegetables.</div></div>
+  </div>
+  <div class="principle">
+    <div class="n">03</div>
+    <div><div class="t">Walk daily, outside of lifting</div><div class="d">30–40 min of brisk walking on non-lifting days adds a meaningful, low-fatigue calorie burn without eating into recovery.</div></div>
+  </div>
+  <div class="principle">
+    <div class="n">04</div>
+    <div><div class="t">Progress the load, not just the reps</div><div class="d">Every 2 weeks, try to add a little weight or a rep to your top set per exercise — that's what keeps the muscle-preservation signal strong in a deficit.</div></div>
+  </div>
+  <div class="principle">
+    <div class="n">05</div>
+    <div><div class="t">Sleep 7+ hours</div><div class="d">Poor sleep blunts fat loss and recovery more than almost anything else on this list — it's worth protecting like a training session.</div></div>
+  </div>
+
+  <div class="callout">
+    <b>Note:</b> 0.75 kg/week sits at the upper edge of what's generally considered a sustainable rate of fat loss. If you're new to structured training or have any health conditions, it's worth a quick check-in with a doctor before starting — and if the pace feels too aggressive week to week, stretching the timeline is better than pushing the deficit further.
+  </div>
+</div>
+
+<footer>RACK LOG — BUILT FOR ONE PAIR OF DUMBBELLS · UPDATE WEIGHTS AS YOU PROGRESS</footer>
+
+<script>
+  const links = document.querySelectorAll('.navlink');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  window.addEventListener('scroll', () => {
+    let idx = 0;
+    sections.forEach((s,i) => { if(s && s.getBoundingClientRect().top < 120) idx = i; });
+    links.forEach((l,i) => l.classList.toggle('active', i===idx));
+  });
+</script>
+
+</body>
+</html>
