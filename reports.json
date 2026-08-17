@@ -158,5 +158,21 @@
     "file": "standard_engineering_technology_equity_research.html",
     "desc": "Hyper-growth top-3 glass-lined equipment maker (net debt-free, ₹1,000 Cr order book) pivoting into AI-datacenter engineering. Compelling multi-engine story, but priced for perfection (~67x) with a working-capital/cash-conversion flag.",
     "date": "2026"
+  },
+  {
+    "name": "Macpower CNC Machines",
+    "ticker": "MACPOWER",
+    "sector": "Capital Goods / Machine Tools",
+    "file": "macpower_cnc_machines_equity_research.html",
+    "desc": "Founder-led, net-debt-free, low-cost CNC machine-tool leader (~26% 5-yr CAGR) riding Make-in-India / import substitution, premiumizing via NEXA. Record FY26 (rev +27%, PAT +33%); but richly valued (~40-45x) on a cyclical small-cap with EBITDA-margin pressure, a much-larger rival (Jyoti CNC) and a thin float.",
+    "date": "2026"
+  },
+  {
+    "name": "Action Construction Equipment",
+    "ticker": "ACE",
+    "sector": "Capital Goods / Construction Equipment",
+    "file": "action_construction_equipment_equity_research.html",
+    "desc": "Virtually debt-free market leader (world's #1 pick-n-carry crane maker, ICRA AA/A1+) playing margin-over-volume: EBITDA margin 14%→18% on flat FY26 revenue, Q1 FY27 re-accelerating (+20% rev), with a ₹575 Cr defence book & KATO heavy-crane JV. Bear: cyclical (FY26 flat) & fully valued (~30x).",
+    "date": "2026"
   }
 ]

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macpower CNC Machines — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gun:#1B1E24; --gun-2:#262A32; --gun-3:#373D48;
+    --cyan:#26B7C7; --cyan-dk:#137e8a; --cyan-lt:#5FD6E2; --cyan-gl:rgba(38,183,199,.12);
+    --steel:#4C7FB5; --steel-dk:#2E5680; --steel-lt:#7BA5D0; --steel-gl:rgba(76,127,181,.11);
+    --amber:#D69A3C; --amber-dk:#A6721C; --amber-gl:rgba(214,154,60,.13);
+    --slate:#5B6472; --slate-gl:rgba(91,100,114,.10);
+    --green:#2E9E63; --green-dk:#1B7A48; --red:#D24A4A; --redd-dk:#9E2A2A; --amberr:#D6902E; --amberr-dk:#A66A11;
+    --ink-1:#171A20; --ink-2:#383F4A; --ink-3:#697079;
+    --line:#E4E4E9; --line-2:#EFEFF3; --paper:#FCFCFD; --paper-2:#F4F5F7;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(27,30,36,.15)}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.13}
+  .mono{font-family:'Space Mono',monospace}
+  .hero{position:relative;background:linear-gradient(150deg,#15171C 0%,#262A32 56%,#373D48 128%);color:#ECEDF1;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;right:-6%;width:470px;height:470px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(38,183,199,.22),rgba(76,127,181,.13) 55%,transparent 72%);filter:blur(6px)}
+  .spindle{position:absolute;right:52px;top:42px;width:174px;height:172px;z-index:2;opacity:.6}
+  .spindle svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+  .tag.cy{background:rgba(38,183,199,.22);border-color:rgba(95,214,226,.5);color:#7FE0EA}
+  .tag.st{background:rgba(76,127,181,.22);border-color:rgba(123,165,208,.5);color:#9EC2E4}
+  .hero h1{font-size:37px;font-weight:700;margin-bottom:3px;letter-spacing:-.03em}
+  .hero .flip{font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.02em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#B2B4C0;margin-bottom:24px;font-weight:300;max-width:800px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.09)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#82828F;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#5FD695}.down{color:#EF9E9E}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--gun);color:#82828F;padding:11px 48px;font-family:'Space Mono',monospace;font-size:11px}
+  .metabar b{color:#E2E3E9;font-weight:400}
+  .metabar .dot{color:var(--cyan-lt)}
+  .alert{background:var(--cyan-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--cyan-dk);font-family:'Space Mono',monospace}
+  .alert b{color:var(--gun)}
+  .alert.boom{background:var(--steel-gl);color:var(--steel-dk)}
+  .alert.warn{background:rgba(210,74,74,.09);color:#B23A3A}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--cyan-dk);border:1.5px solid var(--cyan);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:25px;font-weight:700;color:var(--gun)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--cyan);background:var(--cyan-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.st{border-color:var(--steel);background:var(--steel-gl)}
+  .call.am{border-color:var(--amber);background:var(--amber-gl)}
+  .call.sl{border-color:var(--slate);background:var(--slate-gl)}
+  .call.red{border-color:var(--red);background:rgba(210,74,74,.08)}
+  .call .lab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--cyan-dk);margin-bottom:5px}
+  .call.st .lab{color:var(--steel-dk)}.call.am .lab{color:var(--amber-dk)}.call.sl .lab{color:var(--slate)}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--gun-2);color:#E2E3E9;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Space Mono',monospace}
+  .tr-hi td{background:var(--cyan-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--gun);letter-spacing:-.01em;font-family:'Space Grotesk',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.c{border-top:3px solid var(--cyan)}.card.s{border-top:3px solid var(--steel)}
+  .card.a{border-top:3px solid var(--amber)}.card.l{border-top:3px solid var(--slate)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"\25B8";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--gun);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.on{background:var(--cyan-gl);border-color:var(--cyan)}
+  .vnode.on .vt{color:var(--cyan-dk)}
+  .vnode.cc{background:var(--steel-gl);border-color:var(--steel)}
+  .vnode.cc .vt{color:var(--steel-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:230px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Space Mono',monospace;font-weight:400}
+  .bar-val{width:110px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.spindle{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(210,74,74,.06);border-color:rgba(210,74,74,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(46,158,99,.07);border-color:rgba(46,158,99,.3)}
+  .scen .st2{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Space Grotesk',sans-serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--gun);color:#ECEDF1;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(38,183,199,.26),transparent 65%)}
+  .bm h3{color:#fff;font-size:19px;margin-bottom:4px;position:relative;font-family:'Space Grotesk',sans-serif}
+  .bm .bm-sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C6C7D0}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0C1CB}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--cyan-dk);color:#fff}.v-co{background:var(--steel-dk);color:#fff}
+  .v-ind{background:#1B7A48;color:#AEE8C8}.v-sec{background:#373D48;color:#DAD8E6}
+  .v-avoid{background:#9E2A2A;color:#F6C6C8}.v-cross{background:#262A32;color:#C6D8DC}
+  .v-crit{background:var(--amber-dk);color:#F8E4B8}.v-gate{background:var(--steel-dk);color:#C8E0F4}
+  .bm .onenum{background:rgba(76,127,181,.16);border:1px solid rgba(123,165,208,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#B8D2EC;position:relative}
+  .bm .onenum b{color:#9EC2E4}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Space Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--gun)}
+  .stars{color:var(--cyan);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amberr-dk)}.rl{background:var(--cyan-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--cyan),var(--steel))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--cyan);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--cyan)}
+  .tli .ty{font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:var(--cyan-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--gun);font-family:'Space Grotesk',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(46,158,99,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(210,74,74,.14);color:var(--red)}
+  .b-neut{background:rgba(214,144,46,.2);color:var(--amberr-dk)}
+  .foot{background:var(--gun);color:#82828F;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C6C7D0}
+  .disc{font-size:10.5px;color:#697079;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+  <div class="spindle">
+    <svg viewBox="0 0 174 172" fill="none">
+      <circle cx="87" cy="86" r="58" fill="none" stroke="#5FD6E2" stroke-width="2" opacity="0.55"/>
+      <circle cx="87" cy="86" r="40" fill="none" stroke="#7BA5D0" stroke-width="1.4" opacity="0.4"/>
+      <circle cx="87" cy="86" r="10" fill="none" stroke="#D69A3C" stroke-width="2" opacity="0.7"/>
+      <g stroke="#5FD6E2" stroke-width="2" opacity="0.6">
+        <line x1="87" y1="28" x2="87" y2="44"/>
+        <line x1="87" y1="128" x2="87" y2="144"/>
+        <line x1="29" y1="86" x2="45" y2="86"/>
+        <line x1="129" y1="86" x2="145" y2="86"/>
+      </g>
+      <g stroke="#7BA5D0" stroke-width="1.2" opacity="0.45">
+        <line x1="46" y1="45" x2="57" y2="56"/>
+        <line x1="128" y1="45" x2="117" y2="56"/>
+        <line x1="46" y1="127" x2="57" y2="116"/>
+        <line x1="128" y1="127" x2="117" y2="116"/>
+      </g>
+      <path d="M87 76 L94 86 L87 96 L80 86 Z" fill="#D69A3C" opacity="0.6"/>
+      <circle cx="87" cy="86" r="70" fill="none" stroke="#26B7C7" stroke-width="0.8" opacity="0.18" stroke-dasharray="3 5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NSE: MACPOWER</span>
+      <span class="tag">BSE: 535057</span>
+      <span class="tag cy">CNC Machine Tools</span>
+      <span class="tag st">Make-in-India / Import-Substitution</span>
+    </div>
+    <h1>Macpower CNC Machines</h1>
+    <div class="flip">&#9881; India's low-cost CNC machine-tool challenger &mdash; a debt-free, founder-led ~27% grower premiumizing via NEXA &amp; pushing into defence</div>
+    <div class="sub">A <b>high-quality, founder-led, net-debt-free CNC machine-tool manufacturer</b> from Rajkot (est. 2003) &mdash; one of India's leading domestic makers with <b>380+ models</b> (turning centres, VMCs, HMCs, VTLs, grinders) and <b>among the lowest-cost producers</b> in the industry. Riding <b>Make-in-India, import-substitution &amp; capex tailwinds</b> with a ~26% five-year revenue CAGR, it is <b>premiumizing via its NEXA line</b> and pushing into <b>defence &amp; aerospace</b>. Record FY26 (rev +27%, PAT +33%) &mdash; but richly valued and cyclical.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (approx)</div><div class="v">~&#8377;1,900</div><div class="d down">vendor-divergent</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~&#8377;1,400&ndash;1,750 Cr</div><div class="d">micro/small-cap</div></div>
+      <div class="qs"><div class="k">FY26 revenue</div><div class="v">&#8377;333 Cr</div><div class="d up">+27.2%</div></div>
+      <div class="qs"><div class="k">FY26 PAT</div><div class="v">&#8377;33.9 Cr</div><div class="d up">+33.1%</div></div>
+      <div class="qs"><div class="k">Order book</div><div class="v">~&#8377;406 Cr</div><div class="d up">NEXA 40%</div></div>
+      <div class="qs"><div class="k">Promoter</div><div class="v">73.2%</div><div class="d up">zero pledge</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>HQ:</b> Metoda GIDC, Rajkot</span><span class="dot">&#9881;</span>
+  <span><b>Est:</b> 2003 &middot; IPO Dec 2018</span><span class="dot">&#9881;</span>
+  <span><b>Capacity:</b> 2,500 machines/yr</span><span class="dot">&#9881;</span>
+  <span><b>Models:</b> 380+ &middot; 13,389+ installs</span><span class="dot">&#9881;</span>
+  <span><b>FV:</b> &#8377;10</span><span class="dot">&#9881;</span>
+  <span><b>Report:</b> 17 Aug 2026</span>
+</div>
+
+<div class="alert boom">
+  &#9889; <b>THE GROWTH SIGNAL &mdash; a record FY26 + a premiumization &amp; capacity push:</b> highest-ever revenue <b>&#8377;333.18 Cr (+27.2%)</b>, EBITDA and PAT <b>&#8377;33.87 Cr (+33.1%)</b>; capacity scaled to <b>2,500 machines/yr</b>; the premium <b>NEXA</b> range now ~<b>40% of a ~&#8377;406 Cr order book</b>; management guides <b>28-30% revenue growth for FY27</b>. A new <b>13-acre Rajkot lease (&#8377;50 Cr investment)</b> and a growing push into <b>Defence &amp; Aerospace</b> extend the runway &mdash; all on a <b>net-debt-free, ~73%-promoter-owned (zero pledge)</b> balance sheet, with a ~26% five-year revenue CAGR (well above the ~12% industry).
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT IT'S A RICHLY-VALUED, CYCLICAL, MICRO-CAP (see &sect;14):</b> the stock trades at a <b>rich ~40-45x trailing P/E and ~8-10x book</b> after a strong multi-year run. It's a <b>cyclical capital-goods business</b> (machine-tool demand tracks manufacturing capex &mdash; FY25 growth slowed to ~8.6% before FY26's rebound), facing <b>margin pressure from rising input/operating costs</b>, intense <b>competition</b> (Jyoti CNC &mdash; ~10x larger, Lakshmi Machine Works, plus Taiwanese/Chinese imports), a <b>very small share count / thin free float</b> (~73% promoter &rarr; low liquidity, high volatility), and <b>wildly divergent vendor price/mcap data</b> (see caveat).
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT &mdash; unusually large vendor divergence:</b> Macpower's price/mcap figures diverge sharply across sources and dates &mdash; CMP quoted ~&#8377;890 (SimplyWallSt, stale) / ~&#8377;940 (1 Jun) / ~&#8377;1,463&ndash;1,497 (30 Jul) with mcap ~&#8377;970&ndash;1,485 Cr, while Screener shows mcap <b>~&#8377;1,750 Cr (up 105% in 1yr, 13 Aug)</b> implying a higher recent price (~&#8377;1,900+); P/E ranges ~29&ndash;45x, P/B ~6&ndash;10x across vendors; 52-wk ~&#8377;601&ndash;1,610 (BSE ATH &#8377;1,737, Jul 2024). Small share count (~7.3M shares, FV &#8377;10) amplifies swings. This report anchors CMP loosely and treats valuation as a <b>range (~40-45x P/E, mcap ~&#8377;1,400-1,750 Cr)</b>. Verify live on NSE/BSE. FY26 = year ended Mar 2026.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Macpower CNC Machines Ltd (NSE: MACPOWER / BSE: 535057)</strong> is a <strong>high-quality, founder-led, net-debt-free manufacturer of Computerized Numerical Control (CNC) machine tools</strong> based in <strong>Metoda GIDC, Rajkot (Gujarat)</strong> &mdash; incorporated in 2003 and IPO'd in December 2018. It is <strong>one of India's leading domestic CNC machine-tool makers</strong>, offering <strong>380+ models</strong> across turning centres, vertical machining centres (VMCs), horizontal machining centres (HMCs), vertical turret lathes (VTLs), grinders and turn-mill centres &mdash; spanning <strong>27+ product segments, 3,000 application solutions and 13,389+ installations</strong> &mdash; and is recognised as being <strong>among the lowest-cost producers in its industry.</strong> Its machines serve auto/auto-ancillary, bearings, valves, pumps, tool-room, agri, textile and piping customers, with a growing push into <strong>defence, aerospace, power and railways.</strong> Promoter (Doshi family) holding is a high <strong>~73.2% with zero pledge.</strong></p>
+  <p>The investment story is a <strong>structural domestic-manufacturing growth play with a premiumization angle.</strong> Macpower rides India's <strong>Make-in-India, import-substitution, capex-revival and China+1 tailwinds</strong>: as Indian manufacturing scales, demand for domestically-made, cost-competitive CNC machine tools grows, and Macpower &mdash; a <strong>low-cost, wide-portfolio domestic supplier</strong> &mdash; is well-placed to take share from imports (historically Taiwanese/Chinese/European). It has compounded revenue at a <strong>~26% five-year CAGR (well above the ~12% industry)</strong>, and just delivered a <strong>record FY26</strong>: revenue <strong>₹333.18 Cr (+27.2%)</strong>, PAT <strong>₹33.87 Cr (+33.1%)</strong>, highest-ever on every line. It is <strong>premiumizing via its NEXA range</strong> (higher-value machines, now ~40% of the ~₹406 Cr order book), <strong>expanding capacity</strong> (2,500 machines/yr; a new 13-acre Rajkot lease with ₹50 Cr investment), and <strong>deepening its defence/aerospace</strong> presence &mdash; guiding <strong>28-30% growth for FY27.</strong> The counterweight (explored in &sect;14): it is a <strong>cyclical capital-goods business</strong> (demand tracks manufacturing capex), <strong>richly valued (~40-45x P/E)</strong>, facing <strong>input-cost/margin pressure</strong> and <strong>strong competition (notably the much-larger Jyoti CNC)</strong>, with a <strong>thin free float</strong> and <strong>unusually divergent vendor valuation data.</strong></p>
+  <div class="cards">
+    <div class="card c"><div class="k">5-yr rev CAGR</div><div class="v">~26%</div><div class="d up">vs ~12% ind.</div></div>
+    <div class="card s"><div class="k">Models</div><div class="v">380+</div><div class="d">27+ segments</div></div>
+    <div class="card a"><div class="k">Balance sheet</div><div class="v">Net debt-free</div><div class="d up">zero pledge</div></div>
+    <div class="card l"><div class="k">Cost position</div><div class="v">Lowest-cost</div><div class="d">domestic edge</div></div>
+  </div>
+  <div class="call st">
+    <div class="lab">The investment character in one line</div>
+    Macpower CNC is a <strong>high-quality, founder-led, net-debt-free, fast-growing domestic CNC machine-tool leader &mdash; a structural "Make-in-India capital-goods" growth story at a rich, cyclical price.</strong> The bull case is genuinely attractive: a <strong>low-cost, wide-portfolio domestic supplier</strong> ideally positioned for <strong>import substitution and India's manufacturing capex upcycle</strong>; a <strong>strong ~26% five-year growth record</strong> and a <strong>record FY26</strong> (rev +27%, PAT +33%); a <strong>premiumization lever (NEXA)</strong> and a <strong>defence/aerospace push</strong> that can lift mix and margins; a <strong>fortress balance sheet</strong> (net cash, zero pledge) funding self-financed capacity expansion; and <strong>aligned, committed founder ownership (~73%).</strong> The bear case is about <strong>valuation, cyclicality, competition and float</strong>: the stock is <strong>richly valued (~40-45x earnings, ~8-10x book)</strong> for a <strong>cyclical capital-goods maker</strong> whose demand tracks (and can slow with) manufacturing capex &mdash; as FY25's deceleration to ~8.6% growth showed; it faces <strong>margin pressure from rising costs</strong>, <strong>formidable competition</strong> (the much-larger, better-capitalised Jyoti CNC; Lakshmi Machine Works; imports); a <strong>very thin free float</strong> (~73% promoter &rarr; low liquidity, high volatility); and <strong>unusually divergent vendor price/valuation data</strong> that complicates precise valuation. Net: a <strong>genuinely good, well-run, structurally-advantaged small-cap growth company</strong> &mdash; the debate is whether you're <strong>paying a full cyclical-peak price for it</strong>, and whether it can sustain high growth and defend margins against a bigger rival. Own it for the Make-in-India growth, cost leadership and premiumization if you can tolerate a rich multiple, cyclicality and micro-cap volatility; the key question is whether the ~28-30% FY27 growth and NEXA/defence mix-shift land (see &sect;14-&sect;15).
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2003 &middot; Founding</div><div class="td">Incorporated as <strong>Macpower CNC Machines Private Limited</strong> in Rajkot, Gujarat (31 Dec 2003) &mdash; entering domestic CNC machine-tool manufacturing.</div></div>
+    <div class="tli"><div class="ty">2003&ndash;17 &middot; Building the portfolio</div><div class="td">Grows a broad range of CNC turning centres, VMCs, HMCs, VTLs and grinders; builds a reputation as a <strong>low-cost, wide-portfolio domestic supplier</strong>; converts to public limited (Nov 2017).</div></div>
+    <div class="tli"><div class="ty">Dec 2018 &middot; IPO</div><div class="td"><strong>Lists on NSE</strong> &mdash; a small-cap machine-tool play, funding capacity and working capital.</div></div>
+    <div class="tli"><div class="ty">2019&ndash;24 &middot; Scaling &amp; NEXA</div><div class="td">Expands models to 380+, installations past 13,000; launches the <strong>premium NEXA range</strong> to move up-value; compounds revenue at ~26% CAGR; broadens into defence, power, railways.</div></div>
+    <div class="tli"><div class="ty">FY26 &middot; Record year</div><div class="td">Highest-ever results (rev ₹333.18 Cr +27.2%, PAT ₹33.87 Cr +33.1%); capacity to <strong>2,500 machines/yr</strong>; NEXA ~40% of the ~₹406 Cr order book; ₹1.50 dividend; zero-pledge promoter declaration.</div></div>
+    <div class="tli"><div class="ty">2026 &middot; Capacity &amp; guidance</div><div class="td">Secures a <strong>13-acre lease near Metoda GIDC</strong> (30-yr), plans <strong>₹50 Cr investment</strong>, qualifies for Viksit Gujarat Industrial Policy 2026 benefits; guides <strong>28-30% FY27 growth</strong>; deepens Defence &amp; Aerospace focus.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Moat</h2></div>
+  <div class="vchain">
+    <div class="vnode">In-house design &amp; assembly</div>
+    <div class="vnode on"><div class="vt">380+ CNC models</div><div class="vd">Wide portfolio</div></div>
+    <div class="vnode cc"><div class="vt">Low-cost production</div><div class="vd">Cost leadership</div></div>
+    <div class="vnode on"><div class="vt">Import substitution</div><div class="vd">vs Taiwan/China/EU</div></div>
+    <div class="vnode cc"><div class="vt">NEXA + defence mix</div><div class="vd">Premiumization</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">A cost-leadership + breadth + service moat &mdash; real, but not impregnable</div>
+    Macpower's competitive edge is a <strong>combination of cost leadership, portfolio breadth, and domestic service/proximity</strong> &mdash; a solid, if not fortress-like, moat. Its strengths: (1) <strong>low-cost manufacturing</strong> &mdash; being <strong>among the lowest-cost producers</strong> lets it undercut imports and compete hard on price, the key lever for <strong>import substitution</strong> as Indian manufacturers seek affordable domestic CNC machines; (2) <strong>portfolio breadth</strong> &mdash; 380+ models across 27+ segments and 3,000 applications makes it a <strong>one-stop domestic supplier</strong> able to serve diverse industries and cross-sell; (3) <strong>a large installed base (13,389+ machines)</strong> that drives <strong>reference sales, service revenue and repeat/replacement demand</strong>, plus local service/support that imported machines can't easily match; and (4) an emerging <strong>premiumization/technology angle</strong> (the NEXA range, defence/aerospace qualification) that can lift value-add and stickiness. This underpins its above-industry growth. The honest limits of the moat (see &sect;14): (1) machine tools are a <strong>competitive, somewhat commoditised, cyclical industry</strong> &mdash; cost leadership helps but doesn't confer pricing power the way a specialty niche does; (2) it faces a <strong>much larger, better-capitalised, technology-strong rival in Jyoti CNC</strong> (roughly ten times its market cap) plus Lakshmi Machine Works and global OEMs, which can out-invest it in R&amp;D and higher-end machines; and (3) at the <strong>high-precision/high-value end, imported and premium machines still lead</strong> &mdash; Macpower's cost edge is strongest in the value segment. Net: a <strong>genuine, defensible position built on cost, breadth and service in a growing domestic market &mdash; but a competitive, cyclical industry where scale, technology and premiumization (NEXA, defence) will determine whether it can defend margins and keep taking share.</strong> A good moat for its niche; not an unassailable one.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Products &amp; End-Markets</h2></div>
+  <div class="bar-row"><div class="bar-lab">CNC turning centres</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--cyan)">core volume</div></div><div class="bar-val">flagship</div></div>
+  <div class="bar-row"><div class="bar-lab">Vertical machining centres (VMCs)</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--steel)">high-demand</div></div><div class="bar-val">growing</div></div>
+  <div class="bar-row"><div class="bar-lab">HMCs, VTLs, grinders, turn-mill</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--slate)">specialised</div></div><div class="bar-val">breadth</div></div>
+  <div class="bar-row"><div class="bar-lab">NEXA premium range (across types)</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--amber)">~40% of order book</div></div><div class="bar-val up">premiumization</div></div>
+  <div class="call am">
+    <div class="lab">A broad portfolio serving diversified, capex-driven end-markets &mdash; premiumizing the mix</div>
+    Macpower's <strong>wide product portfolio serves a diversified set of capex-driven end-markets</strong>, which is both a strength (diversification) and the source of its cyclicality (all tied to manufacturing investment). Its core products &mdash; <strong>CNC turning centres and VMCs</strong> &mdash; go into <strong>auto and auto-ancillary, bearings, valves, pumps, tool-rooms, dies &amp; moulds, agriculture, textiles and piping</strong>; its broader range (<strong>HMCs, VTLs, grinders, turn-mill centres</strong>) extends into <strong>process-plant components, power, railways, and increasingly defence, aerospace and medical.</strong> This breadth means Macpower isn't dependent on any single end-industry, and it can <strong>ride whichever manufacturing verticals are investing.</strong> The strategically important shift is <strong>premiumization via the NEXA range</strong> &mdash; higher-value, higher-specification machines now representing <strong>~40% of the order book</strong> &mdash; plus the <strong>defence &amp; aerospace push</strong>, both of which aim to <strong>lift average realisations, margins and technological standing</strong> above the value-segment base. The <strong>bull framing:</strong> a diversified, broadening portfolio riding India's manufacturing capex, with a deliberate move up the value curve. The <strong>caution:</strong> (1) <strong>every end-market is capex-cyclical</strong> &mdash; when manufacturing investment slows, orders across the board soften (as FY25 showed); (2) the <strong>premiumization is still in progress</strong> &mdash; NEXA and defence are promising but must be <strong>proven to sustainably lift margins</strong> against cost pressures; and (3) higher-end segments bring <strong>tougher competition</strong> from established premium/imported players. Watching the <strong>NEXA mix, defence order wins, and whether these translate into margin expansion</strong> is central to the premiumization thesis.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>FY26 Record Year &amp; the Growth Runway</h2></div>
+  <table>
+    <tr><th>Metric (&#8377; Cr)</th><th class="mono">FY25</th><th class="mono">FY26</th><th class="mono">YoY</th></tr>
+    <tr><td>Revenue from operations</td><td class="mono">261.82</td><td class="mono">333.18</td><td class="mono up">+27.2%</td></tr>
+    <tr class="tr-hi"><td>PAT</td><td class="mono">25.44</td><td class="mono">33.87</td><td class="mono up">+33.1%</td></tr>
+    <tr><td>Q4 revenue</td><td class="mono">~80</td><td class="mono">100.29</td><td class="mono up">+25.3%</td></tr>
+    <tr><td>Capacity (machines/yr)</td><td class="mono">~2,000</td><td class="mono">2,500</td><td class="mono up">expanding</td></tr>
+    <tr><td>Dividend/share</td><td class="mono">&mdash;</td><td class="mono">&#8377;1.50</td><td class="mono">final</td></tr>
+  </table>
+  <div class="call st">
+    <div class="lab">A genuine record year and a credible runway &mdash; with the cyclical caveat</div>
+    FY26 was an <strong>unambiguously strong, record year</strong>, and it anchors the growth thesis. Revenue rose <strong>27.2% to ₹333.18 Cr</strong> and PAT jumped <strong>33.1% to ₹33.87 Cr</strong> &mdash; the <strong>highest-ever on revenue, EBITDA and PAT</strong> &mdash; with Q4 revenue up 25.3% to ₹100.29 Cr. Importantly, this was <strong>broad-based, self-funded growth</strong> (net-debt-free) with <strong>capacity scaled to 2,500 machines/yr</strong>, the <strong>product universe expanded to 380+ variants</strong>, and the <strong>premium NEXA range at ~40% of the order book.</strong> The <strong>forward runway is credible:</strong> management guides <strong>28-30% revenue growth for FY27</strong>, backed by a <strong>~₹406 Cr order book</strong>, a <strong>new 13-acre Rajkot facility (₹50 Cr investment)</strong>, deepening <strong>defence &amp; aerospace</strong> traction, and the structural <strong>Make-in-India / import-substitution</strong> tailwind. The <strong>honest caveats (see &sect;14):</strong> (1) <strong>this is a cyclical capital-goods business</strong> &mdash; FY26's strong rebound followed a <strong>much softer FY25 (revenue growth ~8.6%)</strong>, illustrating that growth is <strong>lumpy and capex-dependent</strong>, not linear; (2) <strong>margin pressure from rising input/operating costs</strong> was flagged by management (EBITDA growth of ~13% in Q4 lagged revenue), so <strong>PAT growth may not always outpace revenue</strong>; and (3) the <strong>28-30% guidance is ambitious</strong> and depends on the capex cycle staying supportive. The correct posture: <strong>celebrate a genuinely strong year and a credible plan, but treat the growth as cyclical &mdash; verify the FY27 guidance and margin trajectory quarter by quarter rather than extrapolating the peak.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Peer</th><th>Space</th><th class="mono">Note</th></tr>
+    <tr><td><strong>Jyoti CNC Automation</strong></td><td>CNC machine tools (premium)</td><td class="mono">Much larger (~&#8377;18,800 Cr mcap); key rival</td></tr>
+    <tr><td><strong>Lakshmi Machine Works</strong></td><td>Machine tools + textile machinery</td><td class="mono">Large, established</td></tr>
+    <tr><td><strong>Macpower CNC</strong></td><td>CNC machine tools (value + NEXA)</td><td class="mono">Low-cost, fast-growing challenger</td></tr>
+    <tr><td><strong>Imports (Taiwan/China/EU/Japan)</strong></td><td>CNC machines</td><td class="mono">The substitution target</td></tr>
+    <tr><td><strong>Elecon, Dee Dev., Kilburn, etc.</strong></td><td>Broader capital goods</td><td class="mono">Sector peers</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A fast-growing low-cost challenger in a competitive field led by a much larger rival</div>
+    Macpower competes in a <strong>competitive, growing Indian CNC machine-tool market</strong> where its position is that of a <strong>fast-growing, low-cost challenger</strong> &mdash; strong in the value segment, but facing larger rivals higher up. The defining competitive fact is <strong>Jyoti CNC Automation</strong>: a <strong>much larger (roughly ten-times-the-market-cap), premium, technology-strong domestic peer</strong> (executing ~5,550 machines/yr at ~₹35.6 lakh average realisation vs Macpower's smaller, lower-priced volumes) that dominates the higher-value end and can out-invest Macpower in R&amp;D and marketing. Other competitors include <strong>Lakshmi Machine Works</strong> and, critically, <strong>imports from Taiwan, China, Europe and Japan</strong> &mdash; which are simultaneously the <strong>substitution opportunity</strong> (Macpower's cost edge wins share as manufacturers localise) and a <strong>competitive threat</strong> (premium imports lead at the high end). The <strong>bull framing:</strong> Macpower's <strong>cost leadership, breadth and above-industry growth (~26% CAGR vs ~12%)</strong> show it is <strong>gaining share</strong>, and the import-substitution runway is large. The <strong>cautionary framing:</strong> (1) it is <strong>smaller and less-capitalised than Jyoti</strong>, with less pricing power and lower average realisations; (2) <strong>competing on cost can pressure margins</strong>, especially as input costs rise; and (3) moving up-value (NEXA, defence) puts it into <strong>tougher competition</strong> where it must prove its technology. Net: a <strong>credible, share-gaining challenger with a real cost advantage in a growing market &mdash; but one operating below a much larger premium rival, where its ability to defend margins and climb the value curve is the key competitive question.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Note</th></tr>
+    <tr><td><strong>Competitive rivalry</strong></td><td class="mono">High</td><td>Jyoti CNC (much larger), LMW, imports</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">Moderate-High</td><td>Price-sensitive; but breadth &amp; service help</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Components/castings, controls (Fanuc/Siemens)</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Moderate</td><td>Capital &amp; know-how barriers, but not extreme</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low-Moderate</td><td>CNC essential; imports the main alternative</td></tr>
+  </table>
+  <p>Net: a <strong>structurally competitive industry</strong> &mdash; the sharpest force is <strong>rivalry</strong> (a much larger Jyoti CNC, plus imports), and <strong>buyer price-sensitivity</strong> is real in a cost-driven market, though Macpower's <strong>breadth, installed base and service mitigate it</strong>. Supplier power is moderate (CNC controls from Fanuc/Siemens are a key input). This is a <strong>growing market with a real import-substitution tailwind, but a genuinely competitive structure</strong> &mdash; Macpower's cost leadership and premiumization are how it competes, but it doesn't enjoy the pricing power of a protected niche. Cyclicality (capex-linked demand) compounds the picture.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Growth Drivers &amp; Capex</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">FY27 guidance</div><div class="v">28-30%</div><div class="d up">revenue growth</div></div>
+    <div class="card s"><div class="k">New facility</div><div class="v">13 acres</div><div class="d">&#8377;50 Cr, Rajkot</div></div>
+    <div class="card a"><div class="k">NEXA mix</div><div class="v">~40%</div><div class="d up">of order book</div></div>
+    <div class="card l"><div class="k">Defence/aero</div><div class="v">Growing</div><div class="d up">new vertical</div></div>
+  </div>
+  <p>Macpower's growth levers: (1) <strong>Make-in-India / import substitution</strong> &mdash; the structural core, as Indian manufacturers localise CNC purchases; (2) <strong>capacity expansion</strong> &mdash; a new <strong>13-acre Rajkot facility (₹50 Cr, Viksit Gujarat Policy benefits)</strong> lifting beyond 2,500 machines/yr; (3) <strong>premiumization (NEXA)</strong> &mdash; higher-value machines improving mix/realisations; (4) <strong>defence &amp; aerospace</strong> &mdash; a higher-margin, higher-barrier new vertical; (5) <strong>diversified end-market capex</strong> (auto, EV, railways, power); and (6) guided <strong>28-30% FY27 growth</strong> on a ~₹406 Cr order book.</p>
+  <div class="call st">
+    <div class="lab">A structural, self-funded growth runway &mdash; strong drivers, but cyclical and execution/margin-dependent</div>
+    Macpower's growth setup is <strong>genuinely attractive and largely self-funded.</strong> The <strong>demand backdrop is structural:</strong> India's manufacturing push (Make-in-India, PLI schemes, China+1, rising domestic auto/EV/defence/capital-goods investment) drives <strong>sustained demand for CNC machine tools</strong>, and <strong>import substitution</strong> gives a low-cost domestic supplier like Macpower a <strong>multi-year runway to take share.</strong> The <strong>supply response is disciplined:</strong> the new 13-acre Rajkot facility (₹50 Cr, with state-policy incentives) is <strong>self-funded from a net-cash balance sheet</strong> and comes as capacity utilisation tightens &mdash; a sensible, high-return expansion. The <strong>mix levers are promising:</strong> NEXA premiumization (~40% of order book) and the <strong>defence/aerospace push</strong> aim to move Macpower <strong>up the value curve</strong>, improving realisations and margins beyond the value-segment base. The <strong>honest caveats:</strong> (1) <strong>all of this is capex-cyclical</strong> &mdash; the runway is real but <strong>lumpy</strong>, and a manufacturing slowdown would hit orders (FY25's ~8.6% growth is the reminder); (2) the <strong>28-30% guidance is ambitious</strong> and must be delivered against a bigger rival and cost pressures; (3) <strong>margin expansion from premiumization is assumed but not yet proven</strong> &mdash; rising input costs have pressured margins, so the mix-shift must actually translate into better profitability; and (4) execution of the new-capacity ramp and defence qualification carries normal risk. Net: <strong>a strong, structurally-supported, self-funded growth runway with credible premiumization optionality &mdash; tempered by cyclicality, competition, and the need to prove margin expansion.</strong> Track order-book growth, the NEXA mix, defence wins, the new-facility ramp, and above all margins.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Returns &amp; Balance Sheet</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">PAT margin</div><div class="v">~10%</div><div class="d">healthy</div></div>
+    <div class="card s"><div class="k">Net margin trend</div><div class="v">Improving</div><div class="d up">FY26 +33% PAT</div></div>
+    <div class="card a"><div class="k">EBITDA</div><div class="v">Pressured</div><div class="d down">rising costs</div></div>
+    <div class="card l"><div class="k">Debt</div><div class="v">~Nil</div><div class="d up">net cash</div></div>
+  </div>
+  <p>Macpower runs a <strong>healthy, improving profitability profile on a fortress balance sheet</strong>: FY26 PAT margin ~10% (PAT +33% on revenue +27%, so <strong>margins expanded</strong> for the full year), <strong>net-debt-free</strong> with a strong cash position, and consistent dividends. The watch-item is <strong>EBITDA-margin pressure from rising input/operating costs</strong> (Q4 EBITDA +13% lagged revenue +25%), which management has flagged as a focus for FY27.</p>
+  <div class="call sl">
+    <div class="lab">Healthy returns and a fortress balance sheet &mdash; with input-cost margin pressure the key watch-item</div>
+    Macpower's financial quality is <strong>a genuine strength.</strong> The <strong>net-debt-free balance sheet</strong> (net cash, zero promoter pledge) is a fortress: it <strong>self-funds capacity expansion</strong> (the ₹50 Cr Rajkot facility), <strong>cushions the cyclical downturns</strong> inherent to capital goods, and pays consistent dividends without stress &mdash; exactly the resilience a cyclical small-cap needs. <strong>Returns and margins are healthy</strong>: FY26 delivered <strong>margin expansion at the net level</strong> (PAT +33% outpacing revenue +27%), and the ~26% multi-year growth at a ~10% PAT margin on a debt-free base reflects a <strong>well-run, capital-efficient operation.</strong> The <strong>key nuance</strong> (a &sect;14 theme) is <strong>EBITDA-margin pressure</strong>: management explicitly flagged <strong>rising input and operating costs</strong>, and Q4 FY26 EBITDA growth (~13%) <strong>lagged revenue growth (~25%)</strong> &mdash; a sign that, at the operating level, <strong>cost inflation is squeezing margins</strong> even as scale and mix help. This matters because: (1) <strong>the premiumization thesis (NEXA, defence) is partly a margin thesis</strong> &mdash; it must demonstrably lift operating margins, not just revenue; (2) in a <strong>cost-competitive, price-sensitive market</strong>, passing on input costs is harder than in a protected niche; and (3) a rich valuation <strong>assumes margins hold or expand.</strong> Net: <strong>a fortress, self-funding, net-cash balance sheet and healthy, capital-efficient returns are a real, durable strength that de-risks the cyclicality &mdash; while EBITDA-margin protection/expansion (can premiumization and scale offset input-cost inflation?) is the metric to watch closely.</strong> A high-quality financial profile with a margin-cyclicality overlay.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management &amp; Ownership</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Promoter holding</div><div class="v">73.2%</div><div class="d">Doshi family</div></div>
+    <div class="card s"><div class="k">Pledge</div><div class="v">Zero</div><div class="d up">clean</div></div>
+    <div class="card a"><div class="k">Free float</div><div class="v">~27%</div><div class="d down">thin</div></div>
+    <div class="card l"><div class="k">Dividend</div><div class="v">&#8377;1.50/sh</div><div class="d">consistent</div></div>
+  </div>
+  <p>Macpower is <strong>founder-led by the Doshi family (~73.2%, zero pledge)</strong> &mdash; a high, clean, well-aligned promoter holding that signals <strong>strong skin-in-the-game and confidence</strong>, and has delivered a ~26% multi-year growth record with disciplined, debt-free financial management. The flip side is a <strong>thin ~27% free float</strong> &mdash; low liquidity, high volatility, limited institutional ownership &mdash; which (with a small share count) contributes to the <strong>divergent, volatile price data.</strong></p>
+  <div class="call sl">
+    <div class="lab">Aligned, disciplined founder ownership &mdash; a clear strength, with a low-float caveat</div>
+    Macpower's ownership is <strong>a largely positive, well-aligned picture with one structural caveat.</strong> The <strong>strengths are clear:</strong> a <strong>high ~73.2% founder holding with zero pledge</strong> reflects <strong>strong alignment, conviction and clean governance</strong> &mdash; the family has <strong>substantial skin in the game</strong> and has run the company <strong>conservatively and successfully</strong> (net-debt-free, ~26% growth CAGR, consistent dividends, disciplined self-funded expansion). Founder-led capital-goods companies with this profile often make <strong>patient, long-term operating decisions</strong>, and the zero-pledge, no-encumbrance record (reaffirmed in the FY26 promoter declaration) is a <strong>genuine quality/governance positive.</strong> The <strong>caveat is the low free float:</strong> with ~73% held by promoters, only ~27% floats, and combined with a <strong>small absolute share count</strong>, this means <strong>thin liquidity, limited institutional participation, and high price volatility on small volumes</strong> &mdash; a real driver of the <strong>wide, divergent vendor price/mcap data</strong> and a genuine risk to the <em>stock</em> (hard to trade in size, prone to sharp swings and valuation dislocations). It also means <strong>less external scrutiny/coverage</strong> than a widely-held name. None of this reflects poorly on the business or management &mdash; high founder ownership is a net positive &mdash; but investors must <strong>account for the thin float in liquidity, volatility and position-sizing terms.</strong> Net: <strong>an aligned, disciplined, clean-governance founder team is a real strength; the low float is the structural trade-off to respect.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Quality Strength</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Net position</div><div class="v">Net cash</div><div class="d up">debt-free</div></div>
+    <div class="card s"><div class="k">Capex funding</div><div class="v">Internal</div><div class="d up">no dilution</div></div>
+    <div class="card a"><div class="k">Promoter pledge</div><div class="v">Zero</div><div class="d up">clean</div></div>
+    <div class="card l"><div class="k">5-yr rev CAGR</div><div class="v">~26%</div><div class="d up">strong</div></div>
+  </div>
+  <p>Macpower pairs a <strong>net-debt-free, cash-generative balance sheet with a strong multi-year growth record</strong> (~26% revenue CAGR) &mdash; a high-quality platform that <strong>self-funds expansion</strong> and provides cyclical resilience. The quality questions are <strong>margin protection against input costs, working-capital discipline through the cycle, and whether growth stays cash-backed.</strong></p>
+  <div class="call sl">
+    <div class="lab">The metric that decides the premium: cash-backed, margin-protected growth through the cycle</div>
+    Macpower's balance-sheet <em>strength</em> is not in question &mdash; <strong>net-debt-free, self-funding, zero-pledge, strong track record</strong> make this a <strong>genuinely high-quality small-cap.</strong> The decisive questions for its <strong>rich valuation</strong> are about <strong>margins, cash conversion and durability through the cycle.</strong> Track: <strong>(1) EBITDA-margin protection</strong> &mdash; can premiumization (NEXA) and scale <strong>offset input-cost inflation</strong> and lift operating margins, or do rising costs keep squeezing them? This is the key quality gate. <strong>(2) Working capital &amp; cash conversion</strong> &mdash; machine-tool manufacturing is <strong>working-capital-intensive</strong> (inventory, receivables); as growth accelerates, verify that <strong>profit converts to operating cash flow</strong> and the cycle stays disciplined (a common small-cap-growth stress point). <strong>(3) Cyclical durability</strong> &mdash; does the order book and 28-30% guidance hold if manufacturing capex softens? If margins expand with mix, cash conversion stays healthy, and growth proves durable, Macpower is a genuine self-funding compounder that can grow into its multiple; if input costs squeeze margins, working capital balloons, or the cycle turns, the premium is harder to justify. Net: <strong>a fortress, net-cash balance sheet and strong growth record are a real, durable strength that de-risks the cyclicality &mdash; while margin protection, cash conversion and cyclical durability are the metrics that will validate (or challenge) the premium valuation.</strong> Watch margins and working capital every quarter.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Make-in-India / import substitution</strong></td><td>Localisation of CNC demand; cost edge</td><td class="mono">Structural core &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Manufacturing capex upcycle</strong></td><td>Auto/EV/capital-goods investment</td><td class="mono">Tailwind (cyclical) &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>NEXA premiumization</strong></td><td>Higher-value machines, better mix</td><td class="mono">Margin lever &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Defence &amp; aerospace</strong></td><td>Higher-barrier, higher-margin vertical</td><td class="mono">Optionality &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Capacity expansion</strong></td><td>13-acre Rajkot facility, ₹50 Cr</td><td class="mono">Self-funded &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Margin expansion</strong></td><td>Mix + scale vs input costs</td><td class="mono">To be proven &#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Detail</th></tr>
+    <tr><td>Revenue (FY26)</td><td class="mono up">&#8377;333.18 Cr (+27.2%)</td></tr>
+    <tr><td>PAT (FY26)</td><td class="mono up">&#8377;33.87 Cr (+33.1%)</td></tr>
+    <tr><td>5-yr revenue CAGR</td><td class="mono up">~26% (vs ~12% industry)</td></tr>
+    <tr class="tr-hi"><td>FY27 guidance</td><td class="mono up">28-30% revenue growth</td></tr>
+    <tr><td>Order book</td><td class="mono">~&#8377;406 Cr (NEXA ~40%)</td></tr>
+    <tr><td>Debt</td><td class="mono up">~Nil (net cash), zero pledge</td></tr>
+    <tr><td>Dividend</td><td class="mono">&#8377;1.50/share (FY26)</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call st">
+      <div class="lab">The bull-supporting facts</div>
+      Structural Make-in-India / import-substitution tailwind; low-cost leadership; ~26% 5-yr revenue CAGR (2x industry); record FY26 (rev +27%, PAT +33%); net debt-free, zero pledge; NEXA premiumization (~40% of order book); defence/aerospace push; self-funded capacity expansion; 28-30% FY27 guidance; aligned ~73% founder ownership.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      Rich valuation (~40-45x P/E, ~8-10x book); cyclical capital-goods demand (FY25 slowed to ~8.6%); EBITDA-margin pressure from rising input costs; much-larger rival (Jyoti CNC ~10x mcap) + imports; thin free float (~73% promoter, low liquidity, high volatility); working-capital intensity; wildly divergent vendor valuation data.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials describe a <strong>genuinely high-quality, fast-growing, debt-free, structurally-advantaged small-cap</strong> &mdash; the growth record, cost leadership, clean balance sheet and premiumization optionality are real. The debate concentrates on <strong>the rich, cyclical-peak valuation, EBITDA-margin pressure, competition from a much larger rival, the thin float/liquidity, and the unusually divergent valuation data</strong> &mdash; which is why the Forensic (&sect;14) and Valuation (&sect;15) sections carry the weight.</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: Macpower is a genuinely high-quality, net-debt-free, founder-aligned, fast-growing company &mdash; so this is <em>not</em> a distress or fraud screen. It is instead scrutiny of the specific quality questions that matter for a <strong>richly-valued, cyclical, low-float small-cap capital-goods grower</strong>: <strong>the durability of growth through the capex cycle, EBITDA-margin pressure from input costs, working-capital/cash-conversion, competitive intensity vs a much larger rival, the thin free float/liquidity, and the demanding valuation compounded by divergent data.</strong> The franchise quality is high, and there are <strong>no accounting or integrity red flags</strong> &mdash; the flags are about <strong>cyclicality, margins, competition and price, not honesty.</strong> <strong>Bottom line up front: a "high-quality-but-cyclical-and-priced-for-continued-growth" forensic profile &mdash; a clean, well-run, debt-free compounder whose main risks are cyclicality, margin pressure and a rich multiple, not the numbers' integrity.</strong></p>
+
+  <div class="call st">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings quality</td><td class="mono">&#128994; Green</td><td>Operating-led, debt-free, dividend-paying; clean, cash-backed profits.</td></tr>
+      <tr><td>Growth durability (cyclicality)</td><td class="mono">&#128993; Amber</td><td>Strong ~26% CAGR but capex-cyclical; FY25 slowed to ~8.6% &mdash; growth is lumpy.</td></tr>
+      <tr><td>EBITDA-margin pressure</td><td class="mono">&#128993; Amber</td><td>Rising input costs squeezed operating margins; premiumization must offset.</td></tr>
+      <tr><td>Working capital / cash conversion</td><td class="mono">&#128993; Amber</td><td>Machine-tool growth is WC-intensive; verify profit converts to cash.</td></tr>
+      <tr><td>Competition (Jyoti CNC)</td><td class="mono">&#128993; Amber</td><td>A ~10x-larger, better-capitalised rival dominates the premium end.</td></tr>
+      <tr><td>Free float / liquidity &amp; data</td><td class="mono">&#128993; Amber</td><td>~73% promoter &rarr; thin float, volatile; vendor price/mcap data wildly divergent.</td></tr>
+      <tr><td>Valuation risk</td><td class="mono">&#128308; Red</td><td>~40-45x P/E on a cyclical small-cap &mdash; prices in continued high growth.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.1 &middot; Earnings quality</h3>
+  <div class="cards">
+    <div class="card c"><div class="k">FY26 PAT growth</div><div class="v">+33.1%</div><div class="d up">margin expansion</div></div>
+    <div class="card s"><div class="k">Debt</div><div class="v">Nil</div><div class="d up">cash-backed</div></div>
+    <div class="card a"><div class="k">Pledge</div><div class="v">Zero</div><div class="d up">clean</div></div>
+    <div class="card l"><div class="k">Dividend</div><div class="v">Paid</div><div class="d up">real cash</div></div>
+  </div>
+  <div class="call sl">
+    <div class="lab">Clean, operating-led, cash-backed earnings &mdash; the strong pillar</div>
+    On earnings quality, Macpower scores <strong>genuinely well &mdash; this is a clean, high-quality P&amp;L.</strong> Profits are <strong>operating-led</strong> (real product sales to a diversified customer base), <strong>debt-free and cash-backed</strong> (no leverage flattering returns, no solvency risk), and the company <strong>pays consistent dividends</strong> (₹1.50/share) &mdash; a sign that reported profits <strong>convert to distributable cash.</strong> FY26 showed <strong>genuine margin expansion at the net level</strong> (PAT +33.1% outpacing revenue +27.2%), and the <strong>zero-pledge promoter declaration</strong> and unmodified audit opinion reinforce clean governance. There is <strong>no sign of aggressive accounting, one-off dependence, or financial engineering</strong> &mdash; the growth is real product-driven growth. The <strong>only nuances</strong> (examined below) are that the <em>level</em> of earnings is <strong>cyclical</strong> and the operating (<em>EBITDA</em>) margin is <strong>under input-cost pressure</strong> &mdash; but those concern cyclicality and cost management, not the integrity or quality of the earnings. On the narrow question "are these clean, cash-backed, operating earnings?", the answer is a clear yes. Grade: <strong>green &mdash; clean, operating-led, cash-backed, dividend-paying earnings.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.2 &middot; Growth durability &amp; cyclicality</h3>
+  <div class="call sl">
+    <div class="lab">Strong secular growth, but genuinely cyclical &mdash; don't extrapolate the peak</div>
+    A defining characteristic to weigh is <strong>cyclicality.</strong> Macpower's ~26% five-year revenue CAGR is genuinely strong and <strong>above-industry</strong>, reflecting real share gains &mdash; but machine-tool demand is <strong>fundamentally capex-cyclical</strong>: it tracks manufacturers' investment in new capacity, which <strong>ebbs and flows with the economic and industrial cycle.</strong> The evidence is in Macpower's own numbers: <strong>FY25 revenue growth slowed to ~8.6%</strong> (below its 5-year CAGR) before <strong>FY26 rebounded to +27.2%</strong> &mdash; illustrating that growth is <strong>lumpy and cycle-dependent, not linear.</strong> The forensic implications: (1) <strong>the ~28-30% FY27 guidance and recent record growth should not be blindly extrapolated</strong> &mdash; they reflect a supportive capex environment that can moderate; (2) a <strong>manufacturing/capex slowdown would soften orders across Macpower's diversified-but-all-cyclical end-markets</strong>, and operating leverage would work in reverse; and (3) at a rich multiple, <strong>the valuation implicitly assumes the strong growth continues</strong> &mdash; a cyclical downturn would hit both earnings and the multiple. The mitigants are real: the <strong>structural Make-in-India/import-substitution tailwind</strong> provides a secular growth floor above pure cyclicality, the <strong>diversified end-markets</strong> smooth some volatility, and the <strong>debt-free balance sheet</strong> lets it ride out troughs. Net: <strong>a genuinely strong secular grower that is nonetheless cyclical &mdash; own it with realistic, through-cycle growth expectations rather than extrapolating peak-cycle rates, and watch the capex environment.</strong> Grade: <strong>amber &mdash; strong secular growth with real cyclicality; don't capitalise the peak.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.3 &middot; EBITDA-margin pressure</h3>
+  <div class="call red">
+    <div class="lab">The key operating flag: rising input costs are squeezing operating margins</div>
+    A specific, management-flagged concern is <strong>EBITDA-margin pressure from rising input and operating costs.</strong> While FY26 showed net-margin expansion, at the <strong>operating level the picture is more pressured</strong>: Q4 FY26 EBITDA grew only <strong>~13% versus revenue growth of ~25%</strong>, indicating that <strong>cost inflation (raw materials, components, operating expenses) is compressing operating margins</strong> even as the company scales &mdash; and management has explicitly cited this as a focus, being questioned on how it plans to <strong>"restore EBITDA margins."</strong> This is a meaningful flag because: (1) <strong>the premiumization thesis is substantially a margin thesis</strong> &mdash; NEXA and defence are supposed to <strong>lift operating margins</strong>, so if EBITDA margins are instead being squeezed, the mix-shift isn't yet offsetting cost inflation; (2) in a <strong>cost-competitive, price-sensitive market</strong> (against a larger rival and imports), Macpower has <strong>limited pricing power to fully pass on input costs</strong>; and (3) a <strong>rich valuation assumes margin stability or expansion</strong>, so continued operating-margin pressure directly undermines the earnings-growth case. The forensic task: <strong>watch EBITDA margins closely</strong> &mdash; does premiumization + scale + cost management <strong>restore/expand</strong> them (validating the quality/mix thesis), or do rising costs keep squeezing them (signalling more commoditised, lower-quality growth)? This is arguably the <strong>single most important operating metric</strong> to monitor. Grade: <strong>amber &mdash; a genuine, management-acknowledged operating-margin squeeze; premiumization must prove it can offset input-cost inflation.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.4 &middot; Working capital &amp; cash conversion</h3>
+  <div class="call sl">
+    <div class="lab">Machine-tool growth is working-capital-intensive &mdash; verify cash conversion</div>
+    A standard but important flag for a fast-growing capital-goods manufacturer is <strong>working-capital intensity and cash conversion.</strong> Building and selling CNC machines requires <strong>significant inventory (components, work-in-progress, finished machines) and often extends receivables</strong> to customers &mdash; so <strong>rapid revenue growth typically consumes working capital</strong>, meaning reported profit may not fully convert to operating cash flow in high-growth phases. While Macpower's <strong>net-debt-free balance sheet indicates disciplined overall financial management</strong> (it hasn't needed to lever up to fund growth, a positive signal on cash generation), investors should still <strong>verify the cash-conversion picture</strong> as growth accelerates toward the guided 28-30%: (1) track <strong>operating cash flow vs PAT</strong> &mdash; is profit converting to cash, or being absorbed by inventory/receivables? (2) monitor the <strong>cash-conversion cycle</strong> (days inventory + receivables − payables) &mdash; is it stable or stretching? and (3) ensure the <strong>self-funded capacity expansion (₹50 Cr) plus working-capital needs</strong> don't outstrip internal generation and pressure the balance sheet. This is <strong>not currently a red flag</strong> &mdash; the debt-free status is reassuring and there's no evidence of a problem &mdash; but it is a <strong>structural characteristic of the business model</strong> that warrants routine monitoring, especially in an acceleration phase. Grade: <strong>amber &mdash; inherent working-capital intensity; verify cash conversion stays healthy as growth accelerates (debt-free status is reassuring).</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.5 &middot; Competition vs a much larger rival</h3>
+  <div class="call sl">
+    <div class="lab">A ~10x-larger, better-capitalised rival dominates the premium end</div>
+    A key competitive flag is Macpower's position <strong>relative to a much larger, stronger rival.</strong> <strong>Jyoti CNC Automation</strong> is roughly <strong>ten times Macpower's market capitalisation</strong>, executes far greater volumes at <strong>higher average realisations (~₹35.6 lakh/machine)</strong>, and dominates the <strong>higher-value, more-technologically-advanced end</strong> of the CNC market &mdash; giving it <strong>superior R&amp;D resources, scale economies, brand and pricing power.</strong> This matters for Macpower's thesis: (1) as Macpower tries to <strong>move up the value curve (NEXA, defence)</strong>, it enters <strong>Jyoti's stronghold</strong>, where it faces a better-resourced incumbent &mdash; making margin/share gains harder to win; (2) Jyoti (and imports) can <strong>out-invest Macpower in technology and capacity</strong>, potentially capping its premium ambitions; and (3) Macpower's edge (<strong>cost leadership</strong>) is strongest in the <strong>value segment</strong>, which is also the most <strong>price-competitive and margin-pressured.</strong> The mitigants: Macpower is <strong>genuinely gaining share (~26% growth vs ~12% industry)</strong>, the <strong>overall market is growing fast enough for multiple winners</strong>, and its <strong>cost/breadth/service model is well-suited to the large value segment.</strong> But investors should be <strong>realistic that Macpower is the smaller player</strong> in a field with a dominant premium rival, and that its <strong>up-market and margin ambitions face formidable competition.</strong> Grade: <strong>amber &mdash; a real, share-gaining challenger, but operating below a much larger, better-capitalised rival; premium ambitions face tough competition.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--gun)">14.6 &middot; Free float, data divergence &amp; valuation</h3>
+  <div class="call red">
+    <div class="lab">A thin float, wildly divergent data, and a rich multiple on a cyclical small-cap</div>
+    The final cluster of flags &mdash; and the sharpest in valuation terms &mdash; concerns <strong>float, data quality and price.</strong> On <strong>free float &amp; liquidity:</strong> with <strong>~73% promoter holding and a small absolute share count</strong>, only ~27% floats, giving <strong>thin liquidity, limited institutional ownership, and high volatility on small volumes</strong> &mdash; a genuine risk to the stock (hard to trade in size, prone to sharp swings). On <strong>data divergence:</strong> this manifests concretely in <strong>unusually wide, conflicting vendor price/mcap figures</strong> (CMP quoted anywhere from ~₹890 to ~₹1,900+, mcap ~₹970-1,750 Cr, P/E ~29-45x across sources/dates) &mdash; a <strong>data-quality and price-discovery caveat</strong> that complicates precise valuation and reflects the thin float. On <strong>valuation:</strong> even taking the conservative end, Macpower trades at a <strong>rich ~40-45x trailing earnings and ~8-10x book</strong> &mdash; a <strong>full multiple for a cyclical, small-cap capital-goods maker</strong>, applied near what may be a <strong>cyclical-peak growth rate.</strong> This <strong>prices in continued high growth and margin resilience</strong>, leaving <strong>limited margin of safety</strong>: if growth normalises (cyclicality), margins stay pressured (input costs), or competition bites, the stock is <strong>vulnerable to de-rating</strong> &mdash; and the thin float would <strong>amplify the downside move.</strong> The forensic implication: <strong>respect the low-float liquidity/volatility risk in sizing, verify the true current price/valuation against live NSE/BSE data (given the divergence), and recognise that a rich multiple on a cyclical small-cap near peak growth demands discipline on entry and realistic through-cycle expectations.</strong> Grade: <strong>red &mdash; a rich multiple on a cyclical small-cap, with thin float and divergent data amplifying the valuation risk.</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Macpower CNC Machines earns a "high-quality-but-cyclical-and-priced-for-continued-growth" forensic grade.</strong> On the fundamentals it is <strong>genuinely excellent and clean:</strong> operating-led, debt-free, cash-backed, dividend-paying earnings with <strong>margin expansion at the net level</strong>; a <strong>strong ~26% multi-year growth record</strong> (well above industry) built on <strong>cost leadership, portfolio breadth and import substitution</strong>; a <strong>fortress net-cash, zero-pledge balance sheet</strong> that self-funds expansion; <strong>aligned, disciplined founder ownership (~73%)</strong>; and a credible <strong>premiumization (NEXA) and defence/aerospace</strong> runway. There are <strong>no accounting or integrity red flags.</strong> The flags are about <strong>cyclicality, margins, competition, float and price:</strong> the business is <strong>capex-cyclical</strong> (FY25 slowed to ~8.6% &mdash; don't extrapolate the peak); <strong>EBITDA margins are under input-cost pressure</strong> (premiumization must prove it can offset this &mdash; the key operating flag); the model is <strong>working-capital-intensive</strong> (verify cash conversion as growth accelerates); it competes below a <strong>much larger, better-capitalised rival (Jyoti CNC)</strong>, especially as it moves up-market; the <strong>free float is thin (~73% promoter)</strong>, creating liquidity/volatility risk and unusually <strong>divergent vendor data</strong>; and, above all, the <strong>valuation (~40-45x P/E, ~8-10x book) is rich for a cyclical small-cap near peak growth</strong>, with limited margin of safety. The honest conclusion: <strong>this is a high-quality, well-run, structurally-advantaged, debt-free small-cap growth company with a genuine Make-in-India / import-substitution story and real premiumization optionality &mdash; whose principal risks are cyclicality, operating-margin pressure, competition from a larger rival, thin liquidity, and a rich price, not business quality or integrity. Believe the cost leadership, the growth record, the clean balance sheet and the import-substitution runway; treat the ~28-30% guidance as cyclical rather than perpetual; insist on evidence that premiumization is expanding (not just holding) EBITDA margins; verify cash conversion and the true live valuation given the data divergence; account for the thin float in sizing; and, given the rich multiple on a cyclical base, be disciplined on entry and valuation. An excellent small-cap where the debate is price, cycle, margins and competition, not quality.</strong>
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation</h2></div>
+  <p>Macpower is <strong>profitable and fast-growing, so earnings multiples apply</strong> &mdash; but the multiple is <strong>rich (~40-45x trailing P/E, ~8-10x book) for a cyclical small-cap near what may be peak-cycle growth</strong>, and the <strong>vendor data is unusually divergent</strong> (verify live). For a high-quality but cyclical, low-float capital-goods grower, the right frame is <strong>forward P/E and EV/EBITDA on normalized, through-cycle earnings</strong>, gated on <strong>order-book conversion + margin protection + the durability of the growth cycle</strong>, with premiumization/defence mix and float/liquidity as key considerations.</p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Macpower CNC Machines</h3>
+    <div class="bm-sub">High-quality but cyclical, low-float CNC machine-tool grower &rarr; forward P/E &amp; EV/EBITDA on NORMALIZED through-cycle earnings PRIMARY; order-book conversion + EBITDA-margin protection + growth-cycle durability = the GATE; NEXA/defence mix-shift a QUALITY CHECK; thin free float a LIQUIDITY CAVEAT; rich multiple on a cyclical base the core debate; trailing P/E on peak growth &amp; P/B MISLEADING</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Order-book conversion + margin protection + growth-cycle durability</td><td><span class="verdict v-gate">THE GATE</span></td><td>The rich multiple is only justified if the ~28-30% growth converts, EBITDA margins hold/expand, and the capex cycle stays supportive. This decides everything.</td></tr>
+      <tr><td>Forward P/E (normalized)</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Profitable &amp; growing, so earnings-based &mdash; but on forward, through-cycle earnings, not a cyclical-peak trailing number.</td></tr>
+      <tr><td>EV/EBITDA (through-cycle)</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>Cash-adjusted (net cash) &amp; margin-cycle-aware; captures the input-cost margin question directly.</td></tr>
+      <tr><td>NEXA / defence mix-shift &amp; margins</td><td><span class="verdict v-crit">QUALITY CHECK</span></td><td>Verify premiumization lifts realisations &amp; EBITDA margins &mdash; the quality gate on the growth.</td></tr>
+      <tr><td>Free float / liquidity</td><td><span class="verdict v-sec">LIQUIDITY CAVEAT</span></td><td>~73% promoter &rarr; thin float, volatile, divergent data; affects sizing &amp; price discovery, not intrinsic value.</td></tr>
+      <tr><td>Trailing P/E on peak growth; P/B alone</td><td><span class="verdict v-avoid">MISLEADING</span></td><td>Trailing P/E near cyclical peak &amp; P/B (~8-10x) mis-signal for a cyclical grower; anchor on normalized forward.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At a market cap of ~₹1,400-1,750 Cr on FY26 PAT ₹33.87 Cr, Macpower trades at a <b>rich ~40-45x trailing earnings and ~8-10x book</b> (with unusually divergent vendor data &mdash; verify live). The right question isn't the exact headline multiple; it's <b>whether Macpower can deliver its guided ~28-30% growth AND protect/expand EBITDA margins (via NEXA/defence mix) through the capex cycle &mdash; growing into a multiple that already prices in continued strong, high-margin growth.</b> <b>Verdict: a high-quality, founder-led, net-debt-free, fast-growing (~26% CAGR) low-cost CNC machine-tool leader with a genuine Make-in-India / import-substitution tailwind, cost leadership, a clean balance sheet, a record FY26 (rev +27%, PAT +33%), self-funded capacity expansion, and credible premiumization (NEXA ~40% of order book) plus a defence/aerospace push &mdash; a structurally-advantaged small-cap growth story &mdash; but richly valued (~40-45x) for a cyclical capital-goods maker, with EBITDA-margin pressure from input costs, a much-larger rival (Jyoti CNC), a thin free float, and unusually divergent price data. It is best owned as a long-term Make-in-India growth compounder bought on normalized through-cycle earnings at a sensible price: attractive to accumulate for the cost leadership, growth runway and clean balance sheet if you can pay a premium, take a multi-year view, tolerate cyclicality and micro-cap volatility, and buy on pullbacks; cautious at a rich multiple near peak-cycle growth if you need a margin of safety or proof that premiumization is expanding margins, since a full multiple on a cyclical small-cap is vulnerable to de-rating (amplified by thin float). Value it on normalized forward P/E &amp; EV/EBITDA, gate it on order-book conversion + margin protection + cycle durability, verify the NEXA/defence margin-lift, size for the low float, verify the true live valuation given data divergence, and never capitalise peak-cycle growth or anchor on P/B alone. A genuinely good small-cap; a price that demands the growth and margins prove durable.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">de-rate ~40-50%</div><div class="sd">The capex cycle softens, growth normalizes toward single/low-double digits (as in FY25), input costs keep squeezing EBITDA margins, and the rich multiple de-rates sharply on a cyclical small-cap (amplified by thin float) &mdash; back toward lower valuation ranges / 52-week lows.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">consolidate / grow-in</div><div class="sd">Growth moderates to a still-healthy mid-teens/20% range, margins hold roughly steady as premiumization offsets costs, the new capacity ramps; earnings grow into a still-premium multiple and the stock consolidates.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">re-rate / compound</div><div class="sd">The ~28-30% growth lands, NEXA &amp; defence expand EBITDA margins, the capex cycle stays strong, share gains vs imports continue; a debt-free, margin-expanding compounder that sustains or re-rates its premium toward prior highs.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Given the cyclicality, margin question, thin float and (especially) the unusually divergent vendor price/mcap data, precise price targets are unreliable &mdash; these scenarios are framed as directional outcomes rather than exact levels. They hinge on the capex cycle, order-book conversion vs the 28-30% guide, EBITDA-margin trajectory (premiumization vs input costs), competition, and multiple re-/de-rating. A high-quality but cyclical, richly-valued, low-float small-cap. Verify the true CMP/valuation on NSE/BSE. FY26 = year ended Mar 2026. Not a price target.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Valuation / de-rating risk</strong>At ~40-45x P/E and ~8-10x book &mdash; a rich multiple on a cyclical small-cap near peak-cycle growth &mdash; the stock offers limited margin of safety; any growth/margin disappointment could trigger a de-rating, amplified by thin float.</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Cyclicality (capex-dependent demand)</strong>Machine-tool demand tracks manufacturing capex; FY25 growth slowed to ~8.6% before FY26's rebound &mdash; a capex slowdown would soften orders and reverse operating leverage (see &sect;14).</div></div>
+  <div class="risk"><div class="rn rh">3</div><div class="rb"><strong>EBITDA-margin pressure</strong>Rising input/operating costs are squeezing operating margins (management-flagged); premiumization (NEXA/defence) must prove it can offset cost inflation, which is unproven.</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Competition from a much larger rival</strong>Jyoti CNC (~10x market cap), Lakshmi Machine Works and imports dominate the premium end; Macpower's up-market ambitions face better-resourced competitors.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Thin free float &amp; liquidity</strong>~73% promoter holding + small share count &rarr; low liquidity, high volatility, limited institutional ownership, and unusually divergent vendor price/mcap data (a price-discovery caveat).</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Working-capital intensity</strong>Machine-tool manufacturing is inventory/receivables-heavy; accelerating growth can consume cash &mdash; verify profit converts to operating cash flow (debt-free status is reassuring).</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Execution &amp; input dependence</strong>New-capacity ramp, defence qualification, and dependence on imported CNC controls (Fanuc/Siemens) and steel/casting inputs carry execution and cost risks.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">Cost leadership</div><div class="scv">Low-cost edge <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Growth record</div><div class="scv">~26% CAGR <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Balance sheet</div><div class="scv">Net cash, zero pledge <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Import-substitution tailwind</div><div class="scv">Structural <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Premiumization (NEXA/defence)</div><div class="scv">Promising <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Growth durability</div><div class="scv">Cyclical <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">EBITDA-margin trend</div><div class="scv">Pressured <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Float / liquidity</div><div class="scv">Thin <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Valuation</div><div class="scv">Rich, cyclical <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call st">
+    <div class="lab">Bottom line</div>
+    Macpower CNC Machines is a <strong>high-quality, founder-led, net-debt-free, fast-growing domestic CNC machine-tool leader</strong> &mdash; one of India's leading <strong>low-cost producers</strong> (380+ models, 13,389+ installations) with a genuine <strong>Make-in-India / import-substitution tailwind</strong>, a <strong>~26% five-year revenue CAGR (2x industry)</strong>, a record FY26 (rev +27%, PAT +33%), a <strong>fortress net-cash, zero-pledge balance sheet</strong>, self-funded capacity expansion, and credible <strong>premiumization (NEXA ~40% of order book) plus a defence/aerospace push.</strong> It's a <strong>structurally-advantaged small-cap growth story with real quality.</strong> <strong>But it's a demanding, cyclical investment, and the forensic review (&sect;14) is clear on why:</strong> the stock trades at a <strong>rich ~40-45x P/E and ~8-10x book</strong> on a <strong>cyclical capital-goods maker near peak-cycle growth</strong>, with <strong>EBITDA-margin pressure from rising input costs</strong> (premiumization must prove it can offset this), a <strong>much-larger rival (Jyoti CNC)</strong> dominating the premium end, a <strong>thin free float (~73% promoter)</strong> creating liquidity/volatility risk, working-capital intensity, and <strong>unusually divergent vendor valuation data.</strong> <strong>The honest framing: a genuinely good, well-run, debt-free, structurally-advantaged small-cap with a real growth runway and premiumization optionality &mdash; whose principal risks are cyclicality, operating-margin pressure, competition and a rich price, not business quality or integrity. Own it as a long-term Make-in-India growth compounder bought on normalized through-cycle earnings at a sensible price: attractive to accumulate for the cost leadership, growth and clean balance sheet if you can pay a premium, take a multi-year view, tolerate cyclicality and micro-cap volatility, and enter on pullbacks; cautious at a rich multiple near peak growth if you need a margin of safety or proof premiumization is expanding margins. Value it on normalized forward P/E &amp; EV/EBITDA gated on order-book conversion, margin protection and cycle durability; verify the NEXA/defence margin-lift and the true live valuation given data divergence; size for the low float; and never capitalise peak-cycle growth. An excellent small-cap where the debate is price, cycle, margins and competition, not quality.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Developments</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">Aug 2026</td><td>Analyst/institutional plant visits &amp; group meetings scheduled in Rajkot (20-21 Aug); Emkay investor conference (14 Aug); company clarifies stock-price movement is market-driven with no undisclosed event.</td></tr>
+    <tr><td class="mono">~2026</td><td><strong>Secures 13-acre lease near Metoda GIDC, Rajkot</strong> (30-yr); plans <strong>₹50 Cr investment</strong> for capacity; qualifies for Viksit Gujarat Industrial Policy 2026 benefits.</td></tr>
+    <tr><td class="mono">27 May 2026</td><td><strong>Record FY26 results:</strong> revenue ₹333.18 Cr (+27.2%), PAT ₹33.87 Cr (+33.1%), highest-ever; capacity 2,500 machines/yr; 380+ variants; final dividend ₹1.50/share; NEXA ~40% of ~₹406 Cr order book; guides <strong>28-30% FY27 growth.</strong></td></tr>
+    <tr><td class="mono">3 Apr 2026</td><td>FY26 promoter declaration under SEBI Reg 31(4): promoters hold 73,20,288 shares (~73.2%), <strong>zero encumbrance/pledge.</strong></td></tr>
+    <tr><td class="mono">Ongoing</td><td>Deepening <strong>Defence &amp; Aerospace</strong> focus; NEXA premiumization; management focus on <strong>restoring/expanding EBITDA margins</strong> amid input-cost pressure.</td></tr>
+    <tr><td class="mono">Next</td><td>Watch: FY27 quarterly delivery vs 28-30% guide, EBITDA-margin trajectory, NEXA/defence mix &amp; order wins, new-facility ramp, working-capital/cash conversion, and the capex cycle.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Balance Sheet &amp; Quality Deep-Dive</h2></div>
+  <div class="cards">
+    <div class="card c"><div class="k">Net position</div><div class="v">Net cash</div><div class="d up">debt-free</div></div>
+    <div class="card s"><div class="k">Promoter pledge</div><div class="v">Zero</div><div class="d up">clean</div></div>
+    <div class="card a"><div class="k">EBITDA margin</div><div class="v">Pressured</div><div class="d down">input costs</div></div>
+    <div class="card l"><div class="k">Growth funding</div><div class="v">Internal</div><div class="d up">no dilution</div></div>
+  </div>
+  <p>Macpower's balance-sheet <em>safety</em> is strong (net cash, zero pledge, self-funded), and its multi-year growth record is excellent &mdash; but the quality questions for its rich valuation are <strong>margin protection, cash conversion, and cyclical durability.</strong></p>
+  <div class="call sl">
+    <div class="lab">The metric that decides the premium: margin-protected, cash-backed growth through the cycle</div>
+    Macpower's balance-sheet <em>strength</em> is a genuine, durable asset &mdash; <strong>net-debt-free, zero-pledge, self-funding, ~26% growth record</strong> make it a high-quality small-cap that can <strong>ride cyclical troughs and fund its own expansion.</strong> The decisive questions for the <strong>premium valuation</strong> are: <strong>(1) EBITDA-margin protection</strong> &mdash; can premiumization (NEXA/defence) and scale <strong>offset input-cost inflation</strong> to hold/expand operating margins (the key operating gate)? <strong>(2) Cash conversion</strong> &mdash; does the working-capital-intensive growth <strong>convert to operating cash flow</strong>, or absorb cash into inventory/receivables? (the debt-free status is reassuring here). <strong>(3) Cyclical durability</strong> &mdash; does the order book and 28-30% guidance <strong>hold through the capex cycle</strong>, or prove peak-cyclical? If margins are protected/expand, cash conversion stays healthy, and growth proves durable, Macpower is a genuine self-funding compounder that grows into its multiple; if input costs squeeze margins, working capital balloons, or the cycle turns, the rich premium is hard to justify. Net: <strong>a fortress, net-cash balance sheet and strong growth record are a real strength that de-risks the cyclicality &mdash; while EBITDA-margin protection, cash conversion and cyclical durability are the metrics that will validate (or challenge) the premium.</strong> Watch margins and working capital every quarter.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical &amp; Market Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">1-year move</div><div class="tkv">strong <span class="badge b-bull">&uarr;</span></div><div class="tkd">up ~105% (Screener)</div></div>
+    <div class="tk"><div class="tkl">CMP (verify)</div><div class="tkv">~&#8377;1,900?</div><div class="tkd">divergent data</div></div>
+    <div class="tk"><div class="tkl">52-wk range</div><div class="tkv">~&#8377;601&ndash;1,610</div><div class="tkd">wide (ATH &#8377;1,737)</div></div>
+    <div class="tk"><div class="tkl">Market cap</div><div class="tkv">~&#8377;1,400&ndash;1,750 Cr</div><div class="tkd">micro/small-cap</div></div>
+    <div class="tk"><div class="tkl">Liquidity</div><div class="tkv">Thin</div><div class="tkd">~73% promoter</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">Volatile</div><div class="tkd">low-float small-cap</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Macpower has been a <strong>strong multi-year performer</strong> (Screener notes ~105% in one year; a ~66% five-year price CAGR), but the stock is <strong>volatile and thinly traded</strong> given the ~73% promoter holding and small share count &mdash; and, notably, <strong>vendor price/mcap data diverges unusually widely</strong> (quotes span ~₹890 to ~₹1,900+ across sources/dates), so <strong>the live NSE/BSE quote must be verified.</strong> As a <strong>low-float, cyclical, richly-valued small-cap</strong>, it is <strong>sentiment- and momentum-sensitive</strong> and prone to sharp swings; technicals are noisy and secondary to the <strong>growth-durability, margin and valuation debate.</strong> After a strong run, the stock prices in continued growth, so it is vulnerable to any disappointment. Given the premium, thin liquidity and data divergence, entry discipline and position-sizing matter. Verify the live quote on NSE/BSE.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Report follows the standard 20-section framework (incl. Forensic Analysis, &sect;14). Macpower is a richly-valued (~40-45x P/E), cyclical, low-float small-cap with unusually divergent vendor price/mcap data (CMP quoted ~₹890-1,900+; m-cap ~₹970-1,750 Cr across sources). Verify against NSE/BSE and filed results, attend to the &sect;14 cyclicality/margin/float flags, and consult a SEBI-registered adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Macpower CNC Machines Ltd</b> &mdash; NSE: MACPOWER &middot; BSE: 535057 &middot; ISIN INE155Z01011 &middot; CNC Machine Tools (turning centres, VMCs, HMCs, VTLs, grinders, turn-mill; NEXA premium range) &middot; Metoda GIDC, Rajkot, Gujarat &middot; Est. 2003, IPO Dec 2018 &middot; Founder-led (Doshi family)<br>
+  Report generated 17 August 2026 &middot; Data through FY26 (yr ended Mar 2026) results (approved 27 May 2026). Includes Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; company FY26 audited results/press releases &amp; earnings call (28 May 2026), NSE/BSE filings, SEBI Reg 31(4) promoter declaration (3 Apr 2026), Screener.in, Groww, ScanX, StockAnalysis, MoneyWorks4Me, Simply Wall St, Torus Digital, Kotak, Bajaj, Business Standard. <b>Key figures &mdash; FY26 (ended 31 Mar 2026):</b> revenue from operations ₹333.18 Cr / ₹33,317.59 lakh (+27.2% from ₹261.82 Cr / ₹26,181.50 lakh FY25); PAT ₹33.87 Cr / ₹3,387.08 lakh (+33.1% from ₹25.44 Cr / ₹2,544.17 lakh); highest-ever revenue, EBITDA &amp; PAT; Q4 FY26 revenue ₹100.29 Cr (+25.3%), Q4 EBITDA ₹16.2 Cr (+13% YoY, ₹14.3 Cr prior). Q2 FY26 revenue ₹85.7 Cr (+20.53%), PAT ₹9.4 Cr (+13.25%). Capacity 2,500 machines/yr (Q4 FY26); 380+ variants; 27+ segments; 3,000 applications; 13,389+ installations. Order book ~₹406 Cr (NEXA ~40%). FY27 guidance 28-30% revenue growth. 5-yr revenue CAGR ~26.14% (vs industry median ~12.01%); FY25 revenue growth ~8.6% (below CAGR &mdash; cyclicality); 5-yr stock price CAGR ~65.78%. Net-debt-free; final dividend ₹1.50/share (FY26). Book value ~₹155/sh (some vendors; divergent). Among lowest-cost producers. Management focus on restoring EBITDA margins amid rising input costs. <b>Corporate:</b> incorporated as Macpower CNC Machines Pvt Ltd (31 Dec 2003, Gujarat), converted to public &amp; renamed Macpower CNC Machines Ltd (16 Nov 2017), IPO Dec 2018; founder-led (Doshi family); registered office Plot 2234, Nr Kranti Gate, GIDC, Metoda-360021, Rajkot. Secured 13-acre lease near Metoda GIDC (30-yr), ₹50 Cr investment, Viksit Gujarat Industrial Policy 2026 benefits; growing Defence &amp; Aerospace focus. Statutory auditors M/s S.C. Makhecha &amp; Associates (unmodified opinion); S A &amp; Associates cost auditor. <b>Ownership:</b> promoter (Doshi family) ~73.17-73.2% (73,20,288 shares), zero pledge/encumbrance (SEBI Reg 31(4) declaration 3 Apr 2026); free float ~27% (thin). <b>Competition:</b> Jyoti CNC Automation (much larger, ~₹18,800 Cr mcap, ~5,550 machines/yr at ~₹35.62 lakh avg realisation FY26), Lakshmi Machine Works, imports (Taiwan/China/EU/Japan). <b>DATA CAVEAT &mdash; UNUSUALLY LARGE VENDOR DIVERGENCE: prices/mcap conflict sharply across sources/dates &mdash; CMP quoted ~₹890 (SimplyWallSt, appears stale) / ~₹921.80 (16 Jan BSE) / ~₹939.70 (1 Jun) / ~₹1,463-1,496.90 (30 Jul Kotak/Bajaj) with mcap ~₹890 Cr / ~₹970.20 Cr / ~₹1,404.88-1,484.80 Cr, while Screener shows mcap ~₹1,750 Cr (up 105% in 1yr, ~13 Aug 2026) implying a higher recent price (~₹1,900+); P/E ~29.32-41.47x (some ~45x), P/B ~5.94-10x (one vendor's 175.17 is erroneous); 52-wk ~₹601.20-1,530 (SimplyWallSt ₹1,610.95; BSE all-time high ₹1,736.95, 19 Jul 2024); face value ₹10; small share count (~7.32M shares) amplifies volatility. This report anchors CMP LOOSELY and treats valuation as a RANGE (~40-45x P/E, mcap ~₹1,400-1,750 Cr). VERIFY live vs NSE/BSE.</b> Normalised/through-cycle estimates and directional scenarios in Section 15 are the author's illustrative analysis, not forecasts, price targets or company guidance. <b>Educational document, not investment advice &mdash; a richly-valued (~40-45x P/E), cyclical, low-float small-cap CNC machine-tool grower with EBITDA-margin pressure and competition from a much larger rival (see &sect;14).</b> Verify all figures against primary filings and consult a SEBI-registered financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Macpower CNC Machines Limited
+Ticker: NSE: MACPOWER / BSE: 535057 (ISIN INE155Z01011; FV Rs 10)
+Sector: Capital Goods / Machine Tools (CNC machine tools - turning centres, VMCs, HMCs, VTLs, grinders, turn-mill; NEXA premium range)
+Report Date: August 17, 2026 (FY26 = yr ended Mar 2026 results approved 27 May 2026)
+File: macpower_cnc_machines_equity_research.html
+*** HIGH-QUALITY founder-led NET-DEBT-FREE fast-growing (~26% CAGR) LOW-COST CNC MACHINE-TOOL LEADER; Make-in-India/import-substitution play; includes SECTION 14 FORENSIC ANALYSIS (20-section report) ***
+*** THESIS = structural Make-in-India / import-substitution growth + cost leadership + premiumization (NEXA ~40% of order book) + defence/aerospace push, on a fortress net-cash/zero-pledge balance sheet; key debate = RICH VALUATION (~40-45x P/E) on a CYCLICAL small-cap + EBITDA-MARGIN PRESSURE (input costs) + much-larger rival (Jyoti CNC) + THIN FLOAT; own on NORMALIZED through-cycle earnings at sensible price ***
+CMP at Report: DATA DIVERGENT ~Rs 1,900? (VENDOR CONFLICT: ~Rs 890 SimplyWallSt stale / ~Rs 940 1-Jun / ~Rs 1,463-1,497 30-Jul; Screener mcap Rs 1,750 Cr up 105% 1yr 13-Aug implies ~Rs 1,900+; 52-wk Rs 601-1,610, ATH Rs 1,737 Jul-2024; VERIFY vs NSE/BSE)
+Market Cap: ~Rs 1,400-1,750 Cr (Rs 890-1,485 Cr older vendors vs Screener Rs 1,750 Cr recent); face value Rs 10; small share count ~7.32M shares; MICRO/SMALL-CAP
+*** RICH VALUATION: trailing P/E ~40-45x (vendor range 29-45x), P/B ~8-10x (one vendor's 175x erroneous) on a CYCLICAL small-cap near peak-cycle growth ***
+BUSINESS: incorporated 2003 (Rajkot), public/renamed 2017, IPO Dec 2018. One of India's leading DOMESTIC CNC machine-tool makers, AMONG LOWEST-COST PRODUCERS. 380+ models across turning centres, VMCs, HMCs, VTLs, grinders, turn-mill; 27+ segments, 3,000 applications, 13,389+ installations. Premium NEXA range ~40% of order book. End-markets: auto/auto-ancillary, bearings, valves, pumps, tool-room, dies/moulds, agri, textile, piping + growing DEFENCE & AEROSPACE, power, railways. Capacity 2,500 machines/yr. Founder-led (Doshi family). Metoda GIDC, Rajkot.
+FINANCIALS: FY25 rev Rs 261.82 Cr/PAT Rs 25.44 Cr -> FY26 rev Rs 333.18 Cr (+27.2%), PAT Rs 33.87 Cr (+33.1%) - RECORD, net-margin expansion. Q4 FY26 rev Rs 100.29 Cr (+25.3%), EBITDA Rs 16.2 Cr (+13% - LAGGED revenue = margin pressure). 5-yr rev CAGR ~26% (vs ~12% industry); FY25 growth ~8.6% (CYCLICALITY). Order book ~Rs 406 Cr (NEXA ~40%). FY27 GUIDANCE 28-30% revenue growth. NET DEBT-FREE, zero pledge. Dividend Rs 1.50/sh. New 13-acre Rajkot facility (Rs 50 Cr). Management focus on RESTORING EBITDA margins (input-cost pressure).
+*** SECTION 14 FORENSIC ANALYSIS (6 subsections) - "high-quality-but-cyclical-and-priced-for-continued-growth" grade ***
+- 14.1 earnings quality: GREEN - operating-led, debt-free, cash-backed, dividend-paying, net-margin expansion, zero pledge, unmodified audit; clean high-quality P&L
+- 14.2 growth durability/cyclicality: AMBER - strong ~26% CAGR but CAPEX-CYCLICAL; FY25 slowed to ~8.6% before FY26 +27% rebound; growth lumpy, don't extrapolate peak; Make-in-India tailwind provides secular floor
+- 14.3 EBITDA-margin pressure: AMBER/KEY OPERATING FLAG - rising input costs squeezing operating margins (Q4 EBITDA +13% vs rev +25%); premiumization must OFFSET; management-flagged "restore EBITDA margins"; limited pricing power in cost-competitive market
+- 14.4 working capital/cash conversion: AMBER - machine-tool growth is WC-intensive (inventory/receivables); verify profit converts to OCF as growth accelerates; debt-free status reassuring
+- 14.5 competition (Jyoti CNC): AMBER - a ~10x-larger, better-capitalised, tech-strong rival dominates premium end (~5,550 machines/yr at ~Rs 35.6L realisation); Macpower's up-market/margin ambitions face formidable competition; cost edge strongest in value segment
+- 14.6 free float/data/valuation: RED - ~73% promoter -> THIN FLOAT, low liquidity, high volatility + UNUSUALLY DIVERGENT vendor price/mcap data (price-discovery caveat); ~40-45x P/E on cyclical small-cap near peak growth = limited margin of safety, de-rating risk amplified by float
+- FORENSIC VERDICT: high-quality-but-cyclical-and-priced-for-continued-growth; excellent clean operating-led debt-free cash-backed earnings, strong ~26% growth record, cost leadership, fortress net-cash/zero-pledge balance sheet, aligned ~73% founder ownership, credible NEXA/defence premiumization; NO accounting/integrity red flags; flags = cyclicality + EBITDA-MARGIN PRESSURE + WC-intensity + competition (Jyoti) + THIN FLOAT/divergent data + RICH VALUATION; believe cost leadership/growth/balance sheet/import-substitution, treat 28-30% guidance as cyclical not perpetual, insist premiumization EXPANDS (not just holds) EBITDA margins, verify cash conversion & true live valuation given data divergence, size for thin float, be disciplined on valuation/entry
+Ownership: promoter (Doshi family) ~73.2% (73,20,288 shares), ZERO pledge (SEBI Reg 31(4) 3-Apr-2026); free float ~27% (thin)
+Valuation: RICH on cyclical base - trailing P/E ~40-45x, P/B ~8-10x; use NORMALIZED through-cycle forward P/E & EV/EBITDA
+KEY RISKS: valuation/de-rating (~40-45x on cyclical small-cap near peak, thin float amplifies), cyclicality (capex-dependent, FY25 slowed to ~8.6% - sec 14), EBITDA-margin pressure (input costs, premiumization must offset - sec 14 KEY), competition from much-larger rival (Jyoti CNC ~10x + imports), thin free float & liquidity (~73% promoter, divergent data), working-capital intensity, execution & input dependence (CNC controls Fanuc/Siemens, steel/castings)
+Bull Case: re-rate/compound (28-30% growth lands, NEXA/defence expand margins, cycle strong)
+Base Case: consolidate/grow-in (growth moderates to mid-teens/20%, margins hold)
+Bear Case: de-rate ~40-50% (cycle softens, growth normalizes like FY25, input costs squeeze margins, rich multiple de-rates, float amplifies)
+Primary Valuation Metric: order-book conversion + EBITDA-margin protection + growth-cycle durability = THE GATE; NORMALIZED forward P/E PRIMARY + through-cycle EV/EBITDA CO-PRIMARY; NEXA/defence mix-shift & margins QUALITY CHECK; free float/liquidity LIQUIDITY CAVEAT; trailing P/E on peak growth & P/B alone MISLEADING
+Investment Type: HIGH-QUALITY founder-led NET-DEBT-FREE fast-growing LOW-COST CNC MACHINE-TOOL LEADER - Make-in-India/import-substitution structural tailwind, cost leadership, ~26% 5-yr rev CAGR (2x industry), record FY26 (rev +27%/PAT +33%), fortress net-cash/zero-pledge balance sheet, self-funded capacity expansion (13-acre Rajkot, Rs 50 Cr), credible premiumization (NEXA ~40% order book) + defence/aerospace push, 28-30% FY27 guidance - BUT RICH VALUATION (~40-45x P/E, ~8-10x book) on CYCLICAL capital-goods (FY25 slowed to ~8.6%) + EBITDA-MARGIN PRESSURE (input costs, premiumization must offset) + much-LARGER RIVAL (Jyoti CNC ~10x mcap) + imports + THIN FREE FLOAT (~73% promoter, low liquidity/high volatility) + WC-intensity + UNUSUALLY DIVERGENT vendor valuation data; genuinely good small-cap, debate is PRICE, CYCLE, MARGINS & COMPETITION not quality; own as long-term Make-in-India compounder on NORMALIZED through-cycle earnings at sensible price / on pullbacks; value normalized fwd P/E & EV/EBITDA gated on order-book conversion + margin protection + cycle durability, verify NEXA/defence margin-lift & true live valuation, size for thin float, NEVER capitalise peak-cycle growth or anchor P/B alone
+Palette: gunmetal + CNC cyan/steel-blue + machined-amber; Space Grotesk/Inter/Space Mono; spindle/chuck + machining-axes hero motif
+NOTE: Capital Goods / Machine Tools cohort (LOW-COST DOMESTIC CNC grower flavour; complements Omnitech Engineering, Standard Engineering (SETL), Ramkrishna Forgings, Kabra Extrusiontechnik in library; Make-in-India/import-substitution theme). Peers: Jyoti CNC Automation (larger rival), Lakshmi Machine Works, imports. Sections: 01-13 standard (moat/cost-leadership sec 03, products/end-markets/NEXA sec 04, FY26 record & runway sec 05, growth/capex sec 08, margins/returns/balance sheet sec 09, balance sheet/quality sec 11), 14 Forensic Analysis (cyclicality + EBITDA-margin-pressure + thin-float/divergent-data + valuation focus, 1 RED flag), 15 Valuation (Best Metric = normalized through-cycle earnings gated on order-book+margin-protection+cycle-durability), 16 Risks, 17 Scorecard, 18 Recent Developments, 19 Balance Sheet & Quality, 20 Technical & Market. DATA CAVEAT: unusually divergent vendor price/mcap.
+-->
