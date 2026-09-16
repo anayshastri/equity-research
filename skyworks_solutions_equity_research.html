@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyworks Solutions — Equity Research Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --graf:#0D1114; --graf-2:#151B20; --graf-3:#222B33;
+    --sig:#2DD4BF; --sig-dk:#0E8F80; --sig-lt:#6FE8DA; --sig-gl:rgba(45,212,191,.12);
+    --cop:#D98A45; --cop-dk:#A9631F; --cop-lt:#EAAE76; --cop-gl:rgba(217,138,69,.12);
+    --blu:#4B8FE0; --blu-dk:#2C64AC; --blu-lt:#7FB0EC; --blu-gl:rgba(75,143,224,.11);
+    --slate:#5C6672; --slate-gl:rgba(92,102,114,.10);
+    --green:#2FA96E; --green-dk:#1B7D4E; --red:#DB5A5A; --redd-dk:#A83535; --amberr:#D2932E; --amberr-dk:#A06E12;
+    --ink-1:#101418; --ink-2:#39424C; --ink-3:#697079;
+    --line:#E3E6E9; --line-2:#EEF1F3; --paper:#FCFDFD; --paper-2:#F3F6F7;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--ink-1);background:var(--paper);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(13,17,20,.16)}
+  h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.14}
+  .mono{font-family:'Spline Sans Mono',monospace}
+  .hero{position:relative;background:linear-gradient(150deg,#090C0F 0%,#151B20 55%,#222B33 130%);color:#EBEEF0;padding:46px 48px 38px;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-28%;right:-6%;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(45,212,191,.22),rgba(75,143,224,.12) 55%,transparent 72%);filter:blur(6px)}
+  .rfviz{position:absolute;right:44px;top:40px;width:210px;height:170px;z-index:2;opacity:.6}
+  .rfviz svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:3}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+  .tag.sg{background:rgba(45,212,191,.2);border-color:rgba(111,232,218,.5);color:#7FEEDF}
+  .tag.co{background:rgba(217,138,69,.2);border-color:rgba(234,174,118,.5);color:#EEB482}
+  .hero h1{font-size:38px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+  .hero .flip{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--sig-lt);letter-spacing:.02em;margin-bottom:12px}
+  .hero .sub{font-size:16.5px;color:#B0B5BA;margin-bottom:24px;font-weight:300;max-width:810px}
+  .hero .sub b{color:#fff;font-weight:600}
+  .quote-strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid rgba(255,255,255,.13);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03)}
+  .qs{flex:1;min-width:112px;padding:13px 16px;border-right:1px solid rgba(255,255,255,.08)}
+  .qs:last-child{border-right:none}
+  .qs .k{font-family:'Spline Sans Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:#7E858C;margin-bottom:3px}
+  .qs .v{font-size:19px;font-weight:700;font-family:'Chakra Petch',sans-serif}
+  .qs .d{font-size:11px;margin-top:2px}
+  .up{color:#7FDCA0}.down{color:#EF9E9E}
+  .metabar{display:flex;flex-wrap:wrap;gap:16px;background:var(--graf);color:#7E858C;padding:11px 48px;font-family:'Spline Sans Mono',monospace;font-size:11px}
+  .metabar b{color:#E2E5E8;font-weight:400}
+  .metabar .dot{color:var(--sig-lt)}
+  .alert{background:var(--sig-gl);border-bottom:1px solid var(--line);padding:9px 48px;font-size:12px;color:var(--sig-dk);font-family:'Spline Sans Mono',monospace}
+  .alert b{color:var(--graf)}
+  .alert.boom{background:var(--cop-gl);color:var(--cop-dk)}
+  .alert.warn{background:rgba(219,90,90,.09);color:#A83535}
+  main{padding:8px 48px 48px}
+  section{padding:30px 0;border-bottom:1px solid var(--line-2)}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .sec-n{font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:700;color:var(--sig-dk);border:1.5px solid var(--sig);border-radius:5px;padding:2px 8px;flex-shrink:0}
+  .sec-h h2{font-size:25px;font-weight:700;color:var(--graf)}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  .lead{font-size:16px;color:var(--ink-1)}
+  strong{color:var(--ink-1);font-weight:600}
+  .call{border-left:4px solid var(--sig);background:var(--sig-gl);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .call.sg{border-color:var(--sig);background:var(--sig-gl)}
+  .call.co{border-color:var(--cop);background:var(--cop-gl)}
+  .call.bl{border-color:var(--blu);background:var(--blu-gl)}
+  .call.sl{border-color:var(--slate);background:var(--slate-gl)}
+  .call.red{border-color:var(--red);background:rgba(219,90,90,.08)}
+  .call .lab{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--sig-dk);margin-bottom:5px}
+  .call.sg .lab{color:var(--sig-dk)}
+  .call.co .lab{color:var(--cop-dk)}.call.bl .lab{color:var(--blu-dk)}.call.sl .lab{color:var(--slate)}.call.red .lab{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th{background:var(--graf-2);color:#E2E5E8;font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.02em;text-transform:uppercase;text-align:left;padding:9px 12px;font-weight:400}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  tr:nth-child(even) td{background:var(--paper-2)}
+  td.mono,th.mono{font-family:'Spline Sans Mono',monospace}
+  .tr-hi td{background:var(--sig-gl)!important;font-weight:600;color:var(--ink-1)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .card .k{font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card .v{font-size:21px;font-weight:700;color:var(--graf);letter-spacing:-.01em;font-family:'Chakra Petch',sans-serif}
+  .card .d{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .card.sg{border-top:3px solid var(--sig)}.card.co{border-top:3px solid var(--cop)}
+  .card.bl{border-top:3px solid var(--blu)}.card.sl{border-top:3px solid var(--slate)}
+  .vchain{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+  .vnode{flex:1;min-width:104px;background:var(--paper-2);border:1px solid var(--line);padding:12px 9px;text-align:center;position:relative}
+  .vnode+.vnode{margin-left:14px}
+  .vnode+.vnode::before{content:"\25B8";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--sig);font-size:12px}
+  .vnode .vt{font-size:11.5px;font-weight:600;color:var(--graf);margin-bottom:3px}
+  .vnode .vd{font-size:10px;color:var(--ink-3);line-height:1.4}
+  .vnode.on{background:var(--sig-gl);border-color:var(--sig)}
+  .vnode.on .vt{color:var(--sig-dk)}
+  .vnode.cc{background:var(--cop-gl);border-color:var(--cop)}
+  .vnode.cc .vt{color:var(--cop-dk)}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .bar-lab{width:240px;font-size:12.5px;flex-shrink:0}
+  .bar-track{flex:1;height:19px;background:var(--paper-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+  .bar-fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10.5px;font-family:'Spline Sans Mono',monospace;font-weight:400}
+  .bar-val{width:118px;text-align:right;font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.two,.cards{grid-template-columns:1fr 1fr}.vnode+.vnode{margin-left:0;margin-top:14px}.vnode+.vnode::before{display:none}.rfviz{display:none}}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .scen .s{border-radius:9px;padding:16px;border:1px solid var(--line)}
+  .scen .bear{background:rgba(219,90,90,.06);border-color:rgba(219,90,90,.28)}
+  .scen .base{background:var(--paper-2)}
+  .scen .bull{background:rgba(47,169,110,.07);border-color:rgba(47,169,110,.3)}
+  .scen .st2{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:6px}
+  .scen .sp{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;font-family:'Chakra Petch',sans-serif}
+  .scen .bear .st2{color:var(--red)}.scen .base .st2{color:var(--ink-2)}.scen .bull .st2{color:var(--green-dk)}
+  .scen .sd{font-size:12px;color:var(--ink-3)}
+  .bm{background:var(--graf);color:#EBEEF0;border-radius:12px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden}
+  .bm::before{content:"";position:absolute;top:-35%;right:-8%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.26),transparent 65%)}
+  .bm h3{color:#fff;font-size:19px;margin-bottom:4px;position:relative;font-family:'Chakra Petch',sans-serif}
+  .bm .bm-sub{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--sig-lt);letter-spacing:.02em;margin-bottom:14px;position:relative}
+  .bm table{margin:6px 0;position:relative}
+  .bm th{background:rgba(255,255,255,.06);color:#C6CACE}
+  .bm td{border-bottom:1px solid rgba(255,255,255,.08);color:#C0C4C9}
+  .bm tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .verdict{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.02em;white-space:nowrap}
+  .v-prim{background:var(--sig-dk);color:#fff}.v-co{background:var(--blu-dk);color:#fff}
+  .v-ind{background:#1B7D4E;color:#AEE8C8}.v-sec{background:#222B33;color:#D6DDE2}
+  .v-avoid{background:#A83535;color:#F6C6C6}.v-cross{background:#151B20;color:#C6DDE2}
+  .v-crit{background:var(--cop-dk);color:#F8E0C0}.v-gate{background:var(--blu-dk);color:#C8DEF4}
+  .bm .onenum{background:rgba(217,138,69,.15);border:1px solid rgba(234,174,118,.32);border-radius:8px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:#EEC9A2;position:relative}
+  .bm .onenum b{color:#EEB482}
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .sci{border:1px solid var(--line);border-radius:8px;padding:11px 13px;background:var(--paper)}
+  .sci .scl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.02em;font-family:'Spline Sans Mono',monospace;margin-bottom:4px}
+  .sci .scv{font-size:14px;font-weight:600;color:var(--graf)}
+  .stars{color:var(--sig-dk);font-size:13px;letter-spacing:1px}
+  .risk{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+  .risk .rn{flex-shrink:0;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Spline Sans Mono',monospace;font-weight:700;font-size:12px;color:#fff}
+  .rh{background:var(--red)}.rm{background:var(--amberr-dk)}.rl{background:var(--sig-dk)}
+  .risk .rb strong{display:block;margin-bottom:2px}
+  .tl{position:relative;margin:16px 0;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--sig),var(--cop))}
+  .tli{position:relative;margin-bottom:15px}
+  .tli::before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--sig);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--sig)}
+  .tli .ty{font-family:'Spline Sans Mono',monospace;font-weight:700;font-size:12.5px;color:var(--sig-dk)}
+  .tli .td{font-size:13px;color:var(--ink-2)}
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .tk{border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--paper)}
+  .tk .tkl{font-family:'Spline Sans Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--ink-3);letter-spacing:.02em;margin-bottom:6px}
+  .tk .tkv{font-size:16px;font-weight:700;color:var(--graf);font-family:'Chakra Petch',sans-serif}
+  .tk .tkd{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+  .badge{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .b-bull{background:rgba(47,169,110,.16);color:var(--green-dk)}
+  .b-bear{background:rgba(219,90,90,.14);color:var(--red)}
+  .b-neut{background:rgba(210,147,46,.2);color:var(--amberr-dk)}
+  .foot{background:var(--graf);color:#7E858C;padding:24px 48px;font-size:11.5px;line-height:1.6}
+  .foot b{color:#C6CACE}
+  .disc{font-size:10.5px;color:#697079;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+  ul.tight{margin:8px 0 12px 20px}ul.tight li{margin-bottom:5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+  <div class="rfviz">
+    <svg viewBox="0 0 210 170" fill="none">
+      <line x1="10" y1="85" x2="200" y2="85" stroke="#4B8FE0" stroke-width="0.8" opacity="0.3"/>
+      <path d="M10 85 Q22 40 34 85 T58 85 T82 85" stroke="#6FE8DA" stroke-width="2" fill="none" opacity="0.7"/>
+      <path d="M82 85 Q98 20 114 85 T146 85 T178 85 T200 85" stroke="#2DD4BF" stroke-width="2.4" fill="none" opacity="0.85"/>
+      <path d="M10 130 Q30 118 50 130 T90 130 T130 130 T170 130 T200 130" stroke="#EAAE76" stroke-width="1.4" fill="none" opacity="0.5"/>
+      <g fill="#EAAE76" opacity="0.7"><circle cx="114" cy="85" r="4"/></g>
+      <g stroke="#4B8FE0" stroke-width="1" opacity="0.4">
+        <line x1="30" y1="150" x2="30" y2="160"/><line x1="60" y1="150" x2="60" y2="160"/>
+        <line x1="90" y1="150" x2="90" y2="160"/><line x1="120" y1="150" x2="120" y2="160"/>
+        <line x1="150" y1="150" x2="150" y2="160"/><line x1="180" y1="150" x2="180" y2="160"/>
+      </g>
+      <rect x="88" y="20" width="52" height="34" rx="3" fill="none" stroke="#2DD4BF" stroke-width="1" opacity="0.35"/>
+      <text x="114" y="41" font-family="monospace" font-size="9" fill="#6FE8DA" text-anchor="middle" opacity="0.6">RF</text>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="tagrow">
+      <span class="tag">NASDAQ: SWKS</span>
+      <span class="tag">S&amp;P 500</span>
+      <span class="tag sg">RF / Analog &amp; Mixed-Signal Semis</span>
+      <span class="tag co">~$22B Qorvo Merger Pending</span>
+    </div>
+    <h1>Skyworks Solutions</h1>
+    <div class="flip">&#9673; A cheap, out-of-favour RF-chip leader in transformation &mdash; fighting Apple content loss while an accelerating Broad Markets franchise &amp; a game-changing Qorvo merger reshape the story</div>
+    <div class="sub">A <b>leading developer of high-performance analog &amp; mixed-signal (RF) semiconductors</b> (Irvine, CA; S&amp;P 500) that connect smartphones, Wi-Fi, data centres, autos, defence &amp; IoT. The story is a <b>value/turnaround-in-transition</b>: near-term earnings are pressured by <b>Apple content loss</b> (dual-sourcing of a key iPhone 17 RF socket) and mobile softness, but <b>Broad Markets is accelerating</b> (Wi-Fi 7, data centre, automotive) and a transformational <b>~$22B acquisition of rival Qorvo</b> (pro-forma revenue ~$7.7B, $500M+ synergies, GaN/defence) reshapes scale &amp; diversification. Bull: cheap, diversifying, self-help + M&amp;A. Bear: Apple concentration, cyclicality, integration &amp; regulatory risk.</div>
+    <div class="quote-strip">
+      <div class="qs"><div class="k">CMP (approx)</div><div class="v">~$84</div><div class="d up">+9.8% on merger news</div></div>
+      <div class="qs"><div class="k">Market Cap</div><div class="v">~$13&ndash;14B</div><div class="d">mid/large-cap</div></div>
+      <div class="qs"><div class="k">Q3 FY26 rev</div><div class="v">$934.8M</div><div class="d down">-3.1% YoY</div></div>
+      <div class="qs"><div class="k">Apple mix</div><div class="v">~57%</div><div class="d down">from ~63%</div></div>
+      <div class="qs"><div class="k">Qorvo deal</div><div class="v">~$22B</div><div class="d up">~$7.7B pro-forma</div></div>
+      <div class="qs"><div class="k">Dividend</div><div class="v">Eliminated</div><div class="d down">buyback instead</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="metabar">
+  <span><b>HQ:</b> Irvine, California</span><span class="dot">&#9673;</span>
+  <span><b>CEO:</b> Phil Brace</span><span class="dot">&#9673;</span>
+  <span><b>Segments:</b> Mobile &middot; Broad Markets</span><span class="dot">&#9673;</span>
+  <span><b>FY end:</b> late Sept/early Oct</span><span class="dot">&#9673;</span>
+  <span><b>Merger close:</b> ~end-CY2026 / early-2027</span><span class="dot">&#9673;</span>
+  <span><b>Report:</b> 5 Sep 2026</span>
+</div>
+
+<div class="alert boom">
+  &#9889; <b>THE TRANSFORMATION SIGNAL &mdash; a game-changing merger + an accelerating second engine:</b> Skyworks is acquiring its main RF rival <b>Qorvo in a ~$22B cash-and-stock deal</b> (Qorvo holders get $32.50 cash + 0.960 SWKS shares; SWKS holders own ~63% of the combined company), creating a <b>US-based RF/analog leader with ~$7.7B pro-forma revenue, ~$2.1B adjusted EBITDA, and &gt;$500M of targeted cost synergies</b> &mdash; adding scale, <b>Qorvo's GaN capabilities</b> (radar, aerospace &amp; defence), and diversification. Both shareholder bases approved (Feb 2026); close is guided <b>by end of CY2026 (some filings say early 2027).</b> Meanwhile <b>Broad Markets is accelerating</b> &mdash; double-digit YoY growth led by <b>Wi-Fi 7, data centre/cloud and automotive</b> (~39-43% of sales) &mdash; the key diversification-away-from-Apple engine. The core RF franchise is strong, cash-generative, and now scaling into a bigger, more diversified entity.
+</div>
+<div class="alert warn">
+  &#9888; <b>BUT APPLE CONCENTRATION, CONTENT LOSS &amp; CYCLICALITY WEIGH (see &sect;14):</b> Skyworks' largest customer (<b>Apple</b>) is still <b>~57% of revenue</b> (down from ~63%), and in Feb 2026 Apple decided to <b>dual-source a premier RF socket for the iPhone 17</b>, costing Skyworks an estimated <b>~20-25% content allocation</b> on that socket &mdash; the central bear driver. Q3 FY26 revenue fell <b>3.1% YoY to $934.8M</b> and <b>net income dropped ~68% YoY to $33.9M</b>; free cash flow briefly turned negative on inventory build; and the company <b>eliminated its dividend</b> (redirecting to a $2B buyback). Add <b>semiconductor cyclicality, Android weakness, integration &amp; antitrust/regulatory risk on the Qorvo deal</b>, and near-term earnings are genuinely pressured &mdash; hence the cheap, out-of-favour valuation.
+</div>
+<div class="alert">
+  &#9888; <b>DATA CAVEAT:</b> Skyworks' fiscal year ends in late Sept/early Oct (Q1 FY26 = qtr ended 2 Jan 2026; Q3 FY26 = qtr ended 3 Jul 2026). The stock is volatile and merger-sensitive &mdash; CMP anchored ~<b>$84</b> (early Sep 2026, after a ~9.8% jump on merger-timeline optimism to $84.03; verify live). Market cap ~$13-14B (at ~$84 on ~160M shares). Merger terms &amp; timing are subject to regulatory approval and may shift. Combined/pro-forma figures assume deal completion. Verify all figures against SEC filings and live Nasdaq quotes.
+</div>
+
+<main>
+<section>
+  <div class="sec-h"><span class="sec-n">01</span><h2>Company Overview</h2></div>
+  <p class="lead"><strong>Skyworks Solutions, Inc. (NASDAQ: SWKS)</strong> is a <strong>leading developer, manufacturer and provider of high-performance analog &amp; mixed-signal (radio-frequency, "RF") semiconductors</strong>, headquartered in <strong>Irvine, California</strong> and a member of the <strong>S&amp;P 500</strong>. Its chips &mdash; power amplifiers, filters, front-end modules, switches, and connectivity/analog components &mdash; are essential to <strong>connecting devices wirelessly</strong>, spanning <strong>smartphones, Wi-Fi, cellular infrastructure, data centres, automotive, aerospace/defence, industrial, medical and IoT.</strong> It operates two segments: <strong>Mobile</strong> (RF content for smartphones, historically the core) and <strong>Broad Markets</strong> (everything else &mdash; Wi-Fi, data centre, auto, industrial, infrastructure). CEO is <strong>Phil Brace.</strong></p>
+  <p>The investment story is a <strong>classic "cheap, out-of-favour, high-quality-but-challenged franchise in transformation" &mdash; a value/turnaround case with a transformational M&amp;A overlay.</strong> Skyworks faces genuine near-term headwinds: its <strong>largest customer, Apple (~57% of revenue, down from ~63%)</strong>, decided in early 2026 to <strong>dual-source a premier RF socket for the iPhone 17</strong>, costing Skyworks an estimated <strong>20-25% content allocation</strong> on that socket &mdash; the central bear driver &mdash; and combined with <strong>mobile/Android softness and semiconductor cyclicality</strong>, this pushed <strong>Q3 FY26 revenue down 3.1% YoY and net income down ~68% YoY.</strong> But the bull case has real substance: <strong>(1) Broad Markets is accelerating</strong> &mdash; double-digit YoY growth led by <strong>Wi-Fi 7, data centre/cloud and automotive</strong> (~39-43% of sales), the key engine <strong>diversifying revenue away from Apple/mobile</strong>; <strong>(2) a transformational ~$22B acquisition of rival Qorvo</strong> (approved by both shareholder bases in Feb 2026, guided to close by end-CY2026/early-2027) creates a <strong>~$7.7B-revenue, ~$2.1B-EBITDA US RF/analog leader</strong> with <strong>&gt;$500M of targeted synergies</strong>, added <strong>scale, GaN/defence capabilities, and diversification</strong>; <strong>(3) strong cash generation and a cheap valuation</strong>; and <strong>(4) a new capital-allocation framework</strong> ($2B buyback, though the <strong>dividend was eliminated</strong>). The counterweight (&sect;14): <strong>Apple concentration &amp; content loss, semiconductor cyclicality, mobile/Android weakness, merger integration &amp; antitrust/regulatory risk, near-term earnings pressure, and the dividend cut.</strong> Net: a <strong>challenged-but-cheap RF leader whose Broad Markets acceleration and Qorvo merger offer a credible path to a larger, more diversified, more competitive company &mdash; if it can execute through the Apple/mobile headwinds and integrate a major deal.</strong></p>
+  <div class="cards">
+    <div class="card sg"><div class="k">Broad Markets</div><div class="v">Accelerating</div><div class="d up">Wi-Fi 7, DC, auto</div></div>
+    <div class="card co"><div class="k">Qorvo merger</div><div class="v">~$22B</div><div class="d up">~$7.7B pro-forma</div></div>
+    <div class="card bl"><div class="k">Apple content</div><div class="v">~20-25%</div><div class="d down">socket loss</div></div>
+    <div class="card sl"><div class="k">Valuation</div><div class="v">Cheap</div><div class="d up">out-of-favour</div></div>
+  </div>
+  <div class="call co">
+    <div class="lab">The investment character in one line</div>
+    Skyworks is a <strong>cheap, out-of-favour, high-quality-but-challenged RF-semiconductor leader in the middle of a genuine transformation &mdash; a value/turnaround story with a transformational Qorvo-merger catalyst.</strong> The bull case has real substance: a <strong>leading RF/analog franchise</strong> with deep technology, scale and blue-chip customers; an <strong>accelerating Broad Markets engine</strong> (Wi-Fi 7, data centre/cloud, automotive growing double-digits) that is <strong>diversifying revenue away from Apple/mobile</strong> &mdash; the single most important structural positive; a <strong>transformational ~$22B acquisition of rival Qorvo</strong> that creates a <strong>~$7.7B-revenue US RF leader</strong> with <strong>&gt;$500M synergies, added scale, GaN/aerospace-defence capabilities and diversification</strong>; <strong>strong cash generation</strong>; a <strong>$2B buyback</strong>; and a <strong>cheap, beaten-down valuation</strong> that reflects a lot of bad news. The bear case is equally real: <strong>extreme customer concentration</strong> (Apple ~57%) compounded by a <strong>~20-25% content loss</strong> on a key iPhone 17 socket (Apple dual-sourcing) &mdash; the core overhang; <strong>mobile/Android softness and semiconductor cyclicality</strong> pressuring near-term earnings (Q3 FY26 net income -68%); <strong>merger integration and antitrust/regulatory risk</strong> on a large, complex deal; and a <strong>dividend elimination</strong> that disappointed income investors. Net: a <strong>genuinely challenged but genuinely cheap RF leader with two credible sources of upside &mdash; the Broad Markets diversification and the Qorvo merger &mdash; set against a serious Apple-concentration/content-loss overhang and cyclicality.</strong> Own it as a <strong>value/turnaround/M&amp;A play</strong> if you believe Broad Markets keeps accelerating, the Qorvo deal closes and integrates well, and the Apple headwind is largely priced in; the key questions are <strong>whether diversification outruns the Apple erosion, and whether the merger delivers its promised scale and synergies</strong> (see &sect;14-&sect;15).
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">02</span><h2>History &amp; Evolution</h2></div>
+  <div class="tl">
+    <div class="tli"><div class="ty">2002 &middot; Formation</div><div class="td">Formed via the <strong>merger of Alpha Industries and the wireless-semiconductor arm of Conexant</strong> &mdash; creating a dedicated RF-semiconductor company.</div></div>
+    <div class="tli"><div class="ty">2000s&ndash;2010s &middot; Mobile RF leadership</div><div class="td">Becomes a <strong>leading RF front-end supplier for smartphones</strong>, riding the mobile/4G/5G super-cycle; builds deep content in flagship devices, including a <strong>large, growing relationship with Apple.</strong></div></div>
+    <div class="tli"><div class="ty">2015 &middot; S&amp;P 500</div><div class="td">Joins the <strong>S&amp;P 500</strong>; a high-margin, cash-generative, dividend-paying semiconductor bellwether.</div></div>
+    <div class="tli"><div class="ty">2021 &middot; Broad Markets push</div><div class="td">Acquires <strong>Silicon Labs' infrastructure &amp; automotive business (~$2.75B)</strong> &mdash; a major step to <strong>diversify beyond mobile</strong> into Wi-Fi, automotive, industrial and infrastructure (the "Broad Markets" segment).</div></div>
+    <div class="tli"><div class="ty">Oct 2025 &middot; Qorvo merger announced</div><div class="td">Announces a <strong>~$22B cash-and-stock acquisition of rival Qorvo</strong> ($32.50 cash + 0.960 SWKS shares per QRVO share) &mdash; a transformational RF-industry consolidation.</div></div>
+    <div class="tli"><div class="ty">Feb 2026 &middot; Apple content loss</div><div class="td">Apple decides to <strong>dual-source a premier RF socket for the iPhone 17</strong> &mdash; a ~20-25% content-allocation loss for Skyworks; both companies' shareholders <strong>approve the Qorvo merger (11 Feb 2026).</strong></div></div>
+    <div class="tli"><div class="ty">2026 &middot; Transition year</div><div class="td">Navigates Apple content loss &amp; mobile softness (Q3 FY26 rev -3.1%, net income -68%) while <strong>Broad Markets accelerates</strong>; announces a <strong>$2B buyback and eliminates the dividend</strong>; guides Qorvo close by <strong>~end-CY2026/early-2027.</strong></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">03</span><h2>Business Model &amp; Moat</h2></div>
+  <div class="vchain">
+    <div class="vnode">RF/analog design &amp; IP</div>
+    <div class="vnode on"><div class="vt">Front-end modules, filters, PAs</div><div class="vd">Complex integration</div></div>
+    <div class="vnode cc"><div class="vt">Design-ins at OEMs</div><div class="vd">Sticky, multi-year</div></div>
+    <div class="vnode on"><div class="vt">Mobile + Broad Markets</div><div class="vd">Diversifying</div></div>
+    <div class="vnode cc"><div class="vt">+ Qorvo scale &amp; GaN</div><div class="vd">Bigger, broader</div></div>
+  </div>
+  <div class="call">
+    <div class="lab">A real but contested RF-technology moat &mdash; strong, yet exposed to concentration &amp; cyclicality</div>
+    Skyworks' moat is <strong>genuine but contested</strong> &mdash; built on RF-engineering expertise, integration complexity and customer design-ins, yet exposed to customer concentration and industry cyclicality. Its strengths: (1) <strong>deep RF/analog technology &amp; IP</strong> &mdash; designing high-performance <strong>front-end modules, power amplifiers, filters and switches</strong> that must meet demanding size, power and performance requirements is <strong>genuinely hard</strong>, with high barriers built over two decades; (2) <strong>sticky design-ins</strong> &mdash; once Skyworks' RF content is <strong>designed into a smartphone or platform</strong>, it tends to stay for that product cycle and often successors, creating <strong>multi-year revenue visibility and switching friction</strong>; (3) <strong>scale &amp; manufacturing</strong> &mdash; RF front-ends benefit from scale in design, testing and (partly in-house) manufacturing; (4) <strong>blue-chip customer relationships</strong> &mdash; deep ties to Apple and other leading OEMs, plus a growing Broad Markets base; and (5) an <strong>expanding, diversifying portfolio</strong> (Wi-Fi 7, data centre, automotive) that broadens the moat beyond mobile. The <strong>Qorvo merger would materially strengthen this</strong> &mdash; adding scale, technology (notably <strong>GaN for radar/aerospace/defence</strong>), and diversification to better compete with larger analog/RF players (Broadcom, Qualcomm). The honest limits (&sect;14): (1) <strong>extreme customer concentration</strong> (Apple ~57%) means the moat is <strong>vulnerable to a single customer's sourcing decisions</strong> &mdash; as the iPhone 17 dual-sourcing/content loss starkly demonstrated; (2) the industry is <strong>cyclical and competitive</strong> (Qorvo &mdash; being acquired &mdash; Broadcom, Qualcomm, Murata), with <strong>ASP pressure and Android weakness</strong>; and (3) RF content, while sticky within a cycle, is <strong>re-competed each product generation</strong>, so leadership must be continually re-won. Net: a <strong>real, technology-and-design-in-based moat that is strong within its niche but genuinely exposed to customer concentration, cyclicality and competition &mdash; which the Broad Markets diversification and Qorvo scale are precisely intended to shore up.</strong> A good moat with a concentration Achilles' heel.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">04</span><h2>Segments &amp; Product Mix</h2></div>
+  <div class="bar-row"><div class="bar-lab">Mobile (RF front-end for smartphones)</div><div class="bar-track"><div class="bar-fill" style="width:57%;background:var(--blu)">~57% &mdash; Apple-heavy, pressured</div></div><div class="bar-val down">~$541M Q3</div></div>
+  <div class="bar-row"><div class="bar-lab">Broad Markets (Wi-Fi, DC, auto, industrial)</div><div class="bar-track"><div class="bar-fill" style="width:43%;background:var(--sig)">~39-43% &mdash; accelerating</div></div><div class="bar-val up">double-digit YoY</div></div>
+  <div class="bar-row"><div class="bar-lab">&mdash; of which Apple (across mix)</div><div class="bar-track"><div class="bar-fill" style="width:57%;background:var(--cop)">~57% of total &mdash; the concentration</div></div><div class="bar-val down">from ~63%</div></div>
+  <div class="call bl">
+    <div class="lab">Two engines pulling in opposite directions &mdash; Mobile pressured, Broad Markets the accelerating offset</div>
+    Skyworks' revenue splits into <strong>two segments currently moving in opposite directions</strong> &mdash; the central dynamic of the whole story. <strong>(1) Mobile</strong> (~57% of Q3 FY26 revenue, ~$541M) &mdash; RF front-end content for smartphones, <strong>historically the core and Apple-dominated</strong>; this segment is <strong>under pressure</strong> from the <strong>Apple content loss</strong> (dual-sourcing of a key iPhone 17 socket, ~20-25% allocation loss), <strong>Android weakness, and ASP pressure</strong> &mdash; declining low-single-digits sequentially (though the decline was <em>less</em> than feared, as unit-volume strength at Apple partly offset the content loss). Management expects Mobile to grow only <strong>low-to-mid-single-digits over time.</strong> <strong>(2) Broad Markets</strong> (~39-43%) &mdash; Wi-Fi (notably <strong>Wi-Fi 7</strong>), <strong>data centre/cloud infrastructure, automotive, industrial and infrastructure</strong>; this is the <strong>accelerating engine</strong>, delivering <strong>double-digit YoY growth</strong> and expected to grow <strong>low-double-digits over time</strong> &mdash; and crucially it is <strong>higher-diversity, less Apple-dependent, and often higher-margin/stickier.</strong> The overarching issue is <strong>Apple concentration: ~57% of <em>total</em> revenue</strong> (down from ~63%) still flows from one customer. The <strong>bull framing:</strong> Broad Markets' acceleration is <strong>steadily diversifying the mix away from mobile/Apple</strong> &mdash; exactly the structural transition the company needs &mdash; and the Qorvo merger accelerates it further (creating a ~$5.5B mobile + ~$2.5-2.6B non-mobile combined business). The <strong>caution (&sect;14):</strong> Mobile is still the larger segment and its Apple-driven weakness <strong>weighs on near-term results faster than Broad Markets can fully offset.</strong> Watching the <strong>Broad Markets growth rate vs the Mobile/Apple erosion &mdash; i.e. whether diversification outruns the content loss &mdash; is the single most important thing to track.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">05</span><h2>The Qorvo Merger: A Transformational Consolidation</h2></div>
+  <table>
+    <tr><th>Deal term</th><th class="mono">Detail</th></tr>
+    <tr><td>Structure</td><td class="mono">Cash + stock: $32.50 cash + 0.960 SWKS/QRVO share</td></tr>
+    <tr class="tr-hi"><td>Combined value</td><td class="mono">~$22B</td></tr>
+    <tr><td>Ownership split</td><td class="mono">SWKS holders ~63% / QRVO ~37%</td></tr>
+    <tr><td>Pro-forma revenue / EBITDA</td><td class="mono up">~$7.7B / ~$2.1B adj.</td></tr>
+    <tr><td>Targeted synergies</td><td class="mono up">&gt;$500M (within ~3 years)</td></tr>
+    <tr><td>Approvals / timing</td><td class="mono">Shareholders approved Feb 2026; close ~end-CY2026/early-2027 (regulatory pending)</td></tr>
+    <tr><td>Leadership</td><td class="mono">Phil Brace (SWKS CEO) leads combined co.</td></tr>
+  </table>
+  <div class="call co">
+    <div class="lab">A genuinely transformational deal &mdash; scale, diversification &amp; synergies, with integration/regulatory risk</div>
+    The <strong>~$22B acquisition of Qorvo</strong> is the single most important strategic event in Skyworks' history and a <strong>genuinely transformational, industry-consolidating deal.</strong> The <strong>strategic logic is strong:</strong> Skyworks and Qorvo are <strong>two of the largest RF-front-end specialists</strong>, both facing <strong>Apple/mobile concentration and cyclicality</strong> and both <strong>sub-scale versus giants like Broadcom and Qualcomm</strong>; combining them creates a <strong>US-based RF/analog leader with ~$7.7B pro-forma revenue and ~$2.1B adjusted EBITDA</strong> that can (1) <strong>achieve real scale</strong> to compete with the larger players; (2) <strong>capture &gt;$500M of cost synergies</strong> within ~three years (a meaningful chunk of combined EBITDA); (3) <strong>diversify</strong> &mdash; creating a ~$5.5B mobile + ~$2.5-2.6B non-mobile business, and adding <strong>Qorvo's GaN (gallium nitride) capabilities</strong> that open <strong>radar, aerospace and defence</strong> markets; and (4) <strong>strengthen R&amp;D and customer positioning.</strong> Both companies' <strong>shareholders approved the deal in February 2026</strong>, and management (CEO Phil Brace leading the combined entity) guides a <strong>close by end-CY2026 (some filings: early 2027)</strong>, pending regulatory approvals. The <strong>honest risks (&sect;14):</strong> (1) <strong>integration risk</strong> &mdash; merging two large, complex semiconductor companies is <strong>hard</strong>, and synergy capture/culture/execution can disappoint; (2) <strong>antitrust/regulatory risk</strong> &mdash; combining two major RF competitors invites <strong>close scrutiny</strong> (there's a $298.7M termination fee, and timing has already drifted toward late-2026/early-2027); (3) <strong>the deal adds debt and complexity</strong> (funded via cash + debt financing); and (4) it <strong>concentrates the combined entity's exposure to the same mobile/Apple end-markets</strong> (though with more diversification than either alone). Net: <strong>a bold, strategically-sound, transformational consolidation that materially improves Skyworks' scale, diversification (incl. GaN/defence) and competitive position and offers substantial synergies &mdash; with genuine integration and regulatory execution risk that will determine whether the promise is realised.</strong> The deal is the crux of the bull case; its successful close and integration is the crux of the risk.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">06</span><h2>Competitive Landscape</h2></div>
+  <table>
+    <tr><th>Competitor</th><th>Overlap</th><th class="mono">Note</th></tr>
+    <tr><td><strong>Broadcom</strong></td><td>RF front-end, wireless, broad semis</td><td class="mono">Much larger, diversified</td></tr>
+    <tr><td><strong>Qualcomm</strong></td><td>RF front-end + modems/SoCs</td><td class="mono">Larger, integrated</td></tr>
+    <tr><td><strong>Qorvo</strong></td><td>RF front-end (direct rival)</td><td class="mono">Being acquired by SWKS</td></tr>
+    <tr><td><strong>Murata, Qualcomm/Murata JVs</strong></td><td>Filters, RF components</td><td class="mono">Component competition</td></tr>
+    <tr><td><strong>Skyworks (+ Qorvo)</strong></td><td>RF/analog leader</td><td class="mono">Consolidating for scale</td></tr>
+  </table>
+  <div class="call">
+    <div class="lab">A leading RF specialist consolidating to compete with larger, diversified giants</div>
+    Skyworks competes in a <strong>concentrated, competitive RF-front-end and analog-semiconductor market</strong> where it is a <strong>leading specialist but sub-scale versus the largest players</strong> &mdash; the very reason the Qorvo merger makes sense. Its key competitors: <strong>Broadcom</strong> (much larger, highly diversified across wireless, networking and infrastructure semis, with strong RF/wireless content); <strong>Qualcomm</strong> (larger and vertically integrated, combining RF front-ends with modems and SoCs &mdash; a structural advantage in bundling); <strong>Qorvo</strong> (Skyworks' <strong>closest direct RF rival &mdash; now being acquired</strong>, removing a competitor and adding scale); and component players like <strong>Murata</strong> (filters/RF components). The competitive dynamics: (1) Skyworks and Qorvo have <strong>historically been the two RF-front-end pure-plays</strong>, both squeezed between <strong>Apple concentration on one side and larger integrated rivals on the other</strong>; (2) <strong>Qualcomm's integration</strong> (RF + modem + SoC) and <strong>Broadcom's scale/diversification</strong> are genuine competitive pressures; and (3) <strong>customer power is high</strong> (Apple, in particular, can dual-source and shift content &mdash; as it did). The <strong>bull framing:</strong> the <strong>Qorvo merger is a direct, rational response</strong> &mdash; consolidating the two RF pure-plays creates a <strong>much stronger, larger, more diversified competitor</strong> better able to withstand customer power and compete with Broadcom/Qualcomm, while adding GaN/defence differentiation. The <strong>cautionary framing:</strong> even combined, Skyworks+Qorvo remains <strong>smaller than Broadcom/Qualcomm</strong>, still faces <strong>powerful customers and integrated rivals</strong>, and must <strong>execute the merger</strong> to realise the competitive benefit. Net: a <strong>leading RF specialist rationally consolidating (via Qorvo) to gain the scale and diversification needed to compete with larger, integrated giants and withstand customer concentration &mdash; a sensible strategic response to a genuinely challenging competitive position.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">07</span><h2>Porter's Five Forces</h2></div>
+  <table>
+    <tr><th>Force</th><th class="mono">Intensity</th><th>Note</th></tr>
+    <tr><td><strong>Competitive rivalry</strong></td><td class="mono">High</td><td>Broadcom, Qualcomm, Qorvo (being acquired), Murata</td></tr>
+    <tr><td><strong>Buyer power</strong></td><td class="mono">High</td><td>Apple ~57% &mdash; can dual-source &amp; shift content (it did)</td></tr>
+    <tr><td><strong>Supplier power</strong></td><td class="mono">Moderate</td><td>Foundries, substrates, equipment; partly in-house mfg</td></tr>
+    <tr><td><strong>New entrants</strong></td><td class="mono">Low-Moderate</td><td>High RF-tech/IP/scale barriers protect incumbents</td></tr>
+    <tr><td><strong>Substitutes</strong></td><td class="mono">Low</td><td>RF front-ends essential to wireless; limited substitution</td></tr>
+  </table>
+  <p>Net: a <strong>challenging structure defined by high buyer power and rivalry.</strong> The sharpest force is <strong>buyer power</strong> &mdash; <strong>Apple's ~57% concentration and demonstrated ability to dual-source/shift content</strong> is the defining vulnerability (the iPhone 17 content loss). <strong>Competitive rivalry is high</strong> (larger, integrated Broadcom/Qualcomm; Qorvo being consolidated). Offsetting these, <strong>entry barriers are high</strong> (RF technology, IP, scale) and <strong>substitutes are limited</strong> (RF front-ends are essential to every wireless device). The Qorvo merger is a <strong>direct structural response</strong> &mdash; reducing rivalry (removing Qorvo) and improving scale/diversification to better counter buyer power. But the <strong>combination of high buyer power (Apple) and cyclicality</strong> is the core structural challenge the transformation aims to address.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">08</span><h2>Growth Drivers &amp; Strategy</h2></div>
+  <div class="cards">
+    <div class="card sg"><div class="k">Broad Markets</div><div class="v">Low-double-digit</div><div class="d up">Wi-Fi 7, DC, auto</div></div>
+    <div class="card co"><div class="k">Qorvo synergies</div><div class="v">&gt;$500M</div><div class="d up">within ~3 yrs</div></div>
+    <div class="card bl"><div class="k">GaN / defence</div><div class="v">New TAM</div><div class="d up">radar, aero</div></div>
+    <div class="card sl"><div class="k">Overall growth</div><div class="v">Mid/high-SD</div><div class="d">long-term target</div></div>
+  </div>
+  <p>Skyworks' growth &amp; value levers: (1) <strong>Broad Markets acceleration</strong> &mdash; Wi-Fi 7, data centre/cloud, automotive, industrial (management targets <strong>low-double-digit</strong> growth); (2) <strong>the Qorvo merger</strong> &mdash; scale, <strong>&gt;$500M synergies</strong>, diversification, and <strong>GaN capabilities</strong> opening radar/aerospace/defence; (3) <strong>data-centre/AI connectivity</strong> &mdash; RF/analog content in cloud infrastructure; (4) <strong>automotive</strong> content growth; (5) <strong>stabilising/modest mobile</strong> (low-to-mid-single-digit long-term); and (6) <strong>capital returns</strong> ($2B buyback). Overall long-term growth targeted at <strong>mid-to-high-single-digits.</strong></p>
+  <div class="call co">
+    <div class="lab">A credible self-help + diversification + M&amp;A growth path &mdash; modest but real, gated on execution</div>
+    Skyworks' growth strategy is a <strong>credible, multi-pronged "self-help + diversification + M&amp;A" path</strong> &mdash; more modest than a hyper-growth story, but real and well-defined for a value/turnaround case. The <strong>core engine is Broad Markets diversification:</strong> Wi-Fi 7, data-centre/cloud infrastructure, and automotive are <strong>secular-growth end-markets</strong> where Skyworks has accelerating, double-digit momentum, and management targets <strong>low-double-digit growth</strong> here &mdash; this is the <strong>structural offset to mobile/Apple weakness</strong> and the key to re-rating the story. The <strong>Qorvo merger is the transformational lever:</strong> beyond &gt;$500M of synergies, it adds <strong>scale, diversification, and Qorvo's GaN technology</strong> &mdash; opening <strong>radar, aerospace and defence</strong> TAM that Skyworks lacked, and strengthening data-centre/infrastructure positioning. <strong>Data-centre/AI connectivity and automotive</strong> are genuine secular tailwinds for RF/analog content. Management frames <strong>overall long-term growth at mid-to-high-single-digits</strong> (Broad Markets low-double-digit + modest mobile), with <strong>margin expansion from synergies and mix</strong>, plus a <strong>$2B buyback</strong> supporting per-share value. The <strong>honest caveats (&sect;14):</strong> (1) this is <strong>modest growth</strong> &mdash; not a rapid-grower &mdash; and it <strong>depends on Broad Markets outrunning mobile/Apple erosion</strong>; (2) <strong>near-term earnings are pressured</strong> (Apple content loss, cyclicality) before the diversification/merger benefits fully land; (3) <strong>the entire upside leans heavily on the Qorvo deal closing and integrating well</strong> &mdash; a significant execution/regulatory dependency; and (4) semiconductor <strong>cyclicality</strong> can disrupt the path. Net: <strong>a credible, sensible growth-and-value strategy &mdash; Broad Markets diversification into secular end-markets, plus a transformational Qorvo merger for scale/synergies/GaN &mdash; that offers modest-but-real growth and meaningful re-rating potential, gated on execution (Broad Markets momentum, merger close/integration) and on diversification outrunning the Apple headwind.</strong> Track Broad Markets growth, the merger timeline, and mobile stabilisation.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">09</span><h2>Margins, Earnings &amp; Cash Flow</h2></div>
+  <div class="cards">
+    <div class="card sg"><div class="k">Non-GAAP GM</div><div class="v">Solid</div><div class="d">semi-typical</div></div>
+    <div class="card co"><div class="k">Q3 net income</div><div class="v">-68% YoY</div><div class="d down">$33.9M</div></div>
+    <div class="card bl"><div class="k">Cash generation</div><div class="v">Strong</div><div class="d up">through-cycle</div></div>
+    <div class="card sl"><div class="k">Q3 FCF</div><div class="v">-$16.7M</div><div class="d down">inventory build</div></div>
+  </div>
+  <p>Skyworks is <strong>structurally a high-margin, cash-generative semiconductor company</strong>, but earnings are <strong>currently cyclically/transitionally depressed</strong>: Q3 FY26 revenue fell 3.1% YoY and <strong>GAAP net income dropped ~68% to $33.9M</strong> (non-GAAP EPS holds up better &mdash; Q1 $1.54, Q2 $1.15, Q4 guide $1.27 mid); free cash flow briefly turned <strong>negative (-$16.7M) on an inventory build</strong> ahead of the September Apple ramp, after strong prior-quarter FCF ($339M in Q1). The margin/earnings trajectory hinges on <strong>Apple/mobile stabilisation, Broad Markets mix, and (post-close) Qorvo synergies.</strong></p>
+  <div class="call sl">
+    <div class="lab">Structurally high-margin &amp; cash-generative, cyclically depressed now &mdash; the normalised earnings power is the question</div>
+    Skyworks' profitability profile is <strong>a tale of strong structural economics currently masked by cyclical/transitional pressure</strong> &mdash; and normalising for that is central to the valuation. <strong>Structurally</strong>, Skyworks is a <strong>high-margin, highly cash-generative semiconductor company</strong>: RF/analog chips carry <strong>solid gross margins</strong>, the business has historically thrown off <strong>strong free cash flow</strong> (e.g. $339M in Q1 FY26), and non-GAAP EPS remains <strong>substantial</strong> ($1.54 / $1.15 / ~$1.27 guided across recent quarters). <strong>Currently</strong>, though, earnings are <strong>depressed</strong>: Q3 FY26 <strong>GAAP net income fell ~68% YoY to $33.9M</strong> (revenue -3.1%), reflecting the <strong>Apple content loss, mobile softness, and semiconductor cyclicality</strong>; and Q3 <strong>free cash flow briefly turned negative (-$16.7M)</strong> &mdash; but importantly this was driven by a <strong>deliberate inventory build ahead of the September Apple product ramp</strong> and elevated capex, not a structural cash problem (a timing item, expected to reverse as the ramp ships). The key analytical task: <strong>distinguish the cyclical/transitional trough from the structural earnings power.</strong> The bull view is that <strong>current depressed earnings understate normalised power</strong> &mdash; and that <strong>Broad Markets mix-shift + Qorvo synergies (&gt;$500M) + mobile stabilisation</strong> drive a <strong>recovery and margin expansion</strong>, making the cheap valuation attractive. The bear view is that <strong>Apple erosion and cyclicality could keep earnings pressured longer</strong>, and that the <strong>dividend elimination signals caution</strong>. The watch-items: <strong>gross-margin trajectory, the mobile trough/recovery, Broad Markets margin contribution, FCF normalisation post-inventory-build, and (post-close) synergy realisation.</strong> Net: <strong>a structurally high-margin, cash-generative franchise going through a cyclical/transitional earnings trough &mdash; the investment case rests substantially on whether normalised earnings power (via diversification + synergies + mobile stabilisation) is materially above the depressed current run-rate.</strong> Watch margins and FCF normalisation closely.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">10</span><h2>Management, Ownership &amp; Capital Allocation</h2></div>
+  <div class="cards">
+    <div class="card sg"><div class="k">CEO</div><div class="v">Phil Brace</div><div class="d">leads combined co.</div></div>
+    <div class="card co"><div class="k">Buyback</div><div class="v">$2B</div><div class="d up">new authorization</div></div>
+    <div class="card bl"><div class="k">Dividend</div><div class="v">Eliminated</div><div class="d down">redirected</div></div>
+    <div class="card sl"><div class="k">Strategy</div><div class="v">Transform</div><div class="d up">M&amp;A + diversify</div></div>
+  </div>
+  <p>Skyworks is led by <strong>CEO Phil Brace</strong> (who will lead the combined Skyworks-Qorvo company), pursuing a <strong>clear transformation strategy</strong> (diversification + the Qorvo merger). The notable capital-allocation shift: a <strong>new framework with a $2B buyback but the elimination of the quarterly dividend</strong> &mdash; the board judged <strong>buybacks more accretive</strong> than the dividend, a rational-but-controversial move that disappointed income investors while signalling confidence in the (cheap) share price.</p>
+  <div class="call sl">
+    <div class="lab">A transformation-focused management &amp; a rational-but-controversial capital shift &mdash; watch execution &amp; the dividend signal</div>
+    Skyworks' management and capital allocation are <strong>defined by the transformation &mdash; broadly sensible, with one controversial signal to weigh.</strong> On <strong>management:</strong> CEO <strong>Phil Brace</strong> is executing a <strong>clear, coherent strategy</strong> &mdash; <strong>diversifying via Broad Markets</strong> and pursuing the <strong>transformational Qorvo merger</strong> (which he will lead post-close) &mdash; a rational response to the Apple-concentration/mobile challenges, and one that has delivered <strong>above-expectation results for several consecutive quarters</strong> even amid the headwinds (Broad Markets acceleration, better-than-feared mobile). This is <strong>credible, strategically-focused leadership</strong> navigating a hard transition. On <strong>capital allocation</strong>, the notable move is the <strong>new framework: a $2B share buyback but the elimination of the quarterly dividend.</strong> This is <strong>rational but controversial:</strong> (1) the <strong>rationale is defensible</strong> &mdash; the board judged <strong>buybacks more accretive</strong> at a cheap share price, and the deal/financing warranted balance-sheet flexibility; buying back undervalued stock can create more per-share value than a dividend; but (2) it <strong>disappointed income-oriented investors</strong> (Skyworks was a long-standing dividend payer), and (3) some read the <strong>dividend cut as a caution signal</strong> about near-term cash flow/earnings and the debt taken on for Qorvo. The <strong>interpretation cuts both ways:</strong> bulls see a <strong>value-maximising, confident capital shift</strong> (aggressively buying back cheap stock); bears see a <strong>defensive move</strong> reflecting pressured cash flow and merger-related leverage. Net: <strong>a transformation-focused, credible management executing a coherent diversification + M&amp;A strategy, with a rational-but-controversial capital-allocation shift (buyback over dividend) that signals confidence in the cheap valuation but also merger-related caution &mdash; watch execution (Broad Markets, merger integration) and treat the dividend elimination as a signal worth understanding.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">11</span><h2>Balance Sheet &amp; Funding</h2></div>
+  <div class="cards">
+    <div class="card sg"><div class="k">Cash &amp; securities</div><div class="v">~$0.8B</div><div class="d down">fell on note repay</div></div>
+    <div class="card co"><div class="k">Debt</div><div class="v">~$0.5B</div><div class="d up">reduced (retired $500M)</div></div>
+    <div class="card bl"><div class="k">Merger funding</div><div class="v">Cash + debt</div><div class="d down">will add leverage</div></div>
+    <div class="card sl"><div class="k">Cash generation</div><div class="v">Strong</div><div class="d up">through-cycle</div></div>
+  </div>
+  <p>Pre-merger, Skyworks has a <strong>reasonable balance sheet</strong>: cash &amp; marketable securities fell to ~$0.8B (from ~$1.4B) after retiring $500M of notes (reducing debt to ~$0.5B), and it generates strong through-cycle cash flow. The <strong>key forward consideration is the Qorvo deal</strong>, funded via <strong>cash + debt financing</strong> &mdash; which will <strong>add meaningful leverage</strong> to the combined entity (the $32.50/share cash component alone is significant), a factor behind the dividend elimination and buyback-over-dividend choice.</p>
+  <div class="call sl">
+    <div class="lab">A sound pre-merger balance sheet moving to a more-levered combined entity &mdash; manageable, but a real consideration</div>
+    Skyworks' balance sheet is <strong>sound today but will become more levered post-Qorvo</strong> &mdash; a manageable but genuine consideration. <strong>Pre-merger</strong>, the balance sheet is <strong>reasonable and improving on debt:</strong> the company <strong>retired $500M of notes</strong> (cutting debt to ~$0.5B), retains <strong>~$0.8B of cash/securities</strong>, and &mdash; structurally &mdash; generates <strong>strong through-cycle free cash flow</strong> (e.g. $339M in Q1 FY26), even though a deliberate inventory build briefly turned Q3 FCF negative. This is a <strong>financially healthy standalone company.</strong> The <strong>key forward factor is the Qorvo acquisition funding:</strong> the deal's <strong>large cash component ($32.50 per Qorvo share) plus stock is being funded via cash and debt financing</strong> (Skyworks has been extending exchange offers on Qorvo's existing senior notes), which will <strong>add meaningful leverage</strong> to the combined entity. This has real implications: (1) it <strong>increases financial risk and interest expense</strong> (management already flagged incremental net interest expense in guidance); (2) it is a <strong>key reason for the capital-allocation shift</strong> (buyback over dividend &mdash; preserving flexibility); and (3) it makes <strong>synergy realisation and cash-flow generation more important</strong> for de-levering post-close. The mitigants: the combined entity is expected to generate <strong>~$2.1B of adjusted EBITDA</strong> (supporting debt service and de-levering), the RF/analog business is <strong>structurally cash-generative</strong>, and &gt;$500M of synergies aids the process. Net: <strong>a sound pre-merger balance sheet transitioning to a more-levered combined entity &mdash; the added leverage is manageable given strong combined EBITDA and cash generation, but it raises financial risk, drove the dividend cut, and makes post-close synergy/cash-flow execution important for de-levering.</strong> A real consideration, not a red flag &mdash; monitor combined leverage and the de-levering path.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">12</span><h2>Value &amp; Growth Levers</h2></div>
+  <table>
+    <tr><th>Lever</th><th>Mechanism</th><th class="mono">Assessment</th></tr>
+    <tr><td><strong>Broad Markets diversification</strong></td><td>Wi-Fi 7, data centre, automotive</td><td class="mono">Core offset &#9733;&#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Qorvo merger (scale + synergies)</strong></td><td>&gt;$500M synergies; ~$7.7B pro-forma</td><td class="mono">Transformational &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>GaN / aerospace &amp; defence</strong></td><td>Qorvo's GaN &rarr; radar, defence TAM</td><td class="mono">New optionality &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Cheap valuation / mean-reversion</strong></td><td>Out-of-favour; normalised earnings</td><td class="mono">Value angle &#9733;&#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>$2B buyback</strong></td><td>Per-share value at low price</td><td class="mono">Accretive &#9733;&#9733;&#9733;</td></tr>
+    <tr><td><strong>Mobile stabilisation</strong></td><td>Apple unit strength offsetting content</td><td class="mono">To be proven &#9733;&#9733;&#9733;</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">13</span><h2>Financial Analysis</h2></div>
+  <table>
+    <tr><th>Metric</th><th class="mono">Detail</th></tr>
+    <tr><td>Q1 FY26 revenue / non-GAAP EPS</td><td class="mono">$1.035B / $1.54</td></tr>
+    <tr><td>Q2 FY26 revenue / non-GAAP EPS</td><td class="mono">$944M / $1.15</td></tr>
+    <tr class="tr-hi"><td>Q3 FY26 revenue / net income</td><td class="mono down">$934.8M (-3.1% YoY) / $33.9M (-68%)</td></tr>
+    <tr><td>Q4 FY26 guidance</td><td class="mono up">Rev $1,010-1,060M; non-GAAP EPS ~$1.27</td></tr>
+    <tr><td>Apple concentration</td><td class="mono down">~57% (from ~63%)</td></tr>
+    <tr><td>Qorvo pro-forma</td><td class="mono up">~$7.7B rev / ~$2.1B adj. EBITDA</td></tr>
+    <tr><td>Capital return</td><td class="mono">$2B buyback; dividend eliminated</td></tr>
+  </table>
+  <div class="two">
+    <div><div class="call sg">
+      <div class="lab">The bull-supporting facts</div>
+      Broad Markets accelerating (double-digit YoY: Wi-Fi 7, data centre, auto) &mdash; diversifying from Apple; transformational ~$22B Qorvo merger (~$7.7B pro-forma, &gt;$500M synergies, GaN/defence); strong structural cash generation; cheap/out-of-favour valuation; $2B buyback; better-than-feared mobile (Apple unit strength); Q4 sequential recovery guided.
+    </div></div>
+    <div><div class="call red">
+      <div class="lab">The bear-supporting facts</div>
+      Apple concentration ~57% + ~20-25% content loss (iPhone 17 dual-sourcing); Q3 net income -68% YoY; mobile/Android softness; semiconductor cyclicality; merger integration + antitrust/regulatory risk; added leverage; dividend eliminated (caution signal); near-term earnings pressured before benefits land.
+    </div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">The financials describe a <strong>structurally high-margin, cash-generative RF leader in a cyclical/transitional earnings trough</strong> &mdash; pressured near-term by Apple content loss and mobile weakness, but with an accelerating Broad Markets engine and a transformational Qorvo merger offering diversification, scale and synergies. The debate concentrates on <strong>normalised earnings power, whether diversification outruns Apple erosion, and merger execution</strong> &mdash; the value/turnaround crux explored in the Forensic (&sect;14) and Valuation (&sect;15) sections.</p>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">14</span><h2>Forensic Analysis</h2></div>
+  <p class="lead">Putting on the forensic hat: Skyworks is a <strong>financially sound, structurally high-margin, cash-generative RF-semiconductor leader</strong> &mdash; so this is <em>not</em> a distress or fraud screen. It is scrutiny of the specific quality questions that matter for a <strong>cheap, out-of-favour, cyclical franchise in transition with a major pending merger</strong>: <strong>the Apple concentration &amp; content loss, semiconductor cyclicality &amp; depressed near-term earnings, the Qorvo merger's integration/regulatory/leverage risk, the dividend elimination signal, and whether normalised earnings power justifies the cheap valuation.</strong> The earnings are clean and the balance sheet sound; the flags are about <strong>concentration, cyclicality, execution and the merger, not accounting integrity.</strong> <strong>Bottom line up front: a "cheap-and-cash-generative-but-concentrated-cyclical-and-mid-transformation" forensic profile &mdash; a sound, clean franchise whose risks are Apple concentration, cyclicality and merger execution, not the numbers' honesty.</strong></p>
+
+  <div class="call co">
+    <div class="lab">Forensic scorecard &mdash; at a glance</div>
+    <table>
+      <tr><th>Dimension</th><th class="mono">Flag</th><th>One-line read</th></tr>
+      <tr><td>Earnings quality &amp; accounting</td><td class="mono">&#128994; Green</td><td>Clean, GAAP+non-GAAP, cash-generative; no accounting concerns.</td></tr>
+      <tr><td>Balance sheet (standalone)</td><td class="mono">&#128994; Green</td><td>Reasonable, debt reduced; sound pre-merger.</td></tr>
+      <tr><td>Apple concentration &amp; content loss</td><td class="mono">&#128308; Red</td><td>~57% Apple + ~20-25% socket content loss &mdash; the core structural risk.</td></tr>
+      <tr><td>Cyclicality &amp; depressed earnings</td><td class="mono">&#128993; Amber</td><td>Q3 net income -68%; cyclical/transitional trough &mdash; normalise carefully.</td></tr>
+      <tr><td>Qorvo merger: integration/regulatory/leverage</td><td class="mono">&#128993; Amber</td><td>Transformational upside, but real execution, antitrust &amp; leverage risk.</td></tr>
+      <tr><td>Dividend elimination signal</td><td class="mono">&#128993; Amber</td><td>Rational (buyback) but a caution signal on cash/leverage.</td></tr>
+      <tr><td>Valuation / normalised earnings</td><td class="mono">&#128994; Green</td><td>Cheap &mdash; a positive; the debate is normalised earnings power.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.1 &middot; Earnings quality &amp; accounting integrity</h3>
+  <div class="cards">
+    <div class="card sg"><div class="k">Earnings</div><div class="v">Clean</div><div class="d up">GAAP + non-GAAP</div></div>
+    <div class="card co"><div class="k">Cash generation</div><div class="v">Strong</div><div class="d up">structural</div></div>
+    <div class="card bl"><div class="k">Debt</div><div class="v">Reduced</div><div class="d up">retired $500M</div></div>
+    <div class="card sl"><div class="k">Accounting</div><div class="v">No flags</div><div class="d up">established</div></div>
+  </div>
+  <div class="call sl">
+    <div class="lab">Clean, cash-backed earnings and sound accounting &mdash; no integrity concerns</div>
+    On earnings quality and accounting integrity, Skyworks is <strong>clean &mdash; there are no red flags here.</strong> As an <strong>established, S&amp;P 500, long-public semiconductor company</strong>, it reports <strong>both GAAP and non-GAAP results transparently</strong>, and its earnings are <strong>backed by genuine, structural cash generation</strong> (strong through-cycle free cash flow; e.g. $339M in Q1 FY26). The <strong>gap between GAAP and non-GAAP</strong> (e.g. Q3 GAAP EPS well below non-GAAP) is the <strong>normal, well-understood semiconductor pattern</strong> &mdash; driven by amortisation of acquired intangibles, stock-based compensation, and (now) merger-related costs &mdash; not aggressive accounting; investors should simply <strong>track both and understand the adjustments</strong> (merger costs, in particular, are running through the P&amp;L, e.g. ~$23.5M cited). The <strong>balance sheet is managed conservatively</strong> (retiring $500M of notes, reducing debt pre-merger). There is <strong>no sign of revenue-recognition games, channel stuffing, or earnings manipulation</strong> &mdash; the near-term earnings weakness is plainly <strong>operational (Apple content loss, cyclicality), not accounting-driven</strong>, and is <strong>transparently disclosed.</strong> The one item to understand correctly (not a flag) is the <strong>Q3 negative FCF</strong>, which was a <strong>deliberate inventory build ahead of the Apple ramp</strong> &mdash; a timing item, not a cash-quality problem. On the core question &mdash; "are these clean, cash-backed, honestly-reported earnings?" &mdash; the answer is a clear yes. Grade: <strong>green &mdash; clean, transparent, cash-backed earnings with sound accounting and no integrity concerns; near-term weakness is operational, not accounting.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.2 &middot; Apple concentration &amp; content loss (the core red flag)</h3>
+  <div class="call red">
+    <div class="lab">The defining risk: ~57% single-customer concentration + a real content loss</div>
+    The <strong>single most important and serious flag</strong> is <strong>Apple concentration compounded by content loss.</strong> Skyworks derives <strong>~57% of its revenue from one customer, Apple</strong> (down from ~63%, but still extreme) &mdash; a <strong>textbook customer-concentration risk</strong> that leaves the company <strong>highly exposed to a single buyer's decisions</strong> on sourcing, volumes, pricing and product cycles. This risk <strong>materialised concretely</strong> in early 2026: <strong>Apple decided to dual-source a premier RF socket for the iPhone 17</strong>, costing Skyworks an estimated <strong>~20-25% content allocation</strong> on that socket &mdash; a <strong>direct, structural hit</strong> demonstrating exactly how the concentration risk plays out. The implications are significant: (1) it <strong>caps and pressures Mobile-segment revenue</strong> (the larger segment), driving the near-term declines; (2) it signals that <strong>Apple is actively diversifying its RF supply base</strong> (using Skyworks vs Qorvo vs others as leverage), which could mean <strong>further content/pricing pressure over time</strong>; and (3) it makes Skyworks' results <strong>heavily dependent on Apple's product cycles, volumes and sourcing whims.</strong> The mitigants are real and central to the thesis: (1) the <strong>Broad Markets diversification</strong> is <strong>directly reducing Apple dependence</strong> (concentration already fell from ~63% to ~57%); (2) the <strong>content loss was less damaging than feared</strong> in the near term, as <strong>Apple unit-volume strength partly offset it</strong>; (3) the <strong>Qorvo merger further diversifies</strong> the combined revenue base; and (4) much of this risk is <strong>arguably priced into the cheap valuation.</strong> But make no mistake: <strong>this concentration/content-loss dynamic is the core structural vulnerability and the primary bear case</strong> &mdash; the entire diversification and merger strategy is, in large part, a response to it. Grade: <strong>red &mdash; extreme (~57%) Apple concentration plus a real ~20-25% content loss is the defining structural risk; being actively mitigated by diversification/merger and partly priced in, but the central vulnerability.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.3 &middot; Cyclicality &amp; depressed near-term earnings</h3>
+  <div class="call sl">
+    <div class="lab">A cyclical/transitional earnings trough &mdash; normalise carefully, don't extrapolate either extreme</div>
+    A key analytical flag is <strong>semiconductor cyclicality and the resulting depressed near-term earnings</strong> &mdash; which must be normalised carefully. Skyworks operates in the <strong>inherently cyclical semiconductor industry</strong>, and is <strong>currently in a cyclical/transitional trough:</strong> Q3 FY26 revenue fell 3.1% YoY and <strong>GAAP net income dropped ~68% to $33.9M</strong>, reflecting the <strong>Apple content loss, mobile/Android softness, and a soft patch in parts of the cycle.</strong> The forensic task is to <strong>distinguish trough earnings from normalised earnings power</strong> &mdash; and to avoid extrapolating either extreme: (1) <strong>don't extrapolate the depressed trough</strong> &mdash; current earnings are cyclically/transitionally low, and semiconductor earnings are <strong>mean-reverting</strong>; the Q4 guidance (rev $1,010-1,060M, non-GAAP EPS ~$1.27, Mobile +high-teens sequentially on the Apple ramp) already points to <strong>sequential recovery</strong>; but (2) <strong>don't extrapolate a full V-recovery either</strong> &mdash; the Apple content loss is <strong>structural (not just cyclical)</strong>, Android/mobile is soft, and cyclicality cuts both ways. The <strong>balanced read:</strong> normalised earnings power is <strong>likely above the current depressed run-rate</strong> (supporting the cheap-valuation thesis), driven by <strong>seasonal recovery, Broad Markets growth, and eventually Qorvo synergies</strong> &mdash; but the Apple headwind means the recovery may be <strong>gradual and capped rather than sharp.</strong> This is why the valuation debate (14.7) centres on <strong>normalised, through-cycle, post-synergy earnings</strong> rather than trough or peak. Grade: <strong>amber &mdash; a genuine cyclical/transitional earnings trough; normalise carefully (earnings power is above the depressed trough but tempered by the structural Apple headwind) &mdash; don't extrapolate either the trough or a full recovery.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.4 &middot; Qorvo merger: integration, regulatory &amp; leverage risk</h3>
+  <div class="call sl">
+    <div class="lab">Transformational upside, but real execution, antitrust &amp; leverage risk &mdash; the swing factor</div>
+    The <strong>Qorvo merger is both the biggest opportunity and a major source of risk</strong> &mdash; a genuine swing factor deserving forensic scrutiny. The <strong>upside is real</strong> (scale, &gt;$500M synergies, diversification, GaN/defence &mdash; see &sect;05), but so are the risks: (1) <strong>integration risk</strong> &mdash; merging <strong>two large, complex semiconductor companies</strong> is genuinely difficult; <strong>synergy capture (&gt;$500M), systems/culture integration, customer overlap and execution</strong> can disappoint or take longer than planned, and merger history is littered with value-destroying integrations; (2) <strong>antitrust/regulatory risk</strong> &mdash; combining <strong>two of the largest RF-front-end competitors</strong> invites <strong>meaningful regulatory scrutiny</strong> (antitrust and foreign-investment approvals); the timeline has <strong>already drifted</strong> (from "2026" toward "end-CY2026/early-2027"), there's a <strong>$298.7M termination fee</strong>, and a deal break would be a <strong>significant negative catalyst</strong> (removing the central bull lever); and (3) <strong>leverage risk</strong> &mdash; the deal is <strong>funded with cash + debt</strong>, adding <strong>meaningful leverage and interest expense</strong> to the combined entity (a driver of the dividend cut), which <strong>raises financial risk and makes post-close cash-flow/synergy execution important for de-levering.</strong> The mitigants: <strong>both shareholder bases have approved</strong> (Feb 2026), management sounds <strong>confident on the close timeline</strong>, the strategic logic is <strong>sound</strong>, and combined <strong>~$2.1B EBITDA</strong> supports de-levering. But investors must recognise that <strong>a large portion of the bull case depends on this deal closing on acceptable terms and integrating well</strong> &mdash; a material execution and regulatory dependency. Grade: <strong>amber &mdash; a transformational, strategically-sound deal that is also a major integration, antitrust/regulatory and leverage risk; approved by shareholders but with real execution and regulatory dependency &mdash; the key swing factor.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.5 &middot; The dividend-elimination signal</h3>
+  <div class="call sl">
+    <div class="lab">Rational capital shift or caution signal? &mdash; understand both readings</div>
+    A flag worth interpreting carefully is the <strong>elimination of the quarterly dividend</strong> (redirected toward a $2B buyback). This is a <strong>meaningful signal that can be read two ways</strong>, and investors should understand both. The <strong>benign/bullish reading:</strong> the board made a <strong>rational, value-maximising capital-allocation choice</strong> &mdash; judging that <strong>buying back an undervalued, beaten-down stock is more accretive</strong> than paying a dividend, and preserving balance-sheet flexibility for the Qorvo deal; aggressively repurchasing cheap shares can <strong>create more per-share value</strong>, and signals <strong>management confidence in the valuation.</strong> The <strong>cautionary/bearish reading:</strong> cutting a long-standing dividend is <strong>often a defensive signal</strong> &mdash; it can reflect <strong>concern about near-term cash flow/earnings pressure</strong> (Apple content loss, cyclicality) and the <strong>leverage being taken on for Qorvo</strong> (preserving cash to service debt); it also <strong>disappointed and alienated income-oriented investors</strong>, potentially removing a class of shareholders. The <strong>honest interpretation is that both contain truth:</strong> it is <strong>simultaneously a rational reallocation to a cheap buyback AND a reflection of merger-related leverage and near-term caution.</strong> The forensic posture: <strong>don't over-read it as either purely bullish or a distress signal</strong> &mdash; treat it as evidence that (1) management sees the stock as cheap (buyback), and (2) the company is prioritising flexibility amid the merger and earnings pressure. It's a <strong>signal to understand, not a red flag per se</strong>, but it does underline the near-term cash/leverage caution. Grade: <strong>amber &mdash; a rational-but-controversial capital shift (buyback over dividend) that signals both confidence in the cheap valuation and merger-related/near-term caution; understand both readings, don't over-interpret either way.</strong>
+  </div>
+
+  <h3 style="font-size:16px;margin:22px 0 6px;color:var(--graf)">14.6 &middot; Valuation &amp; normalised earnings &mdash; the offsetting positive</h3>
+  <div class="call sl">
+    <div class="lab">Cheap and out-of-favour &mdash; a genuine positive; the debate is normalised earnings power</div>
+    Unusually for a forensic section, the <strong>valuation is an offsetting <em>positive</em>, not a red flag</strong> &mdash; the mirror image of a Palantir-type situation. Skyworks is <strong>cheap and out-of-favour:</strong> after significant underperformance on the Apple/mobile concerns, the stock trades at a <strong>modest valuation</strong> (a low-to-mid-teens type P/E on non-GAAP earnings, reasonable on cash flow) that <strong>reflects a great deal of bad news</strong> &mdash; the Apple content loss, mobile weakness, cyclicality and merger uncertainty are <strong>substantially priced in.</strong> This creates a <strong>value/turnaround setup with potential margin of safety</strong>, which is the core of the bull case. The <strong>central analytical question is normalised earnings power:</strong> if you believe <strong>(a) Broad Markets keeps accelerating</strong> (diversifying and re-rating the mix), <strong>(b) mobile stabilises</strong> (Apple unit strength offsetting content loss, as it partly has), and <strong>(c) the Qorvo merger closes and delivers scale + &gt;$500M synergies</strong>, then <strong>normalised/combined earnings are materially above the depressed current run-rate</strong>, and the cheap valuation is <strong>attractive</strong> (with the buyback adding per-share value at a low price). If instead <strong>Apple erosion continues, cyclicality persists, or the merger disappoints</strong>, the <strong>"cheap" stock could stay cheap (a value trap)</strong> or de-rate further. So the valuation is a <strong>genuine positive that provides some downside cushion and re-rating potential</strong> &mdash; but it is <strong>contingent on the turnaround/diversification/merger thesis playing out</strong>, and carries <strong>value-trap risk if it doesn't.</strong> The forensic implication: <strong>the cheap valuation meaningfully improves the risk/reward (unlike an expensive stock, bad news is largely in the price), but the payoff depends on normalised earnings power recovering via diversification + merger &mdash; a favourable setup for patient value/turnaround investors, with value-trap risk if execution fails.</strong> Grade: <strong>green (as a valuation matter) &mdash; genuinely cheap and out-of-favour with much bad news priced in; a real positive and potential margin of safety, contingent on the normalised-earnings/turnaround thesis (value-trap risk if it fails).</strong>
+  </div>
+
+  <div class="call red">
+    <div class="lab">Forensic verdict</div>
+    <strong>Skyworks earns a "cheap-and-cash-generative-but-concentrated-cyclical-and-mid-transformation" forensic grade.</strong> On integrity and financial health it is <strong>clean and sound:</strong> <strong>transparent, cash-backed earnings</strong> with no accounting concerns; a <strong>reasonable pre-merger balance sheet</strong> (debt reduced); <strong>strong structural cash generation</strong>; and &mdash; notably &mdash; a <strong>cheap, out-of-favour valuation</strong> that is a positive, with much bad news priced in. There are <strong>no accounting or integrity red flags.</strong> The genuine flags are about <strong>concentration, cyclicality and execution:</strong> the <strong>one red flag is Apple concentration (~57%) plus the ~20-25% iPhone 17 content loss</strong> &mdash; the defining structural vulnerability, being actively mitigated by diversification/merger and partly priced in, but central; the <strong>amber flags</strong> are <strong>semiconductor cyclicality / depressed near-term earnings</strong> (Q3 net income -68% &mdash; a trough to normalise carefully), the <strong>Qorvo merger's integration/antitrust/leverage risk</strong> (transformational upside but a real execution/regulatory swing factor), and the <strong>dividend elimination</strong> (a rational-but-cautionary signal). The offsetting positives are <strong>the accelerating Broad Markets diversification, the transformational merger optionality (scale/synergies/GaN-defence), strong cash generation, and the cheap valuation.</strong> The honest conclusion: <strong>this is a financially sound, clean, structurally high-margin, cash-generative RF-semiconductor leader going through a genuine transition &mdash; whose principal risks are Apple concentration/content loss, cyclicality, and merger execution, not business integrity or solvency. It is a value/turnaround/M&amp;A story: believe the Broad Markets diversification, the strategic logic and synergies of the Qorvo merger, the strong cash generation, and the cheap valuation as a margin of safety; weigh seriously the extreme Apple concentration and content loss (the core red flag), the cyclical earnings trough, and the merger's integration/regulatory/leverage risk. Own it as a patient value/turnaround/M&amp;A play if you believe diversification outruns the Apple erosion and the Qorvo deal closes and integrates well &mdash; recognising value-trap risk if execution fails. A sound, cheap franchise in transition; the debate is concentration, cyclicality and merger execution, not quality or honesty.</strong>
+  </div>
+</section>
+<section>
+  <div class="sec-h"><span class="sec-n">15</span><h2>Valuation</h2></div>
+  <p>Skyworks is <strong>profitable and cash-generative but cyclically/transitionally depressed</strong>, so the right frame is <strong>normalised / through-cycle earnings &amp; free cash flow &mdash; and, critically, pro-forma combined (post-Qorvo, post-synergy) economics</strong> &mdash; rather than trough GAAP earnings. As a value/turnaround/M&amp;A case, valuation is an <strong>offsetting positive</strong> (cheap, much bad news priced in), gated on <strong>normalised earnings power + Broad Markets diversification outrunning Apple erosion + the Qorvo deal closing and delivering synergies.</strong></p>
+
+  <div class="bm">
+    <h3>Best Metric to Value Skyworks</h3>
+    <div class="bm-sub">Cheap, cyclical, in-transition RF leader with a transformational pending merger &rarr; NORMALIZED through-cycle EPS &amp; FCF + PRO-FORMA combined (post-synergy) earnings PRIMARY; Broad Markets diversification outrunning Apple erosion + merger close/integration = the GATE; cheap valuation / margin of safety a CRITICAL CHECK; EV/EBITDA (pro-forma) CO-PRIMARY; trough GAAP EPS &amp; dividend yield MISLEADING</div>
+    <table>
+      <tr><th>Metric</th><th>Verdict</th><th>Why</th></tr>
+      <tr><td>Broad Markets diversification outrunning Apple erosion + merger close/integration</td><td><span class="verdict v-gate">THE GATE</span></td><td>The value case only works if diversification outpaces the Apple content loss AND the Qorvo deal closes &amp; delivers synergies. This decides everything.</td></tr>
+      <tr><td>Normalized through-cycle EPS &amp; FCF</td><td><span class="verdict v-prim">PRIMARY</span></td><td>Current earnings are a cyclical/transitional trough; value on normalized power, not depressed GAAP.</td></tr>
+      <tr><td>Pro-forma combined (post-synergy) EV/EBITDA</td><td><span class="verdict v-co">CO-PRIMARY</span></td><td>~$7.7B rev / ~$2.1B EBITDA + &gt;$500M synergies; the combined entity is the real forward object.</td></tr>
+      <tr><td>Cheap valuation / margin of safety</td><td><span class="verdict v-crit">CRITICAL CHECK</span></td><td>Much bad news priced in &mdash; a genuine positive &amp; downside cushion (vs value-trap risk).</td></tr>
+      <tr><td>Broad Markets growth &amp; mix</td><td><span class="verdict v-ind">QUALITY CHECK</span></td><td>Wi-Fi 7 / data centre / auto momentum = the diversification &amp; re-rating driver.</td></tr>
+      <tr><td>Buyback accretion at a low price</td><td><span class="verdict v-sec">SUPPORT</span></td><td>$2B buyback adds per-share value while the stock is cheap.</td></tr>
+      <tr><td>Trough GAAP EPS; ex-dividend yield</td><td><span class="verdict v-avoid">MISLEADING</span></td><td>Trough GAAP mis-signals; dividend now eliminated &mdash; ignore yield-based framing.</td></tr>
+    </table>
+    <div class="onenum">
+      <b>One-number framing:</b> At ~$84 (mcap ~$13-14B), Skyworks trades at a <b>modest multiple on depressed/trough earnings</b> (low-to-mid-teens on non-GAAP EPS, reasonable on normalized FCF) &mdash; cheap, with much bad news priced in. The right question isn't the trough multiple; it's <b>whether normalized, through-cycle, pro-forma (post-Qorvo, post-synergy) earnings power &mdash; driven by Broad Markets diversification outrunning the Apple content loss, mobile stabilisation, and &gt;$500M of merger synergies &mdash; is materially above the depressed run-rate, making the cheap valuation a genuine opportunity rather than a value trap.</b> <b>Verdict: Skyworks is a structurally high-margin, cash-generative, leading RF/analog-semiconductor franchise going through a genuine transition &mdash; pressured near-term by extreme Apple concentration (~57%) and a ~20-25% iPhone 17 content loss, plus mobile softness and semiconductor cyclicality (Q3 FY26 net income -68%), but with an accelerating Broad Markets engine (Wi-Fi 7, data centre, automotive) that is diversifying revenue away from Apple, a transformational ~$22B Qorvo merger (creating a ~$7.7B-revenue, ~$2.1B-EBITDA US RF leader with &gt;$500M synergies and GaN/aerospace-defence optionality), strong cash generation, a $2B buyback, and a cheap, out-of-favour valuation with much bad news priced in. It is best owned as a patient value/turnaround/M&amp;A play valued on normalized, through-cycle, pro-forma earnings power: attractive for value/special-situation investors who believe Broad Markets diversification will outrun the Apple erosion, that the Qorvo deal closes and integrates well (delivering scale and synergies), and that the cheap valuation offers a margin of safety and re-rating potential; cautious for those worried about the extreme Apple concentration/content loss becoming a value trap, semiconductor cyclicality, or merger integration/antitrust/leverage risk, and who note the dividend elimination as a caution signal. Value it on normalized through-cycle EPS/FCF and pro-forma post-synergy EV/EBITDA, gate it on diversification outrunning Apple erosion + merger close/integration, treat the cheap valuation as a genuine margin of safety (with value-trap risk if execution fails), and ignore trough GAAP EPS and (now-eliminated) dividend yield. A cheap, sound, transforming RF leader; the payoff depends on diversification and the merger delivering.</b>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="s bear"><div class="st2">Bear</div><div class="sp">value trap / further downside</div><div class="sd">Apple content erosion continues, mobile/Android stays weak, semiconductor cyclicality bites, and/or the Qorvo deal breaks or integrates poorly; the "cheap" stock stays cheap or de-rates &mdash; a value trap, with merger-break a sharp negative catalyst.</div></div>
+    <div class="s base"><div class="st2">Base</div><div class="sp">gradual re-rating</div><div class="sd">Broad Markets keeps growing double-digits and diversifies the mix, mobile stabilises (Apple units offsetting content), the Qorvo deal closes and delivers synergies over time; normalized earnings recover and the cheap stock re-rates gradually, aided by the buyback.</div></div>
+    <div class="s bull"><div class="st2">Bull</div><div class="sp">turnaround + synergy re-rate</div><div class="sd">Broad Markets accelerates strongly (Wi-Fi 7/data centre/auto), the Qorvo merger closes smoothly and over-delivers on &gt;$500M synergies + GaN/defence, mobile stabilises; a larger, diversified, higher-earning combined entity re-rates meaningfully from cheap levels.</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3)">Scenarios hinge on Broad Markets diversification vs Apple erosion, semiconductor cyclicality, and above all the Qorvo merger (close, integration, synergies, regulatory). A cheap, out-of-favour value/turnaround/M&amp;A case &mdash; the margin of safety helps, but the payoff depends on execution (value-trap risk if it fails). Verify the live price/valuation on Nasdaq. FY ends late Sept/early Oct; pro-forma figures assume deal completion. Not a price target.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">16</span><h2>Key Risks</h2></div>
+  <div class="risk"><div class="rn rh">1</div><div class="rb"><strong>Apple concentration &amp; content loss (the core risk)</strong>~57% of revenue from Apple, plus a ~20-25% content loss on a key iPhone 17 socket (Apple dual-sourcing); leaves Skyworks highly exposed to one customer's sourcing/volume/pricing decisions, and signals ongoing content/pricing pressure (see &sect;14).</div></div>
+  <div class="risk"><div class="rn rh">2</div><div class="rb"><strong>Qorvo merger execution, regulatory &amp; leverage risk</strong>Integration of two large RF companies is hard; antitrust/foreign-investment approvals pending (timeline drifted to ~end-2026/early-2027; $298.7M break fee); cash+debt funding adds leverage. A break or poor integration removes the central bull lever (see &sect;14).</div></div>
+  <div class="risk"><div class="rn rm">3</div><div class="rb"><strong>Semiconductor cyclicality &amp; depressed earnings</strong>Q3 FY26 net income -68% YoY; the industry is cyclical and mobile/Android is soft; near-term earnings are pressured and the recovery may be gradual and capped by the Apple headwind (see &sect;14).</div></div>
+  <div class="risk"><div class="rn rm">4</div><div class="rb"><strong>Value-trap risk</strong>If diversification fails to outrun Apple erosion, cyclicality persists, or the merger disappoints, the "cheap" stock could stay cheap or de-rate further rather than re-rating.</div></div>
+  <div class="risk"><div class="rn rm">5</div><div class="rb"><strong>Competition</strong>Larger, integrated rivals (Broadcom, Qualcomm) and component players (Murata) pressure pricing and position; even combined with Qorvo, Skyworks remains smaller than the giants.</div></div>
+  <div class="risk"><div class="rn rm">6</div><div class="rb"><strong>Dividend elimination / capital-allocation signal</strong>The dividend was eliminated (redirected to a $2B buyback) &mdash; rational but a caution signal on near-term cash flow and merger leverage; alienated income investors (see &sect;14).</div></div>
+  <div class="risk"><div class="rn rl">7</div><div class="rb"><strong>Combined-entity end-market exposure</strong>Even post-merger, significant exposure to mobile/smartphone cycles and shared customers; diversification (Broad Markets, GaN/defence) reduces but doesn't eliminate this.</div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">17</span><h2>Summary Scorecard</h2></div>
+  <div class="score">
+    <div class="sci"><div class="scl">RF/analog franchise</div><div class="scv">Leading <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Broad Markets diversification</div><div class="scv">Accelerating <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Qorvo merger optionality</div><div class="scv">Transformational <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Cash generation</div><div class="scv">Strong <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Valuation (cheap)</div><div class="scv">Attractive <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></div></div>
+    <div class="sci"><div class="scl">Apple concentration</div><div class="scv">High risk <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Near-term earnings</div><div class="scv">Depressed <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Merger/integration risk</div><div class="scv">Real <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+    <div class="sci"><div class="scl">Cyclicality</div><div class="scv">Inherent <span class="stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div></div>
+  </div>
+  <div class="call co">
+    <div class="lab">Bottom line</div>
+    Skyworks Solutions is a <strong>structurally high-margin, cash-generative, leading RF/analog-semiconductor franchise in the middle of a genuine transformation</strong> &mdash; a <strong>value/turnaround/M&amp;A story.</strong> The bull case: an <strong>accelerating Broad Markets engine</strong> (Wi-Fi 7, data centre, automotive growing double-digits) that is <strong>diversifying revenue away from Apple</strong>; a <strong>transformational ~$22B Qorvo merger</strong> creating a <strong>~$7.7B-revenue, ~$2.1B-EBITDA US RF leader</strong> with <strong>&gt;$500M synergies and GaN/aerospace-defence optionality</strong>; <strong>strong cash generation</strong>; a <strong>$2B buyback</strong>; and a <strong>cheap, out-of-favour valuation</strong> with much bad news priced in. <strong>But the forensic review (&sect;14) is clear on the risks:</strong> the <strong>core red flag is extreme Apple concentration (~57%) plus a ~20-25% iPhone 17 content loss</strong> &mdash; the defining structural vulnerability; plus <strong>semiconductor cyclicality and depressed near-term earnings</strong> (Q3 net income -68%), the <strong>Qorvo merger's integration/antitrust/leverage risk</strong>, <strong>value-trap risk</strong>, and the <strong>dividend elimination</strong> (a rational-but-cautionary signal). <strong>The honest framing: a financially sound, clean, cheap, cash-generative RF leader whose principal risks are Apple concentration/content loss, cyclicality and merger execution &mdash; not integrity or solvency. Own it as a patient value/turnaround/M&amp;A play if you believe Broad Markets diversification will outrun the Apple erosion, that the Qorvo deal closes and integrates well (delivering scale and &gt;$500M synergies), and that the cheap valuation offers a margin of safety and re-rating potential; be cautious if you fear the Apple concentration becomes a value trap, or worry about cyclicality and merger integration/regulatory/leverage risk. Value it on normalized through-cycle and pro-forma post-synergy earnings, gate it on diversification-outrunning-Apple + merger close/integration, treat the cheap price as a genuine margin of safety (with value-trap risk if execution fails), and ignore trough GAAP EPS and the now-eliminated dividend yield. A cheap, sound, transforming RF leader where the debate is concentration, cyclicality and merger execution, not quality or honesty.</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">18</span><h2>Recent Developments</h2></div>
+  <table>
+    <tr><th class="mono">Date</th><th>Event</th></tr>
+    <tr><td class="mono">Early Sep 2026</td><td>Stock <strong>rose ~9.8% to $84.03</strong> after CEO Phil Brace said at a Goldman Sachs conference the <strong>Qorvo merger is in final stages, expected to close by year-end 2026</strong>; combined pro-forma revenue ~$7.7B, adj. EBITDA ~$2.1B.</td></tr>
+    <tr><td class="mono">6 Aug 2026</td><td><strong>Q3 FY26 results</strong> (qtr ended 3 Jul): revenue $934.8M (-3.1% YoY, above guidance midpoint); net income $33.9M (-68% YoY); Mobile ~$541M (~57%); Apple ~57% of revenue; FCF -$16.7M (inventory build); retired $500M notes (debt to ~$497M). Q4 guide: rev $1,010-1,060M, non-GAAP EPS ~$1.27, Mobile +high-teens sequentially.</td></tr>
+    <tr><td class="mono">Jul 2026</td><td>Board authorized a new <strong>$2B buyback</strong> (through Jan 2029), superseding the prior $2B program; <strong>eliminated the quarterly dividend</strong> (buybacks judged more accretive).</td></tr>
+    <tr><td class="mono">May 2026</td><td><strong>Q2 FY26:</strong> revenue $944M, GAAP EPS $0.24, non-GAAP EPS $1.15; Broad Markets double-digit YoY growth (Wi-Fi, data centre, automotive); secured a significant multi-generational design win.</td></tr>
+    <tr><td class="mono">Feb 2026</td><td><strong>Both shareholder bases approve the Qorvo merger (11 Feb)</strong>; Apple's decision to dual-source a premier iPhone 17 RF socket (~20-25% content loss) emerges; Q1 FY26 revenue $1.035B, non-GAAP EPS $1.54.</td></tr>
+    <tr><td class="mono">Oct 2025</td><td><strong>Announces the ~$22B cash-and-stock acquisition of Qorvo</strong> ($32.50 cash + 0.960 SWKS/share).</td></tr>
+    <tr><td class="mono">Next</td><td>Watch: Qorvo deal close (regulatory) &amp; integration; Broad Markets growth vs Apple erosion; mobile stabilisation (Sept Apple ramp); FCF normalisation; synergy realisation.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">19</span><h2>Balance Sheet &amp; Transition Deep-Dive</h2></div>
+  <div class="cards">
+    <div class="card sg"><div class="k">Franchise</div><div class="v">High-margin</div><div class="d up">cash-generative</div></div>
+    <div class="card co"><div class="k">Core risk</div><div class="v">Apple ~57%</div><div class="d down">concentration</div></div>
+    <div class="card bl"><div class="k">The catalyst</div><div class="v">Qorvo</div><div class="d up">~$7.7B combined</div></div>
+    <div class="card sl"><div class="k">Post-merger</div><div class="v">More levered</div><div class="d down">de-lever via EBITDA</div></div>
+  </div>
+  <p>Skyworks' <em>franchise</em> is high-margin and cash-generative and its standalone balance sheet is sound &mdash; the transition questions are <strong>whether Broad Markets diversification outruns Apple erosion, whether the Qorvo merger closes/integrates and delivers synergies, and the combined entity's leverage/de-levering path.</strong></p>
+  <div class="call sl">
+    <div class="lab">The metrics that decide the outcome: diversification vs Apple, merger delivery, and normalized/combined earnings power</div>
+    Skyworks' <em>franchise quality and financial soundness</em> are not the question &mdash; it is a <strong>high-margin, cash-generative, leading RF/analog business with a sound standalone balance sheet.</strong> The <strong>outcome hinges on the transition</strong>, and three linked metrics decide it: <strong>(1) Broad Markets vs Apple</strong> &mdash; does Broad Markets' double-digit growth (Wi-Fi 7, data centre, auto) <strong>outrun the Apple content erosion</strong>, steadily diversifying the mix and reducing the ~57% concentration? This is the core structural question. <strong>(2) The Qorvo merger</strong> &mdash; does it <strong>close (regulatory), integrate well, and deliver its &gt;$500M synergies, scale and GaN/defence diversification</strong>, creating a larger, higher-earning, more-diversified combined entity? This is the transformational swing factor. <strong>(3) Normalized/combined earnings power &amp; de-levering</strong> &mdash; is <strong>through-cycle, post-synergy earnings materially above the depressed trough</strong> (validating the cheap valuation), and does the combined entity's <strong>~$2.1B EBITDA support de-levering</strong> the merger debt? If diversification outruns Apple, the merger delivers, and normalized/combined earnings prove materially higher, Skyworks is a <strong>cheap turnaround that re-rates</strong>; if Apple erosion dominates, the merger disappoints, or earnings stay depressed, it risks being a <strong>value trap.</strong> Net: <strong>a sound, cash-generative franchise whose outcome depends not on financial health (which is fine) but on the transition &mdash; diversification outrunning Apple, the merger delivering, and normalized/combined earnings power validating the cheap valuation.</strong> Watch Broad Markets growth, the merger timeline/integration, and normalized FCF.
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="sec-n">20</span><h2>Technical &amp; Market Snapshot</h2></div>
+  <div class="tech-grid">
+    <div class="tk"><div class="tkl">CMP (approx)</div><div class="tkv">~$84</div><div class="tkd">+9.8% on merger news</div></div>
+    <div class="tk"><div class="tkl">Market cap</div><div class="tkv">~$13-14B</div><div class="tkd">mid/large-cap</div></div>
+    <div class="tk"><div class="tkl">Character</div><div class="tkv">Value/turnaround</div><div class="tkd">out-of-favour</div></div>
+    <div class="tk"><div class="tkl">Key catalyst</div><div class="tkv">Qorvo close</div><div class="tkd">~end-2026/early-2027</div></div>
+    <div class="tk"><div class="tkl">Overhang</div><div class="tkv">Apple ~57%</div><div class="tkd">content loss</div></div>
+    <div class="tk"><div class="tkl">Dividend</div><div class="tkv">None</div><div class="tkd">buyback instead</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--ink-3)">Skyworks trades as a <strong>cheap, out-of-favour, merger-catalyst-driven value/turnaround stock</strong> &mdash; it has <strong>underperformed on the Apple/mobile concerns</strong> but <strong>rallied (~9.8% to ~$84) on Qorvo-merger-timeline optimism.</strong> Near-term price action is driven by the <strong>Apple content-loss overhang, mobile/semiconductor cycle, and (above all) merger news</strong> &mdash; expect merger-timeline and regulatory headlines to be key catalysts (close by ~end-2026/early-2027). As a value/turnaround/M&amp;A case, technicals are secondary to the <strong>diversification-vs-Apple, merger-delivery and normalized-earnings debate.</strong> Verify the live quote on Nasdaq.</p>
+  <div class="call red">
+    <div class="lab">Not investment advice</div>
+    Educational synthesis of public information, not a recommendation. Report follows the standard 20-section framework (incl. Forensic Analysis, &sect;14). Skyworks is a cheap, cyclical, in-transition RF-semiconductor leader with a core Apple-concentration/content-loss risk and a transformational pending Qorvo merger (integration/regulatory/leverage risk). Verify against Nasdaq &amp; SEC filings, attend to the &sect;14 concentration/cyclicality/merger flags, and consult a licensed financial adviser before investing.
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  <b>Skyworks Solutions, Inc.</b> &mdash; NASDAQ: SWKS &middot; S&amp;P 500 &middot; Analog &amp; Mixed-Signal (RF) Semiconductors &mdash; Mobile &amp; Broad Markets (Wi-Fi, data centre, automotive, industrial, infrastructure, defence) &middot; Irvine, California &middot; CEO Phil Brace &middot; ~$22B Qorvo merger pending<br>
+  Report generated 5 September 2026 &middot; Data through Q3 FY2026 (quarter ended 3 Jul 2026, reported ~6 Aug 2026) results &amp; recent merger updates. Includes Section 14 &middot; Forensic Analysis.
+  <div class="disc">
+    <b>Sources &amp; caveats:</b> Compiled from public disclosures and financial-data vendors &mdash; Skyworks Q1/Q2/Q3 FY2026 earnings releases &amp; Forms 8-K (SEC; Q1 reported 3 Feb 2026, Q2 5 May 2026, Q3 ~6 Aug 2026), Qorvo/Skyworks merger proxy (DEF 14A), Form 425 filings &amp; merger agreement (filed 28 Oct 2025), Qorvo ARS/10-K, GlobeNewswire, Semiconductor-Today, CNBC/Yahoo Finance, MarketBeat, Stocktwits, Parameter.io, company investor relations. <b>Key figures &mdash; FY2026 (fiscal year ending late Sept/early Oct):</b> Q1 FY26 (ended 2 Jan 2026) revenue $1.035B, GAAP op income $104M / diluted EPS $0.53, non-GAAP op income $252M / EPS $1.54, operating cash flow $396M, FCF $339M. Q2 FY26 (ended 3 Apr 2026) revenue $944M, GAAP op income $42M / EPS $0.24, non-GAAP op income $189M / EPS $1.15; Broad Markets double-digit YoY growth (Wi-Fi, data centre, automotive). Q3 FY26 (ended 3 Jul 2026) revenue $934.8M (-1% QoQ, -3.1% YoY, above $900-950M guidance midpoint), GAAP net income $33.9M (-67.7% YoY from $105M); Mobile ~$541M (~57% of revenue, low-single-digit sequential decline &mdash; less than the feared ~20-25% Apple content loss due to Apple unit-volume strength); Apple ~57% of total revenue (down from ~63% a year ago); operating cash flow $70.4M, capex $87.1M (inventory build + capacity), FCF -$16.7M (-1.8% margin); cash/securities fell $1,436.4M &rarr; $813.8M (retired $500M notes; debt $996.6M &rarr; $497M). Q4 FY26 guidance: revenue $1,010-1,060M, non-GAAP diluted EPS ~$1.27 at midpoint (incl. ~$5M / ~$0.03 incremental net interest expense from Qorvo financing); Mobile +high-teens sequentially (seasonal Apple ramp), Broad Markets ~+5% YoY (~39% of sales). <b>Apple content loss:</b> in Feb 2026 Apple decided to dual-source a premier RF socket for iPhone 17 (~20-25% content-allocation loss to Skyworks). <b>Qorvo merger:</b> announced 27 Oct 2025; each Qorvo share &rarr; $32.50 cash + 0.960 SWKS shares; ~$22B combined value; SWKS holders ~63% / QRVO ~37%; pro-forma revenue ~$7.7B, adjusted EBITDA ~$2.1B; &gt;$500M targeted cost synergies (within ~3 years); creates ~$5.5B mobile + ~$2.5-2.6B non-mobile business; adds Qorvo GaN (radar/aerospace/defence); both shareholder bases approved 11 Feb 2026; CEO Phil Brace leads combined co. (Qorvo CEO Bob Bruggeworth joins board); $298.7M termination fee; funded via cash + debt; close guided ~end-CY2026 (some filings: early CY2027), pending regulatory/antitrust/foreign-investment approvals. <b>Capital allocation:</b> new $2B buyback (through 31 Jan 2029); quarterly dividend eliminated (board judged buybacks more accretive). <b>Corporate:</b> formed 2002 (Alpha Industries + Conexant wireless); S&P 500 member (2015); acquired Silicon Labs infrastructure & automotive (~$2.75B, 2021); HQ Irvine, CA; CEO Phil Brace. Long-term growth framing: Mobile low-to-mid-single-digit, Broad Markets low-double-digit, overall mid-to-high-single-digit. <b>DATA CAVEAT:</b> stock volatile &amp; merger-sensitive &mdash; CMP anchored ~$84 (early Sep 2026, after ~9.8% jump to $84.03 on merger-timeline optimism); market cap ~$13-14B (varies with price/share count ~160M shares); Qorvo ~$94.73 / mcap ~$8.48B (31 Aug 2026) for reference; 52-wk ranges wide. Merger terms/timing subject to regulatory approval; pro-forma/combined figures assume completion. FY ends late Sept/early Oct (fiscal-quarter dating used throughout). VERIFY live vs Nasdaq &amp; SEC filings. Normalised/through-cycle &amp; pro-forma estimates and scenarios in Section 15 are the author's illustrative analysis, not forecasts, price targets or company guidance. <b>Educational document, not investment advice &mdash; a cheap, cyclical, in-transition RF-semiconductor leader with a core Apple-concentration/content-loss risk and a transformational pending Qorvo merger (see &sect;14).</b> Verify all figures against SEC filings and consult a licensed financial adviser before investing.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
+<!-- REPORT REGISTRY
+Company: Skyworks Solutions, Inc.
+Ticker: NASDAQ: SWKS (S&P 500)
+Sector: Technology / Semiconductors (RF, analog & mixed-signal - front-end modules, power amplifiers, filters; Mobile & Broad Markets)
+Report Date: September 5, 2026 (Q3 FY2026 quarter ended 3 Jul 2026, reported ~6 Aug 2026; fiscal year ends late Sept/early Oct)
+File: skyworks_solutions_equity_research.html
+*** CHEAP OUT-OF-FAVOUR LEADING RF/ANALOG-SEMICONDUCTOR FRANCHISE IN TRANSITION - VALUE/TURNAROUND/M&A story; fighting APPLE CONTENT LOSS while BROAD MARKETS accelerates & a transformational ~$22B QORVO MERGER reshapes scale/diversification; includes SECTION 14 FORENSIC ANALYSIS (20-section report) ***
+*** THESIS = structurally high-margin cash-generative RF leader, cyclically/transitionally depressed; BULL = accelerating Broad Markets diversification (Wi-Fi 7, data centre, automotive - double-digit YoY) away from Apple + transformational ~$22B Qorvo merger (~$7.7B pro-forma rev, ~$2.1B adj EBITDA, >$500M synergies, GaN/aerospace-defence) + strong cash gen + $2B buyback + CHEAP valuation; BEAR = extreme APPLE CONCENTRATION (~57%) + ~20-25% iPhone 17 socket CONTENT LOSS + semiconductor cyclicality (Q3 FY26 net income -68%) + merger integration/antitrust/leverage risk + dividend ELIMINATED; own as patient value/turnaround/M&A play on NORMALIZED/PRO-FORMA earnings ***
+CMP at Report: ~$84 (early Sep 2026, after ~9.8% jump to $84.03 on Qorvo merger-timeline optimism; VOLATILE/merger-sensitive; VERIFY vs Nasdaq)
+Market Cap: ~$13-14B (at ~$84 on ~160M shares); MID/LARGE-CAP; Qorvo ~$94.73/~$8.48B (31-Aug-2026) for reference
+*** VALUATION = CHEAP/out-of-favour (low-to-mid-teens on non-GAAP EPS, reasonable on normalized FCF) - much bad news priced in; value it on NORMALIZED through-cycle & PRO-FORMA (post-Qorvo, post-synergy) earnings; value-trap risk if execution fails ***
+BUSINESS: formed 2002 (Alpha Industries + Conexant wireless semis). Leading developer of high-performance ANALOG & MIXED-SIGNAL (RF) SEMICONDUCTORS - front-end modules, power amplifiers, filters, switches. 2 segments: MOBILE (~57% Q3, RF for smartphones, Apple-heavy, PRESSURED) + BROAD MARKETS (~39-43%, Wi-Fi/data centre/automotive/industrial/infrastructure, ACCELERATING double-digit YoY). Acquired Silicon Labs infra/auto (~$2.75B, 2021) to diversify. S&P 500 (2015). HQ Irvine CA. CEO Phil Brace.
+FINANCIALS (FY2026, fiscal year ends late Sept/early Oct): Q1 (ended 2-Jan) rev $1.035B, non-GAAP EPS $1.54, FCF $339M; Q2 (ended 3-Apr) rev $944M, GAAP EPS $0.24/non-GAAP $1.15; Q3 (ended 3-Jul) rev $934.8M (-3.1% YoY), NET INCOME $33.9M (-68% YoY), Mobile ~$541M (~57%), Apple ~57% (from ~63%), FCF -$16.7M (inventory build ahead of Apple ramp), retired $500M notes (debt to ~$497M, cash to $813.8M); Q4 GUIDANCE rev $1,010-1,060M, non-GAAP EPS ~$1.27, Mobile +high-teens seq (Apple ramp), Broad Markets +5% YoY. APPLE CONTENT LOSS: Feb 2026 Apple dual-sourced a premier iPhone 17 RF socket (~20-25% content-allocation loss). Long-term: Mobile low-to-mid-SD, Broad Markets low-DD, overall mid-to-high-SD growth.
+QORVO MERGER: announced 27-Oct-2025; QRVO share -> $32.50 cash + 0.960 SWKS shares; ~$22B combined value; SWKS holders ~63%/QRVO ~37%; PRO-FORMA rev ~$7.7B, adj EBITDA ~$2.1B; >$500M synergies (~3yrs); ~$5.5B mobile + ~$2.5-2.6B non-mobile; adds Qorvo GaN (radar/aerospace/DEFENCE); both shareholders approved 11-Feb-2026; Phil Brace leads combined co; $298.7M break fee; funded cash+debt (adds leverage); close ~end-CY2026 (some filings early-2027), regulatory pending.
+*** SECTION 14 FORENSIC ANALYSIS (6 subsections) - "cheap-and-cash-generative-but-concentrated-cyclical-and-mid-transformation" grade ***
+- 14.1 earnings quality & accounting: GREEN - clean transparent GAAP+non-GAAP, cash-backed, no accounting concerns; GAAP-vs-non-GAAP gap = normal semi pattern (amort/SBC/merger costs); Q3 negative FCF = deliberate inventory build (timing, not cash-quality problem)
+- 14.2 APPLE CONCENTRATION & CONTENT LOSS: RED (CORE FLAG) - ~57% single-customer (Apple) + ~20-25% iPhone 17 socket content loss (dual-sourcing); defining structural vulnerability; MITIGATED by Broad Markets diversification (concentration fell 63%->57%), better-than-feared near-term (Apple units offset), Qorvo diversification, partly priced in; but THE primary bear case
+- 14.3 cyclicality & depressed earnings: AMBER - Q3 net income -68%, cyclical/transitional TROUGH; normalize carefully (don't extrapolate trough OR full V-recovery); Q4 guide points to sequential recovery; Apple headwind structural so recovery may be gradual/capped
+- 14.4 Qorvo merger integration/regulatory/leverage: AMBER (SWING FACTOR) - transformational upside BUT real integration risk (2 large complex semis), antitrust/foreign-investment scrutiny (timeline drifted to end-2026/early-2027, $298.7M break fee), leverage (cash+debt funding); large part of bull case depends on close+integration
+- 14.5 dividend elimination signal: AMBER - rational (buyback more accretive at cheap price, confidence) BUT caution signal (near-term cash/earnings pressure + merger leverage); alienated income investors; both readings true, don't over-interpret either way
+- 14.6 VALUATION & normalized earnings: GREEN (offsetting POSITIVE, mirror-image of expensive stock) - cheap/out-of-favour, much bad news priced in, margin of safety; debate = normalized/pro-forma earnings power materially above depressed trough (via Broad Markets + mobile stabilisation + >$500M synergies); VALUE-TRAP risk if execution fails
+- FORENSIC VERDICT: cheap-and-cash-generative-but-concentrated-cyclical-and-mid-transformation; clean cash-backed earnings, sound balance sheet, strong cash gen, CHEAP valuation (positive); NO accounting/integrity red flags; ONE RED = Apple concentration/content loss; AMBER = cyclicality/depressed earnings + merger integration/regulatory/leverage + dividend-cut signal; value/turnaround/M&A story - believe Broad Markets diversification + merger logic/synergies + cash gen + cheap valuation, weigh Apple concentration + cyclical trough + merger execution; own as patient value/turnaround/M&A if diversification outruns Apple & Qorvo closes/integrates, recognize value-trap risk if execution fails
+Ownership/Management: CEO Phil Brace (leads combined Skyworks-Qorvo co); new capital framework = $2B buyback + DIVIDEND ELIMINATED (buybacks judged more accretive)
+Valuation: CHEAP/out-of-favour on trough earnings - use NORMALIZED through-cycle EPS/FCF + PRO-FORMA (post-Qorvo, post-synergy) EV/EBITDA; trough GAAP EPS & (eliminated) dividend yield MISLEADING
+KEY RISKS: Apple concentration ~57% + ~20-25% content loss (CORE - sec 14), Qorvo merger execution/regulatory/leverage (sec 14), semiconductor cyclicality/depressed earnings (Q3 -68% - sec 14), value-trap risk, competition (Broadcom/Qualcomm larger integrated, Murata), dividend elimination/capital signal (sec 14), combined-entity mobile end-market exposure
+Bull Case: turnaround + synergy re-rate (Broad Markets accelerates, Qorvo closes smoothly & over-delivers >$500M synergies + GaN/defence, mobile stabilises; larger diversified higher-earning combined entity re-rates from cheap)
+Base Case: gradual re-rating (Broad Markets double-digit diversifies mix, mobile stabilises, Qorvo closes & delivers over time; normalized earnings recover, cheap stock re-rates gradually + buyback)
+Bear Case: value trap / downside (Apple erosion continues, mobile/Android weak, cyclicality bites, and/or Qorvo breaks or integrates poorly; cheap stays cheap or de-rates; merger-break sharp negative catalyst)
+Primary Valuation Metric: Broad Markets diversification outrunning Apple erosion + merger close/integration = THE GATE; NORMALIZED through-cycle EPS/FCF PRIMARY + PRO-FORMA post-synergy EV/EBITDA CO-PRIMARY; cheap valuation/margin-of-safety CRITICAL CHECK; Broad Markets growth QUALITY CHECK; buyback accretion SUPPORT; trough GAAP EPS & ex-dividend yield MISLEADING
+Investment Type: CHEAP OUT-OF-FAVOUR LEADING RF/ANALOG-SEMICONDUCTOR FRANCHISE IN TRANSITION - VALUE/TURNAROUND/M&A play; structurally high-margin cash-generative RF leader (front-end modules/PAs/filters, Mobile + Broad Markets), cyclically/transitionally DEPRESSED; BULL = accelerating BROAD MARKETS diversification (Wi-Fi 7/data centre/automotive double-digit YoY) away from Apple + transformational ~$22B QORVO MERGER (~$7.7B pro-forma rev, ~$2.1B adj EBITDA, >$500M synergies, GaN/aerospace-DEFENCE, scale to compete w/ Broadcom/Qualcomm) + strong cash gen + $2B buyback + CHEAP valuation (much bad news priced in); BEAR = extreme APPLE CONCENTRATION (~57%) + ~20-25% iPhone 17 CONTENT LOSS + semiconductor CYCLICALITY (Q3 net income -68%) + merger integration/ANTITRUST/leverage risk + DIVIDEND ELIMINATED (caution signal) + value-trap risk; own as PATIENT VALUE/TURNAROUND/M&A play on NORMALIZED through-cycle & PRO-FORMA post-synergy earnings if diversification outruns Apple erosion & Qorvo closes/integrates well; value gated on diversification-vs-Apple + merger close/integration, treat cheap price as margin of safety w/ value-trap risk if execution fails, ignore trough GAAP EPS & eliminated dividend yield
+Palette: graphite/silicon-black + RF signal-teal/cyan + copper accent + blue; Chakra Petch/Inter/Spline Sans Mono; RF-waveform/signal hero motif
+NOTE: Technology / Semiconductors cohort - FIRST RF/ANALOG SEMICONDUCTOR & first US M&A-transformation/VALUE-TURNAROUND name in library; complements Palantir (US mega-cap AI-software) as 2nd US-listed name (distinct from Indian listed/SME cohort). CONTRAST WITH PALANTIR: Skyworks is the MIRROR IMAGE - CHEAP/out-of-favour/value where valuation is a POSITIVE (vs Palantir extreme/expensive where valuation is the RISK). Sections: 01-13 standard (moat/RF-tech sec 03, segments/product-mix sec 04 - Mobile vs Broad Markets, QORVO MERGER deep-dive sec 05, competition sec 06 - Broadcom/Qualcomm/Qorvo, growth/strategy sec 08, margins/earnings/cash flow sec 09 - cyclical trough, mgmt/ownership/capital-allocation sec 10 - dividend elimination, balance sheet/funding sec 11 - merger leverage), 14 Forensic Analysis (Apple-concentration RED, cyclicality/merger/dividend AMBER, valuation GREEN-positive; "cheap-but-concentrated-cyclical-mid-transformation"), 15 Valuation (Best Metric = normalized through-cycle & pro-forma post-synergy earnings gated on diversification-vs-Apple + merger close/integration), 16 Risks, 17 Scorecard, 18 Recent Developments, 19 Balance Sheet & Transition, 20 Technical & Market. Competitors: Broadcom, Qualcomm, Qorvo (being acquired), Murata. DATA CAVEAT: fiscal year ends late Sept/early Oct; volatile/merger-sensitive; pro-forma assumes deal completion.
+-->
