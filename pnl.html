@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE1594 — P&amp;L Diagnostic</title>
+<style>
+  :root {
+    --paper: #F7F5EE;
+    --panel: #FBFAF5;
+    --ink: #1B2A41;
+    --ink-muted: #5B6B7A;
+    --brass: #A9852E;
+    --brass-dim: #C9AD6C;
+    --gain: #2F6F4E;
+    --loss: #A13D2E;
+    --hairline: #D8D3C4;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  h1, h2, .serif {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  }
+
+  /* Masthead */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
+  .masthead .id {
+    font-size: 14px;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+  }
+  .masthead .period {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .doc-title {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin: 10px 0 44px;
+  }
+
+  /* Hero */
+  .hero {
+    margin-bottom: 12px;
+  }
+  .hero .label {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+  .hero .figure {
+    font-size: 58px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .hero-breakdown {
+    display: flex;
+    gap: 28px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    flex-wrap: wrap;
+  }
+  .hero-breakdown div { font-size: 14px; color: var(--ink-muted); }
+  .hero-breakdown b { display: block; color: var(--ink); font-size: 17px; font-weight: 600; margin-top: 2px; }
+
+  section {
+    margin-top: 64px;
+  }
+  section h2 {
+    font-size: 23px;
+    font-weight: 500;
+    margin: 0 0 6px;
+  }
+  section .dek {
+    color: var(--ink-muted);
+    font-size: 15.5px;
+    max-width: 62ch;
+    margin: 0 0 26px;
+  }
+  section p.note {
+    font-size: 15px;
+    color: var(--ink);
+    max-width: 66ch;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 40px;
+    margin: 22px 0 28px;
+    flex-wrap: wrap;
+  }
+  .stat-row .stat .n {
+    font-size: 30px;
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  }
+  .stat-row .stat .l {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .callout {
+    background: var(--panel);
+    border-left: 3px solid var(--brass);
+    padding: 16px 20px;
+    font-size: 15px;
+    margin-top: 24px;
+    max-width: 66ch;
+  }
+  .callout.warn { border-left-color: var(--loss); }
+  .callout b { color: var(--ink); }
+
+  /* Charts */
+  .chart-svg { width: 100%; height: auto; overflow: visible; margin-top: 8px; }
+  .bar-label { font-size: 13.5px; fill: var(--ink); }
+  .bar-label-sm { font-size: 12px; fill: var(--ink-muted); }
+  .bar-value { font-size: 13.5px; fill: var(--ink); font-weight: 600; }
+  .bar-value-sm { font-size: 12px; fill: var(--ink); font-weight: 600; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 14.5px;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--ink-muted);
+    font-size: 13px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--ink);
+  }
+  tbody td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.gain { color: var(--gain); }
+  td.loss { color: var(--loss); }
+  tbody tr:last-child td { border-bottom: 1px solid var(--ink); }
+
+  /* Priorities */
+  ol.priorities {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    counter-reset: pr;
+  }
+  ol.priorities li {
+    counter-increment: pr;
+    display: flex;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  ol.priorities li:first-child { border-top: 1px solid var(--ink); }
+  ol.priorities li::before {
+    content: counter(pr);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    font-size: 22px;
+    color: var(--brass);
+    flex: 0 0 28px;
+  }
+  ol.priorities li .txt b { display: block; margin-bottom: 3px; }
+  ol.priorities li .txt span { color: var(--ink-muted); font-size: 14.5px; }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    color: var(--ink-muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 560px) {
+    .hero .figure { font-size: 42px; }
+    .stat-row { gap: 24px; }
+    section h2 { font-size: 20px; }
+    table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="id">Client ID UE1594</div>
+    <div class="period">1 Jan – 16 Sep 2026</div>
+  </div>
+  <div class="doc-title">Equity P&amp;L diagnostic — demat account</div>
+
+  <div class="hero">
+    <div class="label">Net result for the period</div>
+    <div class="figure serif">₹31.43L</div>
+    <div class="hero-breakdown">
+      <div>Realized<b>₹29.09L</b></div>
+      <div>Unrealized (open)<b>₹3.35L</b></div>
+      <div>Charges &amp; other<b>−₹1.02L</b></div>
+      <div>Turnover<b>₹8.97Cr</b></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>The core pattern: right less than half the time, still ahead</h2>
+    <p class="dek">100 closed positions this year. Less than half of them made money — but the ones that did, made a lot more than the ones that didn't.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">48%</div><div class="l">win rate — 48 winners, 52 losers</div></div>
+      <div class="stat"><div class="n">3.4×</div><div class="l">average win vs. average loss</div></div>
+    </div>
+    <svg viewBox="0 0 520 96" class="chart-svg" role="img">
+        <g transform="translate(0,0)">
+          <text x="148" y="25.0" text-anchor="end" class="bar-label">Avg win  (48 trades)</text>
+          <rect x="160" y="4" width="290.0" height="32" rx="2" fill="#2F6F4E"/>
+          <text x="460.0" y="25.0" class="bar-value">₹89,317</text>
+        </g>
+        <g transform="translate(0,56)">
+          <text x="148" y="25.0" text-anchor="end" class="bar-label">Avg loss  (52 trades)</text>
+          <rect x="160" y="4" width="86.0" height="32" rx="2" fill="#A13D2E"/>
+          <text x="256.0" y="25.0" class="bar-value">₹26,502</text>
+        </g></svg>
+    <p class="note" style="margin-top:20px;">This is a legitimate way to make money in the market — cut losers, let winners run — and it's the thing actually driving the year's result. It's worth protecting on purpose rather than treating as background noise, because everything below is really about whether it's being protected consistently.</p>
+  </section>
+
+  <section>
+    <h2>Where the profit actually came from</h2>
+    <p class="dek">Five positions produced most of the year's realized gain. The other 95 closed trades, combined, produced the rest.</p>
+    <svg viewBox="0 0 560 252" class="chart-svg" role="img">
+        <g transform="translate(0,0)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">RELIANCE</text>
+          <rect x="190" y="4" width="300.0" height="24" rx="2" fill="#A9852E"/>
+          <text x="500.0" y="21.0" class="bar-value">₹11.01L</text>
+        </g>
+        <g transform="translate(0,44)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">STLTECH-T</text>
+          <rect x="190" y="4" width="129.3" height="24" rx="2" fill="#A9852E"/>
+          <text x="329.3" y="21.0" class="bar-value">₹4.74L</text>
+        </g>
+        <g transform="translate(0,88)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">SIGMAADV-T</text>
+          <rect x="190" y="4" width="91.5" height="24" rx="2" fill="#A9852E"/>
+          <text x="291.5" y="21.0" class="bar-value">₹3.36L</text>
+        </g>
+        <g transform="translate(0,132)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">BODALCHEM</text>
+          <rect x="190" y="4" width="80.5" height="24" rx="2" fill="#A9852E"/>
+          <text x="280.5" y="21.0" class="bar-value">₹2.95L</text>
+        </g>
+        <g transform="translate(0,176)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">UFBL-T</text>
+          <rect x="190" y="4" width="60.8" height="24" rx="2" fill="#A9852E"/>
+          <text x="260.8" y="21.0" class="bar-value">₹2.23L</text>
+        </g>
+        <g transform="translate(0,220)">
+          <text x="178" y="21.0" text-anchor="end" class="bar-label">All other 95 closed trades</text>
+          <rect x="190" y="4" width="130.8" height="24" rx="2" fill="#8C8367"/>
+          <text x="330.8" y="21.0" class="bar-value">₹4.80L</text>
+        </g></svg>
+    <div class="callout">
+      <b>RELIANCE and JIOFIN alone account for 42% of total realized profit</b> — ₹12.3L of the ₹29.1L. RELIANCE's average buy price (~₹422/share) sits far below any 2026 market level, which points to a legacy or bonus holding rather than a trading decision made this year. Strip both out and the "trading" result for the period is closer to <b>₹16.8L</b> — still a healthy number, but the truer one to judge the process against.
+    </div>
+  </section>
+
+  <section>
+    <h2>Loss discipline</h2>
+    <p class="dek">Losses are well spread out — no single closed position did serious damage. But 13 positions were let run to –15% or worse before being closed.</p>
+    <table>
+      <thead><tr><th>Symbol</th><th class="num">Position size</th><th class="num">Realized P&amp;L</th><th class="num">Return</th></tr></thead>
+      <tbody>
+      <tr>
+        <td>OSWALPUMPS</td>
+        <td class="num">₹2.38L</td>
+        <td class="num loss">−₹91,472</td>
+        <td class="num loss">−38.4%</td>
+      </tr>
+      <tr>
+        <td>GOKEX</td>
+        <td class="num">₹1.24L</td>
+        <td class="num loss">−₹35,923</td>
+        <td class="num loss">−28.9%</td>
+      </tr>
+      <tr>
+        <td>TAC-ST</td>
+        <td class="num">₹1.76L</td>
+        <td class="num loss">−₹50,700</td>
+        <td class="num loss">−28.8%</td>
+      </tr>
+      <tr>
+        <td>MAHKTECH</td>
+        <td class="num">₹1.65L</td>
+        <td class="num loss">−₹37,848</td>
+        <td class="num loss">−23.0%</td>
+      </tr>
+      <tr>
+        <td>MUTHOOTFIN</td>
+        <td class="num">₹3.01L</td>
+        <td class="num loss">−₹66,188</td>
+        <td class="num loss">−22.0%</td>
+      </tr>
+      <tr>
+        <td>APARINDS</td>
+        <td class="num">₹2.78L</td>
+        <td class="num loss">−₹50,421</td>
+        <td class="num loss">−18.1%</td>
+      </tr>
+      <tr>
+        <td>NOCIL</td>
+        <td class="num">₹6.23L</td>
+        <td class="num loss">−₹112,267</td>
+        <td class="num loss">−18.0%</td>
+      </tr>
+      <tr>
+        <td>GRSE</td>
+        <td class="num">₹2.73L</td>
+        <td class="num loss">−₹47,765</td>
+        <td class="num loss">−17.5%</td>
+      </tr>
+      <tr>
+        <td>UJJIVANSFB</td>
+        <td class="num">₹2.04L</td>
+        <td class="num loss">−₹34,581</td>
+        <td class="num loss">−17.0%</td>
+      </tr>
+      <tr>
+        <td>KRN</td>
+        <td class="num">₹2.48L</td>
+        <td class="num loss">−₹41,481</td>
+        <td class="num loss">−16.7%</td>
+      </tr>
+      <tr>
+        <td>THANGAMAYL</td>
+        <td class="num">₹1.95L</td>
+        <td class="num loss">−₹32,530</td>
+        <td class="num loss">−16.7%</td>
+      </tr>
+      <tr>
+        <td>AXISCADES</td>
+        <td class="num">₹3.05L</td>
+        <td class="num loss">−₹47,672</td>
+        <td class="num loss">−15.6%</td>
+      </tr>
+      <tr>
+        <td>PNGSREVA</td>
+        <td class="num">₹2.04L</td>
+        <td class="num loss">−₹31,581</td>
+        <td class="num loss">−15.5%</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <b>One open position is already worse than anything on this list.</b> RPOWER is down 66.5% (−₹66.5K) and still held. Whatever the threshold for cutting a loser should be, this one is well past it — worth a direct decision rather than a default to hold.
+    </div>
+  </section>
+
+  <section>
+    <h2>Position sizing</h2>
+    <p class="dek">Typical position size this year was around ₹3L. A handful ran 5–8× larger than that, with mixed results.</p>
+    <svg viewBox="0 0 560 446" class="chart-svg" role="img">
+        <g transform="translate(0,0)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">SIGMAADV-T</text>
+          <rect x="140" y="4" width="350.0" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="500.0" y="19.0" class="bar-value">₹24.84L</text>
+        </g>
+        <g transform="translate(0,38)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">STLTECH-T</text>
+          <rect x="140" y="4" width="241.1" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="391.1" y="19.0" class="bar-value">₹17.11L</text>
+        </g>
+        <g transform="translate(0,76)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">SMLMAH</text>
+          <rect x="140" y="4" width="237.6" height="20" rx="2" fill="#A13D2E"/>
+          <text x="387.6" y="19.0" class="bar-value">₹16.87L</text>
+        </g>
+        <g transform="translate(0,114)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">MTARTECH-T</text>
+          <rect x="140" y="4" width="188.1" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="338.1" y="19.0" class="bar-value">₹13.35L</text>
+        </g>
+        <g transform="translate(0,152)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">DEEDEV</text>
+          <rect x="140" y="4" width="172.3" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="322.3" y="19.0" class="bar-value">₹12.23L</text>
+        </g>
+        <g transform="translate(0,190)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">HDFCSML250</text>
+          <rect x="140" y="4" width="156.8" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="306.8" y="19.0" class="bar-value">₹11.13L</text>
+        </g>
+        <g transform="translate(0,228)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">MODINSU-XT</text>
+          <rect x="140" y="4" width="145.6" height="20" rx="2" fill="#A13D2E"/>
+          <text x="295.6" y="19.0" class="bar-value">₹10.34L</text>
+        </g>
+        <g transform="translate(0,266)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">FCL</text>
+          <rect x="140" y="4" width="135.0" height="20" rx="2" fill="#A13D2E"/>
+          <text x="285.0" y="19.0" class="bar-value">₹9.58L</text>
+        </g>
+        <g transform="translate(0,304)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">TDPOWERSYS</text>
+          <rect x="140" y="4" width="132.3" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="282.3" y="19.0" class="bar-value">₹9.39L</text>
+        </g>
+        <g transform="translate(0,342)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">ACUTAAS</text>
+          <rect x="140" y="4" width="119.2" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="269.2" y="19.0" class="bar-value">₹8.46L</text>
+        </g>
+        <g transform="translate(0,380)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">KRISHANA</text>
+          <rect x="140" y="4" width="115.7" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="265.7" y="19.0" class="bar-value">₹8.21L</text>
+        </g>
+        <g transform="translate(0,418)">
+          <text x="128" y="19.0" text-anchor="end" class="bar-label">KABRAEXTRU</text>
+          <rect x="140" y="4" width="113.1" height="20" rx="2" fill="#5B6B7A"/>
+          <text x="263.1" y="19.0" class="bar-value">₹8.02L</text>
+        </g></svg>
+    <p class="note" style="margin-top:20px;">SIGMAADV-T, STLTECH-T and DEEDEV — the three largest bets in the book — worked out. SMLMAH and MODINSU-XT, sized similarly, didn't. Nothing here says large positions are the problem; it's that sizing looks discretionary rather than ruled — worth setting an explicit cap (say, as a % of capital) so a single bad idea sized like SIGMAADV can't do outsized damage.</p>
+  </section>
+
+  <section>
+    <h2>The open book</h2>
+    <p class="dek">13 positions still open, ₹36.6L in open value, net +₹3.35L unrealized.</p>
+    <table>
+      <thead><tr><th>Symbol</th><th class="num">Qty</th><th class="num">Open value</th><th class="num">Unrealized P&amp;L</th><th class="num">Return</th></tr></thead>
+      <tbody>
+      <tr>
+        <td>RPOWER</td>
+        <td class="num">1641</td>
+        <td class="num">₹1.00L</td>
+        <td class="num loss">−₹66,550</td>
+        <td class="num loss">−66.5%</td>
+      </tr>
+      <tr>
+        <td>RAYMOND</td>
+        <td class="num">460</td>
+        <td class="num">₹4.99L</td>
+        <td class="num loss">−₹41,415</td>
+        <td class="num loss">−8.3%</td>
+      </tr>
+      <tr>
+        <td>TMPV</td>
+        <td class="num">665</td>
+        <td class="num">₹2.13L</td>
+        <td class="num loss">−₹12,602</td>
+        <td class="num loss">−5.9%</td>
+      </tr>
+      <tr>
+        <td>ENTERO</td>
+        <td class="num">120</td>
+        <td class="num">₹2.17L</td>
+        <td class="num loss">−₹9,194</td>
+        <td class="num loss">−4.2%</td>
+      </tr>
+      <tr>
+        <td>GMMPFAUDLR</td>
+        <td class="num">320</td>
+        <td class="num">₹4.30L</td>
+        <td class="num loss">−₹2,497</td>
+        <td class="num loss">−0.6%</td>
+      </tr>
+      <tr>
+        <td>TATACHEM</td>
+        <td class="num">170</td>
+        <td class="num">₹1.25L</td>
+        <td class="num loss">−₹476</td>
+        <td class="num loss">−0.4%</td>
+      </tr>
+      <tr>
+        <td>RELINFRA-T</td>
+        <td class="num">9</td>
+        <td class="num">₹0.00L</td>
+        <td class="num ">₹0</td>
+        <td class="num ">+0.0%</td>
+      </tr>
+      <tr>
+        <td>RELCAPITAL-T</td>
+        <td class="num">6</td>
+        <td class="num">₹0.00L</td>
+        <td class="num ">₹0</td>
+        <td class="num ">+0.0%</td>
+      </tr>
+      <tr>
+        <td>LIQUIDBEES-F</td>
+        <td class="num">0.55</td>
+        <td class="num">₹0.00L</td>
+        <td class="num gain">₹550</td>
+        <td class="num gain">+0.0%</td>
+      </tr>
+      <tr>
+        <td>ATHERENERG</td>
+        <td class="num">431</td>
+        <td class="num">₹6.72L</td>
+        <td class="num gain">₹3,258</td>
+        <td class="num gain">+0.5%</td>
+      </tr>
+      <tr>
+        <td>HAPPYFORGE</td>
+        <td class="num">305</td>
+        <td class="num">₹6.02L</td>
+        <td class="num gain">₹55,796</td>
+        <td class="num gain">+9.3%</td>
+      </tr>
+      <tr>
+        <td>BLISSGVS-T</td>
+        <td class="num">690</td>
+        <td class="num">₹4.02L</td>
+        <td class="num gain">₹67,511</td>
+        <td class="num gain">+16.8%</td>
+      </tr>
+      <tr>
+        <td>SAKAR</td>
+        <td class="num">673</td>
+        <td class="num">₹4.03L</td>
+        <td class="num gain">₹340,918</td>
+        <td class="num gain">+84.6%</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:16px;">SAKAR is up 84.6% and still fully open — a natural candidate for partial profit-booking rather than leaving the whole gain exposed to a reversal. At the other end, RPOWER needs a decision, not a default.</p>
+  </section>
+
+  <section>
+    <h2>Trading cadence</h2>
+    <p class="dek">Sell-side activity by month, from DP charge entries (one per symbol sold per day). August and September ran roughly double the Jan–Jul monthly average.</p>
+    <svg viewBox="0 0 560 200" class="chart-svg" role="img">
+      <g>
+        <rect x="16.4" y="110.9" width="44" height="59.1" rx="2" fill="#5B6B7A"/>
+        <text x="38.4" y="102.9" text-anchor="middle" class="bar-value-sm">10</text>
+        <text x="38.4" y="190" text-anchor="middle" class="bar-label-sm">Jan</text>
+      </g>
+      <g>
+        <rect x="76.8" y="81.4" width="44" height="88.6" rx="2" fill="#5B6B7A"/>
+        <text x="98.8" y="73.4" text-anchor="middle" class="bar-value-sm">15</text>
+        <text x="98.8" y="190" text-anchor="middle" class="bar-label-sm">Feb</text>
+      </g>
+      <g>
+        <rect x="137.2" y="75.5" width="44" height="94.5" rx="2" fill="#5B6B7A"/>
+        <text x="159.2" y="67.5" text-anchor="middle" class="bar-value-sm">16</text>
+        <text x="159.2" y="190" text-anchor="middle" class="bar-label-sm">Mar</text>
+      </g>
+      <g>
+        <rect x="197.6" y="93.2" width="44" height="76.8" rx="2" fill="#5B6B7A"/>
+        <text x="219.6" y="85.2" text-anchor="middle" class="bar-value-sm">13</text>
+        <text x="219.6" y="190" text-anchor="middle" class="bar-label-sm">Apr</text>
+      </g>
+      <g>
+        <rect x="258.0" y="110.9" width="44" height="59.1" rx="2" fill="#5B6B7A"/>
+        <text x="280.0" y="102.9" text-anchor="middle" class="bar-value-sm">10</text>
+        <text x="280.0" y="190" text-anchor="middle" class="bar-label-sm">May</text>
+      </g>
+      <g>
+        <rect x="318.4" y="116.8" width="44" height="53.2" rx="2" fill="#5B6B7A"/>
+        <text x="340.4" y="108.8" text-anchor="middle" class="bar-value-sm">9</text>
+        <text x="340.4" y="190" text-anchor="middle" class="bar-label-sm">Jun</text>
+      </g>
+      <g>
+        <rect x="378.8" y="128.6" width="44" height="41.4" rx="2" fill="#5B6B7A"/>
+        <text x="400.8" y="120.6" text-anchor="middle" class="bar-value-sm">7</text>
+        <text x="400.8" y="190" text-anchor="middle" class="bar-label-sm">Jul</text>
+      </g>
+      <g>
+        <rect x="439.2" y="40.0" width="44" height="130.0" rx="2" fill="#A9852E"/>
+        <text x="461.2" y="32.0" text-anchor="middle" class="bar-value-sm">22</text>
+        <text x="461.2" y="190" text-anchor="middle" class="bar-label-sm">Aug</text>
+      </g>
+      <g>
+        <rect x="499.6" y="63.6" width="44" height="106.4" rx="2" fill="#A9852E"/>
+        <text x="521.6" y="55.6" text-anchor="middle" class="bar-value-sm">18</text>
+        <text x="521.6" y="190" text-anchor="middle" class="bar-label-sm">Sep</text>
+      </g></svg>
+    <p class="note" style="margin-top:8px;">Worth a quick gut-check: does the Aug–Sep pickup reflect more high-conviction setups clearing the research bar, or a faster, more reactive pace than the rest of the year? The P&amp;L data alone can't answer that — it's a question for the trade log.</p>
+  </section>
+
+  <section>
+    <h2>Priorities</h2>
+    <ol class="priorities">
+      <li><div class="txt"><b>Set and hold a stop-loss rule.</b><span>RPOWER and the thirteen closed positions cut at –15% or worse are the same problem showing up twice. A pre-defined exit — not a judgment call made under a loss — protects the 3.4× win/loss ratio that's actually earning the money.</span></div></li>
+      <li><div class="txt"><b>Cap position size as a % of capital.</b><span>SIGMAADV-T, STLTECH-T and SMLMAH ran 5–8× the typical position. Two of three worked — but sizing shouldn't be the variable deciding how much a single idea can cost.</span></div></li>
+      <li><div class="txt"><b>Judge the process on ₹16.8L, not ₹29.1L.</b><span>RELIANCE and JIOFIN look like legacy gains, not repeatable calls. Measuring skill against the core number keeps expectations for the rest of the year honest.</span></div></li>
+      <li><div class="txt"><b>Decide on SAKAR.</b><span>+84.6% and still fully open. A partial trim or a trailing stop locks in some of the gain without forcing a full exit.</span></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    Built from the Zerodha equity P&amp;L export for client UE1594, 1 Jan – 16 Sep 2026. Realized figures cover 110 symbols (100 with closed activity); unrealized figures cover 13 open positions. Charges (₹99,686, of which 85% is STT) are already netted into the year's result.
+  </footer>
+
+</div>
+</body>
+</html>
