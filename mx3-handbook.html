@@ -1,0 +1,647 @@
+<title>MX.3 Front-to-Back Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap">
+<style>
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --sunk:#E8ECF0; --ink:#152030; --muted:#556174; --rule:#D3DAE2;
+  --accent:#0B5C7A; --accent-soft:#DCEBF1; --pay:#9A5B0C; --pay-soft:#F6EAD8; --good:#1E6B43; --bad:#A2322A;
+  --hero:#12202F; --hero-ink:#EEF2F6; --hero-muted:#A9B6C6; --hero-accent:#E7B35A;
+  --serif:'Source Serif 4', Georgia, serif; --sans:'IBM Plex Sans', 'Segoe UI', Arial, sans-serif; --mono:'IBM Plex Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0D131B; --surface:#141C27; --sunk:#1B2532; --ink:#E5EAF0; --muted:#9AA7B7; --rule:#27333F;
+    --accent:#5DB6D8; --accent-soft:#16303D; --pay:#E2AA55; --pay-soft:#352715; --good:#5CC08A; --bad:#EE7B70;
+    --hero:#0A1017; --hero-ink:#EEF2F6; --hero-muted:#A9B6C6; --hero-accent:#E7B35A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0D131B; --surface:#141C27; --sunk:#1B2532; --ink:#E5EAF0; --muted:#9AA7B7; --rule:#27333F;
+  --accent:#5DB6D8; --accent-soft:#16303D; --pay:#E2AA55; --pay-soft:#352715; --good:#5CC08A; --bad:#EE7B70;
+  --hero:#0A1017; --hero-ink:#EEF2F6; --hero-muted:#A9B6C6; --hero-accent:#E7B35A;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; padding-inline:16px; padding-block:0 64px}
+h1,h2,h3{font-family:var(--serif); font-weight:500; text-wrap:balance; line-height:1.15; margin:0}
+h2{font-size:clamp(28px,4vw,38px)}
+h3{font-size:21px; font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent)}
+.mono{font-family:var(--mono); font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{background:var(--hero); color:var(--hero-ink); margin-inline:-16px; padding-inline:16px; padding-block:56px 48px}
+.hero-in{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:48px; align-items:end}
+.hero .eyebrow{color:var(--hero-accent)}
+.hero h1{font-size:clamp(38px,6vw,64px); margin-block:14px 18px}
+.hero p.lede{color:var(--hero-muted); font-size:19px; max-width:40em}
+.chain{display:flex; flex-direction:column; gap:8px; font-size:14px}
+.chain span{border:1px solid #3A4A5E; border-radius:6px; padding:8px 14px; color:var(--hero-ink)}
+.chain span:first-child{background:var(--hero-accent); border-color:var(--hero-accent); color:#12202F; font-weight:600}
+.chain i{font-style:normal; color:var(--hero-muted); padding-left:14px; font-size:12px}
+
+/* layout */
+.layout{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:210px minmax(0,1fr); gap:56px; padding-top:40px}
+nav.toc{position:sticky; top:calc(env(safe-area-inset-top,0px) + 20px); align-self:start; font-size:14px}
+nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; counter-reset:t}
+nav.toc a{display:block; padding:6px 10px; border-radius:6px; text-decoration:none; color:var(--muted)}
+nav.toc a:hover{background:var(--sunk); color:var(--ink)}
+nav.toc a.new::after{content:"New"; margin-left:8px; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--pay); }
+main{display:flex; flex-direction:column; gap:72px; min-width:0}
+section{display:flex; flex-direction:column; gap:22px; scroll-margin-top:24px}
+.sec-head{display:flex; flex-direction:column; gap:8px; max-width:46em}
+.sec-head p{color:var(--muted); font-size:17px}
+.prose{max-width:44em; display:flex; flex-direction:column; gap:14px}
+
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; gap:8px}
+.card h3{font-size:18px}
+.card p,.card li{color:var(--muted); font-size:15px}
+.card ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:4px}
+.callout{background:var(--accent-soft); border-radius:10px; padding:18px 22px; max-width:48em}
+.callout.warn{background:var(--pay-soft)}
+.statement{font-family:var(--serif); font-size:clamp(24px,3.2vw,32px); line-height:1.3; max-width:30em; border-left:3px solid var(--pay); padding-left:22px}
+
+.tbl{overflow-x:auto; border:1px solid var(--rule); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:14.5px}
+th,td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+th{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--sunk)}
+tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tfoot td{font-weight:600; border-top:2px solid var(--rule)}
+table.compact{font-size:13.5px}
+table.compact th,table.compact td{padding:9px 10px}
+table.compact th{letter-spacing:.03em; font-size:11px}
+
+.flow{display:flex; flex-wrap:wrap; gap:10px; align-items:stretch}
+.flow .step{flex:1 1 150px; background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; font-size:14px; color:var(--muted)}
+.flow .step b{display:block; color:var(--ink); font-size:15px}
+
+/* lifecycle */
+.ticket{background:var(--surface); border:1px solid var(--rule); border-radius:10px; font-family:var(--mono); font-size:13.5px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.ticket div{padding:12px 16px; border-bottom:1px dashed var(--rule); display:flex; flex-direction:column; gap:2px}
+.ticket span{font-family:var(--sans); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.phase{font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); padding-top:10px}
+.timeline{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; counter-reset:st}
+.timeline li{counter-increment:st; display:grid; grid-template-columns:44px minmax(0,1fr); gap:16px; position:relative; padding-bottom:22px}
+.timeline li::before{content:counter(st); width:36px; height:36px; border-radius:50%; background:var(--surface); border:2px solid var(--accent); color:var(--accent); font-weight:600; font-size:14px; display:flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums; z-index:1}
+.timeline li::after{content:""; position:absolute; left:17px; top:36px; bottom:0; width:2px; background:var(--rule)}
+.timeline li:last-child::after{display:none}
+.stage{display:flex; flex-direction:column; gap:8px; padding-top:5px}
+.stage-top{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:baseline}
+.stage-top h3{font-size:19px}
+.when{font-family:var(--mono); font-size:12.5px; color:var(--pay); background:var(--pay-soft); padding:1px 8px; border-radius:4px}
+.team{font-size:12px; color:var(--muted); border:1px solid var(--rule); padding:1px 8px; border-radius:999px}
+.stage dl{display:grid; grid-template-columns:110px minmax(0,1fr); gap:4px 14px; margin:0; font-size:14.5px}
+.stage dt{color:var(--muted); font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding-top:2px}
+.stage dd{margin:0}
+
+/* valuation */
+.val-controls{display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center; background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 20px}
+.val-controls label{font-size:14px; font-weight:600; display:flex; flex-direction:column; gap:6px; flex:1 1 260px}
+.val-controls input[type=range]{width:100%; accent-color:var(--accent)}
+.val-controls button{font:inherit; font-size:14px; border:1px solid var(--rule); background:var(--sunk); color:var(--ink); border-radius:6px; padding:8px 14px; cursor:pointer}
+.tiles{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.tile{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:14px 18px}
+.tile span{display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.tile b{display:block; font-family:var(--mono); font-weight:500; font-size:22px; font-variant-numeric:tabular-nums; margin-top:4px}
+.tile small{color:var(--muted); font-size:13px}
+.tile.key{border-color:var(--accent); background:var(--accent-soft)}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.formula{font-family:var(--mono); font-size:14px; background:var(--sunk); border-radius:8px; padding:14px 16px; overflow-x:auto; white-space:pre; line-height:1.7}
+.leg-pay{color:var(--pay)} .leg-rec{color:var(--accent)}
+
+details{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 20px}
+details summary{cursor:pointer; font-weight:600}
+details .ans{margin-top:12px; color:var(--muted); font-size:15px; display:flex; flex-direction:column; gap:8px}
+.ex{display:flex; flex-direction:column; gap:10px}
+.ex ol{margin:0; padding-left:20px}
+footer{max-width:1180px; margin:72px auto 0; border-top:1px solid var(--rule); padding-top:20px; font-size:13px; color:var(--muted); display:flex; flex-direction:column; gap:6px}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr); gap:28px}
+  nav.toc{position:static}
+  nav.toc ol{flex-direction:row; flex-wrap:wrap; gap:6px}
+  nav.toc a{border:1px solid var(--rule); padding:4px 10px; font-size:13px}
+  .hero-in{grid-template-columns:minmax(0,1fr)}
+  .chain{flex-direction:row; flex-wrap:wrap}
+  .chain i{display:none}
+}
+@media (max-width:520px){
+  .stage dl{grid-template-columns:minmax(0,1fr)}
+  .stage dt{padding-top:6px}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<header class="hero">
+  <div class="hero-in">
+    <div>
+      <p class="eyebrow">Team training handbook · Advanced · Cross-functional</p>
+      <h1>Murex MX.3, front to back to risk</h1>
+      <p class="lede">How a trade moves through the platform, what each team owns along the way, and where it breaks. Includes a full trade lifecycle and a worked interest rate swap valuation.</p>
+    </div>
+    <div class="chain" aria-label="Functions covered">
+      <span>Front office</span><i>prices and books</i>
+      <span>Risk</span><i>measures and limits</i>
+      <span>Operations</span><i>confirms and settles</i>
+      <span>Finance</span><i>accounts and reports</i>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><a href="#idea">The core idea</a></li>
+      <li><a href="#platform">Platform and data</a></li>
+      <li><a href="#frontoffice">Front office and market data</a></li>
+      <li><a href="#lifecycle" class="new">Full trade lifecycle</a></li>
+      <li><a href="#valuation" class="new">IRS valuation</a></li>
+      <li><a href="#risk">Risk, limits, collateral</a></li>
+      <li><a href="#ops">Operations</a></li>
+      <li><a href="#finance">Finance and end of day</a></li>
+      <li><a href="#assets">Asset classes</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- IDEA -->
+    <section id="idea">
+      <div class="sec-head">
+        <p class="eyebrow">The core idea</p>
+        <h2>One trade record, many readers</h2>
+      </div>
+      <p class="statement">The trader, the risk manager, the settlements team and the accountant are all reading the same trade.</p>
+      <div class="prose">
+        <p>That is MX.3's strength, and its main source of cross-team breaks. The same record carries the front-office price, the risk sensitivities, the settlement instructions and the accounting entries. No team has a private copy, so a configuration change made for one team is felt by all of them.</p>
+      </div>
+      <div class="callout"><p><b>Scope.</b> This handbook is for people who already use MX.3 daily. It is not click-by-click screen training, and it does not replace your implementation's functional specifications. Terminology follows common MX.3 usage; your bank's version and configuration may name things differently.</p></div>
+    </section>
+
+    <!-- PLATFORM -->
+    <section id="platform">
+      <div class="sec-head">
+        <p class="eyebrow">Module 1</p>
+        <h2>Platform and data model</h2>
+        <p>What sits under the screens, and the static data every team depends on.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Client</h3><p>Java GUI where users work in screens, simulations and viewers. Access rights are set per user group.</p></div>
+        <div class="card"><h3>Application services</h3><p>Core services and launchers host business processes, messaging (MxML Exchange) and batch processing.</p></div>
+        <div class="card"><h3>Database</h3><p>A relational database, commonly Oracle, holds trades, static data, market data and results.</p></div>
+        <div class="card"><h3>Datamart</h3><p>A separate reporting store filled by feeders. Most reports and downstream extracts read from here.</p></div>
+        <div class="card"><h3>Interfaces</h3><p>MxML (Murex XML) for trades and static data; SWIFT, FpML, market data feeds and GL interfaces.</p></div>
+        <div class="card"><h3>Deployment</h3><p>On-premise, private cloud, or MXSaaS (vendor-managed). MX.3 is certified on major public clouds.</p></div>
+      </div>
+      <h3>Static data decides where every trade goes</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Object</th><th>What it drives</th><th>Usual owner</th><th>When it is wrong</th></tr></thead>
+        <tbody>
+          <tr><td>Counterparties and legal entities</td><td>Credit limits, SSIs, confirmations, regulatory flags</td><td>Static data / KYC</td><td>Settlement fails, wrong exposure aggregation</td></tr>
+          <tr><td>Portfolios</td><td>P&amp;L aggregation, risk views, accounting books</td><td>Product control, FO</td><td>P&amp;L lands in the wrong book; limit breach missed</td></tr>
+          <tr><td>Typologies</td><td>Trade classification that selects workflows and accounting rules</td><td>Murex config, Finance</td><td>Wrong workflow, wrong GL accounts</td></tr>
+          <tr><td>Generators (templates)</td><td>Day count, calendars, fixing and payment conventions</td><td>FO support</td><td>Wrong cash flows, fixing breaks</td></tr>
+          <tr><td>Calendars and indices</td><td>Value dates, resets, fixing sources</td><td>Market data team</td><td>Wrong value dates, missing fixings at EOD</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- FRONT OFFICE -->
+    <section id="frontoffice">
+      <div class="sec-head">
+        <p class="eyebrow">Module 2</p>
+        <h2>Front office and market data</h2>
+        <p>Which market data is read by whom, and what happens between a price and a booked trade.</p>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Live vs closing</h3><p>Live feeds drive intraday pricing. The end-of-day closing snapshot is the official set for revaluation, P&amp;L and accounting. Many P&amp;L disputes start here.</p></div>
+        <div class="card"><h3>Market data sets</h3><p>Separate sets for FO, risk and accounting allow different sources or close times. That helps control, but only if someone documents who reads which set.</p></div>
+        <div class="card"><h3>Curves</h3><p>Multi-curve set-up: OIS/RFR curves for CSA discounting, projection curves per index and tenor, and basis between them. The curve instruments decide the risk buckets.</p></div>
+        <div class="card"><h3>Volatility and credit</h3><p>Vol surfaces and cubes, FX vol by delta, credit spread curves with recovery assumptions. A stale surface shows up as vega P&amp;L that never moves.</p></div>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Price is not booking</h3><p>A template can override the conventions used when pricing. On disputes, compare the two.</p></div>
+        <div class="card"><h3>Packages</h3><p>Multi-leg structures book as linked contracts. An action on one leg may need to cascade to the others.</p></div>
+        <div class="card"><h3>Back-dated trades</h3><p>A trade entered today with a past trade date hits today's P&amp;L as a new trade.</p></div>
+      </div>
+    </section>
+
+    <!-- LIFECYCLE -->
+    <section id="lifecycle">
+      <div class="sec-head">
+        <p class="eyebrow">Full trade lifecycle</p>
+        <h2>One swap from the first quote to the archive</h2>
+        <p>Every stage uses the same fictional trade, which is also valued in the next section. Dates are relative to trade date T.</p>
+      </div>
+      <div class="ticket" aria-label="Example trade ticket">
+        <div><span>Product</span>INR interest rate swap</div>
+        <div><span>Notional</span>INR 100 crore</div>
+        <div><span>Bank</span>Pays fixed 6.50%</div>
+        <div><span>Bank</span>Receives floating (MIBOR-linked)</div>
+        <div><span>Tenor</span>3 years, annual periods</div>
+        <div><span>Counterparty</span>Bank B (fictional), cleared</div>
+      </div>
+
+      <p class="phase">Pre-trade and execution</p>
+      <ol class="timeline">
+        <li><div class="stage">
+          <div class="stage-top"><h3>Pre-trade pricing and checks</h3><span class="when">Before T</span><span class="team">Front office</span></div>
+          <dl><dt>In MX.3</dt><dd>Trader prices the swap in a simulation on live curves; pre-deal checks run against credit and market limits (MLC), and incremental XVA is shown if configured.</dd>
+          <dt>Output</dt><dd>A quoted fixed rate and a limit decision.</dd>
+          <dt>Control</dt><dd>A limit breach routes to approval before the trade can be done.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Execution and capture</h3><span class="when">T</span><span class="team">Front office</span></div>
+          <dl><dt>In MX.3</dt><dd>The trade is booked from the INR swap generator, which fills calendars, day count, fixing source and payment lags. The trader enters notional, rate, tenor, portfolio and counterparty. Electronic trades arrive through an interface (MxML).</dd>
+          <dt>Output</dt><dd>A live contract with a trade ID and full cash flow schedule.</dd>
+          <dt>Control</dt><dd>Booking cut-off time; trade date vs entry date recorded.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Enrichment and validation</h3><span class="when">T</span><span class="team">Middle office</span></div>
+          <dl><dt>In MX.3</dt><dd>The contract workflow moves the trade to Validated after checks on portfolio, typology, counterparty and conventions. Non-standard trades need a second approver.</dd>
+          <dt>Output</dt><dd>Validated status, which releases the downstream workflows.</dd>
+          <dt>Control</dt><dd>Four-eyes check; typology decides which workflows and accounting rules apply.</dd></dl>
+        </div></li>
+      </ol>
+
+      <p class="phase">Post-trade processing</p>
+      <ol class="timeline" style="counter-reset:st 3">
+        <li><div class="stage">
+          <div class="stage-top"><h3>Confirmation and matching</h3><span class="when">T to T+1</span><span class="team">Operations</span></div>
+          <dl><dt>In MX.3</dt><dd>The exchange (documents) workflow generates the confirmation, sends it by platform or SWIFT (MT360/361), and matches the counterparty's version.</dd>
+          <dt>Output</dt><dd>Matched confirmation, or a break with the differing fields.</dd>
+          <dt>Control</dt><dd>Ageing of unmatched confirmations is reported and escalated.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Clearing</h3><span class="when">T</span><span class="team">Operations</span></div>
+          <dl><dt>In MX.3</dt><dd>The trade is submitted to the CCP (CCIL for INR interbank swaps). On acceptance, it is novated: the CCP becomes the counterparty and the original bilateral trade is replaced.</dd>
+          <dt>Output</dt><dd>A cleared trade facing the CCP, with margin requirements.</dd>
+          <dt>Control</dt><dd>Reconcile MX.3 cleared trades to the CCP's report daily.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Regulatory trade reporting</h3><span class="when">T to T+1</span><span class="team">Operations / Compliance</span></div>
+          <dl><dt>In MX.3</dt><dd>Trade data is reported to the trade repository (CCIL for RBI reporting of INR OTC derivatives) directly or through an extract.</dd>
+          <dt>Output</dt><dd>Acknowledged report with a unique trade identifier.</dd>
+          <dt>Control</dt><dd>Rejections and late reports are tracked to closure.</dd></dl>
+        </div></li>
+      </ol>
+
+      <p class="phase">Daily, for the life of the trade</p>
+      <ol class="timeline" style="counter-reset:st 6">
+        <li><div class="stage">
+          <div class="stage-top"><h3>End-of-day revaluation and P&amp;L</h3><span class="when">Every business day</span><span class="team">Product control</span></div>
+          <dl><dt>In MX.3</dt><dd>The EOD batch revalues the swap on the closing curve. Booked at market, the swap is worth close to zero on day one. After rates rise, the batch produces a value like the ₹62.3 lakh in the next section.</dd>
+          <dt>Output</dt><dd>Official MTM, daily P&amp;L and P&amp;L explain.</dd>
+          <dt>Control</dt><dd>Independent price verification of curve inputs; unexplained P&amp;L above tolerance investigated.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Risk measurement and limits</h3><span class="when">Every business day</span><span class="team">Market and credit risk</span></div>
+          <dl><dt>In MX.3</dt><dd>Sensitivities (DV01 by tenor bucket, about ₹2.6 lakh per basis point for this trade), VaR and stress, exposure and limit usage.</dd>
+          <dt>Output</dt><dd>Risk reports and limit utilisation.</dd>
+          <dt>Control</dt><dd>Breaches trigger approval workflows.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Margin and collateral</h3><span class="when">Every business day</span><span class="team">Collateral</span></div>
+          <dl><dt>In MX.3</dt><dd>Variation margin follows the change in MTM. For a cleared trade, the CCP calls margin; for a bilateral trade, the CSA terms (threshold, minimum transfer amount) drive the call.</dd>
+          <dt>Output</dt><dd>Margin call issued or received, then settled.</dd>
+          <dt>Control</dt><dd>Disputes above threshold are escalated and investigated.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Accounting</h3><span class="when">Every business day</span><span class="team">Finance</span></div>
+          <dl><dt>In MX.3</dt><dd>Events (revaluation, accrual) create entries through accounting rules selected by typology, portfolio and entity. Entries are aggregated and sent to the GL.</dd>
+          <dt>Output</dt><dd>Subledger entries and the GL feed.</dd>
+          <dt>Control</dt><dd>Subledger to GL reconciliation; P&amp;L to FO reconciliation.</dd></dl>
+        </div></li>
+      </ol>
+
+      <p class="phase">Periodic events</p>
+      <ol class="timeline" style="counter-reset:st 10">
+        <li><div class="stage">
+          <div class="stage-top"><h3>Fixing and reset</h3><span class="when">Each period</span><span class="team">Market data / FO support</span></div>
+          <dl><dt>In MX.3</dt><dd>The floating rate is fixed from the published benchmark and applied to the cash flow. Year 1 in the example fixes at 6.40%.</dd>
+          <dt>Output</dt><dd>A known floating amount for the period.</dd>
+          <dt>Control</dt><dd>A missing fixing blocks the EOD batch and the payment.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Coupon settlement</h3><span class="when">Each payment date</span><span class="team">Operations</span></div>
+          <dl><dt>In MX.3</dt><dd>The deliverables workflow nets the two legs and produces a payment. Year 1: fixed ₹6.50 crore against floating ₹6.40 crore, so the bank pays a net ₹10 lakh.</dd>
+          <dt>Output</dt><dd>Payment instruction released; nostro updated.</dd>
+          <dt>Control</dt><dd>Nostro reconciliation; failed payments chased.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Lifecycle events</h3><span class="when">As needed</span><span class="team">FO, Ops, Finance</span></div>
+          <dl><dt>In MX.3</dt><dd>Amendments, partial unwinds, novations and portfolio compression go through the event workflow. Each can restart confirmation, rebook accounting and change risk.</dd>
+          <dt>Output</dt><dd>An amended or reduced contract with an audit trail.</dd>
+          <dt>Control</dt><dd>Back-dated events are reviewed for P&amp;L and accounting impact.</dd></dl>
+        </div></li>
+      </ol>
+
+      <p class="phase">End of life</p>
+      <ol class="timeline" style="counter-reset:st 13">
+        <li><div class="stage">
+          <div class="stage-top"><h3>Maturity or early termination</h3><span class="when">T + 3 years, or earlier</span><span class="team">All teams</span></div>
+          <dl><dt>In MX.3</dt><dd>The final coupon settles, or an unwind fee is agreed and settled. Unrealised MTM moves to realised P&amp;L; margin is returned.</dd>
+          <dt>Output</dt><dd>Contract status Matured or Terminated; no future cash flows.</dd>
+          <dt>Control</dt><dd>Every workflow closed; no residual balances in the subledger.</dd></dl>
+        </div></li>
+        <li><div class="stage">
+          <div class="stage-top"><h3>Archive and retention</h3><span class="when">After maturity</span><span class="team">IT / Operations</span></div>
+          <dl><dt>In MX.3</dt><dd>Dead trades are purged from live processing by the archiving policy and kept for audit and regulatory retention.</dd>
+          <dt>Output</dt><dd>A smaller live database; history still available for audit.</dd>
+          <dt>Control</dt><dd>Retention periods agreed with compliance.</dd></dl>
+        </div></li>
+      </ol>
+    </section>
+
+    <!-- VALUATION -->
+    <section id="valuation">
+      <div class="sec-head">
+        <p class="eyebrow">Worked example</p>
+        <h2>Valuing a simple interest rate swap</h2>
+        <p>The same fictional trade, booked at 6.50% when that was the market rate and valued later, after rates have risen. Move the slider to shift the curve and watch the value and the legs change.</p>
+      </div>
+
+      <div class="prose">
+        <p>A swap is two streams of cash flows. Its value to the bank is the present value of what it receives minus the present value of what it pays:</p>
+      </div>
+      <div class="formula"><span class="leg-rec">MTM (payer)</span> = PV(floating leg received) − <span class="leg-pay">PV(fixed leg paid)</span>
+
+DF(t)        = 1 / (1 + z(t))^t                    discount factor from zero rate z
+Forward(t)   = DF(t−1) / DF(t) − 1                 implied floating rate for period t
+PV floating  = Σ Notional × Forward(t) × DF(t)     (equals Notional × (1 − DF(3)))
+PV fixed     = Σ Notional × 6.50% × DF(t)
+Par rate     = (1 − DF(3)) / Σ DF(t)               the fixed rate that makes MTM zero</div>
+
+      <div class="val-controls">
+        <label for="shift">Parallel curve shift: <span id="shiftLabel" class="mono">0 bp</span>
+          <input type="range" id="shift" min="-100" max="100" step="5" value="0" aria-describedby="shiftHelp">
+        </label>
+        <button type="button" id="reset">Reset to base curve</button>
+        <p id="shiftHelp" style="font-size:13px; color:var(--muted); flex-basis:100%">Base curve (fictional zero rates): 1Y 6.40%, 2Y 6.60%, 3Y 6.75%. Annual compounding, whole-year periods.</p>
+      </div>
+
+      <div class="tiles">
+        <div class="tile key"><span>MTM to the bank</span><b id="tMtm">–</b><small id="tMtmNote">Receives floating, pays fixed</small></div>
+        <div class="tile"><span>Par swap rate</span><b id="tPar">–</b><small>vs contract rate 6.50%</small></div>
+        <div class="tile"><span>DV01</span><b id="tDv01">–</b><small>Value change per +1 bp</small></div>
+        <div class="tile"><span>Year 1 net coupon</span><b id="tNet">–</b><small id="tNetNote">Fixed vs floating</small></div>
+      </div>
+
+      <div class="tbl"><table class="compact">
+        <thead><tr><th>Year</th><th class="r">Zero rate</th><th class="r">Discount factor</th><th class="r">Forward rate</th><th class="r">Floating cash flow</th><th class="r">PV floating</th><th class="r">Fixed cash flow</th><th class="r">PV fixed</th></tr></thead>
+        <tbody id="valBody"></tbody>
+        <tfoot><tr><td>Total</td><td></td><td class="r" id="sumDf"></td><td></td><td></td><td class="r leg-rec" id="sumFl"></td><td></td><td class="r leg-pay" id="sumFx"></td></tr></tfoot>
+      </table></div>
+
+      <div class="prose">
+        <h3>Reading the result</h3>
+        <p>At the base curve the par rate is about 6.74%, above the contract's 6.50%. The bank locked in paying 6.50% when the market now charges about 6.74% for the same swap, so the position is worth about ₹62.3 lakh to the bank. A quick check: the rate gap of roughly 23.6 bp times an annuity of about ₹2.64 lakh per bp gives the same figure.</p>
+        <p>Move the slider right (rates up) and the MTM rises. A payer swap gains when rates rise, which is what a positive DV01 of about ₹2.6 lakh per bp says. Move it down about 25 bp and the MTM falls close to zero, because the par rate falls back towards 6.50%.</p>
+        <h3>Where each number lives in MX.3</h3>
+        <p>The zero rates come from the closing INR curve in the market data set. The generator supplies the schedule and conventions. The EOD batch computes the MTM and the leg PVs, risk computes DV01 by tenor bucket, and accounting books the MTM (see the entries in the finance section). The table above is the calculation a simulation screen performs for you.</p>
+      </div>
+      <div class="callout warn"><p><b>Simplified on purpose.</b> A real INR MIBOR OIS compounds the overnight rate daily through each period, uses actual day counts and payment lags from the generator, and discounts on the collateral curve. The logic is the same; the arithmetic has more steps. All figures here are fictional.</p></div>
+    </section>
+
+    <!-- RISK -->
+    <section id="risk">
+      <div class="sec-head">
+        <p class="eyebrow">Module 3</p>
+        <h2>Risk, limits and collateral</h2>
+        <p>Their quality depends on data owned by the front office and static data teams.</p>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Sensitivities</h3><p>Delta and DV01 by curve and tenor bucket, gamma, vega by expiry and strike, FX delta, credit spread 01. Change a curve instrument and the risk report changes shape.</p></div>
+        <div class="card"><h3>VaR and stress</h3><p>Historical and Monte Carlo VaR, expected shortfall and stress scenarios. Full revaluation against sensitivity-based methods trades speed for accuracy.</p></div>
+        <div class="card"><h3>FRTB</h3><p>Standardised approach (sensitivities-based method, default risk charge, residual risk add-on) and internal models. The P&amp;L attribution test compares FO and risk P&amp;L, so data drift between them can fail a desk.</p></div>
+        <div class="card"><h3>Counterparty risk</h3><p>PFE across netting sets, CVA, DVA, FVA, MVA and KVA, and SA-CCR for capital. Netting sets are static data: set them up wrong and exposure is overstated.</p></div>
+        <div class="card"><h3>Limits (MLC)</h3><p>Murex Limits Controller checks credit, market and settlement limits pre- and post-deal. Breaches go to approval workflows.</p></div>
+        <div class="card"><h3>Collateral</h3><p>CSA terms, then exposure, then margin call, then agree or dispute, then settle. Initial margin under the uncleared margin rules uses ISDA SIMM sensitivities, so poor sensitivities give wrong calls.</p></div>
+      </div>
+    </section>
+
+    <!-- OPS -->
+    <section id="ops">
+      <div class="sec-head">
+        <p class="eyebrow">Module 4</p>
+        <h2>Operations</h2>
+        <p>Workflows move trades and events through statuses; each status change triggers work downstream.</p>
+      </div>
+      <div class="flow" aria-label="Typical contract statuses">
+        <div class="step"><b>Captured</b>Booked by FO</div>
+        <div class="step"><b>Validated</b>Checks passed</div>
+        <div class="step"><b>Confirmed</b>Matched with counterparty</div>
+        <div class="step"><b>Settled</b>Cash has moved</div>
+        <div class="step"><b>Matured / closed</b>No future flows</div>
+      </div>
+      <p style="color:var(--muted); font-size:14px; max-width:48em">Workflow types: contract (trade status), event (amendments, terminations), deliverables (settlement instructions) and exchange (confirmations and messages). An amendment or cancellation sends the contract back to Validated and restarts confirmation and accounting. Names and states are configured per bank.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Product</th><th>Confirmation</th><th>Settlement</th></tr></thead>
+        <tbody>
+          <tr><td>FX spot, forward, swap</td><td>MT300; CLS where eligible</td><td>pacs.009 / pacs.008 (formerly MT202 / MT103)</td></tr>
+          <tr><td>Deposits and loans</td><td>MT320</td><td>pacs.009 / pacs.008</td></tr>
+          <tr><td>FX options</td><td>MT305</td><td>Premium and exercise cash</td></tr>
+          <tr><td>IRS, OIS, swaptions</td><td>Platform (e.g. MarkitWire, DTCC) or MT360 / MT361</td><td>Coupon cash; CCP where clearing is mandatory</td></tr>
+          <tr><td>CDS</td><td>DTCC platform and trade repository</td><td>Quarterly premium; auction on credit event</td></tr>
+          <tr><td>Precious metals</td><td>MT600 series or platform</td><td>Cash and metal account transfers</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Where breaks come from</h3>
+      <div class="grid">
+        <div class="card"><h3>Static data</h3><p>Missing SSI, wrong legal entity, outdated netting agreement. Start with the counterparty set-up.</p></div>
+        <div class="card"><h3>Market data</h3><p>Missing fixing, stale curve, wrong fixing source. Start with the EOD market data log.</p></div>
+        <div class="card"><h3>Configuration</h3><p>Typology mapped to the wrong workflow or accounting rule.</p></div>
+        <div class="card"><h3>Timing</h3><p>Trades after the EOD cut-off; back-dated amendments.</p></div>
+        <div class="card"><h3>Interfaces</h3><p>MxML rejects, confirmation platform mismatches.</p></div>
+        <div class="card"><h3>Manual overrides</h3><p>Forced status changes that skip a workflow step. Check the audit trail.</p></div>
+      </div>
+    </section>
+
+    <!-- FINANCE -->
+    <section id="finance">
+      <div class="sec-head">
+        <p class="eyebrow">Module 5</p>
+        <h2>Finance and end of day</h2>
+        <p>Accounting follows events, not trades. The EOD batch is a dependency chain.</p>
+      </div>
+      <div class="flow" aria-label="Accounting flow">
+        <div class="step"><b>Trade event</b>New, reval, accrual, settlement, termination</div>
+        <div class="step"><b>Accounting rule</b>Chosen by typology, portfolio, entity, GAAP</div>
+        <div class="step"><b>Entries</b>Deal-level subledger, multi-GAAP</div>
+        <div class="step"><b>GL interface</b>Aggregated to the general ledger</div>
+        <div class="step"><b>Reconcile</b>Subledger to GL, P&amp;L to FO</div>
+      </div>
+      <h3>The example swap, in entries</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Event</th><th>Debit</th><th>Credit</th><th class="r">Amount</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Trade date</td><td>—</td><td>—</td><td class="r">—</td><td>No balance sheet entry at inception; notional may go to memo accounts</td></tr>
+          <tr><td>Revaluation</td><td>Derivative asset</td><td>Unrealised MTM gain (P&amp;L)</td><td class="r">₹62.3 lakh</td><td>Reversed next day, or only the daily change booked</td></tr>
+          <tr><td>Accrual, receive leg</td><td>Interest receivable</td><td>Interest income</td><td class="r">₹6.40 cr</td><td>Year 1 floating, accrued through the year</td></tr>
+          <tr><td>Accrual, pay leg</td><td>Interest expense</td><td>Interest payable</td><td class="r">₹6.50 cr</td><td>Year 1 fixed, accrued through the year</td></tr>
+          <tr><td>Net settlement</td><td>Interest payable ₹6.50 cr</td><td>Interest receivable ₹6.40 cr; Nostro ₹0.10 cr</td><td class="r">₹10 lakh net</td><td>Legs netted on the payment date</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--muted); font-size:14px">Illustrative: IFRS 9 / Ind AS 109, fair value through P&amp;L, trading book. Your accounting schemes define the real accounts. Indian banks often run the RBI investment framework as a second GAAP alongside Ind AS.</p>
+
+      <h3>The EOD chain</h3>
+      <div class="flow" aria-label="End of day steps in order">
+        <div class="step"><b>1 · Cut-off</b>Trading closed</div>
+        <div class="step"><b>2 · Closing data</b>Snapshot validated</div>
+        <div class="step"><b>3 · Fixings</b>Resets applied</div>
+        <div class="step"><b>4 · Reval, P&amp;L</b>Official MTM</div>
+        <div class="step"><b>5 · Risk</b>Sensitivities, VaR</div>
+        <div class="step"><b>6 · Accounting</b>Entries, GL file</div>
+        <div class="step"><b>7 · Datamart</b>Feeders, reports</div>
+        <div class="step"><b>8 · Date roll</b>Next business day</div>
+      </div>
+      <div class="callout"><p>A missing fixing at step 3 blocks steps 4 to 8. Map your bank's batch dependencies before you need them.</p></div>
+
+      <h3>P&amp;L explain</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Component</th><th>What it captures</th><th>First place to look</th></tr></thead>
+        <tbody>
+          <tr><td>New trades</td><td>Day-one P&amp;L on today's bookings, including back-dated trades</td><td>Entry date vs trade date</td></tr>
+          <tr><td>Amendments and cancels</td><td>Restated P&amp;L from changed trades</td><td>Event workflow, audit trail</td></tr>
+          <tr><td>Carry and time decay</td><td>Accrual, roll-down, theta</td><td>Accrual conventions</td></tr>
+          <tr><td>Market moves</td><td>Delta, gamma, vega, basis, FX</td><td>Closing market data vs prior day</td></tr>
+          <tr><td>Fixings and cash</td><td>Resets and settled cash flows</td><td>Fixing log, settlement status</td></tr>
+          <tr><td>Unexplained</td><td>Whatever the above does not cover</td><td>Data and bookings first, model last</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--muted); font-size:14px; max-width:48em">Reports read the datamart, which is a snapshot taken by feeders in the batch. That explains most "the report does not match the screen" tickets: check the feeder ran, then the filter, then the source trade.</p>
+    </section>
+
+    <!-- ASSETS -->
+    <section id="assets">
+      <div class="sec-head">
+        <p class="eyebrow">Module 6</p>
+        <h2>Asset classes</h2>
+        <p>What changes processing in each one, and where it tends to break.</p>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Rates and IRD</h3><ul>
+          <li>IRS, OIS, basis, FRAs, cross-currency, caps, floors, swaptions, bonds, repo</li>
+          <li>Set-up: RFR compounding (lookback, observation shift, lockout); multi-curve with CSA discounting; clearing at LCH, CME, CCIL</li>
+          <li>Breaks: late or missing fixings; wrong bond static; repo collateral substitutions</li></ul></div>
+        <div class="card"><h3>FX and money markets</h3><ul>
+          <li>Spot, forwards, FX swaps, NDFs, vanilla and barrier options, deposits, call money, CDs and CP</li>
+          <li>Set-up: value-date calendars for both currencies plus USD; forward points; NDF fixing source; CLS eligibility</li>
+          <li>Breaks: holiday mismatch gives a wrong value date; NDF fixing not captured; swap legs amended separately</li></ul></div>
+        <div class="card"><h3>Credit and equity</h3><ul>
+          <li>Single-name and index CDS, TRS, equity options and swaps</li>
+          <li>Set-up: ISDA standard CDS model, standard coupons, IMM dates; recovery; reference entity static; dividends and corporate actions</li>
+          <li>Breaks: credit events and successions; index rolls; corporate actions not applied</li></ul></div>
+        <div class="card"><h3>Commodities</h3><ul>
+          <li>Futures, average-price swaps, Asian options, precious metals, energy</li>
+          <li>Set-up: price source per index; averaging period and pricing calendar; units; delivery locations</li>
+          <li>Breaks: averaging over holidays; unit or lot mismatches; physical and financial settlement mixed up</li></ul></div>
+      </div>
+      <div class="callout"><p><b>India set-up points.</b> MIBOR OIS is the main INR swap; Modified MIFOR replaced MIFOR after LIBOR ended. CCIL clears INR swaps and USD/INR forwards and runs the trade repository. Indian banks may trade INR NDFs since 2020. Check each point against current RBI directions.</p></div>
+    </section>
+
+    <!-- EXERCISES -->
+    <section id="exercises">
+      <div class="sec-head">
+        <p class="eyebrow">Module 7</p>
+        <h2>Exercises</h2>
+        <p>Work in mixed groups with at least one person from FO, risk, operations and finance. Ten minutes each. Open the model answer only after discussing.</p>
+      </div>
+      <div class="ex card">
+        <h3>1. The missing fixing</h3>
+        <p>It is 7 pm. The EOD batch stops at fixings: today's floating-rate fixing was not loaded because the feed changed its instrument code. 40 trades reset today.</p>
+        <ol><li>Which EOD steps are blocked, in what order?</li><li>If the batch is forced through with yesterday's fixing, what does each team see tomorrow?</li><li>Who owns the fix, and who signs off the rerun?</li></ol>
+        <details><summary>Model answer</summary><div class="ans"><p>Steps 4 to 8 are blocked. Forcing with a stale fixing gives wrong cash flows, wrong accruals and entries that must be reversed, a fixing effect in tomorrow's P&amp;L explain, and wrong settlement amounts if a payment is near.</p><p>Market data owns the feed mapping; product control and EOD support usually sign off the rerun. A correct delay beats a forced wrong run.</p></div></details>
+      </div>
+      <div class="ex card">
+        <h3>2. Amendment after confirmation</h3>
+        <p>An FX swap's far-leg rate is amended on T+2, after both legs were confirmed and the near leg has settled.</p>
+        <ol><li>Which workflows restart, and which must not?</li><li>What accounting reverses, and on which date?</li><li>How is the counterparty told, and with what message?</li></ol>
+        <details><summary>Model answer</summary><div class="ans"><p>The event workflow and the far-leg confirmation restart. The settled near leg must not be touched or re-settled.</p><p>Far-leg MTM and forward-points accrual reverse and rebook; the date depends on whether amendments are booked as of today or back-dated, which drives the P&amp;L explain. The counterparty receives an amended MT300 (or a cancel and new) for the far leg, and matching restarts.</p></div></details>
+      </div>
+      <div class="ex card">
+        <h3>3. Unexplained P&amp;L</h3>
+        <p>The rates desk shows ₹2.4 crore of unexplained P&amp;L (fictional) on a quiet day. Curves moved less than half a basis point.</p>
+        <ol><li>List the first five things you check, in order.</li><li>Which show in the datamart, and which only on screen?</li><li>What control stops it happening again?</li></ol>
+        <details><summary>Model answer</summary><div class="ans"><p>A sensible order: new and back-dated trades; amendments and cancellations; fixings applied today; the market data set used (complete snapshot, no stale points); static or template changes such as a changed generator convention. Only then suspect the model.</p><p>The datamart shows trade population, P&amp;L components and fixings from the feeder run; audit trail and configuration changes usually need the GUI or change logs. Prevention: change control on static and market data configuration, with a P&amp;L impact check before release.</p></div></details>
+      </div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section id="takeaways">
+      <div class="sec-head">
+        <p class="eyebrow">Wrap-up</p>
+        <h2>Six things to take back to your desk</h2>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>One trade record</h3><p>Configuration choices are cross-team choices.</p></div>
+        <div class="card"><h3>Market data sets</h3><p>Know which set each team reads, and when.</p></div>
+        <div class="card"><h3>Static data</h3><p>Most breaks start here, so give it a named owner.</p></div>
+        <div class="card"><h3>Typology and portfolio</h3><p>They drive workflows and accounting, not only reporting.</p></div>
+        <div class="card"><h3>End of day</h3><p>A dependency chain: map it before it breaks.</p></div>
+        <div class="card"><h3>Unexplained P&amp;L</h3><p>Check data and bookings before the model.</p></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <p>Internal training material. Built from public information about MX.3, not Murex documentation; verify against your bank's version and configuration. All trade figures and curves are fictional.</p>
+  <p>Sources: <a href="https://www.murex.com/en" target="_blank" rel="noopener">murex.com</a> · <a href="https://www.murex.com/en/solutions/technology/mx3-architecture" target="_blank" rel="noopener">MX.3 architecture</a> · <a href="https://www.murex.com/en/frtbsolution" target="_blank" rel="noopener">Murex FRTB</a></p>
+</footer>
+
+<script>
+(function(){
+  var N = 1e9, K = 0.065, base = [0.064, 0.066, 0.0675];
+  var inr = new Intl.NumberFormat('en-IN', {maximumFractionDigits:0});
+  function rupees(x){ return (x < 0 ? '−₹' : '₹') + inr.format(Math.abs(Math.round(x))); }
+  function lakh(x){ return (x < 0 ? '−₹' : '₹') + (Math.abs(x)/1e5).toFixed(1) + ' lakh'; }
+  function pct(x, d){ return (x*100).toFixed(d == null ? 3 : d) + '%'; }
+  function value(shift){
+    var z = base.map(function(r){ return r + shift; });
+    var df = z.map(function(r,i){ return 1/Math.pow(1+r, i+1); });
+    var fwd = df.map(function(d,i){ return (i ? df[i-1] : 1)/d - 1; });
+    var rows = df.map(function(d,i){ return {z:z[i], df:d, f:fwd[i], flc:N*fwd[i], flpv:N*fwd[i]*d, fxc:N*K, fxpv:N*K*d}; });
+    var sdf = df.reduce(function(a,b){return a+b;},0);
+    var fl = rows.reduce(function(a,r){return a+r.flpv;},0), fx = rows.reduce(function(a,r){return a+r.fxpv;},0);
+    return {rows:rows, sdf:sdf, fl:fl, fx:fx, mtm:fl-fx, par:(1-df[2])/sdf, f1:fwd[0]};
+  }
+  var slider = document.getElementById('shift');
+  function render(){
+    var bp = +slider.value, s = bp/10000, v = value(s);
+    var dv01 = (value(s+0.0001).mtm - value(s-0.0001).mtm)/2;
+    document.getElementById('shiftLabel').textContent = (bp > 0 ? '+' : '') + bp + ' bp';
+    var m = document.getElementById('tMtm');
+    m.textContent = lakh(v.mtm);
+    m.className = v.mtm >= 0 ? 'pos' : 'neg';
+    document.getElementById('tMtmNote').textContent = v.mtm >= 0 ? 'Asset: the bank is in the money' : 'Liability: the bank is out of the money';
+    document.getElementById('tPar').textContent = pct(v.par);
+    document.getElementById('tDv01').textContent = lakh(dv01);
+    var net = N*(v.f1 - K);
+    var t = document.getElementById('tNet');
+    t.textContent = lakh(net);
+    t.className = net >= 0 ? 'pos' : 'neg';
+    document.getElementById('tNetNote').textContent = 'Floating ' + pct(v.f1, 2) + ' vs fixed 6.50%: bank ' + (net >= 0 ? 'receives' : 'pays');
+    document.getElementById('valBody').innerHTML = v.rows.map(function(r,i){
+      return '<tr><td>' + (i+1) + '</td><td class="r">' + pct(r.z) + '</td><td class="r">' + r.df.toFixed(5) + '</td><td class="r">' + pct(r.f) +
+        '</td><td class="r">' + rupees(r.flc) + '</td><td class="r leg-rec">' + rupees(r.flpv) + '</td><td class="r">' + rupees(r.fxc) + '</td><td class="r leg-pay">' + rupees(r.fxpv) + '</td></tr>';
+    }).join('');
+    document.getElementById('sumDf').textContent = v.sdf.toFixed(5);
+    document.getElementById('sumFl').textContent = rupees(v.fl);
+    document.getElementById('sumFx').textContent = rupees(v.fx);
+  }
+  slider.addEventListener('input', render);
+  document.getElementById('reset').addEventListener('click', function(){ slider.value = 0; render(); });
+  render();
+})();
+</script>

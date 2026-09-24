@@ -1,0 +1,1784 @@
+<title>MX.3 Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap">
+<style>
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --sunk:#E8ECF2; --ink:#121B2A; --body:#2B3648; --muted:#5A6678; --rule:#D5DCE6;
+  --accent:#1D4E9E; --accent-soft:#E1E9F7; --amber:#8A5400; --amber-soft:#F7EBD6; --green:#1D6B45; --green-soft:#DDEFE4;
+  --plum:#6B3A7D; --plum-soft:#EFE3F3;
+  --hero:#0F1A2B; --hero-ink:#EEF2F7; --hero-muted:#A8B5C8; --hero-accent:#F0B955;
+  --serif:'Source Serif 4', Georgia, serif; --sans:'IBM Plex Sans','Segoe UI',Arial,sans-serif; --mono:'IBM Plex Mono',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0C121B; --surface:#131B27; --sunk:#1A2431; --ink:#E7ECF2; --body:#C9D2DE; --muted:#97A3B4; --rule:#26313F;
+    --accent:#7FA8EC; --accent-soft:#18263D; --amber:#E5AE5A; --amber-soft:#2E2414; --green:#6CC495; --green-soft:#132A1F;
+    --plum:#C99BD8; --plum-soft:#2A1C31; --hero:#080D15;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0C121B; --surface:#131B27; --sunk:#1A2431; --ink:#E7ECF2; --body:#C9D2DE; --muted:#97A3B4; --rule:#26313F;
+  --accent:#7FA8EC; --accent-soft:#18263D; --amber:#E5AE5A; --amber-soft:#2E2414; --green:#6CC495; --green-soft:#132A1F;
+  --plum:#C99BD8; --plum-soft:#2A1C31; --hero:#080D15;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--body); font-family:var(--sans); font-size:16.5px; line-height:1.65; padding-inline:16px; padding-block:0 80px}
+h1,h2,h3{font-family:var(--serif); color:var(--ink); font-weight:500; line-height:1.18; text-wrap:balance; margin:0}
+h2{font-size:clamp(28px,3.6vw,38px)}
+h3{font-size:21px; font-weight:600; margin-top:8px}
+p,ul,ol{margin:0}
+ul,ol{padding-left:22px; display:flex; flex-direction:column; gap:6px}
+a{color:var(--accent)}
+b{color:var(--ink); font-weight:600}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent)}
+.vt{font-family:var(--mono); font-size:.86em; background:var(--plum-soft); color:var(--plum); padding:0 5px; border-radius:4px; white-space:nowrap}
+.note{font-size:13.5px; color:var(--muted)}
+
+.hero{background:var(--hero); margin-inline:-16px; padding-inline:16px; padding-block:64px 52px; color:var(--hero-ink)}
+.hero-in{max-width:1240px; margin:0 auto; display:flex; flex-direction:column; gap:22px}
+.hero .eyebrow{color:var(--hero-accent)}
+.hero h1{font-size:clamp(42px,7vw,80px); color:var(--hero-ink); letter-spacing:-.01em}
+.hero .lede{font-size:19px; color:var(--hero-muted); max-width:44em}
+.hero-meta{display:flex; flex-wrap:wrap; gap:10px 28px; font-family:var(--mono); font-size:13px; color:var(--hero-muted)}
+.hero-meta b{color:var(--hero-ink); font-weight:500}
+.partmap{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; margin-top:10px}
+.partmap a{display:flex; flex-direction:column; gap:4px; text-decoration:none; color:var(--hero-ink); border-top:2px solid #34455E; padding-top:10px; font-size:14px; line-height:1.3}
+.partmap a span{font-family:var(--mono); font-size:11px; color:var(--hero-accent); letter-spacing:.08em}
+.partmap a:hover{border-color:var(--hero-accent)}
+
+.layout{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:260px minmax(0,1fr); gap:56px; padding-top:40px}
+nav.toc{position:sticky; top:calc(env(safe-area-inset-top,0px) + 16px); align-self:start; max-height:calc(100vh - 32px); overflow-y:auto; font-size:13.5px; padding-right:6px}
+nav.toc input{width:100%; font:inherit; padding:7px 10px; border:1px solid var(--rule); border-radius:6px; background:var(--surface); color:var(--ink); margin-bottom:10px}
+nav.toc ol{list-style:none; padding:0; gap:0}
+nav.toc a{display:block; padding:4px 8px; border-radius:5px; text-decoration:none; color:var(--muted); line-height:1.35}
+nav.toc a:hover{background:var(--sunk); color:var(--ink)}
+nav.toc a.active{color:var(--accent); background:var(--accent-soft)}
+nav.toc .toc-part a{font-weight:600; color:var(--ink); margin-top:12px; font-size:12px; letter-spacing:.06em; text-transform:uppercase}
+main{display:flex; flex-direction:column; gap:80px; min-width:0; max-width:860px}
+
+.part{border-top:3px solid var(--ink); padding-top:20px; display:flex; flex-direction:column; gap:8px; scroll-margin-top:16px}
+.part-no{font-family:var(--mono); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--amber)}
+.part h2{font-size:clamp(34px,4.6vw,48px)}
+.part > p:last-child{color:var(--muted); font-size:18px; max-width:40em}
+
+section.ch{display:flex; flex-direction:column; gap:22px; scroll-margin-top:16px}
+.ch-head{display:flex; flex-direction:column; gap:10px}
+.dek{font-size:18px; color:var(--muted); max-width:42em}
+.level{align-self:flex-start; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:2px 10px; border-radius:999px}
+.lv-f{background:var(--green-soft); color:var(--green)}
+.lv-p{background:var(--accent-soft); color:var(--accent)}
+.lv-e{background:var(--amber-soft); color:var(--amber)}
+.prose{display:flex; flex-direction:column; gap:14px; max-width:42em}
+.prose-p{max-width:42em}
+
+.box{border-radius:10px; padding:18px 22px; display:flex; flex-direction:column; gap:10px}
+.box-label{font-size:11.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase}
+.box.mx{background:var(--accent-soft)} .box.mx .box-label{color:var(--accent)}
+.box.expert{background:var(--amber-soft)} .box.expert .box-label{color:var(--amber)}
+.box.src{background:var(--sunk)} .box.src .box-label{color:var(--muted)}
+.worked{background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--green); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; gap:12px; scroll-margin-top:16px}
+.worked > .box-label{color:var(--green)}
+.calc{font-family:var(--mono); font-size:14px; line-height:1.85; background:var(--sunk); border-radius:8px; padding:12px 16px; overflow-x:auto; color:var(--ink)}
+.calc b{font-weight:500; color:var(--green)}
+
+.legend{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
+.legend > div{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; font-size:14.5px}
+.legend .mx-mini{background:var(--accent-soft); border-color:transparent} .legend .mx-mini .box-label{color:var(--accent)}
+.legend .wk-mini{border-left:4px solid var(--green)} .legend .wk-mini .box-label{color:var(--green)}
+.legend .ex-mini{background:var(--amber-soft); border-color:transparent} .legend .ex-mini .box-label{color:var(--amber)}
+
+.tbl{overflow-x:auto; border:1px solid var(--rule); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:14.5px}
+th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+th{font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--sunk)}
+tbody tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tfoot td{font-weight:600; color:var(--ink); border-top:2px solid var(--rule); border-bottom:none}
+table.compact{font-size:13.5px} table.compact th, table.compact td{padding:8px 10px}
+table.map td:first-child{white-space:nowrap}
+.worked .tbl{background:var(--surface)}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px}
+.stats div{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:12px 14px}
+.stats b{display:block; font-family:var(--serif); font-size:28px; font-weight:500}
+.stats span{font-size:13px; color:var(--muted)}
+
+.layers{display:flex; flex-direction:column; gap:6px}
+.layer{display:grid; grid-template-columns:170px minmax(0,1fr); gap:14px; align-items:center; background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:12px 14px}
+.layer.db{background:var(--sunk)}
+.layer-name{font-weight:600; color:var(--ink); font-size:14.5px}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chips span{font-size:13px; background:var(--accent-soft); color:var(--accent); padding:2px 9px; border-radius:5px}
+
+.families{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
+.families > div, .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:6px}
+.families h3,.card h3{font-size:17px; margin:0}
+.families p,.card p{font-size:14.5px; color:var(--muted)}
+.grid{display:grid; gap:12px} .grid.two{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+.flow{display:flex; flex-wrap:wrap; gap:8px}
+.flow .step{flex:1 1 140px; background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:11px 13px; font-size:13.5px; color:var(--muted); line-height:1.4}
+.flow .step b{display:block; font-size:14.5px; margin-bottom:3px}
+
+.ctrl{display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600; color:var(--ink)}
+.ctrl input{width:100%; accent-color:var(--accent)}
+.form-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px}
+.form-grid label{display:flex; flex-direction:column; gap:4px; font-size:13px; font-weight:600; color:var(--muted)}
+.form-grid input{font:inherit; font-family:var(--mono); font-size:14px; padding:6px 9px; border:1px solid var(--rule); border-radius:6px; background:var(--bg); color:var(--ink)}
+.tiles{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.tile{background:var(--sunk); border-radius:8px; padding:11px 14px}
+.tile span{display:block; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.tile b{display:block; font-family:var(--mono); font-weight:500; font-size:19px; font-variant-numeric:tabular-nums; margin-top:2px}
+.tile.key{background:var(--green-soft)} .tile.key b{color:var(--green)}
+
+details.check{border:1px dashed var(--rule); border-radius:10px; padding:12px 18px; background:transparent}
+details.check summary{cursor:pointer; font-weight:600; color:var(--ink); font-size:14.5px}
+details.check ol{margin-top:10px; font-size:15px}
+
+.plan{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.plan > div{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; font-size:14.5px}
+.plan-h{font-family:var(--mono); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--amber)}
+
+.gl-tools{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.gl-tools input{font:inherit; padding:8px 12px; border:1px solid var(--rule); border-radius:6px; background:var(--surface); color:var(--ink); flex:1 1 260px}
+dl.gl{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0 28px; margin:0}
+.gl-item{padding:9px 0; border-bottom:1px solid var(--rule); break-inside:avoid}
+.gl-item dt{font-weight:600; color:var(--ink); font-size:15px}
+.gl-item dd{margin:2px 0 0; font-size:14.5px; color:var(--muted)}
+
+.q{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:10px}
+.q p.qt{font-weight:600; color:var(--ink)}
+.q .opts{display:flex; flex-direction:column; gap:6px}
+.q button{font:inherit; font-size:14.5px; text-align:left; padding:8px 12px; border:1px solid var(--rule); border-radius:6px; background:var(--bg); color:var(--body); cursor:pointer}
+.q button:hover{border-color:var(--accent)}
+.q button.right{border-color:var(--green); background:var(--green-soft); color:var(--ink)}
+.q button.wrong{border-color:var(--amber); background:var(--amber-soft); color:var(--ink)}
+.q .fb{font-size:14.5px; color:var(--muted)}
+.score{font-family:var(--mono); font-size:14px; color:var(--ink)}
+.srcs{columns:2 280px; font-size:14.5px}
+.srcs li{break-inside:avoid; margin-bottom:6px}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr); gap:28px}
+  nav.toc{position:static; max-height:320px; border:1px solid var(--rule); border-radius:10px; padding:12px; background:var(--surface)}
+  .partmap{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .layer{grid-template-columns:minmax(0,1fr); gap:6px}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<header class="hero">
+  <div class="hero-in">
+    <p class="eyebrow">Self-study guide · Foundation to expert</p>
+    <h1>MX.3 Field Guide</h1>
+    <p class="lede">A complete, practical course on how an integrated trading, treasury and risk platform works, using Murex MX.3 as the example: every feature area Murex publishes, the finance behind it, how it runs in a bank, and where it breaks.</p>
+    <div class="hero-meta"><span><b>31</b> chapters</span><span><b>25</b> worked examples</span><span><b>82</b> glossary terms</span><span><b>20</b>-question self-test</span><span>All figures fictional, all calculated in code</span></div>
+    <nav class="partmap" aria-label="Parts">
+      <a href="#part1"><span>PART I</span>Foundations</a>
+      <a href="#part2"><span>PART II</span>The platform</a>
+      <a href="#part3"><span>PART III</span>Front office</a>
+      <a href="#part4"><span>PART IV</span>Risk, capital, liquidity</a>
+      <a href="#part5"><span>PART V</span>Operations</a>
+      <a href="#part6"><span>PART VI</span>Finance and EOD</a>
+      <a href="#part7"><span>PART VII</span>Delivery and career</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <label for="tocFilter" class="note">Find a chapter</label>
+    <input id="tocFilter" type="search" placeholder="e.g. collateral, FRTB">
+    <ol id="tocList"><li><a href="#start">How to use this guide</a></li><li class="toc-part"><a href="#part1">Part I · Foundations</a></li><li><a href="#ch1">1. The capital markets value chain</a></li><li><a href="#ch2">2. Murex and MX.3 at a glance</a></li><li class="toc-part"><a href="#part2">Part II · The platform</a></li><li><a href="#ch3">3. Architecture</a></li><li><a href="#ch4">4. The data model</a></li><li><a href="#ch5">5. Integration and connectivity</a></li><li class="toc-part"><a href="#part3">Part III · Front office: products, pricing and trading</a></li><li><a href="#ch6">6. Pricing foundations</a></li><li><a href="#ch7">7. Curves: construction and use</a></li><li><a href="#ch8">8. Interest rate products</a></li><li><a href="#ch9">9. FX and money markets</a></li><li><a href="#ch10">10. Credit, equity, commodities and structured products</a></li><li><a href="#ch11">11. Trading workflow, positions and P&amp;L</a></li><li class="toc-part"><a href="#part4">Part IV · Risk, capital, collateral and liquidity</a></li><li><a href="#ch12">12. Market risk: sensitivities, VaR and P&amp;L explain</a></li><li><a href="#ch13">13. FRTB: the Fundamental Review of the Trading Book</a></li><li><a href="#ch14">14. Counterparty credit risk, XVA and SA-CCR</a></li><li><a href="#ch15">15. Limits and risk control</a></li><li><a href="#ch16">16. Collateral and margin</a></li><li><a href="#ch17">17. Treasury, liquidity and ALM</a></li><li class="toc-part"><a href="#part5">Part V · Operations</a></li><li><a href="#ch18">18. Workflows and straight-through processing</a></li><li><a href="#ch19">19. Confirmations, clearing and affirmation</a></li><li><a href="#ch20">20. Settlement and cash management</a></li><li><a href="#ch21">21. Securities finance, corporate actions, reference data and regulatory reporting</a></li><li class="toc-part"><a href="#part6">Part VI · Finance, end of day and reporting</a></li><li><a href="#ch22">22. The accounting engine</a></li><li><a href="#ch23">23. IFRS 9, Ind AS 109 and the RBI framework</a></li><li><a href="#ch24">24. Hedge accounting</a></li><li><a href="#ch25">25. Product control: IPV, reserves and P&amp;L sign-off</a></li><li><a href="#ch26">26. End of day in depth</a></li><li><a href="#ch27">27. Datamart and reporting</a></li><li class="toc-part"><a href="#part7">Part VII · Implementation, support and your path to expert</a></li><li><a href="#ch28">28. Implementation projects</a></li><li><a href="#ch29">29. Upgrades, testing and change management</a></li><li><a href="#ch30">30. Troubleshooting playbook</a></li><li><a href="#ch31">31. Becoming an expert: skills and a 90-day plan</a></li><li class="toc-part"><a href="#reference">Reference</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#quiz">Self-test</a></li><li><a href="#sources">Sources</a></li></ol>
+  </nav>
+  <main>
+<section class="ch" id="start">
+  <div class="ch-head">
+    <p class="eyebrow">Before you begin</p>
+    <h2>How to use this guide</h2>
+    <p class="dek">It goes from how capital markets work, through each part of the platform, to how MX.3 is implemented and supported. Read it in order the first time. After that, use it as a reference.</p>
+  </div>
+  <div class="prose">
+    <p>Systems like Murex MX.3 are hard to learn because three kinds of knowledge are mixed together. The first is <b>finance</b>: what a swap is, why a curve is built the way it is, what the accounting standards need. The second is <b>the system</b>: how MX.3 stores a trade, runs its batch and produces a confirmation. The third is <b>your bank</b>: the configuration choices, naming, interfaces and controls of one implementation. Experts combine all three. Most training covers only the second.</p>
+    <p>This guide covers the first two in depth and tells you what to look for in the third. Each chapter has the same parts:</p>
+  </div>
+  <div class="legend">
+    <div><span class="box-label">Concepts</span><p>The finance and the reasoning behind it, as system-neutral as possible.</p></div>
+    <div class="mx-mini"><span class="box-label">In MX.3</span><p>How the platform handles it, based on Murex's published material and common practitioner usage.</p></div>
+    <div class="wk-mini"><span class="box-label">Worked example</span><p>Fictional numbers, calculated in code so every figure reconciles.</p></div>
+    <div class="ex-mini"><span class="box-label">Expert notes</span><p>What breaks in real implementations and what experienced people check first.</p></div>
+  </div>
+  <h3>Reading paths</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>If you are…</th><th>Start with</th><th>Then go deep on</th></tr></thead>
+    <tbody>
+      <tr><td>New to capital markets</td><td>Chapters 1, 6, 7, 8</td><td>Read everything in order; do every worked example by hand</td></tr>
+      <tr><td>Front office support or FO business analyst</td><td>Chapters 4, 7–11</td><td>12, 13, 26</td></tr>
+      <tr><td>Risk (market, credit, XVA)</td><td>Chapters 7, 12–17</td><td>22, 26, 27</td></tr>
+      <tr><td>Operations or collateral</td><td>Chapters 4, 5, 18–21</td><td>16, 26, 30</td></tr>
+      <tr><td>Finance, product control, accounting</td><td>Chapters 22–25</td><td>11, 12, 26, 27</td></tr>
+      <tr><td>Technical (datamart, interfaces, EOD, environments)</td><td>Chapters 3, 4, 5, 26–29</td><td>18, 22, 30</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box expert"><p class="box-label">Be realistic</p><p>No document makes someone an expert on its own. Expertise comes from tracing real trades through a real environment, reading your bank's configuration, and fixing breaks. Use this guide to know what to look for, then spend time in a test environment. Chapter 31 has a 90-day plan for that.</p></div>
+  <div class="box src"><p class="box-label">Sources and limits</p><p>The feature coverage comes from Murex's public website and brochures (links at the end). The explanations of how features work combine that material with general industry knowledge. Murex's client documentation is not public, so screen names, menu paths and configuration objects in your version may differ. Where a term is Murex-specific, it is marked <span class="vt">vendor term</span>. Regulatory figures (Basel, RBI) were correct as of mid-2026; check current texts before relying on them.</p></div>
+</section>
+
+<div class="part" id="part1">
+  <p class="part-no">Part I</p>
+  <h2>Foundations</h2>
+  <p>The business that trading and treasury systems serve, and where MX.3 fits.</p>
+</div>
+
+<section class="ch" id="ch1">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 1 · Foundations</p>
+    <h2>The capital markets value chain</h2>
+    <p class="level lv-f">Foundation</p>
+    <p class="dek">Who does what to a trade, and why one system across all of them matters.</p>
+  </div>
+  <div class="prose">
+    <p>A bank's markets and treasury business buys and sells financial instruments. Some trades serve clients: a corporate hedging its USD import payments, or a mutual fund lending bonds. Some manage the bank's own balance sheet: treasury funding the bank, or hedging the interest rate risk of its loan book. Some are market-making, where the bank quotes prices and holds the resulting risk for a short time.</p>
+    <p>Every trade passes through the same functions, whatever the product:</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Function</th><th>Also called</th><th>Job</th><th>Key question it answers</th></tr></thead>
+    <tbody>
+      <tr><td>Front office</td><td>Trading, sales, treasury desk</td><td>Price, execute and manage positions</td><td>What is my position and P&amp;L right now?</td></tr>
+      <tr><td>Middle office</td><td>Trade support, product control</td><td>Validate trades, own official P&amp;L, independent price verification</td><td>Is the booked trade right, and is the P&amp;L true?</td></tr>
+      <tr><td>Risk management</td><td>Market risk, credit risk, ALM</td><td>Measure, limit and report risk; compute capital</td><td>How much can we lose, and are we within appetite?</td></tr>
+      <tr><td>Operations</td><td>Back office, settlements</td><td>Confirm, clear, settle, manage collateral and corporate actions</td><td>Did the cash and securities move correctly?</td></tr>
+      <tr><td>Finance</td><td>Accounting, financial control</td><td>Post entries, reconcile, report under IFRS / local GAAP</td><td>What goes into the books and the regulatory returns?</td></tr>
+      <tr><td>Treasury / ALM</td><td>Balance sheet management</td><td>Funding, liquidity, transfer pricing, banking-book risk</td><td>Can we fund ourselves, and at what cost?</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Why "front to back to risk" matters</h3>
+    <p>Historically, banks ran a separate system per function and per asset class: an FX system, a derivatives system, a settlement system, a risk engine, a general ledger. Each held its own copy of the trade. Every copy had to be reconciled, and each reconciliation was a source of breaks, delays and operational risk. An integrated platform keeps <b>one trade record</b> that every function reads. Murex describes MX.3 as a "front-to-back-to-risk" platform for this reason.</p>
+    <p>The benefit is consistency: the P&amp;L the trader sees, the sensitivities risk reports and the accounting entries all come from the same trade and, if configured that way, the same market data. The cost is coupling: a change to shared static data, a curve or a trade classification affects every function at once. Most of the expert skill in running such a platform is managing that coupling.</p>
+    <h3>The vendor landscape</h3>
+    <p>MX.3 competes with other integrated or specialist platforms. You will meet them in migrations and interfaces, so it helps to know the names.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Vendor</th><th>Main products</th><th>Typical strength</th></tr></thead>
+    <tbody>
+      <tr><td>Murex</td><td>MX.3</td><td>Cross-asset, front to back to risk, large and mid-size banks</td></tr>
+      <tr><td>Nasdaq (via Adenza, formerly Calypso and AxiomSL)</td><td>Calypso, AxiomSL</td><td>Cross-asset trading and risk; regulatory reporting</td></tr>
+      <tr><td>Finastra</td><td>Summit, Kondor, Opics</td><td>Treasury and derivatives, strong in regional banks</td></tr>
+      <tr><td>FIS</td><td>Front Arena, Quantum</td><td>Trading; corporate treasury</td></tr>
+      <tr><td>ION</td><td>Wallstreet Suite, Openlink</td><td>Treasury; energy and commodities (E/CTRM)</td></tr>
+      <tr><td>Specialists</td><td>Numerix, Quantifi and others</td><td>Pricing libraries, XVA, analytics that plug into platforms</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Ownership in this space changes often; check current ownership before quoting it.</p>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Name two things that go wrong when the front office and the settlement system each hold their own copy of a trade.</li>
+    <li>Why does an integrated platform make change control more important, not less?</li>
+    <li>Which function owns official P&amp;L in most banks, and why is it not the front office?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch2">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 2 · Foundations</p>
+    <h2>Murex and MX.3 at a glance</h2>
+    <p class="level lv-f">Foundation</p>
+    <p class="dek">The company, the platform, and the full feature map from Murex's published material.</p>
+  </div>
+  <div class="prose">
+    <p>Murex was founded in Paris in 1986 and is still privately held, with the founding Eddé family involved in leadership. Its flagship platform is MX.3, the successor to earlier generations (MX and MX-G2000). Murex's own figures describe MX.3 as used by more than 300 clients and about 60,000 users in around 60 countries, including 65 of the top 100 global banks. It covers more than 2,400 financial products and 350 ready-to-use payoffs across 18 or more asset classes, from FX and rates to Islamic finance, carbon emissions and digital assets.</p>
+  </div>
+  <div class="stats">
+    <div><b>1986</b><span>Founded in Paris</span></div>
+    <div><b>300+</b><span>Clients</span></div>
+    <div><b>~60,000</b><span>Users</span></div>
+    <div><b>2,400+</b><span>Financial products</span></div>
+    <div><b>350+</b><span>Ready-made payoffs</span></div>
+    <div><b>18+</b><span>Asset classes</span></div>
+  </div>
+  <p class="note">Figures as published by Murex on murex.com, September 2026.</p>
+  <h3>The feature map</h3>
+  <p class="prose-p">Murex groups MX.3 into seven business solutions. The table lists what each one covers, from Murex's published solution pages. The chapter column shows where this guide explains it.</p>
+  <div class="tbl"><table class="map">
+    <thead><tr><th>Solution</th><th>Published capabilities</th><th>Chapters</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sales and trading</b></td><td>Cross-asset pricing and structuring; RFQ, price publication and client orders; real-time position keeping and P&amp;L decomposition; what-if analysis; multi-tenor curve management and collateral discounting; GPU-accelerated term-structure, local, stochastic and stochastic-local volatility models; automated model validation; pre-trade compliance; SDK for custom analytics</td><td>6–11</td></tr>
+      <tr><td><b>Treasury management</b></td><td>Funding and issuance (deposits, CP, CDs, repos, long-term issuance); liquidity ladders, HQLA buffers and a cash flow engine; funds transfer pricing including FVA; economic and accounting hedging; repricing gap and banking-book risk dashboards</td><td>17, 24</td></tr>
+      <tr><td><b>Enterprise risk management</b></td><td>Historical VaR, expected shortfall, stress testing, P&amp;L explain; FRTB standardised and internal models approaches; issuer, settlement and pre-settlement credit exposure; Monte Carlo PFE; RWA; SA-CCR; CVA and CVA capital; XVA (CVA, DVA, FVA, MVA, KVA); schedule and ISDA SIMM initial margin; real-time limits; liquidity risk</td><td>12–17</td></tr>
+      <tr><td><b>Operations and finance</b></td><td>Automated matching, clearing and settlement with DTCC CTM, MarkitWire and SWIFT; exception dashboards; SSI automation; gross, net, CLS, DVP, FOP and PVP settlement; SWIFT MT to ISO 20022; nostro visibility; multi-GAAP, multi-entity sub-ledger with FIFO, average and cherry-picking inventory methods; micro and macro hedge accounting; XVA for finance (IFRS 13); IPV and P&amp;L sign-off; transaction reporting (SFTR, G20); corporate actions; reference data</td><td>18–25</td></tr>
+      <tr><td><b>Securities finance and collateral</b></td><td>Repo, securities lending and synthetics; bilateral, triparty and cleared; real-time settlement-aware inventory; VM and IM from calculation to settlement; UMR and multiple CSAs; cheapest-to-deliver allocation; triparty agent, Acadia and TriOptima connectivity</td><td>16, 21</td></tr>
+      <tr><td><b>Investment management</b></td><td>Portfolio workspaces and order generation; pre-, in- and post-trade compliance with a rules library (UCITS and others); performance and attribution (Brinson-Fachler for equity, successive spread method for fixed income); private assets; a single book of record</td><td>11, 21</td></tr>
+      <tr><td><b>Energy and commodities (E/CTRM)</b></td><td>Oil, power and gas (down to 5-minute profiles), base and precious metals, environmental products (EUA, RECs and others), agriculture; real-time P&amp;L, exposures and Greeks; VaR, counterparty exposure, XVA and IM</td><td>10</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>What the platform shares across all seven</h3>
+    <p>Underneath the business solutions sit shared services: static and reference data, market data, the trade repository, the pricing library, the workflow engine, the accounting engine, the datamart and the interfaces. Chapters 3 to 5 explain them. They matter more than any single module, because they are what every team shares.</p>
+    <h3>Deployment and commercial models</h3>
+    <p>MX.3 can run on-premise, on infrastructure as a service, as a platform service, or as software as a service (<b>MXSaaS</b>, vendor-managed), including hybrid set-ups. Murex also offers XVA as a service. It lists AWS and Microsoft Azure as certified hyperscalers, and in September 2026 announced MX.3 certification on Google Cloud. For smaller and digital banks, Murex markets <b>MXGO</b>, a packaged treasury and trading offering. Licensing is modular: a bank licenses the functions and asset classes it uses, which is why two MX.3 banks can look very different.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Before you go deep, find out which modules your bank has licensed and uses. Hedge accounting, XVA, collateral and the limits controller are often licensed separately. Many banks run MX.3 for front office and risk but keep a different settlement or GL system.</li>
+    <li>"MX.3" names a platform with many releases. Ask for your exact version and build, since behaviour and screens change between releases.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Which of the seven solution areas does your team touch daily, and which does it only consume data from?</li>
+    <li>Why can two banks both "run MX.3" and still have very different processes?</li>
+  </ol></details>
+</section>
+<div class="part" id="part2">
+  <p class="part-no">Part II</p>
+  <h2>The platform</h2>
+  <p>Architecture, data model and integration: the parts every team shares.</p>
+</div>
+
+<section class="ch" id="ch3">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 3 · Platform</p>
+    <h2>Architecture</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">What runs where, why it is layered that way, and what that means when something is slow or broken.</p>
+  </div>
+  <div class="prose">
+    <p>Murex describes MX.3 as a tiered, service-oriented architecture. Knowing the layers helps functional people as much as technical ones: it tells you whether a problem is in the screen, a calculation engine, a batch job or the data.</p>
+  </div>
+  <div class="layers" aria-label="MX.3 architecture layers">
+    <div class="layer"><p class="layer-name">Presentation</p><div class="chips"><span>Desktop client</span><span>Web browser</span><span>REST API consumers</span></div></div>
+    <div class="layer"><p class="layer-name">Business engines</p><div class="chips"><span>Pricing</span><span>Workflow</span><span>Calculation</span><span>Accounting</span><span>Datamart</span><span>XVA</span><span>Limits</span><span>Risk</span><span>Collateral</span></div></div>
+    <div class="layer"><p class="layer-name">Orchestration servers</p><div class="chips"><span>Position</span><span>Limits</span><span>Market risk</span><span>Collateral</span><span>Market data</span><span>XVA</span><span>Processing</span><span>Simulation</span><span>Clearing orchestrator</span></div></div>
+    <div class="layer"><p class="layer-name">Technical services</p><div class="chips"><span>Authentication (SAML)</span><span>Authorisation</span><span>Service registry</span><span>Caching</span><span>Messaging</span><span>Cluster management</span><span>Aggregation</span><span>Logging and monitoring (OpenTelemetry)</span></div></div>
+    <div class="layer db"><p class="layer-name">Data</p><div class="chips"><span>Financial database</span><span>Datamart database</span><span>Oracle · SAP ASE · SQL Server · PostgreSQL</span></div></div>
+  </div>
+  <p class="note">Layer and component names from Murex's published architecture page.</p>
+  <div class="prose">
+    <h3>The layers in plain terms</h3>
+    <p><b>Presentation.</b> Users work in the desktop client or a browser. Other systems reach MX.3 through APIs. Nothing is calculated here; slowness at this layer is usually a symptom of work below.</p>
+    <p><b>Business engines.</b> These do the work: price a trade, move it through a workflow, generate an accounting entry, compute XVA, check a limit. They are shared: the same pricing engine serves the trader's screen, the EOD revaluation and the risk run. This is how MX.3 keeps FO and risk numbers consistent.</p>
+    <p><b>Orchestration.</b> Large jobs such as a VaR run over thousands of scenarios, or collateral calls across thousands of agreements, are split into pieces and spread across many servers. Murex cites processing 20,000 collateral agreements in 10 minutes and more than 1,000 trades per second. Grid computing, including GPUs for exotic pricing, lives here. Big-data components such as Apache Spark and Storm, and an in-memory data grid, are part of this layer's published technology.</p>
+    <p><b>Technical services.</b> Log-in, permissions, messaging between services, caching and monitoring. SAML handles single sign-on; OpenTelemetry exposes metrics and traces to monitoring tools.</p>
+    <p><b>Data.</b> Two logical databases: the <b>financial database</b>, which holds trades, static data, market data and results, and the <b>datamart database</b>, which holds reporting tables filled in batch. Keeping them separate means heavy reporting does not slow down trading.</p>
+    <h3>Deployment</h3>
+    <p>The layers can run on bare metal, virtual machines or containers. Murex publishes support for Kubernetes and containers, elastic compute for market risk and reporting, and cloud deployment on certified hyperscalers. On MXSaaS, Murex runs the infrastructure and upgrades; the bank keeps its configuration and business processes.</p>
+    <h3>Environments</h3>
+    <p>Every implementation runs several copies of the platform. The names vary, but a typical chain is: development (configuration and interface build), SIT (system integration testing), UAT (business acceptance), pre-production or parallel run (production-like data and volumes), production, and often a DR (disaster recovery) copy. Configuration is built in development and promoted through the chain. Direct changes in production are an audit finding in any well-run bank.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Services are started and managed as a group; practitioners talk about <span class="vt">launchers</span> hosting services, and a <span class="vt">file server</span> and <span class="vt">XML server</span> among the core services. Your technical team will have a service map; ask for it.</li>
+    <li>Batch work runs as <span class="vt">processing scripts</span>: named sequences of tasks such as market data import, revaluation, feeder runs and date roll, scheduled by an enterprise scheduler (Control-M, Autosys or similar) or by MX.3 itself.</li>
+    <li>Access is controlled by user groups and rights: which screens, portfolios, entities and actions a person can use. Segregation of duties (a trader cannot validate their own trade) is enforced here.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>When a screen is slow, ask which engine it calls. A simulation over a large portfolio is a calculation problem; a slow trade search is a database problem; a frozen screen during EOD may be contention with the batch.</li>
+    <li>Keep a diagram of which environment has which data date. Most UAT defects that "cannot be reproduced" come from different market data or static data between environments.</li>
+    <li>On SaaS, you give up control of upgrade timing. Build automated regression tests (chapter 29) before you need them.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why does MX.3 keep the datamart in a separate database from the financial database?</li>
+    <li>A VaR run that took 40 minutes now takes 3 hours after a portfolio grew. Which layer do you look at first?</li>
+    <li>What is the risk of fixing a configuration issue directly in production?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch4">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 4 · Platform</p>
+    <h2>The data model</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">Static data, market data, trade data and results. This is the chapter to know best, because most breaks start in the data.</p>
+  </div>
+  <div class="prose">
+    <p>Think of MX.3 data in four families. Static data describes the world: who, what, where, how. Market data describes prices on a date. Trade data describes what the bank did. Results are what the platform calculated from the other three.</p>
+  </div>
+  <div class="families">
+    <div><h3>Static data</h3><p>Entities, counterparties, portfolios, instruments, conventions, calendars, settlement instructions, agreements. Changes rarely; affects everything.</p></div>
+    <div><h3>Market data</h3><p>Rates, curves, volatilities, spreads, prices, fixings. Changes constantly; stored by date and by market data set.</p></div>
+    <div><h3>Trade data</h3><p>Contracts, their legs and cash flows, events, versions and statuses. Grows every day.</p></div>
+    <div><h3>Results</h3><p>Valuations, sensitivities, P&amp;L, accounting entries, settlement instructions, datamart tables. Recomputed daily.</p></div>
+  </div>
+  <div class="prose">
+    <h3>Static data in depth</h3>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Object</th><th>What it holds</th><th>What depends on it</th><th>Typical failure</th></tr></thead>
+    <tbody>
+      <tr><td>Legal entities and processing organisations</td><td>The bank's own legal entities and branches; base currency; accounting set-up</td><td>Books, accounting, regulatory reporting</td><td>Trade booked in the wrong entity: wrong books, wrong regulatory return</td></tr>
+      <tr><td>Counterparties</td><td>Names, identifiers (LEI), hierarchy (parent and subsidiaries), country, sector, regulatory classification</td><td>Credit limits and exposure aggregation, confirmations, reporting</td><td>Missing parent link: exposure to a group is understated</td></tr>
+      <tr><td>Portfolios</td><td>A tree of books and folders, each linked to an entity, desk and trader</td><td>P&amp;L aggregation, risk views, limits, accounting book, IFRS 9 classification</td><td>Trade in the wrong book: P&amp;L and limits on the wrong desk</td></tr>
+      <tr><td><span class="vt">Typologies</span></td><td>A classification of each trade by business meaning (for example "IRS – vanilla – cleared")</td><td>Which workflows run and which accounting rules fire</td><td>New product mapped to a generic typology: wrong workflow, wrong GL accounts</td></tr>
+      <tr><td>Instruments and <span class="vt">generators</span></td><td>Templates with conventions: day count, business-day rule, calendars, fixing index and lag, payment frequency, settlement lag</td><td>Every cash flow the trade produces</td><td>Wrong calendar or lag: cash flows differ from the counterparty's</td></tr>
+      <tr><td>Indices and fixing sources</td><td>SOFR, MIBOR, EURIBOR, commodity indices; where and when each is published</td><td>Fixings, resets, EOD</td><td>Source code change at the vendor: missing fixing, EOD stops</td></tr>
+      <tr><td>Calendars</td><td>Holidays per currency, market and exchange</td><td>Value dates, fixing dates, accrual periods</td><td>Unannounced holiday not loaded: wrong value date across many trades</td></tr>
+      <tr><td>Securities</td><td>Bonds, equities, their identifiers (ISIN), coupons, schedules, corporate actions</td><td>Pricing, accrued interest, settlement, corporate actions</td><td>Wrong coupon schedule: wrong accrued interest and failed settlement</td></tr>
+      <tr><td>Settlement instructions (SSIs)</td><td>Where each counterparty wants each currency or security delivered</td><td>Payment messages</td><td>Outdated SSI: payment to a closed account</td></tr>
+      <tr><td>Agreements</td><td>ISDA master agreements, CSAs, netting agreements, GMRA / GMSLA</td><td>Netting, collateral, exposure, confirmations</td><td>Netting agreement missing: exposure calculated gross</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Market data in depth</h3>
+    <p>Market data has three properties that matter: <b>what</b> it is (a quote, a curve, a surface), <b>when</b> (live, or a closing snapshot for a date), and <b>which set</b> it belongs to. MX.3 lets a bank keep several <span class="vt">market data sets</span>, for example a front-office set updated live, an official closing set for P&amp;L and accounting, and a risk set. Each consumer (screen, batch step, report) is configured to read a particular set.</p>
+    <p>Raw quotes are rarely used directly. They are inputs to <b>calibrated objects</b>: a curve built from deposit, futures and swap quotes (chapter 7), a volatility surface fitted to option quotes, a credit curve built from CDS spreads. When a trader says "the curve", they usually mean the calibrated object, not the quotes.</p>
+    <h3>Trade data in depth</h3>
+    <p>A trade in MX.3 has several layers:</p>
+    <ul>
+      <li><b>Contract and trade.</b> The economic deal, with an identifier that stays constant, and versions each time it is changed.</li>
+      <li><b>Legs.</b> A swap has two legs; a cross-currency swap two legs in different currencies; a package may contain several linked contracts.</li>
+      <li><b>Schedules and cash flows.</b> Generated from the conventions: accrual start and end, fixing date, payment date, amount (known or projected).</li>
+      <li><b>Events.</b> Everything after booking: amendment, fixing, exercise, termination, novation. Each event has its own date and effect.</li>
+      <li><b>Statuses.</b> Where the trade and each event sit in their workflows (chapter 18).</li>
+      <li><b>Audit trail.</b> Who did what and when. This is your best friend when investigating.</li>
+    </ul>
+    <h3>Three dates on every trade</h3>
+    <p>Each trade carries a <b>trade date</b> (when the deal was agreed), an <b>entry or input date</b> (when it was booked in the system) and a <b>value or start date</b> (when it takes economic effect). Events have similar dates. The gap between trade date and entry date is the source of most "back-dated" P&amp;L and accounting surprises.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>A new trade is almost always booked from a template (<span class="vt">generator</span> or instrument definition), so conventions come from static data, not from the trader's typing. When a cash flow looks wrong, look at the template first.</li>
+    <li>Typology and portfolio together decide much of the downstream processing. Many banks treat a new typology as a controlled change that finance, operations and risk must approve.</li>
+    <li>Static data is often mastered elsewhere (a counterparty golden source, a securities master) and fed into MX.3. Know which fields MX.3 owns and which it only receives, so you fix problems at the source.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>When investigating anything, write down four things first: the trade ID and version, the event, the date, and the market data set. Half of all investigations go wrong because two people are looking at different versions or dates.</li>
+    <li>Static data changes have a delayed blast radius: a calendar change today affects trades that fix next month. Include forward-looking impact checks in static data change control.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>A new product is booked under an existing typology "to save time". Which three teams are affected, and how?</li>
+    <li>Why can the same trade show two different values on the same day in two screens?</li>
+    <li>What is the difference between trade date and entry date, and which team cares most?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch5">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 5 · Platform</p>
+    <h2>Integration and connectivity</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">How trades, data and messages get in and out, and where interface breaks come from.</p>
+  </div>
+  <div class="prose">
+    <p>No bank runs MX.3 alone. It receives trades from electronic platforms, market data from vendors, static data from golden sources, and sends confirmations, payments, accounting and reports to other systems. A mid-size implementation commonly has dozens of interfaces.</p>
+  </div>
+  <div class="grid two">
+    <div class="card"><h3>Patterns</h3><p>Real-time (a trade from an e-trading platform), event-driven (a status change publishes a message), and batch (an end-of-day GL file). Choose by how fresh the data must be.</p></div>
+    <div class="card"><h3>Formats</h3><p>SWIFT (MT and ISO 20022 MX) for payments and confirmations; FpML for OTC derivatives; FIX for orders and executions; MxML, Murex's XML format, for MX.3 business objects.</p></div>
+    <div class="card"><h3>Transports</h3><p>Kafka, IBM MQ, JMS, REST and web services, SFTP files and direct database access (JDBC), all published by Murex as supported.</p></div>
+    <div class="card"><h3>APIs</h3><p>RESTful services with JSON payloads and OpenAPI 3.1 definitions, OAuth2 security and TLS, a developer portal with documentation, code generation and Postman collections. They cover pricing, trade life cycle, positions, valuations and real-time market data.</p></div>
+  </div>
+  <h3>What typically flows in and out</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Direction</th><th>Data</th><th>Typical source or target</th><th>Typical format</th></tr></thead>
+    <tbody>
+      <tr><td>In</td><td>Trades</td><td>E-trading platforms, other booking systems, clearing houses</td><td>FIX, FpML, MxML, API</td></tr>
+      <tr><td>In</td><td>Market data</td><td>Refinitiv, Bloomberg, internal market data hubs, FBIL (India) for benchmarks</td><td>Vendor feeds, files</td></tr>
+      <tr><td>In</td><td>Static data</td><td>Counterparty and securities masters</td><td>Files, MxML, API</td></tr>
+      <tr><td>Out</td><td>Confirmations</td><td>SWIFT, MarkitWire, DTCC</td><td>MT3xx, FpML</td></tr>
+      <tr><td>Out</td><td>Payments</td><td>Payment hub or SWIFT</td><td>ISO 20022 (pacs.008, pacs.009), MT</td></tr>
+      <tr><td>Out</td><td>Accounting</td><td>General ledger (SAP, Oracle, others)</td><td>Files, API</td></tr>
+      <tr><td>Out</td><td>Regulatory reports</td><td>Trade repositories (DTCC GTR, CCIL TR in India), regulators</td><td>Regulator-specific formats</td></tr>
+      <tr><td>Out</td><td>Risk and finance data</td><td>Enterprise data warehouse, risk aggregation, BI</td><td>Datamart extracts, Kafka</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li><span class="vt">MxML</span> is Murex's XML representation of business objects such as trades and static data. <span class="vt">MxML Exchange</span> is the messaging workflow that imports and exports them, with its own statuses for accepted, rejected and pending messages.</li>
+    <li>Murex's integration framework supports transformation, mapping and routing, so inbound and outbound interfaces can be configured rather than coded from scratch. Murex also runs a connectivity partner programme for pre-built interfaces.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Every interface needs three things beyond the mapping: a reject queue someone monitors, a reconciliation (counts and key fields, source against target) and replay. An interface without all three will lose trades eventually.</li>
+    <li>Most interface breaks are static data mismatches: an unknown counterparty code, an unmapped portfolio, an instrument that does not exist yet. Fix the mapping table, not the message.</li>
+    <li>For real-time trade feeds, agree on idempotency (what happens if the same trade arrives twice) and on amendments (full replace or delta).</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why is a reconciliation needed even when an interface reports no errors?</li>
+    <li>Which format would you expect for a swap confirmation sent to a platform, and which for a payment?</li>
+  </ol></details>
+</section>
+<div class="part" id="part3">
+  <p class="part-no">Part III</p>
+  <h2>Front office: products, pricing and trading</h2>
+  <p>The finance behind every number the platform produces. If you understand this part, most of the rest follows.</p>
+</div>
+
+<section class="ch" id="ch6">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 6 · Front office</p>
+    <h2>Pricing foundations</h2>
+    <p class="level lv-f">Foundation</p>
+    <p class="dek">Time value, conventions and discounting: the arithmetic under every valuation.</p>
+  </div>
+  <div class="prose">
+    <p>Every price in MX.3 comes from one idea: a cash flow in the future is worth less than the same cash today, and the difference is set by interest rates. To value any instrument, the platform does three things: works out each future cash flow, works out when it is paid, and discounts it to today. The rest is detail, but the detail is where the breaks come from.</p>
+    <h3>Day count conventions</h3>
+    <p>Interest accrues over a period measured in years, and there are several ways to count the fraction:</p>
+    <ul>
+      <li><b>Act/365 (Fixed)</b>: actual days divided by 365. Used for INR, GBP and many money-market conventions.</li>
+      <li><b>Act/360</b>: actual days divided by 360. Used for USD and EUR money markets and SOFR, €STR.</li>
+      <li><b>30/360</b>: each month counted as 30 days. Common for bond coupons, including Indian government securities.</li>
+      <li><b>Act/Act</b>: actual days over actual days in the period or year. Used for many government bonds (for example US Treasuries).</li>
+    </ul>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: day count</p>
+    <p>Interest on ₹10 crore at 6.50% for 91 days:</p>
+    <p class="calc">Act/365: 10,00,00,000 × 6.50% × 91/365 = <b>₹16,20,548</b><br>Act/360: 10,00,00,000 × 6.50% × 91/360 = <b>₹16,43,056</b></p>
+    <p>A difference of ₹22,508 on one deposit. A wrong day count on a template affects every trade booked from it, which is why conventions belong in controlled static data.</p>
+  </div>
+  <div class="prose">
+    <h3>Business-day conventions and calendars</h3>
+    <p>When a date falls on a holiday it moves. <b>Following</b> moves to the next business day; <b>modified following</b> does the same unless that crosses into the next month, in which case it moves back; <b>preceding</b> moves back. Which holidays count depends on the calendar: a USD/INR trade needs Mumbai and New York holidays, and FX settlement usually needs both currencies' calendars plus USD.</p>
+    <p>Two more conventions matter for swaps. <b>Adjusted or unadjusted</b> accrual: whether the interest period ends on the moved date or the original one. And <b>payment lag</b>: how many business days after the period end the payment is made (common for RFR swaps).</p>
+    <h3>Compounding and discount factors</h3>
+    <p>A <b>discount factor</b> DF(t) is the value today of 1 unit paid at time t. With a zero rate z quoted with annual compounding, DF(t) = 1 / (1 + z)<sup>t</sup>. With continuous compounding, DF(t) = e<sup>−zt</sup>. The platform stores curves in whatever form it likes internally; what matters is that each consumer uses the same convention when converting. Mixing compounding conventions is a classic cause of small, persistent P&amp;L differences.</p>
+    <h3>Present value</h3>
+    <p>The present value of an instrument is the sum of its expected cash flows, each multiplied by its discount factor. For instruments with optionality (caps, swaptions, FX options), "expected" means the average over possible market outcomes under a pricing model. Linear products need only curves; options also need volatilities.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><p>Conventions live in the templates and calendars described in chapter 4. The pricing library applies them when generating the schedule, projecting floating rates and discounting. A trader overriding a convention on one trade creates an exception that every downstream team inherits; many banks restrict which fields a trader may override.</p></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>A USD/INR forward's value date falls on a US holiday that is a business day in Mumbai. What happens, and which static data decides it?</li>
+    <li>Why does the same 6.50% rate give a larger interest amount under Act/360 than Act/365?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch7">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 7 · Front office</p>
+    <h2>Curves: construction and use</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">How a yield curve is built from market quotes, why modern banks use several curves, and what that means for risk.</p>
+  </div>
+  <div class="prose">
+    <p>A curve turns a handful of market quotes into a discount factor for every date. Building one is called <b>bootstrapping</b> or <b>calibration</b>: start with the shortest instrument, solve for its discount factor, then use it to solve the next, and so on. The curve reprices every input instrument exactly.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: bootstrapping from par swap rates</p>
+    <p>Suppose annual-pay swaps trade at these fictional par rates. A par swap is worth zero, so for an n-year swap with rate s<sub>n</sub>:</p>
+    <p class="calc">s<sub>n</sub> × (DF<sub>1</sub> + … + DF<sub>n</sub>) + DF<sub>n</sub> = 1 &nbsp;⇒&nbsp; DF<sub>n</sub> = (1 − s<sub>n</sub> × (DF<sub>1</sub> + … + DF<sub>n−1</sub>)) / (1 + s<sub>n</sub>)</p>
+    <div class="tbl"><table class=""><thead><tr><th>Tenor</th><th class=r>Par swap rate (input)</th><th class=r>Discount factor</th><th class=r>Zero rate (annual)</th><th class=r>1Y forward starting at</th></tr></thead><tbody><tr><td>1Y</td><td class=r>6.40%</td><td class=r>0.939850</td><td class=r>6.400%</td><td class=r>Year 0: 6.400%</td></tr><tr><td>2Y</td><td class=r>6.55%</td><td class=r>0.880751</td><td class=r>6.555%</td><td class=r>Year 1: 6.710%</td></tr><tr><td>3Y</td><td class=r>6.70%</td><td class=r>0.822886</td><td class=r>6.714%</td><td class=r>Year 2: 7.032%</td></tr><tr><td>4Y</td><td class=r>6.80%</td><td class=r>0.768018</td><td class=r>6.821%</td><td class=r>Year 3: 7.144%</td></tr><tr><td>5Y</td><td class=r>6.88%</td><td class=r>0.716026</td><td class=r>6.909%</td><td class=r>Year 4: 7.261%</td></tr></tbody></table></div>
+    <p>DF<sub>1</sub> = 1 / 1.064 = 0.939850. DF<sub>2</sub> = (1 − 0.0655 × 0.939850) / 1.0655 = 0.880751, and so on. The check: the 3-year swap reprices to 1.000000, par. The 5-year zero rate (6.909%) sits above the 5-year par rate because the curve slopes upward; the forward rate for year 5 (7.261%) sits higher still.</p>
+  </div>
+  <div class="prose">
+    <h3>Interpolation</h3>
+    <p>Between the quoted tenors the platform interpolates. Common choices are linear on zero rates, linear on log discount factors (which gives piecewise-flat forward rates), and smooth methods such as monotone convex or cubic splines. The choice matters: flat-forward curves produce jumpy forwards but local risk; smooth curves produce smooth forwards but spread risk across tenors. Changing the interpolation method changes valuations and risk buckets, so it is a controlled change.</p>
+    <h3>Multi-curve: why one curve is not enough</h3>
+    <p>Before 2008, banks used one curve per currency to both project floating rates and discount cash flows. The crisis showed that lending for three months is riskier than rolling overnight lending, so 3-month and 6-month rates carry a spread over overnight rates. Banks moved to <b>multi-curve</b> frameworks:</p>
+    <ul>
+      <li>A <b>discounting curve</b> based on the rate paid on collateral, usually the overnight rate (OIS curve), because a collateralised derivative is effectively funded at that rate.</li>
+      <li><b>Projection curves</b> per index and tenor, used to forecast floating rates, each built as a spread over the discounting curve using basis swap quotes.</li>
+      <li><b>CSA-specific discounting</b>: if a CSA allows collateral in several currencies, the counterparty will post the cheapest one, and the discounting curve reflects that choice.</li>
+      <li><b>Cross-currency curves</b>: discounting USD cash flows under an INR CSA (or the reverse) needs cross-currency basis, taken from FX forwards and cross-currency swaps.</li>
+    </ul>
+    <p>With the end of LIBOR, most major currencies now reference overnight risk-free rates directly (SOFR, SONIA, €STR, TONA), which simplifies projection for new trades. In India, the MIBOR OIS curve is the main INR curve; Modified MIFOR (MMIFOR) replaced MIFOR for USD/INR-linked products.</p>
+    <h3>Special features</h3>
+    <p><b>Turn-of-year and month-end effects</b>: overnight rates can jump on balance-sheet dates, so curves often include explicit jumps. <b>Central bank meeting dates</b>: short-end overnight curves may be built with steps on policy meeting dates. <b>Futures convexity</b>: rates implied from futures need a convexity adjustment before they enter a curve.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex publishes "comprehensive curve construction", an "advanced collateral discounting engine" and flexible risk projection in its rate curve material. In practice, a curve definition lists instruments, quote sources, interpolation and dependencies on other curves; calibration runs live intraday and again at the close.</li>
+    <li>Which curve a trade discounts on is driven by static data: currency, CSA terms and clearing status. A wrong CSA link silently changes valuations.</li>
+    <li>Sensitivities are computed against the curve instruments, so the curve definition shapes the risk report (chapter 12).</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>When a desk's P&amp;L jumps on a quiet day, check whether a curve instrument was added, removed or re-sourced. The trades did not change, but their risk projection and valuation did.</li>
+    <li>If front office and risk use different curve definitions, the FRTB P&amp;L attribution test (chapter 13) will catch it. Align them deliberately.</li>
+    <li>A curve that fails to calibrate at the close is an EOD blocker. Know the fallback rule (use yesterday's curve? stop?) before it happens.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Rebuild DF<sub>3</sub> from the table using the formula. Do you get the same number?</li>
+    <li>Why does a collateralised swap discount on the OIS curve?</li>
+    <li>What changes in the risk report if you switch from linear-zero to flat-forward interpolation?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch8">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 8 · Front office</p>
+    <h2>Interest rate products</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">Swaps, overnight compounding, caps and swaptions, bonds and repo, each with a worked example.</p>
+  </div>
+  <div class="prose">
+    <h3>Interest rate swaps</h3>
+    <p>A swap exchanges fixed interest for floating interest on a notional that is not exchanged. The payer of fixed gains when rates rise. Its value is the present value of the floating leg minus the present value of the fixed leg (from the payer's side). Variations include OIS (floating leg is a compounded overnight rate), basis swaps (floating against floating), amortising and accreting swaps, forward-starting swaps and cross-currency swaps, where notionals in two currencies are usually exchanged at the start and end.</p>
+  </div>
+  <div class="worked" id="irs-widget"><p class="box-label">Worked example: value a swap (interactive)</p>
+    <p>₹100 crore notional, 3 years, the bank pays 6.50% fixed annually and receives floating. It was traded at market; rates have since risen. Fictional zero curve: 1Y 6.40%, 2Y 6.60%, 3Y 6.75%. Move the slider to shift the curve.</p>
+    <div class="ctrl"><label for="irsShift">Parallel shift: <span id="irsShiftLbl" class="mono">0 bp</span></label><input type="range" id="irsShift" min="-100" max="100" step="5" value="0"></div>
+    <div class="tiles">
+      <div class="tile key"><span>Value to the bank</span><b id="irsMtm">–</b></div>
+      <div class="tile"><span>Par swap rate</span><b id="irsPar">–</b></div>
+      <div class="tile"><span>DV01 (per +1 bp)</span><b id="irsDv01">–</b></div>
+    </div>
+    <div class="tbl"><table class="compact"><thead><tr><th>Year</th><th class="r">Zero</th><th class="r">DF</th><th class="r">Forward</th><th class="r">PV floating</th><th class="r">PV fixed</th></tr></thead><tbody id="irsBody"></tbody></table></div>
+    <p>At the base curve the value is ₹62,29,939: the bank pays 6.50% on a swap the market now prices at about 6.74%. A payer swap has positive DV01: it gains as rates rise.</p>
+  </div>
+  <div class="prose">
+    <h3>Overnight rate compounding</h3>
+    <p>RFR swaps (SOFR, SONIA, €STR, MIBOR OIS) pay a floating amount built by compounding the daily overnight rate over the period. Because the rate is only known at the end of the period, conventions exist to leave time to calculate and pay: a <b>lookback</b> (use rates from a few days earlier), an <b>observation shift</b> (also shift the day weights to the earlier period), a <b>lockout</b> (freeze the rate for the last few days) or a <b>payment delay</b>.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: compounding a week of SOFR</p>
+    <p>USD 50 million, fictional overnight rates, Act/360. Friday's rate applies for three days (Friday to Monday).</p>
+    <div class="tbl"><table class=""><thead><tr><th>Day</th><th class=r>Overnight rate</th><th class=r>Days it applies</th><th class=r>1 + r × d/360</th><th class=r>Running product</th></tr></thead><tbody><tr><td>Mon</td><td class=r>4.30%</td><td class=r>1</td><td class=r>1.00011944</td><td class=r>1.00011944</td></tr><tr><td>Tue</td><td class=r>4.31%</td><td class=r>1</td><td class=r>1.00011972</td><td class=r>1.00023918</td></tr><tr><td>Wed</td><td class=r>4.32%</td><td class=r>1</td><td class=r>1.00012000</td><td class=r>1.00035921</td></tr><tr><td>Thu</td><td class=r>4.29%</td><td class=r>1</td><td class=r>1.00011917</td><td class=r>1.00047842</td></tr><tr><td>Fri</td><td class=r>4.33%</td><td class=r>3</td><td class=r>1.00036083</td><td class=r>1.00083943</td></tr><tr><td>Mon</td><td class=r>4.34%</td><td class=r>1</td><td class=r>1.00012056</td><td class=r>1.00096008</td></tr><tr><td>Tue</td><td class=r>4.30%</td><td class=r>1</td><td class=r>1.00011944</td><td class=r>1.00107964</td></tr></tbody></table></div>
+    <p class="calc">Compounded rate = (product − 1) × 360 / 9 = <b>4.3186%</b><br>Interest = 50,000,000 × (product − 1) = <b>$53,982.05</b></p>
+    <p>A simple weighted average would give 4.3167% and $53,958.33. The difference is small over a week and grows with the period and the rate level, which is why the compounding method must match the counterparty's exactly.</p>
+  </div>
+  <div class="prose">
+    <h3>Caps, floors and swaptions</h3>
+    <p>A <b>cap</b> pays when a floating rate is above a strike; it is a strip of <b>caplets</b>, each an option on one period's rate. A floor is the reverse. A <b>swaption</b> is an option to enter a swap. Market practice quotes these with Black's model (lognormal volatility) or the Bachelier model (normal volatility, needed when rates can be low or negative), and smiles are commonly fitted with SABR.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: one caplet with Black's model</p>
+    <p>₹100 crore notional, 3-month period starting in 1 year (τ = 0.25). Forward rate F = 7.00%, strike K = 7.25%, volatility 20%, discount factor to payment 0.921056.</p>
+    <p class="calc">d<sub>1</sub> = [ln(F/K) + ½σ²T] / (σ√T) = -0.0755 &nbsp; d<sub>2</sub> = d<sub>1</sub> − σ√T = -0.2755<br>Caplet = Notional × τ × DF × [F·N(d<sub>1</sub>) − K·N(d<sub>2</sub>)] = <b>₹10,39,020</b></p>
+    <p>That is 41.56 bp per annum on the notional for that quarter. The strike is above the forward, so the caplet is out of the money and worth only its time value.</p>
+  </div>
+  <div class="prose">
+    <h3>Bonds</h3>
+    <p>A bond pays fixed coupons and returns its face value at maturity. It trades on a <b>clean price</b> (without accrued interest) and settles on the <b>dirty price</b> (clean plus accrued). Its yield is the single rate that discounts its cash flows to the dirty price. <b>Modified duration</b> measures the percentage price change for a 1% change in yield; <b>PV01</b> measures the value change for a 0.01% change.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: a fictional government bond</p>
+    <p>7.10% coupon paid semi-annually, 5 years to maturity, yield 7.00%, 30/360.</p>
+    <p class="calc">Price on a coupon date = Σ 3.55 / (1.035)<sup>i</sup> + 100 / (1.035)<sup>10</sup> = <b>100.4158</b><br>Macaulay duration 4.297 years; modified duration 4.152; PV01 0.0417 per 100 face</p>
+    <p>45 days after a coupon date, at the same yield, accrued interest is 100 × 7.10% × 45/360 = 0.8875. The dirty price grows to 101.2832, so the clean price is 100.3957. A ₹25 crore face holding is then worth ₹25,32,07,916 and moves by about ₹1,04,220 per basis point.</p>
+  </div>
+  <div class="prose">
+    <h3>Repo</h3>
+    <p>A repo is a sale of securities with an agreement to buy them back later at a higher price: economically a collateralised loan. The cash lent is the market value less a <b>haircut</b>. The difference between sale and repurchase price is the repo interest. Repos can be bilateral, <b>triparty</b> (an agent manages collateral selection and substitution) or cleared through a CCP. In India, repo and TREPS (tri-party repo) are settled through CCIL.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: a 7-day repo</p>
+    <p class="calc">Collateral: ₹25 crore face at 101.50 dirty = ₹25,37,50,000<br>Cash lent after a 2% haircut = ₹24,86,75,000<br>Interest at 6.50% for 7 days (Act/365) = ₹3,09,992<br>Repurchase amount = <b>₹24,89,84,992</b></p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Rates products are booked from templates that set index, compounding method, lookback, payment lag and calendars. Legacy IBOR trades carry fallback terms; Murex published IBOR-transition support including fallback conversion.</li>
+    <li>Bond static data (coupons, schedule, ex-coupon rules) usually comes from a securities master. Errors appear as accrued interest breaks with the custodian.</li>
+    <li>Murex's securities finance module covers repo, securities lending and synthetics with bilateral, triparty and cleared set-ups and a real-time inventory.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>RFR cash flow breaks with counterparties are almost always convention differences: lookback days, observation shift on or off, rounding of the compounded rate, or holiday treatment. Compare the generator settings against the confirmation, field by field.</li>
+    <li>For bonds, check ex-coupon and record-date rules. A trade that settles after the record date but before the coupon is paid does not receive the coupon, and some conventions then show negative accrued interest.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>In the swap example, what par rate would make the value zero, and why does DV01 stay positive?</li>
+    <li>Why can't an RFR swap pay on the last day of its accrual period without a convention like lookback or payment delay?</li>
+    <li>Recalculate the bond price at a 7.25% yield. Does the change roughly match modified duration × 0.25%?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch9">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 9 · Front office</p>
+    <h2>FX and money markets</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">Spot, forwards, swaps, NDFs and options: the highest-volume products in most treasuries.</p>
+  </div>
+  <div class="prose">
+    <p>FX is where volume lives: Murex cites handling about 25% of global FX trading on its platform and processing 35 million FX cash trades a day in benchmarks. A <b>spot</b> trade settles in two business days (T+2) for most pairs, one day for USD/CAD and some others. A <b>forward</b> (outright) settles later at a rate set today. An <b>FX swap</b> combines a near leg and an opposite far leg, and is mostly a funding instrument. An <b>NDF</b> (non-deliverable forward) settles only the difference in a convertible currency, for currencies with capital controls.</p>
+    <h3>Forward rates and covered interest parity</h3>
+    <p>The forward rate is not a forecast. It is set by the interest rates in the two currencies, so that borrowing in one, converting, and investing in the other gives no free profit.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: a 3-month USD/INR forward</p>
+    <p>Fictional spot 88.00, INR rate 6.50% (Act/365), USD rate 4.00% (Act/360), 91 days.</p>
+    <p class="calc">F = S × (1 + r<sub>INR</sub> × 91/365) / (1 + r<sub>USD</sub> × 91/360) = <b>88.5309</b><br>Forward points = 53.09 paise; annualised forward premium ≈ 2.42%</p>
+    <p>The higher-yielding currency (INR) trades at a forward discount, so USD/INR forwards sit above spot. In practice traders quote the points, and actual forward premia also reflect onshore supply and demand and cross-currency basis.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: NDF settlement</p>
+    <p>A bank bought USD 10 million against INR in an NDF at 88.60. On the fixing date the reference rate is 89.10.</p>
+    <p class="calc">Gain in INR = 10,000,000 × (89.10 − 88.60) = ₹50,00,000<br>Settled in USD = INR gain / fixing rate = <b>$56,116.72</b>, paid to the bank</p>
+    <p>Only the difference moves, in USD. The fixing source and date (and the fallback if it is not published) are part of the trade's static data.</p>
+  </div>
+  <div class="prose">
+    <h3>FX options</h3>
+    <p>Vanilla FX options are priced with the Garman-Kohlhagen model, Black-Scholes adapted for two interest rates. The market quotes volatility by delta rather than by strike: at-the-money, 25-delta and 10-delta risk reversals and butterflies. The platform converts those quotes into a surface. Exotics such as barriers, digitals and target redemption forwards (TARFs) need models that capture the smile dynamics, such as local volatility or stochastic-local volatility, which Murex lists among its GPU-accelerated models.</p>
+  </div>
+  <div class="worked" id="opt-widget"><p class="box-label">Worked example: price an FX option (interactive)</p>
+    <p>USD call / INR put, USD 10 million. Change any input.</p>
+    <div class="form-grid">
+      <label for="oS">Spot<input id="oS" type="number" step="0.05" value="88.00"></label>
+      <label for="oK">Strike<input id="oK" type="number" step="0.05" value="89.00"></label>
+      <label for="oT">Years<input id="oT" type="number" step="0.05" value="0.25"></label>
+      <label for="oV">Volatility %<input id="oV" type="number" step="0.25" value="5"></label>
+      <label for="oRd">INR rate %<input id="oRd" type="number" step="0.05" value="6.5"></label>
+      <label for="oRf">USD rate %<input id="oRf" type="number" step="0.05" value="4.0"></label>
+    </div>
+    <div class="tiles">
+      <div class="tile key"><span>Premium (INR per USD)</span><b id="oPx">–</b></div>
+      <div class="tile"><span>Premium on USD 10m</span><b id="oPrem">–</b></div>
+      <div class="tile"><span>Delta</span><b id="oDelta">–</b></div>
+      <div class="tile"><span>Vega (per 1 vol point)</span><b id="oVega">–</b></div>
+    </div>
+    <p>At the default inputs: d<sub>1</sub> = -0.1895, d<sub>2</sub> = -0.2145, premium 0.6683 INR per USD (₹66,82,990 in total), delta 0.4206. To hedge, the trader sells about $4,206,300 of USD. Rates are continuously compounded in this model.</p>
+  </div>
+  <div class="prose">
+    <h3>Money markets</h3>
+    <p>Deposits and loans, call and notice money, certificates of deposit and commercial paper are the bank's short-term funding and investment. They are simple to price but high in volume and central to liquidity management (chapter 17). Interest is usually simple, on Act/365 for INR and Act/360 for USD.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>FX positions are kept in real time by currency pair and value date. Murex publishes support for RFQ management, price publication and e-trading integration.</li>
+    <li>FX swaps are booked as two linked legs. Amending one without the other is a common break (see exercise 2 in the training handbook).</li>
+    <li>Settlement is where FX differs most: CLS eligibility, netting and nostro projections (chapter 20).</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Value-date errors are the most common FX break. Check the calendars on the currency pair (including USD for crosses) before blaming the trader.</li>
+    <li>For INR, know which trades are onshore deliverable forwards (settled through CCIL for interbank) and which are offshore NDFs; they sit in different books, limits and regulatory reports.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>If INR rates fall to 5.50% with USD unchanged, does the forward move towards or away from spot?</li>
+    <li>In the option widget, raise volatility from 5% to 6%. Does the premium change by roughly the vega?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch10">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 10 · Front office</p>
+    <h2>Credit, equity, commodities and structured products</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">The remaining asset classes, and how exotic payoffs are handled.</p>
+  </div>
+  <div class="prose">
+    <h3>Credit default swaps</h3>
+    <p>A CDS is insurance on a borrower's default. The protection buyer pays a running premium; the seller pays the loss (notional × (1 − recovery)) if a credit event occurs. Since the 2009 "Big Bang" standardisation, single-name CDS trade with fixed coupons (100 or 500 bp in North America; others in Europe) and an upfront payment that makes up the difference to the market spread. Pricing uses the ISDA standard model with a hazard-rate (default intensity) curve built from CDS quotes.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: from spread to default probability and upfront</p>
+    <p>5-year CDS at a fictional 150 bp, recovery 40%.</p>
+    <p class="calc">Hazard rate ≈ spread / (1 − R) = 1.50% / 0.60 = 2.50% per year<br>5-year survival ≈ e<sup>−0.025 × 5</sup> = 88.25%, so default probability ≈ 11.75%<br>Risky annuity (RPV01, quarterly, 4% discounting) ≈ 4.2342<br>Upfront with a 100 bp coupon ≈ (1.50% − 1.00%) × 4.2342 = 2.117% of notional, or $211,711 on USD 10 million, paid by the protection buyer</p>
+  </div>
+  <div class="prose">
+    <h3>Equity derivatives</h3>
+    <p>Equity options, equity swaps and total return swaps depend on the stock price, volatility, interest rates and <b>dividends</b>, plus <b>corporate actions</b> (splits, rights issues, special dividends) that adjust strikes and quantities. Vanilla options use Black-Scholes. In India, exchange-traded index options are European-style and cash-settled, while stock options and futures have been physically settled since 2019.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: Black-Scholes call</p>
+    <p class="calc">S = 100, K = 100, 1 year, volatility 25%, rate 6.5%, dividend yield 1%<br>Call = <b>12.4640</b>; delta 0.6286; gamma 0.01489; vega 0.3722 per vol point</p>
+  </div>
+  <div class="prose">
+    <h3>Commodities</h3>
+    <p>Commodity derivatives usually settle against the <b>average</b> of published prices over a period (averaging reduces manipulation risk and matches physical exposure). Key static data: the index and its publication calendar, units (barrels, tonnes, troy ounces, MWh), and for physical trades, delivery location and logistics. Murex's E/CTRM coverage runs from oil, power and gas (with delivery profiles down to 5-minute granularity) to base and precious metals, environmental products and agriculture.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: an average-price gold swap</p>
+    <p>The bank receives the average price and pays a fixed USD 2,315.00 per ounce on 1,000 ounces. Fictional fixings:</p>
+    <div class="tbl"><table class=""><thead><tr><th>Pricing day</th><th class=r>Published price (USD/oz)</th></tr></thead><tbody><tr><td>Day 1</td><td class=r>2,310.50</td></tr><tr><td>Day 2</td><td class=r>2,298.00</td></tr><tr><td>Day 3</td><td class=r>2,325.25</td></tr><tr><td>Day 4</td><td class=r>2,340.00</td></tr><tr><td>Day 5</td><td class=r>2,331.75</td></tr></tbody><tfoot><tr><td>Average</td><td class=r>2,321.10</td></tr></tfoot></table></div>
+    <p class="calc">Settlement = (2,321.10 − 2,315.00) × 1,000 = <b>$6,100.00</b> received by the bank</p>
+  </div>
+  <div class="prose">
+    <h3>Structured and exotic products</h3>
+    <p>Exotics have payoffs that depend on the path of prices (barriers, Asians, lookbacks), several underlyings (baskets, worst-of), or accumulated results (accumulators, TARFs). They need richer models (local volatility, stochastic volatility, stochastic-local volatility, multi-factor rate models) and more computation, often Monte Carlo on a grid. Murex publishes more than 350 ready-made payoffs and structuring capabilities, so many new structures can be configured rather than coded.</p>
+    <p>Exotics also bring <b>model risk</b>: two reasonable models can give different prices. Banks manage it through model validation (Murex publishes automated support for client model validation policies), reserves, and limits on unobservable inputs.</p>
+    <h3>Islamic, sustainability-linked and digital assets</h3>
+    <p>MX.3 covers Sharia-compliant products (murabaha, wakala and profit-rate swaps), sustainability-linked instruments whose coupons depend on ESG targets, and digital assets including cryptocurrency trading, tokenised real-world assets and digital money issuance. These use the same data model but add product-specific static data and events.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>For credit, the hard part is reference data: reference entities, obligations, successions (when a company splits) and index versions. Keep them aligned with DTCC's reference data.</li>
+    <li>For equity, missed corporate actions are the classic silent break: positions and strikes stay unadjusted until someone reconciles with the exchange or custodian.</li>
+    <li>For commodities, check that averaging calendars match the index publisher's, not a generic currency calendar.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>If recovery were 25% instead of 40%, would the implied default probability go up or down for the same spread?</li>
+    <li>Why do commodity swaps usually settle on an average rather than a single price?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch11">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 11 · Front office</p>
+    <h2>Trading workflow, positions and P&amp;L</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">How traders and sales use the platform day to day, and the P&amp;L measures everyone argues about.</p>
+  </div>
+  <div class="prose">
+    <h3>A trader's day</h3>
+    <p>Start of day: check overnight fixings and positions, confirm the market data is live. During the day: quote clients, execute, hedge, watch positions and risk. End of day: mark the closing curves and volatilities (or check the ones the market data team loaded), sign off P&amp;L with product control the next morning.</p>
+    <h3>Pre-trade</h3>
+    <p>Pricing screens let a trader or salesperson build a trade, price it on live data, add a sales margin, check limits and XVA, and send a quote. Murex publishes support for RFQs, price publication, client orders, best execution transparency and pre-trade compliance. For electronic flow, prices are streamed to platforms and trades arrive automatically.</p>
+    <h3>Positions and the simulation</h3>
+    <p>A <b>position</b> is the aggregate of trades in a portfolio: FX positions by currency and date, bond positions by security, derivative risk by curve and tenor. The core front-office view in MX.3 is the <span class="vt">simulation</span>: a configurable screen that revalues a set of portfolios on chosen market data and shows valuations, P&amp;L and sensitivities, with drill-down to trades and cash flows. Traders use it for "what-if": what happens to my P&amp;L if this curve moves, or if I add this hedge.</p>
+    <h3>P&amp;L measures</h3>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Measure</th><th>Meaning</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td>Mark-to-market (MTM) or fair value</td><td>Present value of the position on current market data</td><td>Trading book valuation</td></tr>
+      <tr><td>Realised P&amp;L</td><td>P&amp;L locked in by selling, settling or terminating</td><td>Accounting, performance</td></tr>
+      <tr><td>Unrealised P&amp;L</td><td>Change in MTM of open positions</td><td>Daily P&amp;L, accounting</td></tr>
+      <tr><td>Accrual P&amp;L</td><td>Interest earned or paid over time, without MTM</td><td>Banking book, amortised cost</td></tr>
+      <tr><td>Clean vs dirty P&amp;L</td><td>Clean excludes new trades and amendments; dirty includes them</td><td>P&amp;L explain, FRTB tests</td></tr>
+      <tr><td>Hypothetical P&amp;L</td><td>Yesterday's positions revalued on today's market</td><td>FRTB backtesting and PLA</td></tr>
+      <tr><td>Risk-theoretical P&amp;L</td><td>P&amp;L predicted by the risk model's factors</td><td>FRTB PLA test</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Trading book and banking book</h3>
+    <p>Regulators split positions into the <b>trading book</b> (held for trading, marked to market, market risk capital) and the <b>banking book</b> (held to maturity or for liquidity, mostly accrual accounting, interest rate risk in the banking book). The boundary is strict under FRTB; moving positions between books needs approval. In MX.3 the book assignment follows the portfolio, which is another reason portfolio set-up is controlled.</p>
+    <h3>Investment management</h3>
+    <p>For asset managers, pension funds and insurers, MX.3 offers portfolio workspaces, order generation, compliance rules monitored pre-trade, in-trade, post-trade and at end of day, performance and attribution (Brinson-Fachler for equity, a successive spread method for fixed income), liability-driven investment and a single book of record.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>When a trader and product control disagree on P&amp;L, first check which market data set and which time each uses. Then check whether one includes trades the other does not (late bookings).</li>
+    <li>A simulation is only as good as its configuration: which portfolios, which market data set, which pricing settings. Save and name standard layouts so everyone looks at the same thing.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>What is the difference between hypothetical and risk-theoretical P&amp;L, and why does FRTB compare them?</li>
+    <li>Why does moving a bond from the banking book to the trading book need approval?</li>
+  </ol></details>
+</section>
+<div class="part" id="part4">
+  <p class="part-no">Part IV</p>
+  <h2>Risk, capital, collateral and liquidity</h2>
+  <p>How the platform measures what the bank could lose, what capital it must hold, and how it funds itself.</p>
+</div>
+
+<section class="ch" id="ch12">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 12 · Risk</p>
+    <h2>Market risk: sensitivities, VaR and P&amp;L explain</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">From the Greeks to historical VaR, with the P&amp;L explain that ties risk back to the money.</p>
+  </div>
+  <div class="prose">
+    <h3>Sensitivities</h3>
+    <p>A sensitivity is how much a position's value changes when one market input moves a little. The platform calculates them by <b>bumping</b>: revalue with the input shifted, and take the difference. The standard set:</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Name</th><th>Input bumped</th><th>Usual unit</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Delta / DV01 / PV01</td><td>Rates, by curve and tenor</td><td>Value per 1 bp</td><td>Bucketed by curve instrument or by standard tenors</td></tr>
+      <tr><td>FX delta</td><td>Spot rate</td><td>Currency amount</td><td>Equivalent spot position to hedge</td></tr>
+      <tr><td>Gamma</td><td>Change in delta</td><td>Per unit move</td><td>Large for options near the strike and expiry</td></tr>
+      <tr><td>Vega</td><td>Volatility, by expiry and strike</td><td>Value per 1 vol point</td><td>Surface buckets for smile risk</td></tr>
+      <tr><td>Theta</td><td>Time</td><td>Value per day</td><td>Includes carry and option decay</td></tr>
+      <tr><td>CS01</td><td>Credit spread</td><td>Value per 1 bp</td><td>Per issuer or index</td></tr>
+      <tr><td>Basis and cross-currency</td><td>Spreads between curves</td><td>Value per 1 bp</td><td>Invisible if curves are not separated</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <p>There are two ways to bucket rate delta. <b>Par (instrument) delta</b> bumps each quoted curve instrument and recalibrates, so the risk is expressed in hedgeable instruments. <b>Zero delta</b> bumps points on the zero curve directly. Traders prefer par delta because it tells them what to trade; regulatory measures often need standard tenors, so the platform maps between them.</p>
+    <h3>P&amp;L explain</h3>
+    <p>P&amp;L explain (or attribution) splits the day's P&amp;L into causes using the sensitivities: delta × market move, ½ × gamma × move², vega × volatility move, theta for the day, plus new trades, amendments and cash. What is left is <b>unexplained</b>. A small unexplained amount is normal (higher-order effects); a large one signals a data or booking problem, or a model that the sensitivities do not describe well.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: explaining an option's P&amp;L</p>
+    <p>The USD 10 million USD/INR call from chapter 9. Overnight: spot rises from 88.00 to 88.60, volatility from 5.0% to 5.5%, one day passes.</p>
+    <div class="tbl"><table class=""><thead><tr><th>Component</th><th>Formula</th><th class=r>P&L (INR)</th></tr></thead><tbody><tr><td>Delta</td><td>Δ × dS × notional</td><td class=r>₹25,23,780</td></tr><tr><td>Gamma</td><td>½ × Γ × dS² × notional</td><td class=r>₹3,17,410</td></tr><tr><td>Vega</td><td>vega × dσ × notional</td><td class=r>₹8,53,480</td></tr><tr><td>Theta</td><td>one day of time decay</td><td class=r>−₹71,005</td></tr><tr><td>Explained total</td><td></td><td class=r>₹36,23,666</td></tr><tr><td>Actual (full revaluation)</td><td>new price − old price</td><td class=r>₹36,33,328</td></tr><tr><td>Unexplained</td><td>actual − explained</td><td class=r>₹9,663</td></tr></tbody></table></div>
+    <p>The Taylor explain leaves 0.3% unexplained: cross effects (vanna, volga) and higher-order terms. That is a healthy explain. If it were 20%, you would investigate before believing the P&amp;L.</p>
+  </div>
+  <div class="prose">
+    <h3>Value at Risk and expected shortfall</h3>
+    <p><b>VaR</b> answers: over a horizon (usually 1 day, scaled to 10 for capital), what loss will not be exceeded with a given confidence (99% or 95%)? <b>Expected shortfall (ES)</b> answers: if we are in the worst tail, what is the average loss? ES captures the shape of the tail, which VaR ignores, and is the measure FRTB uses.</p>
+    <p>Three methods: <b>historical simulation</b> (apply each of the last N days' market moves to today's portfolio; the most common in banks and the approach Murex highlights), <b>parametric</b> (assume a distribution and use sensitivities), and <b>Monte Carlo</b> (simulate many scenarios from a model). Scenarios can be applied by <b>full revaluation</b> (reprice every trade; accurate but heavy) or <b>sensitivity-based</b> approximation (fast but misses non-linearity).</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: historical VaR with 20 scenarios</p>
+    <p>Portfolio P&amp;L (₹ lakh) when each of 20 fictional historical days' moves is applied to today's positions:</p>
+    <p class="calc">-4.1, +1.2, +0.8, -1.5, +2.3, -0.4, -6.8, +1.9, +0.2, -2.2, +3.1, -0.9, -3.4, +0.6, +1.4, -1.1, +2.7, -5.2, +0.3, -0.7</p>
+    <p>Sorted, the worst four are -6.8, -5.2, -4.1, -3.4. With 20 scenarios, the 95% tail holds one scenario (5% of 20). Conventions differ on whether VaR is the worst loss or the next one; taking the second-worst loss:</p>
+    <p class="calc">95% VaR = <b>₹5.2 lakh</b> &nbsp;&nbsp; 95% ES (average of the two worst) = <b>₹6.0 lakh</b></p>
+    <p>Real banks use 250 to 500 or more days, so a 99% VaR sits between the 2nd and 3rd worst of 250. Document the exact convention: it changes results and backtesting.</p>
+  </div>
+  <div class="prose">
+    <h3>Stress testing</h3>
+    <p>Stress tests apply extreme but plausible moves: <b>historical</b> (replay 2008, the 2013 taper tantrum, March 2020) or <b>hypothetical</b> (a 200 bp parallel shift, INR depreciating 10%). Murex publishes support for both. Regulators also set supervisory scenarios. Stress results feed limits and capital planning.</p>
+    <h3>Backtesting</h3>
+    <p>Compare each day's VaR with the actual and hypothetical P&amp;L. Too many days where losses exceed VaR (exceptions) means the model underestimates risk; under Basel rules, more than four exceptions at 99% over 250 days starts to increase the capital multiplier.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex lists historical VaR, expected shortfall, stress testing and P&amp;L explanation in its market risk offering, with calculations spread across the orchestration layer (chapter 3).</li>
+    <li>Because the same pricing library serves FO and risk, full revaluation in VaR uses the same models the trader sees. That consistency is the platform's main argument over separate risk engines.</li>
+    <li>Scenario sets (historical shifts by risk factor) are market data objects; their quality (gaps, proxies, stale series) drives VaR quality.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>A VaR jump with no position change usually means a new scenario entered the window or an extreme one dropped out. Check the window before investigating trades.</li>
+    <li>Proxies for missing history (a new bond, a thin curve) are the weak point of historical VaR. Keep a register of proxies and review them.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>In the P&amp;L explain example, which component would dominate if spot had not moved?</li>
+    <li>Why is expected shortfall always at least as large as VaR at the same confidence?</li>
+    <li>A desk shows 7 exceptions in 250 days at 99%. What does that suggest?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch13">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 13 · Risk</p>
+    <h2>FRTB: the Fundamental Review of the Trading Book</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">The Basel market risk capital framework, and why it forces front office and risk onto the same data.</p>
+  </div>
+  <div class="prose">
+    <p>FRTB (Basel Committee standard, finalised in 2019) replaces the older VaR-based market risk capital rules. Banks compute capital under a <b>standardised approach</b> (FRTB-SA), which every bank must calculate, and may use the <b>internal models approach</b> (FRTB-IMA) desk by desk if the desk passes strict tests. Implementation dates differ by jurisdiction and several have been delayed; check the dates and approach that apply to your bank, including RBI's current market risk capital directions for Indian banks.</p>
+    <h3>Standardised approach: three parts</h3>
+    <ul>
+      <li><b>Sensitivities-based method (SBM)</b>: delta, vega and curvature charges for seven risk classes (general interest rate, credit spread in three types, equity, commodity, FX). Sensitivities are weighted by prescribed risk weights, then aggregated with prescribed correlations within and across buckets, under three correlation scenarios (low, medium, high); the highest total is taken.</li>
+      <li><b>Default risk charge (DRC)</b>: for jump-to-default risk on credit and equity positions.</li>
+      <li><b>Residual risk add-on (RRAO)</b>: a simple charge on gross notional for exotic payoffs (1%) and other residual risks (0.1%).</li>
+    </ul>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: GIRR delta for one currency</p>
+    <p>A portfolio has INR rate sensitivities at three tenors. FRTB defines the sensitivity as the value change for a 1 bp move divided by 0.0001, and applies the Basel risk weights for general interest rate risk.</p>
+    <div class="tbl"><table class=""><thead><tr><th>Tenor</th><th class=r>PV01 (INR per bp)</th><th class=r>Sensitivity s = PV01 × 10,000</th><th class=r>Risk weight</th><th class=r>Weighted sensitivity</th></tr></thead><tbody><tr><td>2Y</td><td class=r>₹2,00,000</td><td class=r>₹2,00,00,00,000</td><td class=r>1.3%</td><td class=r>₹2,60,00,000</td></tr><tr><td>5Y</td><td class=r>−₹1,20,000</td><td class=r>−₹1,20,00,00,000</td><td class=r>1.1%</td><td class=r>−₹1,32,00,000</td></tr><tr><td>10Y</td><td class=r>₹50,000</td><td class=r>₹50,00,00,000</td><td class=r>1.1%</td><td class=r>₹55,00,000</td></tr></tbody></table></div>
+    <p>Correlation between tenors: ρ = max(e<sup>−3% × |T<sub>k</sub> − T<sub>l</sub>| / min(T<sub>k</sub>, T<sub>l</sub>)</sup>, 40%). So ρ(2Y,5Y) = 0.9560, ρ(2Y,10Y) = 0.8869, ρ(5Y,10Y) = 0.9704.</p>
+    <p class="calc">K<sub>b</sub> = √( Σ WS<sub>k</sub>² + Σ<sub>k≠l</sub> ρ<sub>kl</sub> WS<sub>k</sub> WS<sub>l</sub> ) = <b>₹1,83,58,755</b></p>
+    <p>Adding the absolute weighted sensitivities would give ₹4,47,00,000. The offsetting 5-year short and the high correlations reduce the charge by more than half. This is the medium correlation scenario for one bucket; the full calculation repeats it for low and high correlations, adds inflation and cross-currency basis, aggregates across currencies (γ = 50% for GIRR) and adds vega and curvature.</p>
+  </div>
+  <div class="prose">
+    <h3>Internal models approach</h3>
+    <ul>
+      <li><b>Expected shortfall at 97.5%</b>, calibrated to a stressed period, with <b>liquidity horizons</b> of 10 to 120 days depending on the risk factor.</li>
+      <li><b>Non-modellable risk factors (NMRF)</b>: factors without enough real price observations are capitalised separately through stressed scenarios, often a large charge.</li>
+      <li><b>Backtesting</b> at desk level (99% and 97.5% VaR over 250 days).</li>
+      <li><b>P&amp;L attribution (PLA) test</b>: compares each desk's hypothetical P&amp;L (front-office pricing) with its risk-theoretical P&amp;L (risk model) using the Spearman correlation and the Kolmogorov-Smirnov distance. A desk in the red zone must use the standardised approach.</li>
+    </ul>
+    <p>PLA is why FRTB matters for platform design: any difference between the front-office valuation and the risk model's view (different curves, different interpolation, missing risk factors, proxies) shows up as a failed test and more capital.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><p>Murex publishes both FRTB-SA and FRTB-IMA. The sensitivities for SA come from the same pricing library that front office uses, mapped onto the regulatory risk factors and tenors. Expect configuration work in: mapping each curve and surface to FRTB buckets, assigning each portfolio to a regulatory desk, classifying instruments for RRAO and DRC, and feeding real price observations for the NMRF test.</p></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Most FRTB-SA problems are mapping problems: an issuer in the wrong sector bucket, a curve mapped to the wrong currency, a missing vega surface. Reconcile the sensitivity inputs before questioning the aggregation.</li>
+    <li>The regulatory desk structure should follow how the business is really managed. Desks designed only to pass PLA tend to fail it later.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>In the example, what happens to K<sub>b</sub> if the 5-year sensitivity flips from short to long?</li>
+    <li>Why does the PLA test punish a desk whose risk model uses fewer curves than the front office?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch14">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 14 · Risk</p>
+    <h2>Counterparty credit risk, XVA and SA-CCR</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">What the bank loses if a counterparty defaults, how that is priced, and how much capital it needs.</p>
+  </div>
+  <div class="prose">
+    <h3>Types of credit exposure</h3>
+    <ul>
+      <li><b>Issuer risk</b>: holding a bond or loan; lose it if the issuer defaults.</li>
+      <li><b>Settlement risk</b>: paying your side of an exchange before receiving theirs. FX is the classic case; CLS and PVP settlement remove it.</li>
+      <li><b>Pre-settlement (counterparty) risk</b>: a derivative has positive value to you and the counterparty defaults before it matures. The exposure moves with markets.</li>
+    </ul>
+    <h3>Measuring pre-settlement exposure</h3>
+    <p>Today's exposure is the positive MTM. Future exposure is uncertain, so it is simulated: generate thousands of market paths (Monte Carlo), revalue the netting set on each path at future dates, apply netting and collateral, and take statistics. <b>Expected exposure (EE)</b> is the average positive exposure at each date; <b>potential future exposure (PFE)</b> is a high percentile (say 95% or 97.5%), used for credit limits. Netting sets (trades under one ISDA with enforceable netting) and collateral agreements are critical static data here.</p>
+    <h3>XVA: valuation adjustments</h3>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Adjustment</th><th>What it prices</th></tr></thead>
+    <tbody>
+      <tr><td>CVA (credit)</td><td>Expected loss from the counterparty's default</td></tr>
+      <tr><td>DVA (debit)</td><td>The mirror: the bank's own default reduces what it will pay</td></tr>
+      <tr><td>FVA (funding)</td><td>Cost of funding uncollateralised positions (or benefit)</td></tr>
+      <tr><td>MVA (margin)</td><td>Cost of funding initial margin over the trade's life</td></tr>
+      <tr><td>KVA (capital)</td><td>Cost of the regulatory capital the trade consumes</td></tr>
+    </tbody>
+  </table></div>
+  <div class="worked"><p class="box-label">Worked example: CVA from an exposure profile</p>
+    <p>A 5-year uncollateralised swap with a corporate. Fictional expected exposure (₹ crore) at year ends: 0, 1.8, 2.4, 2.1, 1.3, 0. Hazard rate 2% a year, loss given default 60%, discounting at 6.8%.</p>
+    <p class="calc">CVA ≈ LGD × Σ EE<sub>avg</sub>(period) × PD(period) × DF(mid-period)</p>
+    <div class="tbl"><table class=""><thead><tr><th>Period</th><th class=r>Average EE (₹ cr)</th><th class=r>Default probability in period</th><th class=r>Discount factor (mid)</th><th class=r>CVA contribution (₹ lakh)</th></tr></thead><tbody><tr><td>0–1Y</td><td class=r>0.90</td><td class=r>1.980%</td><td class=r>0.9676</td><td class=r>1.035</td></tr><tr><td>1–2Y</td><td class=r>2.10</td><td class=r>1.941%</td><td class=r>0.9060</td><td class=r>2.216</td></tr><tr><td>2–3Y</td><td class=r>2.25</td><td class=r>1.902%</td><td class=r>0.8483</td><td class=r>2.179</td></tr><tr><td>3–4Y</td><td class=r>1.70</td><td class=r>1.865%</td><td class=r>0.7943</td><td class=r>1.511</td></tr><tr><td>4–5Y</td><td class=r>0.65</td><td class=r>1.828%</td><td class=r>0.7438</td><td class=r>0.530</td></tr></tbody><tfoot><tr><td>Total</td><td class=r></td><td class=r></td><td class=r></td><td class=r>7.47</td></tr></tfoot></table></div>
+    <p>The XVA desk charges the trader about ₹7.47 lakh for this trade. If the counterparty signed a CSA with daily margin, EE and CVA would fall sharply.</p>
+  </div>
+  <div class="prose">
+    <h3>SA-CCR: regulatory exposure</h3>
+    <p>For capital, Basel's standardised approach for counterparty credit risk (SA-CCR) replaces internal simulation with a formula: EAD = α × (RC + multiplier × PFE add-on), with α = 1.4. <b>RC</b> is the replacement cost (current MTM net of collateral, floored at zero). The <b>add-on</b> is built from adjusted notionals, supervisory factors and maturity factors per asset class and hedging set. The <b>multiplier</b> gives some credit for over-collateralisation or negative MTM.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: SA-CCR for one swap</p>
+    <p>The ₹100 crore 3-year payer swap from chapter 8, unmargined, MTM +₹62.3 lakh, no collateral.</p>
+    <p class="calc">Supervisory duration SD = (e<sup>−0.05×0</sup> − e<sup>−0.05×3</sup>) / 0.05 = 2.7858<br>Adjusted notional = 100 crore × 2.7858 = ₹2,78,58,40,471<br>Add-on = supervisory factor 0.5% × adjusted notional × delta (+1) × maturity factor (1) = ₹1,39,29,202<br>RC = ₹62,30,000; multiplier = 1 (MTM positive)<br>EAD = 1.4 × (RC + add-on) = <b>₹2,82,22,883</b></p>
+    <p>If the MTM were −₹62.3 lakh instead, RC would be zero and the multiplier would fall to 0.8007, giving EAD ₹1,56,15,162. With more trades, offsetting positions in the same hedging set reduce the add-on.</p>
+  </div>
+  <div class="prose">
+    <h3>CVA capital</h3>
+    <p>Separately from default capital, Basel III requires capital for CVA volatility: the basic approach (BA-CVA) or the standardised approach (SA-CVA), which needs CVA sensitivities and is closer to how an XVA desk hedges. Murex lists CVA capital charge among its regulatory calculations.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex publishes Monte Carlo PFE, issuer, settlement and pre-settlement exposure across asset classes, RWA calculation, SA-CCR, CVA capital and full XVA (CVA, DVA, FVA, MVA, KVA). XVA can be shown pre-deal as an incremental charge.</li>
+    <li>For finance, XVA is attributed deal by deal for IFRS 13 fair value (chapter 25).</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Wrong exposure usually traces to wrong agreements: a trade outside its netting set, a CSA with outdated thresholds, or a counterparty in the wrong hierarchy. Reconcile agreements with legal before blaming the model.</li>
+    <li>Incremental XVA at pre-deal must use the same netting set as the EOD calculation, or traders will see one charge and the XVA desk another.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why does CVA fall when a CSA is added, even with the same counterparty and trade?</li>
+    <li>In the SA-CCR example, why is α = 1.4 applied on top of the formula?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch15">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 15 · Risk</p>
+    <h2>Limits and risk control</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">How risk appetite becomes numbers the platform checks before and after every trade.</p>
+  </div>
+  <div class="prose">
+    <p>A limit caps an exposure: credit exposure to a counterparty group, VaR of a desk, DV01 of a book, FX open position, settlement amount per day, issuer concentration. Limits are organised in hierarchies (bank, business, desk, trader; group, counterparty, subsidiary) and can have sub-limits by product or tenor.</p>
+    <h3>Pre-deal and post-deal</h3>
+    <p><b>Pre-deal</b> checks run before execution: will this trade breach? If so, the trader needs an approval or a temporary excess. <b>Post-deal</b> monitoring recalculates usage after trades and market moves, intraday and at EOD, and raises excesses when usage crosses the limit. Excesses go through workflows: notify, approve or reject, and track to resolution.</p>
+    <h3>Measures used</h3>
+    <p>Credit limits use notional, MTM plus add-on, or PFE. Market limits use sensitivities, VaR, stress loss or open position. Settlement limits use the amount settling per day. Liquidity and operational limits (maximum outflows, number of unmatched confirmations) are also possible.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><p>Murex's risk control solution, often called <span class="vt">MLC</span> (Murex Limits Controller) by practitioners, provides real-time monitoring of market, credit, liquidity and operational limits, with its own orchestration server (chapter 3). It checks trades from MX.3 and can receive exposures from other systems. Limit definitions, hierarchies and approval workflows are configuration.</p></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Measure the rate of "false" excesses (caused by data, not real exposure). A high rate trains people to approve everything, which defeats the control.</li>
+    <li>Counterparty hierarchy maintenance is the main operational cost of credit limits. Link it to the golden source and review group structures after mergers.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why is a PFE-based credit limit better than a notional-based one for derivatives?</li>
+    <li>A trade passed pre-deal but breaches at EOD. Name two reasons that can happen.</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch16">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 16 · Risk and operations</p>
+    <h2>Collateral and margin</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">CSAs, variation and initial margin, the uncleared margin rules and SIMM, and CCP margin.</p>
+  </div>
+  <div class="prose">
+    <p>Collateral reduces counterparty risk. Under a <b>CSA</b> (credit support annex to the ISDA master agreement), parties exchange collateral as the MTM moves. The key terms are the <b>threshold</b> (exposure allowed before collateral is due), the <b>minimum transfer amount</b> (MTA), <b>eligible collateral</b> and its <b>haircuts</b>, <b>rounding</b>, the <b>valuation frequency</b> and the interest paid on cash collateral.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: a variation margin call</p>
+    <p class="calc">Exposure to the counterparty (netting-set MTM): ₹4,35,00,000<br>Threshold: ₹1,00,00,000 &nbsp; MTA: ₹25,00,000 &nbsp; Rounding: down to ₹10 lakh<br>Collateral required = MTM − threshold = ₹3,35,00,000<br>Already held: ₹2,80,00,000<br>Shortfall = ₹55,00,000, above the MTA, so a call is due<br>After rounding: <b>call for ₹50,00,000</b></p>
+  </div>
+  <div class="prose">
+    <h3>Variation margin and initial margin</h3>
+    <p><b>Variation margin (VM)</b> covers the current MTM and moves daily. <b>Initial margin (IM)</b> covers the potential move during the time needed to close out after a default, and is held separately (segregated with a custodian for uncleared trades) so neither party can reuse it.</p>
+    <h3>Uncleared margin rules (UMR)</h3>
+    <p>After 2008, regulators required margin on derivatives that are not centrally cleared. VM applies broadly. IM was phased in by size between 2016 and 2022, down to groups with more than €8 billion of average notional; IM only has to be exchanged above a €50 million threshold per group relationship. The industry calculates IM with <b>ISDA SIMM</b>, a sensitivity-based model: delta, vega and curvature by risk class, weighted and correlated like FRTB-SA but with its own parameters, which ISDA recalibrates regularly. A schedule-based method (percentage of notional) is the simpler, usually more expensive alternative. India has its own RBI directions on margining non-centrally cleared derivatives.</p>
+    <h3>Cleared derivatives</h3>
+    <p>For trades cleared through a CCP (LCH, CME, CCIL in India), the CCP calls VM and IM using its own models. The bank's job is to reconcile the CCP's calls with its own projections and fund them.</p>
+    <h3>Collateral optimisation</h3>
+    <p>When several assets are eligible, a bank posts the cheapest to deliver (after haircuts and funding costs) and keeps high-quality assets for liquidity. Optimisation runs across all agreements and the inventory of available assets.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex's collateral module covers VM and IM from calculation to settlement and reporting, multi-CSA set-ups, schedule and SIMM IM, pre-trade IM, a real-time global collateral inventory, cheapest-to-deliver allocation and substitution on corporate actions.</li>
+    <li>Published connectivity includes AcadiaSoft Margin Manager and IM Exposure Manager (for exchanging calls and IM sensitivities), triparty agents, TriOptima and Duco reconciliation, and SWIFT for collateral settlement. Murex cites processing 20,000 collateral agreements in 10 minutes.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Recurring disputes with one counterparty point to a structural cause: a missing trade (population mismatch), a different curve or cut-off time, or CSA terms keyed differently. Reconcile the trade population first.</li>
+    <li>SIMM IM depends on sensitivities in ISDA's CRIF format. Wrong mapping of sensitivities to SIMM buckets gives wrong IM even when the MTM is right.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>If the MTA were ₹60 lakh, would a call be made in the example?</li>
+    <li>Why is initial margin segregated rather than paid to the counterparty?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch17">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 17 · Treasury</p>
+    <h2>Treasury, liquidity and ALM</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">Funding, liquidity ratios, transfer pricing and interest rate risk in the banking book.</p>
+  </div>
+  <div class="prose">
+    <p>Treasury manages the bank's own balance sheet: it raises funding (deposits, CDs, CP, repo, bonds), invests surplus liquidity, holds a buffer of liquid assets, and hedges the interest rate and currency risk of the banking book. Its view of the platform centres on <b>cash flows</b>: contractual cash flows from every instrument, plus behavioural estimates for items like savings deposits that have no fixed maturity.</p>
+    <h3>Liquidity measures</h3>
+    <p>The <b>liquidity ladder</b> projects net cash flows by time bucket. The <b>Liquidity Coverage Ratio (LCR)</b> requires high-quality liquid assets (HQLA) at least equal to net cash outflows over a 30-day stress. The <b>Net Stable Funding Ratio (NSFR)</b> requires stable funding at least equal to the stable funding needed over one year. Both must be at least 100%.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: LCR</p>
+    <p>Fictional figures (₹ crore). Level 1 HQLA 500 (no haircut), Level 2A 100 (15% haircut), Level 2B 40 (50% haircut). Stressed outflows 800, inflows 300 (inflows are capped at 75% of outflows).</p>
+    <p class="calc">HQLA = 500 + 100 × 0.85 + 40 × 0.50 = ₹605 cr<br>Net outflows = 800 − min(300, 0.75 × 800) = ₹500 cr<br>LCR = 605 / 500 = <b>121.0%</b></p>
+    <p>Level 2 assets are also capped at 40% of HQLA, and Level 2B at 15%; neither cap binds here.</p>
+  </div>
+  <div class="prose">
+    <h3>Funds transfer pricing (FTP)</h3>
+    <p>FTP charges each business for the funding it uses and credits it for the funding it provides, at an internal curve (base rate plus liquidity premium). It moves interest rate and liquidity risk from the businesses to treasury, where it is managed centrally. For derivatives, FVA is the equivalent of FTP.</p>
+    <h3>Interest rate risk in the banking book (IRRBB)</h3>
+    <p>Two views: <b>economic value of equity (EVE)</b>, the change in the present value of all banking-book cash flows under rate shocks, and <b>net interest income (NII)</b>, the change in earnings over a horizon. Basel sets six standard shock scenarios (parallel up and down, steepener, flattener, short rates up and down) and an outlier test that flags a bank whose EVE loss exceeds 15% of Tier 1 capital. Repricing gap reports show how much of the balance sheet reprices in each bucket.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex publishes a cash flow engine that generates contractual and estimated future flows across asset classes, liquidity ladders, HQLA buffer and inventory views, funding and issuance tools, an FTP framework including FVA, and repricing gap dashboards.</li>
+    <li>Hedging of the banking book can be economic or designated for hedge accounting (chapter 24), with fair value and accrual P&amp;L managed in one system.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Liquidity numbers depend on behavioural assumptions (deposit run-off, prepayments) that often live outside MX.3. Know where each assumption comes from and who approves it.</li>
+    <li>For Indian banks, check how the platform output maps into RBI returns for LCR, NSFR and structural liquidity; the regulatory templates often need extra classification.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>If inflows were 700, what would net outflows be, and why?</li>
+    <li>Why does FTP make a branch that collects deposits look profitable even if it lends nothing?</li>
+  </ol></details>
+</section>
+<div class="part" id="part5">
+  <p class="part-no">Part V</p>
+  <h2>Operations</h2>
+  <p>Workflows, confirmations, clearing, settlement and the data that keeps them straight.</p>
+</div>
+
+<section class="ch" id="ch18">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 18 · Operations</p>
+    <h2>Workflows and straight-through processing</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">The engine that moves trades, events and messages through their statuses, and the full life cycle it drives.</p>
+  </div>
+  <div class="prose">
+    <p>A workflow is a state machine: an object (a trade, an event, a payment, a confirmation) has a <b>status</b>; <b>actions</b> move it to another status; <b>rules</b> decide which actions are allowed or automatic; and each transition can <b>trigger</b> other work, such as generating a message or an accounting entry. Straight-through processing (STP) means the automatic transitions carry most trades from capture to settlement without anyone touching them. Humans handle the exceptions.</p>
+  </div>
+  <div class="flow">
+    <div class="step"><b>Captured</b>Booked by front office or arrived by interface</div>
+    <div class="step"><b>Validated</b>Checked by middle office; releases downstream work</div>
+    <div class="step"><b>Confirmed</b>Matched with the counterparty</div>
+    <div class="step"><b>Settled</b>Cash and securities moved</div>
+    <div class="step"><b>Matured / closed</b>No future flows</div>
+  </div>
+  <div class="prose">
+    <h3>Workflow families</h3>
+    <p>Practitioners usually distinguish four families of workflow in MX.3. The names and statuses are configured per bank, so treat this as a map to compare with yours.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Family</th><th>Object</th><th>Typical statuses</th><th>Triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Contract (trade)</td><td>The trade</td><td>Pending, validated, cancelled, matured</td><td>Release to confirmation, settlement, accounting</td></tr>
+      <tr><td>Event</td><td>Amendment, termination, exercise, novation</td><td>Pending approval, validated, rejected</td><td>Re-confirmation, accounting reversal and rebooking</td></tr>
+      <tr><td><span class="vt">Deliverables</span> (settlement)</td><td>Each cash or securities flow</td><td>Projected, validated, netted, released, settled, failed</td><td>Payment message, nostro projection</td></tr>
+      <tr><td><span class="vt">Exchange</span> (documents and messages)</td><td>Confirmations and outgoing messages</td><td>Generated, sent, matched, unmatched, cancelled</td><td>Chasing, affirmation, matching</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>The full life cycle</h3>
+    <p>This is the order in which the platform touches a single OTC derivative, from quote to archive. Each chapter in this guide covers one or more rows.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Stage</th><th>When</th><th>Owner</th><th>Platform activity</th><th>Chapter</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Pre-trade pricing and checks</td><td>Before T</td><td>FO</td><td>Price on live data; pre-deal limit and XVA</td><td>11, 14, 15</td></tr>
+      <tr><td>2</td><td>Execution and capture</td><td>T</td><td>FO</td><td>Book from template, or receive by interface</td><td>4, 5</td></tr>
+      <tr><td>3</td><td>Enrichment and validation</td><td>T</td><td>MO</td><td>Contract workflow to validated</td><td>18</td></tr>
+      <tr><td>4</td><td>Confirmation and matching</td><td>T to T+1</td><td>Ops</td><td>Exchange workflow; platform or SWIFT</td><td>19</td></tr>
+      <tr><td>5</td><td>Clearing</td><td>T</td><td>Ops</td><td>Submit to CCP; novation</td><td>19</td></tr>
+      <tr><td>6</td><td>Regulatory reporting</td><td>T to T+1</td><td>Ops, compliance</td><td>Report to trade repository</td><td>21</td></tr>
+      <tr><td>7</td><td>Revaluation and P&amp;L</td><td>Daily</td><td>Product control</td><td>EOD revaluation on closing data</td><td>25, 26</td></tr>
+      <tr><td>8</td><td>Risk and limits</td><td>Daily</td><td>Risk</td><td>Sensitivities, VaR, exposure</td><td>12–15</td></tr>
+      <tr><td>9</td><td>Margin and collateral</td><td>Daily</td><td>Collateral</td><td>VM and IM calls</td><td>16</td></tr>
+      <tr><td>10</td><td>Accounting</td><td>Daily</td><td>Finance</td><td>Event-driven entries, GL feed</td><td>22</td></tr>
+      <tr><td>11</td><td>Fixing and reset</td><td>Each period</td><td>Market data</td><td>Apply published rate</td><td>8, 26</td></tr>
+      <tr><td>12</td><td>Coupon settlement</td><td>Each payment</td><td>Ops</td><td>Deliverables workflow; net and pay</td><td>20</td></tr>
+      <tr><td>13</td><td>Lifecycle events</td><td>As needed</td><td>FO, Ops, Finance</td><td>Event workflow</td><td>18</td></tr>
+      <tr><td>14</td><td>Maturity or termination</td><td>End</td><td>All</td><td>Final flows; realise P&amp;L</td><td>22</td></tr>
+      <tr><td>15</td><td>Archive</td><td>After maturity</td><td>IT, Ops</td><td>Purge from live processing; retain</td><td>29</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex publishes a workflow engine among its business engines, and describes post-trade processing as automated "from matching to clearing and settlement", with an exception dashboard and KPI reporting for operational risk.</li>
+    <li>Workflow configuration defines statuses, allowed actions per user group, automatic transitions and the conditions on them (for example, auto-validate electronic trades under a notional).</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Measure STP rate by product and by exception reason. Improving STP is mostly about fixing the top three exception reasons, which are nearly always static data.</li>
+    <li>Forced status changes (an administrator moving a trade past a step) are the root of many later breaks: the skipped step's triggers never fired. Restrict and log them.</li>
+    <li>When a workflow looks stuck, check whether it is waiting for a condition (for example a missing SSI) rather than an action.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Which workflow family produces a payment, and which a confirmation?</li>
+    <li>An amendment is approved but no new confirmation was sent. Which trigger would you check?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch19">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 19 · Operations</p>
+    <h2>Confirmations, clearing and affirmation</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">Agreeing the trade with the counterparty, and moving it to a central counterparty where required.</p>
+  </div>
+  <div class="prose">
+    <p>A confirmation is the legal record of a trade's economics. Both parties must agree it quickly: an unconfirmed trade is a trade whose terms might be disputed. Methods range from paper (still used with some corporates) to SWIFT messages matched automatically, to electronic platforms where both sides affirm the same record.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Product</th><th>Usual confirmation route</th></tr></thead>
+    <tbody>
+      <tr><td>FX spot, forward, swap</td><td>SWIFT MT300, matched by SWIFT or platforms; CLS for eligible pairs</td></tr>
+      <tr><td>Money market deposits and loans</td><td>SWIFT MT320</td></tr>
+      <tr><td>FX options</td><td>SWIFT MT305 (and MT306 for exotics)</td></tr>
+      <tr><td>Interest rate derivatives</td><td>MarkitWire (S&amp;P Global), DTCC platforms, or MT360 / MT361; paper ISDA confirmations for bespoke trades</td></tr>
+      <tr><td>Credit derivatives</td><td>DTCC (Trade Information Warehouse and matching)</td></tr>
+      <tr><td>Securities (bonds, equities)</td><td>DTCC CTM for institutional trade matching; settlement matching at the CSD</td></tr>
+      <tr><td>Precious metals</td><td>MT600 series or platforms</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Clearing</h3>
+    <p>Regulators require standard OTC derivatives (for example vanilla IRS in major currencies) to be cleared through a CCP. On acceptance the trade is <b>novated</b>: the bilateral trade is replaced by two trades, each facing the CCP. The bank's trade in the platform must follow: the counterparty becomes the CCP (or the clearing broker, for client clearing), and margin comes from the CCP. In India, CCIL clears INR interest rate swaps and FX forwards between banks, and settles government securities and money market trades.</p>
+    <h3>Affirmation and matching platforms</h3>
+    <p>Platforms such as MarkitWire and DTCC CTM let both sides affirm a single record, which then flows to clearing. Murex publishes connectivity to DTCC CTM, MarkitWire and SWIFT matching.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Track confirmation ageing (days unmatched) by counterparty. Persistent unmatched items from one counterparty are usually a static data or convention mismatch, not their slowness.</li>
+    <li>When a cleared trade shows two counterparties in reports (original and CCP), check that the novation event ran correctly and the original trade was closed.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why is an unmatched confirmation a risk even if the trade settles correctly?</li>
+    <li>What happens to credit exposure to the original counterparty after clearing?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch20">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 20 · Operations</p>
+    <h2>Settlement and cash management</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">SSIs, netting, payment methods, ISO 20022 and nostro reconciliation.</p>
+  </div>
+  <div class="prose">
+    <p>Settlement turns cash flows into real payments and securities deliveries. The platform projects every flow, applies the right standing settlement instruction (SSI), nets where agreed, releases payment messages at the right time, and reconciles with the nostro (the bank's account at its correspondent) when the statement arrives.</p>
+    <h3>Payment methods</h3>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Method</th><th>Meaning</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td>Gross</td><td>Each flow paid separately</td><td>Default when no netting agreement</td></tr>
+      <tr><td>Net</td><td>Flows with the same counterparty, currency and date combined</td><td>FX, swaps under netting agreements</td></tr>
+      <tr><td>CLS</td><td>Payment versus payment through CLS Bank for eligible currencies</td><td>FX between CLS members</td></tr>
+      <tr><td>DVP</td><td>Delivery versus payment: securities and cash move together</td><td>Bonds, equities, repo</td></tr>
+      <tr><td>FOP</td><td>Free of payment: securities move without cash</td><td>Collateral transfers, internal moves</td></tr>
+      <tr><td>PVP</td><td>Payment versus payment in two currencies</td><td>FX outside CLS where available</td></tr>
+    </tbody>
+  </table></div>
+  <div class="worked"><p class="box-label">Worked example: bilateral netting</p>
+    <p>Three FX trades with the same counterparty settle on the same date in USD:</p>
+    <p class="calc">Trade A: bank receives USD 5,000,000<br>Trade B: bank pays USD 3,200,000<br>Trade C: bank pays USD 1,100,000<br>Net: bank receives <b>USD 700,000</b> — one payment instead of three</p>
+    <p>If trade C is amended after netting has run, the net amount must be recalculated and any released payment cancelled. Netting cut-off times are therefore an operational control.</p>
+  </div>
+  <div class="prose">
+    <h3>ISO 20022</h3>
+    <p>Cross-border payments migrated from SWIFT MT messages (MT103 customer transfers, MT202 bank transfers) to ISO 20022 MX messages (pacs.008, pacs.009) when the coexistence period ended in November 2025. ISO 20022 carries richer, structured data (full party details, purpose codes). Treasury confirmations (MT3xx) remain MT for now. Murex publishes support for the MT to ISO 20022 transition.</p>
+    <h3>Nostro reconciliation and fails</h3>
+    <p>Expected flows are matched against the correspondent's statement (MT940/950 or camt.053). Unmatched items are investigated: a counterparty did not pay (fail), paid the wrong amount, or paid with a different reference. Fails cost interest and, in some markets, penalties (for example the EU's CSDR settlement discipline regime for securities).</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><ul>
+    <li>Murex describes managing the complete settlement life cycle, from automated release to status reconciliation, with SSI automation, all the methods above, real-time nostro cash and securities positions, and asset-class specific handling. It cites more than 250 institutions using its settlement solution.</li>
+    <li>Many banks send payments from MX.3 to a payment hub rather than directly to SWIFT; the hub handles sanctions screening and routing.</li>
+  </ul></div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>SSI changes by counterparties are a fraud vector. Changes should need independent verification (call-back) before activation.</li>
+    <li>Watch the cut-off calendar per currency: a payment released after the correspondent's cut-off settles late even if everything else is right.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why does CLS remove settlement risk but not pre-settlement risk?</li>
+    <li>A payment shows as settled in MX.3 but the nostro shows nothing. Where do you look?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch21">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 21 · Operations</p>
+    <h2>Securities finance, corporate actions, reference data and regulatory reporting</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">The operational areas that sit around the core trade flow.</p>
+  </div>
+  <div class="prose">
+    <h3>Securities finance</h3>
+    <p>Repo, securities lending and synthetic financing (total return swaps) let banks fund inventory, cover short positions and earn fees on idle securities. The operational core is a <b>settlement-aware inventory</b>: where each security is, whether it is free, pledged or lent, and what arrives or leaves today. Murex publishes a real-time inventory affected immediately by back-office operations, bulk and trade-level life cycle operations, bilateral, triparty and cleared set-ups, and a money-fill repo optimiser.</p>
+    <h3>Corporate actions</h3>
+    <p>Coupons, redemptions, dividends, splits, rights issues and mergers change positions, cash and sometimes trade terms. <b>Mandatory</b> actions happen automatically; <b>voluntary</b> ones need a decision (take up a rights issue or not). Withholding tax applies to many payments. Murex lists voluntary, mandatory and withholding-tax processing. Collateral positions affected by corporate actions may need substitution.</p>
+    <h3>Reference data</h3>
+    <p>Murex describes a multi-source, multi-entity reference data repository for counterparties, agreements and securities, with Bloomberg connectivity for ISINs. Whatever the tooling, good reference data has one owner per field, a golden source, validation rules, and an audit trail.</p>
+    <h3>Regulatory transaction reporting</h3>
+    <p>Most jurisdictions require derivatives and securities financing trades to be reported to a trade repository or regulator: EMIR (EU and UK), Dodd-Frank (US), MiFIR (EU transaction reporting), SFTR (EU securities financing), and in India, reporting of OTC derivatives to CCIL's trade repository under RBI directions. The work is in <b>eligibility</b> (which trades and which fields), <b>enrichment</b> (identifiers such as LEI and UTI), timeliness, and <b>reconciliation</b> of what the repository holds with what the bank holds. Murex publishes reporting eligibility, data enrichment, DTCC GTR connectivity and post-reporting reconciliation.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Reporting errors are usually static data: missing LEI, wrong product classification, missing UTI sharing with the counterparty. Fix them at the source to stop them recurring every day.</li>
+    <li>Corporate actions on bonds held as collateral are easy to miss: the coupon belongs to the lender in a repo and must be passed back (manufactured payment).</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>In a repo, who is entitled to a coupon paid during the term, and how is it handled?</li>
+    <li>Name three fields that commonly cause trade reporting rejections.</li>
+  </ol></details>
+</section>
+<div class="part" id="part6">
+  <p class="part-no">Part VI</p>
+  <h2>Finance, end of day and reporting</h2>
+  <p>How trades become accounting entries, how the daily batch runs, and how data leaves the platform.</p>
+</div>
+
+<section class="ch" id="ch22">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 22 · Finance</p>
+    <h2>The accounting engine</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">Event-driven, multi-GAAP sub-ledger accounting: how entries are produced and how to trace them.</p>
+  </div>
+  <div class="prose">
+    <p>MX.3 acts as a <b>sub-ledger</b>: it produces detailed, deal-level accounting entries, which are summarised and sent to the general ledger (GL). The GL holds balances by account; the sub-ledger holds the trade-level detail behind them. Murex describes its sub-ledger as multi-GAAP, multi-entity and multi-currency.</p>
+    <h3>How an entry is produced</h3>
+  </div>
+  <div class="flow">
+    <div class="step"><b>1 · Event</b>Trade insertion, revaluation, accrual, fixing, settlement, amendment, termination</div>
+    <div class="step"><b>2 · Rule selection</b>Chosen by entity, portfolio, typology, product, GAAP, event type</div>
+    <div class="step"><b>3 · Entry</b>Debit and credit accounts, amount, currency, dates</div>
+    <div class="step"><b>4 · Aggregation</b>Summarised by account, entity, currency, date</div>
+    <div class="step"><b>5 · GL and reconciliation</b>Posted to GL; sub-ledger reconciled to GL</div>
+  </div>
+  <div class="prose">
+    <p>The accounting rules (often called <span class="vt">accounting schemes</span> or rules) are configuration. Each one says: for this kind of event, on this kind of trade, under this GAAP, book these entries. Because rules are selected by typology and portfolio, a trade with the wrong classification gets the wrong entries every day until it is fixed.</p>
+    <h3>Multi-GAAP</h3>
+    <p>One event can create entries under several accounting standards at once: IFRS for group reporting, a local GAAP for the statutory accounts, and a regulatory basis. Indian banks, for example, may need Ind AS and the RBI's prudential framework in parallel.</p>
+    <h3>Daily MTM: reversal or incremental</h3>
+    <p>Two common methods. <b>Reversal</b>: book the full MTM each day and reverse it the next morning. <b>Incremental</b>: book only the change since yesterday. Both reach the same balance; they differ in the number of entries and in how reconciliations look. Know which your bank uses before you reconcile.</p>
+    <h3>Inventory methods</h3>
+    <p>When part of a position in a security is sold, which purchase cost is used? Murex lists FIFO, average price (AVP) and cherry-picking (choosing specific lots).</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: FIFO vs average cost</p>
+    <p>Buy 100 units at 98.00, then 100 at 101.00. Sell 150 at 102.00.</p>
+    <p class="calc">FIFO: cost = 100 × 98.00 + 50 × 101.00; realised P&amp;L = <b>450.00</b>; left: 50 units at 101.00<br>Average: cost = 150 × 99.50; realised P&amp;L = <b>375.00</b>; left: 50 units at 99.50</p>
+    <p>Same trades, different realised P&amp;L this period; the difference reverses when the remaining 50 units are sold. The method is an accounting policy decision.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: the swap from chapter 8, in entries</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Event</th><th>Debit</th><th>Credit</th><th class="r">Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Trade date (at market)</td><td>—</td><td>—</td><td class="r">—</td></tr>
+        <tr><td>Revaluation after rates rise</td><td>Derivative asset</td><td>Unrealised MTM gain</td><td class="r">₹62,29,939</td></tr>
+        <tr><td>Year 1 accrual, receive leg (6.40%)</td><td>Interest receivable</td><td>Interest income</td><td class="r">₹6,40,00,000</td></tr>
+        <tr><td>Year 1 accrual, pay leg (6.50%)</td><td>Interest expense</td><td>Interest payable</td><td class="r">₹6,50,00,000</td></tr>
+        <tr><td>Net settlement</td><td>Interest payable ₹6.50 cr</td><td>Interest receivable ₹6.40 cr; nostro ₹0.10 cr</td><td class="r">₹10,00,000 net</td></tr>
+      </tbody>
+    </table></div>
+    <p>Illustrative: IFRS 9, fair value through P&amp;L, trading book. Accruals are booked daily through the year; the table shows the year totals.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>To trace any GL balance: GL account → sub-ledger entries → event → rule → trade and its classification. Build a standard query for this path; you will use it constantly.</li>
+    <li>Back-dated events generate catch-up entries today for past periods. Finance must know whether the platform books them on today's date or the original date, because it changes which month's accounts move.</li>
+    <li>Reconcile sub-ledger to GL daily, by account and entity. Differences are usually rejected postings, timing, or manual GL adjustments nobody told the sub-ledger about.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>A trade's typology is corrected today after being wrong for a month. What happens in the accounts?</li>
+    <li>Under the reversal method, how many MTM entries does one trade produce in a 20-day month?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch23">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 23 · Finance</p>
+    <h2>IFRS 9, Ind AS 109 and the RBI framework</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">Classification, measurement and the effective interest method, with the Indian overlay.</p>
+  </div>
+  <div class="prose">
+    <h3>Classification under IFRS 9</h3>
+    <p>Financial assets are classified by two tests: the <b>business model</b> (hold to collect cash flows, hold to collect and sell, or other) and the <b>SPPI test</b> (are the cash flows solely payments of principal and interest?). The result is one of three categories:</p>
+    <ul>
+      <li><b>Amortised cost</b>: hold to collect, and SPPI. Interest by the effective interest method; impairment (expected credit loss) applies.</li>
+      <li><b>Fair value through OCI (FVOCI)</b>: hold to collect and sell, and SPPI. Fair value changes go to other comprehensive income; interest and impairment through P&amp;L.</li>
+      <li><b>Fair value through P&amp;L (FVTPL)</b>: everything else, including all derivatives not in hedge relationships and all trading assets.</li>
+    </ul>
+    <p>Ind AS 109 in India is substantially converged with IFRS 9. Separately, Indian banks follow the RBI's investment classification and valuation framework, revised with effect from April 2024: held to maturity (HTM), available for sale (AFS) and fair value through P&amp;L (FVTPL, with held for trading as a subset). Where both apply, the platform needs two sets of rules.</p>
+    <h3>Effective interest rate</h3>
+    <p>For amortised-cost assets bought at a discount or premium, or with fees, interest income is recognised at the <b>effective interest rate (EIR)</b>: the rate that discounts the expected cash flows to the initial carrying amount. The discount or premium is amortised over the life.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: EIR amortisation</p>
+    <p>A 3-year bond with a 6% annual coupon, face 100, bought at 97.30 and held at amortised cost. The EIR that equates the cash flows to 97.30 is <b>7.0294%</b>.</p>
+    <div class="tbl"><table class=""><thead><tr><th>Year</th><th class=r>Opening carrying value</th><th class=r>Interest income at EIR</th><th class=r>Coupon cash</th><th class=r>Discount amortised</th><th class=r>Closing carrying value</th></tr></thead><tbody><tr><td>Year 1</td><td class=r>97.3000</td><td class=r>6.8396</td><td class=r>6.0000</td><td class=r>0.8396</td><td class=r>98.1396</td></tr><tr><td>Year 2</td><td class=r>98.1396</td><td class=r>6.8986</td><td class=r>6.0000</td><td class=r>0.8986</td><td class=r>99.0382</td></tr><tr><td>Year 3</td><td class=r>99.0382</td><td class=r>6.9618</td><td class=r>6.0000</td><td class=r>0.9618</td><td class=r>100.0000</td></tr></tbody></table></div>
+    <p>Each year, income at the EIR exceeds the coupon; the difference accretes the carrying value to 100 at maturity.</p>
+  </div>
+  <div class="prose">
+    <h3>Expected credit loss</h3>
+    <p>IFRS 9 impairment uses a three-stage model: 12-month expected loss for performing assets (stage 1), lifetime expected loss after a significant increase in credit risk (stage 2), and lifetime loss with interest on the net amount for credit-impaired assets (stage 3). Many banks calculate ECL in a dedicated credit engine and post the results; check where your bank does it.</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><p>Classification is usually assigned through the portfolio (business model) and the instrument or typology (SPPI outcome), and it selects the accounting rules. EIR amortisation, accruals and fair value entries are generated per event. Get the classification right at portfolio set-up; reclassification under IFRS 9 is rare and heavily controlled.</p></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why are all standalone derivatives at FVTPL under IFRS 9?</li>
+    <li>In the EIR table, why does the discount amortised grow each year?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch24">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 24 · Finance</p>
+    <h2>Hedge accounting</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">Removing the accounting mismatch between a hedge at fair value and a hedged item that is not.</p>
+  </div>
+  <div class="prose">
+    <p>A bank hedges a fixed-rate bond (at amortised cost) with a pay-fixed swap (at FVTPL). Economically the risk is hedged, but the accounts show the swap's fair value swings in P&amp;L while the bond's opposite change is invisible. Hedge accounting fixes the mismatch, if the bank documents and tests the relationship.</p>
+    <h3>Three types</h3>
+    <ul>
+      <li><b>Fair value hedge</b>: hedge changes in fair value of an asset or liability. The hedged item is adjusted for the hedged risk through P&amp;L, offsetting the derivative.</li>
+      <li><b>Cash flow hedge</b>: hedge variability in future cash flows (a floating-rate loan, a forecast FX purchase). The effective part of the derivative's change goes to a cash flow hedge reserve in equity, and is released to P&amp;L when the hedged cash flow hits.</li>
+      <li><b>Net investment hedge</b>: hedge the FX exposure of a foreign subsidiary.</li>
+    </ul>
+    <h3>Requirements</h3>
+    <p>Formal designation and documentation at inception; an economic relationship between hedge and hedged item; credit risk not dominating; and a hedge ratio consistent with risk management. IFRS 9 removed IAS 39's 80–125% bright-line effectiveness test, but banks still measure effectiveness and book ineffectiveness in P&amp;L. Many banks still apply IAS 39 for macro (portfolio) hedges of interest rate risk, which IFRS 9 allows.</p>
+  </div>
+  <div class="worked"><p class="box-label">Worked example: dollar-offset effectiveness</p>
+    <p class="calc">Change in fair value of the hedged bond due to rates: −4.10<br>Change in fair value of the swap: +3.90<br>Offset ratio = 3.90 / 4.10 = <b>95.1%</b></p>
+    <p>Highly effective, within the old 80–125% range. The ineffective part is recognised in P&amp;L (for a fair value hedge, the net −0.20).</p>
+  </div>
+  <div class="box mx"><p class="box-label">In MX.3</p><p>Murex describes a hedge accounting module covering micro and macro hedges, "smart designation", effectiveness measurement and dashboard monitoring, compliant with IFRS 9. It is often licensed separately; check whether your bank uses it or runs hedge accounting elsewhere.</p></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>What would happen in P&amp;L without hedge accounting in the bond-and-swap example?</li>
+    <li>Why does a cash flow hedge use equity (OCI) rather than adjusting the hedged item?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch25">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 25 · Finance</p>
+    <h2>Product control: IPV, reserves and P&amp;L sign-off</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">Making sure the reported P&amp;L and fair values are true.</p>
+  </div>
+  <div class="prose">
+    <h3>Daily P&amp;L sign-off</h3>
+    <p>Each morning product control produces the official P&amp;L for the previous day, explains it (chapter 12), resolves differences with the trader's estimate, and gets sign-off. Murex lists P&amp;L attribution, validation and trader sign-off among its finance features.</p>
+    <h3>Independent price verification (IPV)</h3>
+    <p>Traders mark their own closing curves and volatilities, which is a conflict of interest. IPV compares those marks with independent sources (broker quotes, consensus services, exchange prices) at least monthly, and books adjustments where the difference exceeds tolerance.</p>
+    <h3>Fair value hierarchy and reserves</h3>
+    <p>IFRS 13 ranks fair values: <b>Level 1</b> (quoted prices for identical instruments), <b>Level 2</b> (models with observable inputs), <b>Level 3</b> (significant unobservable inputs). Level 3 positions need extra disclosure and often reserves. Reserves or valuation adjustments cover bid-offer (closing out at mid is not possible), model risk, concentration, and day-one profit on Level 3 trades, which cannot be recognised immediately.</p>
+    <h3>XVA in the accounts</h3>
+    <p>IFRS 13 fair value includes counterparty and own credit risk, so CVA and DVA (and in practice FVA at many banks) are booked. Murex publishes deal-by-deal CVA/FVA attribution for finance, compliant with IFRS 13 and ASC 820.</p>
+    <h3>Prudent valuation</h3>
+    <p>European regulation adds prudent valuation adjustments (AVAs), deducted from capital, reflecting valuation uncertainty. Other regulators have similar expectations.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Keep the IPV market data separate from the front-office set, and store the source of every IPV price. Auditors will ask.</li>
+    <li>When P&amp;L differs between front office and product control, the cause is almost always one of: market data set, cut-off time, trade population, or a reserve booked by one side only.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why can't day-one profit on a Level 3 trade be recognised immediately?</li>
+    <li>What is the difference between an IPV adjustment and a bid-offer reserve?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch26">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 26 · Operations of the platform</p>
+    <h2>End of day in depth</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">The batch every team depends on, as a chain of dependencies you can reason about.</p>
+  </div>
+  <div class="prose">
+    <p>End of day (EOD) closes the business day: it fixes the official market data, applies fixings, revalues everything, calculates risk and accounting, feeds reports, and moves the system to the next business day. It runs as a set of <span class="vt">processing scripts</span> scheduled in dependency order, often with parallel branches.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Step</th><th>Needs before it</th><th>If it fails</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Trading cut-off; late trade control</td><td>—</td><td>Late trades fall into tomorrow; P&amp;L explain shows them as new</td></tr>
+      <tr><td>2</td><td>Closing market data: import, validate, calibrate curves and surfaces, save the official set</td><td>Vendor feeds, trader marks</td><td>Everything after stops or uses stale data</td></tr>
+      <tr><td>3</td><td>Fixings and resets</td><td>Published benchmark rates</td><td>Floating cash flows unknown; settlements and accruals wrong</td></tr>
+      <tr><td>4</td><td>Revaluation and P&amp;L</td><td>2, 3</td><td>No official P&amp;L; no sign-off</td></tr>
+      <tr><td>5</td><td>Risk: sensitivities, VaR, exposure, limits</td><td>2, 4</td><td>Risk reports late; limit breaches missed</td></tr>
+      <tr><td>6</td><td>Accounting: accruals, revaluation entries, GL file</td><td>3, 4</td><td>GL not updated; month-end at risk</td></tr>
+      <tr><td>7</td><td>Settlement projections and nostro forecasts</td><td>3</td><td>Cash management blind for tomorrow</td></tr>
+      <tr><td>8</td><td>Datamart feeders and reports</td><td>4, 5, 6</td><td>Downstream systems and regulators get nothing or stale data</td></tr>
+      <tr><td>9</td><td>Date roll to the next business day</td><td>All of the above</td><td>Next day cannot start</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Month-end and year-end</h3>
+    <p>Month-end adds accounting closes, regulatory snapshots and extra reports, so the batch runs longer and has less slack. Year-end adds more, and often a freeze on changes. Plan platform changes around these dates.</p>
+    <h3>Reruns</h3>
+    <p>When a step fails or produced wrong results, it may be rerun after a fix. Every rerun must answer: which steps depend on it and must also rerun, which outputs have already been sent downstream (and must be recalled or corrected), and who approves.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Keep a dependency map with the owner and normal duration of each step, and a runbook for the top ten failures. The on-call person at 11 pm should not need to guess.</li>
+    <li>A forced run with stale data is almost always worse than a late correct run. Agree the escalation rule in advance with product control and risk.</li>
+    <li>Watch batch duration trends. A step creeping from 20 to 40 minutes over six months will break the SLA at month-end first.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Step 3 fails for one index only. Which later steps are affected, and can any run partially?</li>
+    <li>Why is the date roll the last step?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch27">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 27 · Reporting</p>
+    <h2>Datamart and reporting</h2>
+    <p class="level lv-p">Practitioner</p>
+    <p class="dek">How data leaves MX.3 for reports, regulators and downstream systems.</p>
+  </div>
+  <div class="prose">
+    <p>Operational screens show live data for one user. Reports need consistent snapshots across the whole bank. MX.3 separates the two with its <b>datamart</b>: a reporting database filled by batch jobs.</p>
+  </div>
+  <div class="flow">
+    <div class="step"><b>Financial database</b>Trades, market data, results</div>
+    <div class="step"><b><span class="vt">Feeders</span></b>Batch jobs that extract and calculate</div>
+    <div class="step"><b>Datamart tables</b>Stored by date and run</div>
+    <div class="step"><b><span class="vt">Extractions</span></b>Queries that shape report output</div>
+    <div class="step"><b>Consumers</b>Reports, files, data warehouse, regulators</div>
+  </div>
+  <div class="prose">
+    <h3>Key ideas</h3>
+    <ul>
+      <li><b>Feeders</b> populate reporting tables: trade details, cash flows, sensitivities, P&amp;L, accounting entries. They are grouped into batches that run in the EOD (and sometimes intraday). Each run is stamped with a reference or date, so a report can say exactly which snapshot it shows.</li>
+      <li><b>Extractions</b> read those tables, filter and format them into files or reports.</li>
+      <li><b>Dynamic tables</b> and <b>viewers</b> in the GUI serve ad-hoc questions on live data, and are often the quickest way to investigate a single trade.</li>
+      <li>The datamart can run on its own database, so heavy reporting does not slow trading.</li>
+    </ul>
+    <h3>Why reports disagree with screens</h3>
+    <p>The screen is live; the report is a snapshot. Common causes of differences: the feeder ran before a late amendment; the report filters a different portfolio node or entity; the report uses a different market data set; or the feeder failed and the report read the previous run.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Datamart developers are among the most in-demand Murex technical roles. The skills are SQL, understanding MX.3's data model, and performance tuning of feeders.</li>
+    <li>Never let consumers read the financial database directly for production reports. It couples them to internal tables that change in upgrades.</li>
+    <li>Version every report definition and test it in upgrades; a changed table in the new version breaks silently otherwise.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>A regulator's report shows yesterday's trades but not an amendment made at 7 pm. What happened?</li>
+    <li>Why is reading the financial database directly a bad idea for a downstream system?</li>
+  </ol></details>
+</section>
+<div class="part" id="part7">
+  <p class="part-no">Part VII</p>
+  <h2>Implementation, support and your path to expert</h2>
+  <p>How MX.3 is put into a bank, kept running, and how a person builds real expertise in it.</p>
+</div>
+
+<section class="ch" id="ch28">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 28 · Delivery</p>
+    <h2>Implementation projects</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">The phases, roles and failure patterns of an MX.3 implementation or migration.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Phase</th><th>Main work</th><th>Where it goes wrong</th></tr></thead>
+    <tbody>
+      <tr><td>Scoping</td><td>Products, entities, functions, interfaces and systems to retire</td><td>Scope defined by modules instead of business processes</td></tr>
+      <tr><td>Fit-gap and design</td><td>Compare target processes to standard MX.3; decide configure, adapt process, or build</td><td>Recreating the legacy system's quirks; too many custom builds</td></tr>
+      <tr><td>Build and configuration</td><td>Static data, templates, curves, workflows, accounting rules, datamart, interfaces</td><td>Configuration done without the downstream team (for example typologies without finance)</td></tr>
+      <tr><td>Data migration</td><td>Load live trades, positions, history; reconcile to legacy</td><td>Starting migration late; not reconciling cash flows, only valuations</td></tr>
+      <tr><td>Testing</td><td>Unit, SIT, UAT, regression, performance, parallel run</td><td>Parallel run too short to cover month-end and a coupon cycle</td></tr>
+      <tr><td>Go-live and hypercare</td><td>Cut-over weekend, first EODs, first month-end</td><td>No rollback plan; support team not trained before go-live</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <h3>Roles you will meet</h3>
+    <ul>
+      <li><b>Functional consultants or business analysts</b> by area: front office, market risk, credit risk, operations, finance and accounting, collateral.</li>
+      <li><b>Configuration specialists</b> who build templates, workflows, accounting rules and static data.</li>
+      <li><b>Technical specialists</b>: datamart developers, interface (MxML) developers, EOD and batch engineers, environment and infrastructure engineers, performance engineers.</li>
+      <li><b>Testers</b>, increasingly test-automation engineers.</li>
+      <li><b>Murex's own teams</b> (implementation, support, product specialists) and <b>system integrators</b> (large consultancies and Murex specialist firms).</li>
+    </ul>
+    <h3>What good looks like</h3>
+    <p>Successful programmes keep standard functionality wherever possible, treat static data and migration as first-class workstreams, involve downstream teams in upstream configuration, reconcile migrated trades at cash flow level, and run parallel for at least one month-end.</p>
+  </div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>Why is reconciling valuations alone insufficient for trade migration?</li>
+    <li>Name one configuration decision that finance should sign off even though front office owns it.</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch29">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 29 · Delivery</p>
+    <h2>Upgrades, testing and change management</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">Keeping a live platform current without breaking it.</p>
+  </div>
+  <div class="prose">
+    <h3>Upgrades</h3>
+    <p>MX.3 releases bring new features, regulatory changes and fixes. Staying too far behind loses support and makes the eventual jump harder. An upgrade needs a copy of production configuration and data in a test environment, regression testing of every critical process (EOD, P&amp;L, risk, accounting, reports, interfaces), a comparison of results between old and new versions, and a cut-over plan. On MXSaaS, Murex drives the timing, so regression testing must be ready and fast.</p>
+    <h3>Test automation</h3>
+    <p>Murex offers <b>MxTest</b>, a front-to-back test automation tool: it can insert trades, apply events, run processing scripts and compare results against a baseline. Murex has also publicised clients adopting continuous integration and delivery (CI/CD) for MX.3 configuration. Automated non-regression is what makes frequent upgrades survivable.</p>
+    <h3>Configuration change management</h3>
+    <p>Configuration (templates, workflows, rules, reports) is effectively code. Treat it that way: version it, package changes, promote through environments, test, and approve. Keep a record of who changed what, why, and with whose approval. Many audit findings in MX.3 banks are about uncontrolled configuration changes.</p>
+    <h3>Archiving and performance</h3>
+    <p>Matured trades and old results accumulate. Archiving and purging policies move them out of live processing while keeping them available for audit and regulatory retention. Without them, EOD and screens slow down year after year.</p>
+  </div>
+  <div class="box expert"><p class="box-label">Expert notes</p><ul>
+    <li>Build a "golden" regression portfolio: a set of trades that covers every product, event and workflow path you support, with known expected results. It pays for itself at the first upgrade.</li>
+    <li>Compare numbers between versions at trade level, not portfolio level. Offsetting differences hide real changes.</li>
+  </ul></div>
+  <details class="check"><summary>Check yourself</summary><ol>
+    <li>What should a regression portfolio contain besides vanilla trades?</li>
+    <li>Why do uncontrolled configuration changes become audit findings?</li>
+  </ol></details>
+</section>
+
+<section class="ch" id="ch30">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 30 · Support</p>
+    <h2>Troubleshooting playbook</h2>
+    <p class="level lv-e">Expert</p>
+    <p class="dek">A method for any break, and the twenty problems you will see most.</p>
+  </div>
+  <div class="prose">
+    <h3>A method that works for any break</h3>
+    <ol>
+      <li><b>Pin the facts.</b> Trade ID and version, event, date, entity, portfolio, market data set, environment. Most wasted hours come from two people looking at different versions.</li>
+      <li><b>Find the first wrong number.</b> Follow the chain upstream (report → datamart → result → trade → static or market data) until the data is right; the break is just after that point.</li>
+      <li><b>Ask what changed.</b> Trades, market data, static data, configuration, version. The audit trail and change log answer most questions.</li>
+      <li><b>Size the blast radius.</b> One trade or all trades from one template? One day or since a change?</li>
+      <li><b>Fix at the source, then correct the outputs.</b> Re-running without fixing the source brings the break back tomorrow.</li>
+      <li><b>Prevent recurrence.</b> A control, a validation rule, or a test case in the regression pack.</li>
+    </ol>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Symptom</th><th>Likely causes</th><th>Check first</th></tr></thead>
+    <tbody>
+      <tr><td>Cash flow differs from counterparty</td><td>Convention in template: day count, calendar, lookback, rounding</td><td>Template vs confirmation, field by field</td></tr>
+      <tr><td>Wrong value date</td><td>Calendar missing a holiday; wrong calendar on pair</td><td>Calendars on the template and the currency pair</td></tr>
+      <tr><td>EOD stopped at fixings</td><td>Missing publication; vendor code change</td><td>Fixing import log; index static data</td></tr>
+      <tr><td>Curve failed to calibrate</td><td>Missing or bad quote; inconsistent inputs</td><td>Quote validation report</td></tr>
+      <tr><td>Large unexplained P&amp;L</td><td>Late or back-dated trades, amendments, fixings, market data set, template change</td><td>New and amended trades today; market data diffs</td></tr>
+      <tr><td>FO and PC P&amp;L differ</td><td>Different market data set, cut-off or trade population</td><td>Both sides' settings and trade counts</td></tr>
+      <tr><td>VaR jumped</td><td>Scenario window moved; new position; proxy change</td><td>Scenario dates entering and leaving</td></tr>
+      <tr><td>Exposure spike on a counterparty</td><td>Trade outside netting set; CSA missing; hierarchy wrong</td><td>Agreements linked to the trades</td></tr>
+      <tr><td>False limit excess</td><td>Hierarchy or mapping error; stale exposure</td><td>Limit usage drill-down</td></tr>
+      <tr><td>Margin dispute</td><td>Trade population mismatch; curve or cut-off difference; CSA terms</td><td>Trade-level reconciliation with counterparty</td></tr>
+      <tr><td>Confirmation unmatched</td><td>Economic difference; wrong counterparty identifier</td><td>Mismatch fields reported by the platform</td></tr>
+      <tr><td>Payment not generated</td><td>Missing SSI; workflow waiting; netting not run</td><td>Deliverable status and SSI</td></tr>
+      <tr><td>Payment failed</td><td>Wrong SSI; cut-off missed; sanctions hold</td><td>Payment hub and correspondent status</td></tr>
+      <tr><td>Nostro break</td><td>Counterparty fail; reference mismatch; bank charges</td><td>Statement line vs expected flow</td></tr>
+      <tr><td>Wrong GL account</td><td>Wrong typology or portfolio; rule change</td><td>Entry → rule → trade classification</td></tr>
+      <tr><td>Sub-ledger vs GL difference</td><td>Rejected postings; manual GL entries; timing</td><td>Interface reject log</td></tr>
+      <tr><td>Report differs from screen</td><td>Feeder timing; filter; failed feeder run</td><td>Feeder run reference and filters</td></tr>
+      <tr><td>Interface rejects</td><td>Unmapped static data</td><td>Reject reason and mapping table</td></tr>
+      <tr><td>Trade reporting rejected</td><td>Missing LEI or UTI; classification</td><td>Repository error codes</td></tr>
+      <tr><td>Screen or batch slow</td><td>Volume growth; missing archiving; contention with batch</td><td>Duration trend and data volumes</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="ch" id="ch31">
+  <div class="ch-head">
+    <p class="eyebrow">Chapter 31 · Career</p>
+    <h2>Becoming an expert: skills and a 90-day plan</h2>
+    <p class="level lv-f">For everyone</p>
+    <p class="dek">What experts know, how the roles differ, and a practical plan to get there.</p>
+  </div>
+  <div class="prose">
+    <h3>What distinguishes an expert</h3>
+    <p>Experts can follow any number back to its source, predict which teams a change will affect, explain the finance behind a result, and know which configuration objects drive which behaviour in their own bank. They are fast because they have a mental model of the data flow, not because they remember screens.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Skill area</th><th>Foundation</th><th>Practitioner</th><th>Expert</th></tr></thead>
+    <tbody>
+      <tr><td>Finance</td><td>Products, time value, basic accounting</td><td>Curves, Greeks, VaR, IFRS 9 categories</td><td>FRTB, XVA, SA-CCR, hedge accounting, model risk</td></tr>
+      <tr><td>Platform</td><td>Navigate, find a trade, read its events</td><td>Templates, workflows, market data sets, simulations</td><td>Configuration design, performance, upgrade impact</td></tr>
+      <tr><td>Data</td><td>Know the four data families</td><td>Trace a number from report to source</td><td>Design static data governance and controls</td></tr>
+      <tr><td>Technical</td><td>Read a processing script's output</td><td>SQL on the datamart, interface logs</td><td>Feeder design, MxML interfaces, batch optimisation</td></tr>
+      <tr><td>Your bank</td><td>Know your team's process</td><td>Know adjacent teams' processes</td><td>Know the end-to-end map and its weak points</td></tr>
+    </tbody>
+  </table></div>
+  <h3>A 90-day plan</h3>
+  <div class="plan">
+    <div><p class="plan-h">Days 1–30 · Map</p><ul>
+      <li>Read Parts I–III of this guide; redo every worked example by hand or in a spreadsheet.</li>
+      <li>Get read access to a test environment. Find ten trades across different products and read every event, cash flow and status.</li>
+      <li>Ask for your bank's lists: licensed modules, typologies, portfolio tree, market data sets, interfaces, EOD steps.</li>
+      <li>Sit with each team (FO support, risk, ops, finance) for half a day.</li>
+    </ul></div>
+    <div><p class="plan-h">Days 31–60 · Trace</p><ul>
+      <li>Read Parts IV–VI. For each chapter, trace one real example in your bank: one sensitivity, one margin call, one payment, one accounting entry, one datamart report.</li>
+      <li>Book a trade in test and follow it through every workflow to settlement and accounting.</li>
+      <li>Shadow the EOD support team through a normal night and a month-end.</li>
+      <li>Learn enough SQL to query the datamart for your area.</li>
+    </ul></div>
+    <div><p class="plan-h">Days 61–90 · Own</p><ul>
+      <li>Take ownership of real tickets; use the chapter 30 method and write up each root cause.</li>
+      <li>Document one end-to-end process your team runs, with the configuration objects behind it.</li>
+      <li>Propose one control or automation that removes a recurring break.</li>
+      <li>Teach one chapter of this guide to a colleague. Teaching shows you what you do not yet understand.</li>
+    </ul></div>
+  </div>
+  <div class="box expert"><p class="box-label">A word on credentials</p><p>Murex provides official training to clients and partners, and several training firms offer courses. None replaces hands-on work in an environment. When hiring, experienced managers test whether a candidate can trace a number to its source, not whether they hold a certificate.</p></div>
+</section>
+
+    <div class="part" id="reference">
+      <p class="part-no">Reference</p>
+      <h2>Glossary, self-test and sources</h2>
+      <p>Terms marked as vendor terms are Murex usage; others are industry-wide.</p>
+    </div>
+    <section class="ch" id="glossary">
+      <div class="ch-head"><h2>Glossary</h2></div>
+      <div class="gl-tools"><label for="glFilter" class="note">Filter</label><input id="glFilter" type="search" placeholder="Type a term"><span class="note" id="glCount"></span></div>
+      <dl class="gl" id="glList"><div class="gl-item" data-term="accrual"><dt>Accrual</dt><dd>Interest earned or owed over time, recognised before it is paid.</dd></div><div class="gl-item" data-term="affirmation"><dt>Affirmation</dt><dd>Both parties confirming the same electronic trade record on a platform.</dd></div><div class="gl-item" data-term="amortised cost"><dt>Amortised cost</dt><dd>IFRS 9 category: measured at cost adjusted by effective interest, not fair value.</dd></div><div class="gl-item" data-term="audit trail"><dt>Audit trail</dt><dd>The record of who changed what and when on a trade or configuration object.</dd></div><div class="gl-item" data-term="backtesting"><dt>Backtesting</dt><dd>Comparing VaR with actual P&amp;L to check how many days losses exceeded it.</dd></div><div class="gl-item" data-term="banking book"><dt>Banking book</dt><dd>Positions not held for trading; mostly accrual accounting; subject to IRRBB.</dd></div><div class="gl-item" data-term="bootstrapping"><dt>Bootstrapping</dt><dd>Building a curve by solving discount factors one instrument at a time.</dd></div><div class="gl-item" data-term="ccp"><dt>CCP</dt><dd>Central counterparty; becomes the counterparty to both sides of a cleared trade.</dd></div><div class="gl-item" data-term="ccil"><dt>CCIL</dt><dd>Clearing Corporation of India; clears INR swaps, FX forwards, government securities and repo; runs a trade repository.</dd></div><div class="gl-item" data-term="cls"><dt>CLS</dt><dd>Continuous Linked Settlement; settles FX payment versus payment to remove settlement risk.</dd></div><div class="gl-item" data-term="clean price"><dt>Clean price</dt><dd>Bond price excluding accrued interest.</dd></div><div class="gl-item" data-term="csa"><dt>CSA</dt><dd>Credit Support Annex to an ISDA; sets collateral terms.</dd></div><div class="gl-item" data-term="cva"><dt>CVA</dt><dd>Credit valuation adjustment; the price of counterparty default risk.</dd></div><div class="gl-item" data-term="datamart"><dt>Datamart</dt><dd>MX.3&#x27;s reporting database, filled by batch feeders.</dd></div><div class="gl-item" data-term="deliverable"><dt>Deliverable</dt><dd>Vendor term for a cash or securities flow managed by the settlement workflow.</dd></div><div class="gl-item" data-term="delta"><dt>Delta</dt><dd>Sensitivity of value to a small move in the underlying price or rate.</dd></div><div class="gl-item" data-term="dirty price"><dt>Dirty price</dt><dd>Bond price including accrued interest; the amount actually paid.</dd></div><div class="gl-item" data-term="discount factor"><dt>Discount factor</dt><dd>Value today of one unit paid at a future date.</dd></div><div class="gl-item" data-term="dv01 / pv01"><dt>DV01 / PV01</dt><dd>Value change for a one basis point move in rates.</dd></div><div class="gl-item" data-term="dvp"><dt>DVP</dt><dd>Delivery versus payment: securities and cash settle together.</dd></div><div class="gl-item" data-term="ead"><dt>EAD</dt><dd>Exposure at default, the exposure used in capital calculations.</dd></div><div class="gl-item" data-term="ee / epe"><dt>EE / EPE</dt><dd>Expected exposure at a date; expected positive exposure averaged over time.</dd></div><div class="gl-item" data-term="eir"><dt>EIR</dt><dd>Effective interest rate, used to recognise income on amortised-cost assets.</dd></div><div class="gl-item" data-term="eod"><dt>EOD</dt><dd>End of day: the batch that closes the business day.</dd></div><div class="gl-item" data-term="expected shortfall"><dt>Expected shortfall</dt><dd>Average loss beyond the VaR level; used in FRTB.</dd></div><div class="gl-item" data-term="event"><dt>Event</dt><dd>Anything that happens to a trade after booking: amendment, fixing, exercise, termination.</dd></div><div class="gl-item" data-term="extraction"><dt>Extraction</dt><dd>Vendor term for a datamart query that produces a report or file.</dd></div><div class="gl-item" data-term="feeder"><dt>Feeder</dt><dd>Vendor term for a batch job that fills datamart tables.</dd></div><div class="gl-item" data-term="fixing"><dt>Fixing</dt><dd>Setting a floating rate or price from its published source.</dd></div><div class="gl-item" data-term="fpml"><dt>FpML</dt><dd>XML standard for OTC derivatives messages.</dd></div><div class="gl-item" data-term="frtb"><dt>FRTB</dt><dd>Basel&#x27;s market risk capital framework: standardised and internal models approaches.</dd></div><div class="gl-item" data-term="ftp"><dt>FTP</dt><dd>Funds transfer pricing: internal charging for funding and liquidity.</dd></div><div class="gl-item" data-term="fva"><dt>FVA</dt><dd>Funding valuation adjustment for uncollateralised derivatives.</dd></div><div class="gl-item" data-term="fvoci / fvtpl"><dt>FVOCI / FVTPL</dt><dd>IFRS 9 categories: fair value through other comprehensive income / through P&amp;L.</dd></div><div class="gl-item" data-term="gamma"><dt>Gamma</dt><dd>Rate of change of delta.</dd></div><div class="gl-item" data-term="generator"><dt>Generator</dt><dd>Vendor term for a template that fills a trade&#x27;s conventions.</dd></div><div class="gl-item" data-term="gl"><dt>GL</dt><dd>General ledger; receives aggregated entries from the sub-ledger.</dd></div><div class="gl-item" data-term="haircut"><dt>Haircut</dt><dd>Reduction in collateral value to allow for price risk.</dd></div><div class="gl-item" data-term="hqla"><dt>HQLA</dt><dd>High-quality liquid assets counted in the LCR.</dd></div><div class="gl-item" data-term="hypothetical p&amp;l"><dt>Hypothetical P&amp;L</dt><dd>Yesterday&#x27;s positions revalued on today&#x27;s market data.</dd></div><div class="gl-item" data-term="im"><dt>IM</dt><dd>Initial margin, covering potential future moves during close-out.</dd></div><div class="gl-item" data-term="ipv"><dt>IPV</dt><dd>Independent price verification of traders&#x27; marks.</dd></div><div class="gl-item" data-term="irrbb"><dt>IRRBB</dt><dd>Interest rate risk in the banking book, measured by EVE and NII.</dd></div><div class="gl-item" data-term="iso 20022"><dt>ISO 20022</dt><dd>Messaging standard now used for cross-border payments (pacs.008, pacs.009).</dd></div><div class="gl-item" data-term="lcr"><dt>LCR</dt><dd>Liquidity coverage ratio: HQLA over 30-day stressed net outflows.</dd></div><div class="gl-item" data-term="lookback"><dt>Lookback</dt><dd>RFR convention using rates from a few days earlier to allow time to pay.</dd></div><div class="gl-item" data-term="market data set"><dt>Market data set</dt><dd>Vendor term for a named collection of market data read by specific consumers.</dd></div><div class="gl-item" data-term="mlc"><dt>MLC</dt><dd>Practitioner name for Murex Limits Controller, the limits solution.</dd></div><div class="gl-item" data-term="mmifor"><dt>MMIFOR</dt><dd>Modified MIFOR, the INR benchmark that replaced MIFOR after LIBOR ended.</dd></div><div class="gl-item" data-term="mta"><dt>MTA</dt><dd>Minimum transfer amount below which no collateral moves.</dd></div><div class="gl-item" data-term="mtm"><dt>MTM</dt><dd>Mark-to-market: value on current market data.</dd></div><div class="gl-item" data-term="mxml"><dt>MxML</dt><dd>Murex&#x27;s XML format for business objects; MxML Exchange moves them in and out.</dd></div><div class="gl-item" data-term="mxsaas"><dt>MXSaaS</dt><dd>Murex&#x27;s vendor-managed software-as-a-service offering.</dd></div><div class="gl-item" data-term="mxtest"><dt>MxTest</dt><dd>Murex&#x27;s front-to-back test automation tool.</dd></div><div class="gl-item" data-term="ndf"><dt>NDF</dt><dd>Non-deliverable forward; settles the difference in a convertible currency.</dd></div><div class="gl-item" data-term="netting set"><dt>Netting set</dt><dd>Trades under one agreement whose exposures can legally offset.</dd></div><div class="gl-item" data-term="novation"><dt>Novation</dt><dd>Replacing one party to a trade with another, for example a CCP.</dd></div><div class="gl-item" data-term="nsfr"><dt>NSFR</dt><dd>Net stable funding ratio: available over required stable funding.</dd></div><div class="gl-item" data-term="ois"><dt>OIS</dt><dd>Overnight index swap; its curve is the usual discounting curve for collateralised trades.</dd></div><div class="gl-item" data-term="p&amp;l explain"><dt>P&amp;L explain</dt><dd>Splitting daily P&amp;L into causes using sensitivities.</dd></div><div class="gl-item" data-term="pfe"><dt>PFE</dt><dd>Potential future exposure: a high percentile of simulated exposure.</dd></div><div class="gl-item" data-term="pla test"><dt>PLA test</dt><dd>FRTB P&amp;L attribution test comparing front office and risk model P&amp;L.</dd></div><div class="gl-item" data-term="portfolio"><dt>Portfolio</dt><dd>Book or folder in the portfolio tree; drives P&amp;L, risk, limits and accounting.</dd></div><div class="gl-item" data-term="processing script"><dt>Processing script</dt><dd>Vendor term for a named batch sequence such as EOD steps.</dd></div><div class="gl-item" data-term="rc"><dt>RC</dt><dd>Replacement cost: current exposure net of collateral in SA-CCR.</dd></div><div class="gl-item" data-term="repo"><dt>Repo</dt><dd>Sale and repurchase of securities; a collateralised loan.</dd></div><div class="gl-item" data-term="rfr"><dt>RFR</dt><dd>Risk-free overnight rate such as SOFR, SONIA, €STR or MIBOR.</dd></div><div class="gl-item" data-term="sa-ccr"><dt>SA-CCR</dt><dd>Standardised approach for counterparty credit risk exposure.</dd></div><div class="gl-item" data-term="simm"><dt>SIMM</dt><dd>ISDA Standard Initial Margin Model for uncleared derivatives.</dd></div><div class="gl-item" data-term="simulation"><dt>Simulation</dt><dd>Vendor term for the configurable screen that revalues portfolios and shows P&amp;L and risk.</dd></div><div class="gl-item" data-term="ssi"><dt>SSI</dt><dd>Standing settlement instruction: where a counterparty receives payment.</dd></div><div class="gl-item" data-term="static data"><dt>Static data</dt><dd>Reference data describing entities, counterparties, instruments, conventions and agreements.</dd></div><div class="gl-item" data-term="stp"><dt>STP</dt><dd>Straight-through processing without manual intervention.</dd></div><div class="gl-item" data-term="sub-ledger"><dt>Sub-ledger</dt><dd>Deal-level accounting entries behind GL balances.</dd></div><div class="gl-item" data-term="theta"><dt>Theta</dt><dd>Change in value from the passage of time.</dd></div><div class="gl-item" data-term="typology"><dt>Typology</dt><dd>Vendor term for a trade&#x27;s business classification; selects workflows and accounting rules.</dd></div><div class="gl-item" data-term="umr"><dt>UMR</dt><dd>Uncleared margin rules requiring VM and IM on non-cleared derivatives.</dd></div><div class="gl-item" data-term="var"><dt>VaR</dt><dd>Value at risk: loss not exceeded at a confidence level over a horizon.</dd></div><div class="gl-item" data-term="vega"><dt>Vega</dt><dd>Sensitivity of value to volatility.</dd></div><div class="gl-item" data-term="vm"><dt>VM</dt><dd>Variation margin, covering current MTM.</dd></div><div class="gl-item" data-term="workflow"><dt>Workflow</dt><dd>State machine moving trades, events, flows and messages through statuses.</dd></div><div class="gl-item" data-term="xva"><dt>XVA</dt><dd>Collective term for CVA, DVA, FVA, MVA and KVA.</dd></div></dl>
+    </section>
+    <section class="ch" id="quiz">
+      <div class="ch-head"><h2>Self-test</h2><p class="dek">Twenty questions across the guide. Pick an answer to see the explanation.</p></div>
+      <p class="score" id="score">Score: 0 / 0 answered</p>
+      <div id="quizList" style="display:flex; flex-direction:column; gap:12px"></div>
+    </section>
+    <section class="ch" id="sources">
+      <div class="ch-head"><h2>Sources</h2><p class="dek">Feature coverage and figures come from these public pages (retrieved September 2026). Explanations of how things work draw on general industry knowledge and Basel texts. Murex client documentation is not public; verify screen names and configuration objects against your version.</p></div>
+      <ul class="srcs"><li><a href="https://www.murex.com/en/solutions/mx3-leading-integrated-capital-markets-solution" target="_blank" rel="noopener">Murex – MX.3 overview</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions" target="_blank" rel="noopener">Murex – Business solutions</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions/sales-trading" target="_blank" rel="noopener">Murex – Sales and trading</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions/treasury-management" target="_blank" rel="noopener">Murex – Treasury management</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions/enterprise-risk-management" target="_blank" rel="noopener">Murex – Enterprise risk management</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions/operations-finance" target="_blank" rel="noopener">Murex – Operations and finance</a></li><li><a href="https://www.murex.com/en/securities-finance-and-collateral-management" target="_blank" rel="noopener">Murex – Securities finance and collateral</a></li><li><a href="https://www.murex.com/en/investment-management" target="_blank" rel="noopener">Murex – Investment management</a></li><li><a href="https://www.murex.com/en/solutions/business-solutions/energy-commodities-trading-risk-management-ectrm" target="_blank" rel="noopener">Murex – E/CTRM</a></li><li><a href="https://www.murex.com/en/solutions/technology/mx3-architecture" target="_blank" rel="noopener">Murex – MX.3 architecture</a></li><li><a href="https://www.murex.com/en/solutions/technology/connectivity" target="_blank" rel="noopener">Murex – Connectivity</a></li><li><a href="https://www.murex.com/en/mx3-apis" target="_blank" rel="noopener">Murex – MX.3 APIs</a></li><li><a href="https://www.murex.com/en/cloud" target="_blank" rel="noopener">Murex – Cloud</a></li><li><a href="https://www.murex.com/en" target="_blank" rel="noopener">Murex – News (Google Cloud, AI research, go-lives)</a></li><li><a href="https://www.murex.com/en/insights/mx3-rate-curve-management" target="_blank" rel="noopener">Murex – Rate curve management</a></li><li><a href="https://www.capco.com/en/Services/consulting/Murex/Mxtest" target="_blank" rel="noopener">Capco – MxTest overview</a></li><li><a href="https://en.wikipedia.org/wiki/Murex_(financial_software)" target="_blank" rel="noopener">Wikipedia – Murex (financial software)</a></li><li><a href="https://www.bis.org/bcbs/publ/d457.htm" target="_blank" rel="noopener">BCBS – Minimum capital requirements for market risk (FRTB, d457)</a></li><li><a href="https://www.bis.org/publ/bcbs279.htm" target="_blank" rel="noopener">BCBS – SA-CCR (d279)</a></li></ul>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  var inr = new Intl.NumberFormat('en-IN',{maximumFractionDigits:0});
+  function rs(x){ return (x<0?'−₹':'₹') + inr.format(Math.abs(Math.round(x))); }
+  function pct(x,d){ return (x*100).toFixed(d==null?3:d)+'%'; }
+
+  // IRS widget
+  var N=1e9, K=0.065, base=[0.064,0.066,0.0675];
+  function val(s){
+    var z=base.map(function(r){return r+s;}), df=z.map(function(r,i){return 1/Math.pow(1+r,i+1);});
+    var f=df.map(function(d,i){return (i?df[i-1]:1)/d-1;}), sdf=df.reduce(function(a,b){return a+b;},0);
+    return {z:z,df:df,f:f,sdf:sdf,fl:N*(1-df[2]),fx:N*K*sdf,mtm:N*(1-df[2])-N*K*sdf,par:(1-df[2])/sdf};
+  }
+  var sl=document.getElementById('irsShift');
+  function irs(){
+    var bp=+sl.value, s=bp/1e4, v=val(s), dv=(val(s+1e-4).mtm-val(s-1e-4).mtm)/2;
+    document.getElementById('irsShiftLbl').textContent=(bp>0?'+':'')+bp+' bp';
+    document.getElementById('irsMtm').textContent=rs(v.mtm);
+    document.getElementById('irsPar').textContent=pct(v.par);
+    document.getElementById('irsDv01').textContent=rs(dv);
+    document.getElementById('irsBody').innerHTML=v.df.map(function(d,i){
+      return '<tr><td>'+(i+1)+'</td><td class="r">'+pct(v.z[i])+'</td><td class="r">'+d.toFixed(5)+'</td><td class="r">'+pct(v.f[i])+'</td><td class="r">'+rs(N*v.f[i]*d)+'</td><td class="r">'+rs(N*K*d)+'</td></tr>';
+    }).join('');
+  }
+  if(sl){ sl.addEventListener('input',irs); irs(); }
+
+  // FX option widget (Garman-Kohlhagen)
+  function ncdf(x){ var t=1/(1+0.2316419*Math.abs(x)), d=0.3989422804014327*Math.exp(-x*x/2);
+    var p=d*t*(0.319381530+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
+    return x>0?1-p:p; }
+  function npdf(x){ return 0.3989422804014327*Math.exp(-x*x/2); }
+  var ids=['oS','oK','oT','oV','oRd','oRf'];
+  function opt(){
+    var S=+oS.value, Kx=+oK.value, Tt=+oT.value, v=+oV.value/100, rd=+oRd.value/100, rf=+oRf.value/100;
+    var out=['oPx','oPrem','oDelta','oVega'];
+    if(!(S>0&&Kx>0&&Tt>0&&v>0)){ out.forEach(function(i){document.getElementById(i).textContent='Check inputs';}); return; }
+    var d1=(Math.log(S/Kx)+(rd-rf+v*v/2)*Tt)/(v*Math.sqrt(Tt)), d2=d1-v*Math.sqrt(Tt);
+    var c=S*Math.exp(-rf*Tt)*ncdf(d1)-Kx*Math.exp(-rd*Tt)*ncdf(d2);
+    document.getElementById('oPx').textContent=c.toFixed(4);
+    document.getElementById('oPrem').textContent=rs(c*1e7);
+    document.getElementById('oDelta').textContent=(Math.exp(-rf*Tt)*ncdf(d1)).toFixed(4);
+    document.getElementById('oVega').textContent=(S*Math.exp(-rf*Tt)*npdf(d1)*Math.sqrt(Tt)/100).toFixed(4);
+  }
+  var oS=document.getElementById('oS'),oK=document.getElementById('oK'),oT=document.getElementById('oT'),oV=document.getElementById('oV'),oRd=document.getElementById('oRd'),oRf=document.getElementById('oRf');
+  if(oS){ ids.forEach(function(i){document.getElementById(i).addEventListener('input',opt);}); opt(); }
+
+  // TOC filter and active chapter
+  var tf=document.getElementById('tocFilter'), links=[].slice.call(document.querySelectorAll('#tocList a'));
+  tf.addEventListener('input',function(){
+    var q=tf.value.trim().toLowerCase();
+    links.forEach(function(a){ var li=a.parentNode; li.hidden = q && !li.classList.contains('toc-part') && a.textContent.toLowerCase().indexOf(q)<0; });
+  });
+  if('IntersectionObserver' in window){
+    var map={}; links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && map[e.target.id]){ links.forEach(function(a){a.classList.remove('active');}); map[e.target.id].classList.add('active'); } }); },{rootMargin:'0px 0px -75% 0px'});
+    document.querySelectorAll('section.ch, .part').forEach(function(s){ io.observe(s); });
+  }
+
+  // Glossary filter
+  var gf=document.getElementById('glFilter'), items=[].slice.call(document.querySelectorAll('.gl-item')), gc=document.getElementById('glCount');
+  function glf(){ var q=gf.value.trim().toLowerCase(), n=0; items.forEach(function(it){ var show=!q||it.textContent.toLowerCase().indexOf(q)>=0; it.hidden=!show; if(show)n++; }); gc.textContent=n+' of '+items.length+' terms'; }
+  gf.addEventListener('input',glf); glf();
+
+  // Quiz
+  var Q=[{"q": "Which static data object most directly decides which accounting rules fire for a trade?", "o": ["Calendar", "Typology", "SSI", "Market data set"], "a": 1, "e": "Typology (with portfolio and entity) selects accounting rules and workflows."}, {"q": "A payer swap has positive DV01. What happens to its value when rates fall?", "o": ["It rises", "It falls", "No change", "Depends on the fixed rate only"], "a": 1, "e": "Positive DV01 means value rises with rates, so it falls when rates fall."}, {"q": "Why do collateralised derivatives discount on the OIS curve?", "o": ["Regulators require it", "Collateral earns the overnight rate, so that is the funding rate", "It is the steepest curve", "It removes basis risk"], "a": 1, "e": "Cash collateral is remunerated at the overnight rate, which sets the effective funding cost."}, {"q": "In the worked example, why is the INR forward above spot?", "o": ["USD is expected to rise", "INR interest rates are higher than USD rates", "Forward points are always positive", "CLS charges a premium"], "a": 1, "e": "Covered interest parity: the higher-yielding currency trades at a forward discount."}, {"q": "What does the FRTB P&L attribution test compare?", "o": ["VaR and ES", "Hypothetical P&L and risk-theoretical P&L", "Clean and dirty P&L", "FO and GL balances"], "a": 1, "e": "It checks that the risk model captures what front-office pricing sees."}, {"q": "SA-CCR exposure at default equals:", "o": ["RC + add-on", "1.4 \u00d7 (RC + multiplier \u00d7 add-on)", "MTM \u00d7 1.4", "PFE at 97.5%"], "a": 1, "e": "Alpha of 1.4 times replacement cost plus the multiplier-adjusted add-on."}, {"q": "A variation margin shortfall is below the MTA. What happens?", "o": ["Call anyway", "No call", "Call double next day", "Dispute"], "a": 1, "e": "Below the minimum transfer amount, no collateral moves."}, {"q": "Which measure does FRTB-IMA use?", "o": ["99% VaR", "97.5% expected shortfall", "Stressed VaR only", "PFE"], "a": 1, "e": "Expected shortfall at 97.5% with liquidity horizons."}, {"q": "A report differs from the screen for the same trade. First suspect?", "o": ["Pricing model", "Feeder run timing or filters", "The GL", "The calendar"], "a": 1, "e": "Reports read a datamart snapshot; screens are live."}, {"q": "Which workflow family generates payment instructions?", "o": ["Contract", "Event", "Deliverables", "Exchange"], "a": 2, "e": "Deliverables handle cash and securities flows."}, {"q": "Under IFRS 9, a standalone interest rate swap is measured at:", "o": ["Amortised cost", "FVOCI", "FVTPL", "Historical cost"], "a": 2, "e": "Derivatives outside hedge relationships are at fair value through P&L."}, {"q": "Why does unexplained P&L deserve investigation when it is large?", "o": ["It always means a model bug", "It usually signals a data, booking or convention problem", "It is a regulatory breach", "It means VaR is wrong"], "a": 1, "e": "Check data and bookings before suspecting the model."}, {"q": "What does CLS remove?", "o": ["Market risk", "Settlement risk on FX", "Pre-settlement risk", "Funding risk"], "a": 1, "e": "Payment versus payment removes the risk of paying one leg without receiving the other."}, {"q": "Which EOD step must run last?", "o": ["Fixings", "Accounting", "Datamart feeders", "Date roll"], "a": 3, "e": "Date roll moves the system to the next day after everything else."}, {"q": "A new product is booked under a generic typology. Most likely consequence?", "o": ["Faster STP", "Wrong workflow or GL accounts", "Lower VaR", "No impact"], "a": 1, "e": "Typology drives workflows and accounting rules."}, {"q": "RFR compounding over a period gives a result slightly above the simple average because:", "o": ["Of the day count", "Interest earns interest daily", "Of lookback", "Of rounding"], "a": 1, "e": "Compounding adds interest on interest."}, {"q": "Which is a Level 3 fair value?", "o": ["Listed equity price", "Swap valued on observable curves", "Exotic valued with unobservable correlation", "Government bond quote"], "a": 2, "e": "Significant unobservable inputs make it Level 3."}, {"q": "In the LCR example, why were inflows not capped?", "o": ["Inflows are never capped", "300 is below 75% of outflows (600)", "Level 1 assets were high", "The ratio exceeded 100%"], "a": 1, "e": "The cap is 75% of outflows; 300 is under 600."}, {"q": "What is the main purpose of MxTest?", "o": ["Market data validation", "Automated front-to-back regression testing", "Limit monitoring", "Reporting"], "a": 1, "e": "It automates trade insertion, events, processing scripts and result comparison."}, {"q": "The first step of the troubleshooting method is to:", "o": ["Rerun EOD", "Pin the facts: trade version, date, data set, environment", "Call Murex support", "Check the GL"], "a": 1, "e": "Most wasted time comes from people looking at different versions or dates."}], answered=0, right=0, box=document.getElementById('quizList');
+  Q.forEach(function(q,qi){
+    var d=document.createElement('div'); d.className='q';
+    var p=document.createElement('p'); p.className='qt'; p.textContent=(qi+1)+'. '+q.q; d.appendChild(p);
+    var o=document.createElement('div'); o.className='opts';
+    var fb=document.createElement('p'); fb.className='fb'; fb.hidden=true;
+    q.o.forEach(function(t,oi){
+      var b=document.createElement('button'); b.type='button'; b.textContent=t;
+      b.addEventListener('click',function(){
+        if(d.dataset.done) return; d.dataset.done='1'; answered++;
+        var btns=o.querySelectorAll('button');
+        btns[q.a].classList.add('right');
+        if(oi===q.a){ right++; fb.textContent='Correct. '+q.e; } else { b.classList.add('wrong'); fb.textContent='Not quite. '+q.e; }
+        fb.hidden=false;
+        document.getElementById('score').textContent='Score: '+right+' / '+answered+' answered';
+      });
+      o.appendChild(b);
+    });
+    d.appendChild(o); d.appendChild(fb); box.appendChild(d);
+  });
+})();
+</script>
